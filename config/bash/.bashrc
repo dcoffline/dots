@@ -14,9 +14,9 @@ add_to_path() {
 }
 
 # Apply paths in REVERSE order of preference so the top priority ends up first
-add_to_path "$HOME/.config/npm"
-add_to_path "$HOME/.local/share/go/bin"
 add_to_path "$HOME/.local/share/cargo/bin"
+add_to_path "$HOME/.local/share/go/bin"
+add_to_path "$HOME/.config/npm"
 add_to_path "$HOME/.local/bin"
 add_to_path "/home/linuxbrew/.linuxbrew/sbin"
 add_to_path "/home/linuxbrew/.linuxbrew/bin"
@@ -33,8 +33,6 @@ export PATH
 [ -f /usr/share/bash-prexec ] && source /usr/share/bash-prexec
 
 [ "$(command -v starship)" ] && eval "$(starship init bash)"
-[ "$(command -v fzf)" ] && source <(fzf --bash)
 [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 [ "$(command -v atuin)" ] && eval "$(atuin init bash)"
-
-echo # Inserts a blank line
+[ "$(command -v fzf)" ] && source <(fzf --bash)

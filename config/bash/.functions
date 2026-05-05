@@ -1,40 +1,6 @@
 # ────── SHELL FUNCTIONS ──────
 
-# Edit and Source Bash configs via Stow
-ebrc() {
-    "$EDITOR" "$HOME/src/gh/dcoffline/dots/.bashrc" && cd "$HOME/src/gh/dcoffline/dots" && stow --restow --target="$HOME" . && source "$HOME/.config/bash/.bashrc"
-}
-sbrc() {
-    source "$HOME/.config/bash/.bashrc"
-}
-
-esrc() {
-    "$EDITOR" "$HOME/src/gh/dcoffline/dots/config/bash/.shellenv" && cd "$HOME/src/gh/dcoffline/dots" && stow --restow --target="$HOME" . && source "$HOME/.config/bash/.shellenv"
-}
-ssrc() {
-    source "$HOME/.config/bash/.shellenv"
-}
-
-efun() {
-    "$EDITOR" "$HOME/src/gh/dcoffline/dots/config/bash/.functions" && cd "$HOME/src/gh/dcoffline/dots" && stow --restow --target="$HOME" . && source "$HOME/.config/bash/.functions"
-}
-sfun() {
-    source "$HOME/.config/bash/.functions"
-}
-
-# Yazi Shell Wrapper
-y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-    if [ -f /run/.containerenv ]; then
-        /usr/bin/yazi "$@" --cwd-file="$tmp"
-    else
-        /home/linuxbrew/.linuxbrew/bin/yazi "$@" --cwd-file="$tmp"
-    fi  
-    local cwd="$(command cat "$tmp")"
-    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-    command rm -f -- "$tmp"
-}
-
+# Update Git Repository
 gitupdate() {
     # Check if a commit message was actually provided
     if [ -z "$1" ]; then
@@ -42,49 +8,55 @@ gitupdate() {
         echo "Usage: gitupdate \"Your commit message here\""
         return 1
     fi
-
     git add -A
     # Use "$*" to capture all arguments as a single string
     git commit -m "$*"
     git push
 }
 
-# Upload a text file or piped output to Hastebin and return the URL
-hb() {
-    local response
-    local hasteKey
+# Edit, source and update BASH configs
+ebrc() {
+    "$EDITOR" "$DOTS/config/bash/.bashrc" &&
+    source "$DOTS/config/bash/.bashrc" &&
+    cd "$DOTS" &&
+    gitupdate "Updated .bashrc" &&
+    cd -
+}
+sbrc() {
+    source "$DOTS/config/bash/.bashrc"
+}
+esrc() {
+    "$EDITOR" "$DOTS/config/bash/.shellenv" && 
+    source "$DOTS/config/bash/.shellenv" &&
+    cd "$DOTS" && 
+    gitupdate "Updated .shellenv" && 
+    cd -  
+}
+ssrc() {
+    source "$DOTS/config/bash/.shellenv"
+}
+efun() {
+    "$EDITOR" "$DOTS/config/bash/.functions" && 
+    source "$DOTS/config/bash/.functions" && 
+    cd "$DOTS" && 
+    gitupdate "Updated .functions" && 
+    cd - 
+}
+sfun() {
+    source "$DOTS/config/bash/.functions"
+}
 
-    # 1. Check for a file argument FIRST (Prevents Distrobox false-positives)
-    if [ $# -gt 0 ]; then
-        if [ -f "$1" ]; then
-            # File Mode
-            response=$(curl -s -X POST --data-binary @"$1" "https://bin.christitus.com/documents")
-        else
-            echo "Error: File '$1' does not exist."
-            return 1
-        fi
-    # 2. If no file, check if data is being piped in
-    elif [ ! -t 0 ]; then
-        # Pipe Mode: Using raw @- tells curl to read standard input
-        response=$(curl -s -X POST --data-binary @- "https://bin.christitus.com/documents")
-    # 3. If neither, show usage instructions
+# Yazi Shell Wrapper
+y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    if [ -f /run/ostree-booted ]; then
+        /home/linuxbrew/.linuxbrew/bin/yazi "$@" --cwd-file="$tmp"
     else
-        echo "Usage: hb <filename> OR <command> | hb"
-        return 1
-    fi
-    
-    # Check if curl succeeded
-    if [ $? -eq 0 ]; then
-        # Extract the key
-        hasteKey=$(echo "$response" | grep -o '"key":"[^"]*' | cut -d'"' -f4)
-        if [ -n "$hasteKey" ]; then
-            echo "https://bin.christitus.com/$hasteKey"
-        else
-            echo "Error parsing response: $response"
-        fi
-    else
-        echo "Failed to upload the document."
-    fi
+        /usr/bin/yazi "$@" --cwd-file="$tmp"
+    fi  
+    local cwd="$(command cat "$tmp")"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    command rm -f -- "$tmp"
 }
 
 # Automatically do an ls after each cd, z, or zoxide
@@ -205,4 +177,41 @@ extract() {
 		echo "'$archive' is not a valid file!"
 	fi
   done
+}
+
+# Upload a text file or piped output to Hastebin and return the URL
+hb() {
+    local response
+    local hasteKey
+
+    # 1. Check for a file argument FIRST (Prevents Distrobox false-positives)
+    if [ $# -gt 0 ]; then
+        if [ -f "$1" ]; then
+            # File Mode
+            response=$(curl -s -X POST --data-binary @"$1" "https://bin.christitus.com/documents")
+        else
+            echo "Error: File '$1' does not exist."
+            return 1
+        fi
+    # 2. If no file, check if data is being piped in
+    elif [ ! -t 0 ]; then
+        # Pipe Mode: Using raw @- tells curl to read standard input
+        response=$(curl -s -X POST --data-binary @- "https://bin.christitus.com/documents")
+    # 3. If neither, show usage instructions
+    else
+        echo "Usage: hb <filename> OR <command> | hb"
+        return 1
+    fi
+    # Check if curl succeeded
+    if [ $? -eq 0 ]; then
+        # Extract the key
+        hasteKey=$(echo "$response" | grep -o '"key":"[^"]*' | cut -d'"' -f4)
+        if [ -n "$hasteKey" ]; then
+            echo "https://bin.christitus.com/$hasteKey"
+        else
+            echo "Error parsing response: $response"
+        fi
+    else
+        echo "Failed to upload the document."
+    fi
 }

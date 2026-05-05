@@ -2,7 +2,7 @@
 set -e
 
 # The Fortress Bootstrapper
-DOTS_DIR="$HOME/src/gh/dcoffline/dots"
+DOTS="$HOME/src/gh/dcoffline/dots"
 
 echo "🛡️  Bootstrapping the Fortress..."
 
@@ -29,19 +29,21 @@ if ! command -v stow >/dev/null 2>&1; then
 fi
 
 # 2. Run package installer
-if [ -f "$DOTS_DIR/install-packages.sh" ]; then
+if [ -f "$DOTS/install-packages.sh" ]; then
   echo "[ Running package installer... ]"
-  bash "$DOTS_DIR/install-packages.sh"
+  bash "$DOTS/install-packages.sh"
 fi
 
 # 3. Apply Stow
-if [ -d "$DOTS_DIR" ]; then
+if [ -d "$DOTS" ]; then
   echo "[ Applying dotfiles with Stow... ]"
-  cd "$DOTS_DIR"
+  cd "$DOTS"
   # Stow current directory (dots) into $HOME
-  stow --restow --target="$HOME" .
+  stow -R -v -t "$HOME" home
+  stow -R -v -t "$HOME/.config" config
+  stow -R -v -t "$HOME/.local" local
 else
-  echo "Error: Repository not found at $DOTS_DIR"
+  echo "Error: Repository not found at $DOTS"
   exit 1
 fi
 

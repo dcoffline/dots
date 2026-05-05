@@ -6,7 +6,7 @@ On any new machine (Host or Container), simply run:
 ./install.sh
 ```
 This script will:
-1. Install `chezmoi`.
+1. Install `stow`.
 2. Initialize the repository.
 3. Automatically run package managers (Brew/DNF/Cargo) based on the environment.
 
@@ -19,7 +19,7 @@ To update all binaries (Host & Container), dump current GNOME/Brew state, and sy
 ```bash
 update
 ```
-*(This is an alias for `~/.local/bin/update`)*
+*(This is a call to `~/.local/bin/update` which is on the PATH)*
 
 ### 📝 Editing Configs
 Always use these aliases to ensure changes are tracked in the repo and applied to your home directory:
@@ -27,13 +27,7 @@ Always use these aliases to ensure changes are tracked in the repo and applied t
 *   `esrc`: Edit `.shellenv`
 *   `efun`: Edit `.functions`
 
-*Note: These will automatically run `chezmoi apply` and `source` the file upon exit.*
-
-### ➕ Adding New Files
-To start tracking a new file in your home directory:
-```bash
-chezmoi add ~/.path/to/file
-```
+*Note: These will automatically run `gitupdate` and `source` the file upon exit.*
 
 ---
 
@@ -43,13 +37,5 @@ chezmoi add ~/.path/to/file
 | :--- | :--- | :--- |
 | **Source Repo** | `~/src/gh/dcoffline/dots` | Where your files *actually* live. |
 | **Applied Files** | `~/*` | What your system *actually* uses. |
-| **Config Logic** | `.chezmoi.toml.tmpl` | Handles environment detection (Host vs Container). |
-| **Install Logic**| `run_onchange_install-packages.sh.tmpl` | The "brains" of the package installation. |
-| **Entry Points** | `dot_bashrc`, `dot_profile` | Stubs that load the real config from `.config/bash/`. |
-
----
-
-## 💡 Pro-Tips
-*   **Dry Run:** See what `chezmoi apply` would do without doing it: `chezmoi diff`
-*   **Manual Apply:** If you edit files directly in the repo, run: `chezmoi apply`
-*   **Secret Sauce:** Your `~/.secrets` file is ignored by Git but managed by Chezmoi as `dot_secrets`. Use it for API keys and tokens.
+| **Config Logic** | `install.sh` and `update`  | Handles environment detection (Host vs Container). |
+| **Entry Points** | `~/.bashrc`, `~/.profile` | Stubs that load the real config from `~/.config/bash/`. |

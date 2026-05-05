@@ -11,6 +11,7 @@ This project manages the configuration and installation of a development environ
 - **`config/`**: Contains the dotfiles for `~/.config`.
 - **`local/`**: Contains scripts and data for `~/.local`.
 - **`config/containers/systemd/`**: Quadlet files for managing containerized services.
+- **`config/systemd/user`**: Service files for --user systemd services.
 - **Secrets Management**: Sensitive files are stored in `~/.secrets` which is gitignored and must be backed up manually.
 
 ## Idempotency Rules & Gotchas
