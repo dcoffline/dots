@@ -2,7 +2,7 @@
 sudo -v
 
 DOTS="$HOME/src/gh/dcoffline/dots"
-SHELLINI="dot_config/dconf-backups/gnome-shell.ini"
+SHELLINI="config/dconf-backups/gnome-shell.ini"
 echo "[ Initiating Fortress Maintenance Protocol... ]"
 
 # =========================================================
