@@ -5,6 +5,11 @@ if [[ -z "$CONTAINER_ID" ]] && [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
+# Ensure bash-preexec loads (add before atuin init)
+if [[ -z "$CONTAINER_ID" ]] && [ -f /usr/share/bash-preexec ]; then
+  source /usr/share/bash-preexec
+fi
+
 # Container: source host profile.d directly
 if [[ -n "$CONTAINER_ID" ]]; then
   for f in /etc/profile.d/*.sh; do [[ -r $f ]] && . "$f"; done
@@ -41,3 +46,9 @@ export PATH
 [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 [ "$(command -v atuin)" ] && eval "$(atuin init bash)"
 [ "$(command -v fzf)" ] && source <(fzf --bash)
+
+# Force Atuin hooks in container
+if [[ -n "$CONTAINER_ID" ]]; then
+  export PROMPT_COMMAND="__atuin_preexec_handler ${PROMPT_COMMAND}"
+  export ATUIN_SESSION="container-$(hostname)"
+fi
