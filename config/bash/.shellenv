@@ -121,6 +121,7 @@ alias p='ps aux | grep'
 alias mx='chmod a+x'
 alias dots='cd $DOTS'
 alias la='eza -la --icons=auto --group-directories-first'
+alias vich='command -v'
 
 # Podman Tools
 alias d2q='podlet generate container podman run'
