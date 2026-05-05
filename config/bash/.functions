@@ -19,7 +19,9 @@ ebrc() {
     "$EDITOR" "$DOTS/config/bash/.bashrc" &&
     source "$DOTS/config/bash/.bashrc" &&
     cd "$DOTS" &&
-    gitupdate "Updated .bashrc" &&
+    git add config/bash/.bashrc &&
+    git commit -m "Updated .bashrc" &&
+    git push &&
     cd -
 }
 sbrc() {
@@ -29,8 +31,10 @@ esrc() {
     "$EDITOR" "$DOTS/config/bash/.shellenv" && 
     source "$DOTS/config/bash/.shellenv" &&
     cd "$DOTS" && 
-    gitupdate "Updated .shellenv" && 
-    cd -  
+    git add config/bash/.shellenv &&
+    git commit -m "Updated .shellenv" &&
+    git push &&
+    cd -
 }
 ssrc() {
     source "$DOTS/config/bash/.shellenv"
@@ -39,8 +43,10 @@ efun() {
     "$EDITOR" "$DOTS/config/bash/.functions" && 
     source "$DOTS/config/bash/.functions" && 
     cd "$DOTS" && 
-    gitupdate "Updated .functions" && 
-    cd - 
+    git add config/bash/.functions &&
+    git commit -m "Updated .functions" &&
+    git push &&
+    cd -
 }
 sfun() {
     source "$DOTS/config/bash/.functions"
