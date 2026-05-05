@@ -5,6 +5,11 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
+# If in container: source from host
+if [[ -n "$CONTAINER_ID" ]]; then
+    eval "$(distrobox-host-exec bash -c ". /etc/bashrc"
+fi
+
 # Function to add to PATH only if it's not already there
 add_to_path() {
   if [[ ":$PATH:" != *":$1:"* ]]; then
@@ -21,11 +26,6 @@ add_to_path "/home/linuxbrew/.linuxbrew/sbin"
 add_to_path "/home/linuxbrew/.linuxbrew/bin"
 
 export PATH
-
-# Only in container: source host /etc/profile.d via distrobox-host-exec
-if [[ -n "$CONTAINER_ID" ]]; then
-  eval "$(distrobox-host-exec bash -c 'for f in /etc/profile.d/*.sh; do source "$f"; done')"
-fi
 
 # ────── SHELL ENVIRONMENT ──────
 [ -f "$HOME/.config/bash/.shellenv" ] && source "$HOME/.config/bash/.shellenv"
