@@ -1,7 +1,5 @@
 .secrets
 .histfile
-.zcompdump*
 *.db
 *.sqlite
 token
-.secrets/

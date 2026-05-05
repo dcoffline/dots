@@ -39,9 +39,9 @@ if [ -d "$DOTS" ]; then
   echo "[ Applying dotfiles with Stow... ]"
   cd "$DOTS"
   # Stow current directory (dots) into $HOME
-  stow -R -v -t "$HOME" home
-  stow -R -v -t "$HOME/.config" config
-  stow -R -v -t "$HOME/.local" local
+  stow -R -v -t ~ home
+  stow -R -v -t ~/.config config
+  stow -R -v -t ~/.local local
 else
   echo "Error: Repository not found at $DOTS"
   exit 1
