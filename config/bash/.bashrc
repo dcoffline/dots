@@ -1,16 +1,15 @@
 # .bashrc — The One True Config (BASH edition)
 
-# Source global definitions
+# Source UBlue global definitions
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
-# User specific environment
 # Function to add to PATH only if it's not already there
 add_to_path() {
-    if [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="$1:$PATH"
-    fi
+  if [[ ":$PATH:" != *":$1:"* ]]; then
+    PATH="$1:$PATH"
+  fi
 }
 
 # Apply paths in REVERSE order of preference so the top priority ends up first
