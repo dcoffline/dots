@@ -128,6 +128,7 @@ alias podip="podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}
 alias podclean='podman container prune -f ; podman image prune -f ; podman network prune -f ; podman volume prune -f'
 
 # System Utilities
+alias j=jotta-cli
 alias cid="echo $CONTAINER_ID"
 alias ff='fastfetch'
 alias groqlog="cat $GROQDIR/groq_debug.log"
