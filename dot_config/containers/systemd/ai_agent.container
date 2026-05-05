@@ -1,0 +1,14 @@
+[Unit]
+Description=Persistent AI Agent Container
+After=network-online.target
+
+[Container]
+Image=ai_agent:latest
+Volume=/var/home/eric/src/github.com/dcoffline/ai-employee/data:/app/data:Z
+EnvironmentFile=%h/.secrets
+# Use rootless networking
+Network=slirp4netns
+
+[Install]
+# Start on user login
+WantedBy=default.target

@@ -1,0 +1,27 @@
+[Unit]
+Description=Jellyfin Media Server
+After=network-online.target
+
+[Container]
+ContainerName=jellyfin
+Image=docker.io/jellyfin/jellyfin:latest
+Network=homelab.network
+
+# AMD Hardware Acceleration (Passes the GPU directly to the container)
+AddDevice=/dev/dri/renderD128:/dev/dri/renderD128
+
+# Config and Cache go on the fast SSD
+Volume=/var/mnt/2T/appdata/jellyfin/config:/config:Z
+Volume=/var/mnt/2T/appdata/jellyfin/cache:/cache:Z
+
+# Bulk Media Storage on the HDD (No :Z flag to protect the filesystem!)
+Volume=/var/mnt/10T:/media
+Volume=%h/.mnt/rclone/Zurg:/media/zurg
+
+Environment=TZ=America/Chicago
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

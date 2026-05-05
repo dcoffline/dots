@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Source your monitor variables ($DUMMY and $MAIN)
+source ~/.secrets
+
+# Log what's happening to a file for debugging
+echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>/tmp/sunshine_script.log
+
+RES=$1     # e.g., 1920x1080
+REFRESH=$2 # e.g., 60
+SCALE=$3   # e.g., 1
+
+case "$XDG_CURRENT_DESKTOP" in
+"KDE")
+  kscreen-doctor output."$DUMMY".mode."$RES"@"${REFRESH}" output."$DUMMY".scale."$SCALE"
+  ;;
+"COSMIC")
+  # Split 1920x1080 into two variables
+  WIDTH=$(echo "$RES" | cut -d'x' -f1)
+  HEIGHT=$(echo "$RES" | cut -d'x' -f2)
+
+  cosmic-randr mode --refresh "$REFRESH" "$DUMMY" "$WIDTH" "$HEIGHT"
+  cosmic-randr mode --scale "$SCALE" "$DUMMY" "$WIDTH" "$HEIGHT"
+  ;;
+"GNOME" | *"GNOME"*)
+  # GNOME (Mutter) renames kernel ports (e.g., "HDMI-A-1" becomes "HDMI-1")
+  # This safely strips the "-A-" so gdctl can properly find the dummy plug
+  GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
+
+  # Use gdctl (GNOME Display Controller) to reconfigure the virtual monitor
+  gdctl set --logical-monitor --primary --monitor "$GNOME_DUMMY" --mode "${RES}@${REFRESH}" --scale "$SCALE"
+  ;;
+esac

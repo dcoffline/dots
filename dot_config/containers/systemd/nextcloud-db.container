@@ -1,0 +1,13 @@
+[Unit]
+Description=Nextcloud-DB
+After=network-online.target
+
+[Container]
+Network=homelab.network
+ContainerName=nextcloud-db
+Image=docker.io/library/mariadb:10.6
+Volume=/var/mnt/2T/appdata/nextcloud/db:/var/lib/mysql:Z
+Environment=MYSQL_ROOT_PASSWORD=100204180
+Environment=MYSQL_DATABASE=nextcloud
+Environment=MYSQL_USER=eric
+Environment=MYSQL_PASSWORD=100204180

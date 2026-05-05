@@ -1,0 +1,2055 @@
+[2026-04-18T00:34:48.240Z] info: kubernetes.yaml was copied to the config folder
+[2026-04-18T03:30:39.704Z] info: widgets.yaml was copied to the config folder
+[2026-04-18T03:30:39.707Z] info: docker.yaml was copied to the config folder
+[2026-04-18T03:30:39.707Z] info: services.yaml was copied to the config folder
+[2026-04-18T03:30:39.708Z] info: bookmarks.yaml was copied to the config folder
+[2026-04-18T03:30:39.708Z] info: proxmox.yaml was copied to the config folder
+[2026-04-18T03:30:39.716Z] info: custom.css was copied to the config folder
+[2026-04-18T03:30:39.716Z] info: custom.js was copied to the config folder
+[2026-04-18T04:39:58.043Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.162Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.166Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.169Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.174Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.177Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.178Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.187Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.190Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.200Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.203Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:39:58.206Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:40:08.454Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:40:08.457Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:40:14.990Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:40:14.992Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:22.980Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:22.988Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:22.992Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.865Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.927Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.930Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.933Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.938Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.942Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.946Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.948Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.951Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.953Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.958Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.963Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:25.973Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.310Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.362Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.364Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.365Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.366Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.368Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.369Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.372Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.374Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.377Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.378Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.382Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:27.399Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.753Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.800Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.802Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.804Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.806Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.808Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.810Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.817Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.818Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.820Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.824Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:42:37.843Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.372Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.671Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.673Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.675Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.677Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.683Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.686Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.688Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.738Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.741Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:51.744Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-18T04:44:56.039Z] error: Host validation failed for: localhost:8080. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T19:58:58.098Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:35:18.301Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:37:15.352Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:37:27.748Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:38:29.301Z] error: Host validation failed for: photos.hemati.com:8443. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:38:29.876Z] error: Host validation failed for: photos.hemati.com:8443. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:38:30.324Z] error: Host validation failed for: photos.hemati.com:8443. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:38:36.119Z] error: Host validation failed for: photos.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:38:38.545Z] error: Host validation failed for: photos.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:38:38.714Z] error: Host validation failed for: photos.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:38:49.664Z] error: Host validation failed for: photos.hemati.com:8443. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:39:08.510Z] error: Host validation failed for: photos.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T20:40:31.722Z] error: Host validation failed for: photos.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:28:28.455Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:28:48.752Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:32:47.964Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:33:31.706Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:35:03.527Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:38:58.003Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:41:17.315Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:50:53.779Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:51:25.261Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:53:38.015Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T21:57:29.074Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T22:02:28.146Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T22:04:11.281Z] error: Host validation failed for: plex.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-22T22:30:22.523Z] error: Host validation failed for: photos.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-04-30T17:59:12.726Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T17:59:12.731Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T17:59:59.024Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T17:59:59.025Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T18:00:35.592Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T18:00:35.592Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T18:01:21.521Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T18:01:21.521Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T18:01:21.761Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T18:01:21.762Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T18:01:23.242Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T18:01:23.243Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T18:02:13.245Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T18:02:13.245Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T18:02:18.319Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T18:02:18.319Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T18:02:27.965Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T18:02:27.966Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T18:02:40.428Z] error: <httpProxy> Error calling http://localhost/control/stats...
+[2026-04-30T18:02:40.428Z] error: <httpProxy> [
+  500,
+  AggregateError: 
+      at ignore-listed frames {
+    code: 'ECONNREFUSED'
+  }
+]
+[2026-04-30T18:03:49.992Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:03:49.994Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:03:50.339Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:03:50.339Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:03:51.514Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:03:51.515Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:04:25.769Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:04:25.769Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:04:30.778Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:04:30.779Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:04:42.349Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:04:42.349Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:08:21.526Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:08:21.529Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:08:21.995Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:08:21.996Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:10:09.067Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:10:09.068Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:10:09.414Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:10:09.415Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:10:37.869Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:10:37.870Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:10:38.125Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:10:38.126Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:12:42.928Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:12:42.929Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:12:43.265Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:12:43.266Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:16:55.752Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:16:55.752Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:17:01.523Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:17:01.524Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:17:08.275Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:17:08.276Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:19:03.944Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:19:03.944Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:22:29.145Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:22:29.145Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:22:30.775Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:22:30.775Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:23:02.652Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:23:02.652Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:27:26.703Z] error: <httpProxy> Error calling https://api.github.com/repos/gethomepage/homepage/releases...
+[2026-04-30T18:27:26.705Z] error: <httpProxy> [
+  500,
+  Error: getaddrinfo EAI_AGAIN api.github.com
+      at ignore-listed frames {
+    errno: -3001,
+    code: 'EAI_AGAIN',
+    syscall: 'getaddrinfo',
+    hostname: 'api.github.com'
+  }
+]
+[2026-04-30T18:35:48.063Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:35:48.066Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:36:27.536Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:36:27.537Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:36:28.989Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:36:28.990Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:37:16.826Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:37:16.827Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:37:34.915Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:37:34.915Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:37:39.229Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:37:39.229Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:37:43.456Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:37:43.457Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:37:47.613Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:37:47.613Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:37:49.283Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:37:49.284Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:38:00.284Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:38:00.285Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:38:08.230Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:38:08.231Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:38:14.910Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:38:14.910Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:38:21.084Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:38:21.085Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:46:37.024Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:46:37.025Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:49:43.582Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:49:43.585Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:49:49.981Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:49:49.982Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:49:52.802Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:49:52.803Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:50:11.477Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:50:11.478Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:50:16.733Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:50:16.734Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:51:39.230Z] error: <httpProxy> Error calling http://host.containers.internal/control/stats...
+[2026-04-30T18:51:39.230Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 169.254.1.2:80
+      at <unknown> (Error: connect ECONNREFUSED 169.254.1.2:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '169.254.1.2',
+    port: 80
+  }
+]
+[2026-04-30T18:56:48.113Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:56:48.117Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T18:56:48.448Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-04-30T18:56:48.450Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-04-30T19:12:21.853Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:12:21.853Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:12:21.854Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:12:26.880Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:12:31.881Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:12:31.882Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:12:46.910Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:12:46.911Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:12:51.905Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:13:11.933Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:13:15.992Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:13:15.999Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:13:16.000Z] error: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:13:16.000Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:13:16.000Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:13:16.002Z] error: <servicesProxy> YAMLException: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2232:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockSequence (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2104:5)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2536:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+[2026-04-30T19:13:16.009Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:13:16.009Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:13:16.175Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:13:16.175Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared # Matche ...
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:13:52.878Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:13:52.878Z] error: YAMLException: a whitespace character is expected after the key-value separator within a block mapping (34:22)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]:container: cloudflared # Matche ...
+---------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:13:53.038Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:13:53.038Z] error: YAMLException: a whitespace character is expected after the key-value separator within a block mapping (34:22)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]:container: cloudflared # Matche ...
+---------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:14:09.523Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:14:09.523Z] error: YAMLException: bad indentation of a mapping entry (34:32)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]: container: cloudflared # Matches your Co ...
+-------------------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:14:09.679Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:14:09.679Z] error: YAMLException: bad indentation of a mapping entry (34:32)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]: container: cloudflared # Matches your Co ...
+-------------------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:15:07.852Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:15:07.852Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:15:08.011Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:15:08.011Z] error: YAMLException: can not read an implicit mapping pair; a colon is missed (34:21)
+
+ 31 |     - Cloudflared:
+ 32 |         icon: cloudflare
+ 33 |         href: https://dash.cloudflare.com
+ 34 |         [cite_start]container: cloudflared
+--------------------------^
+ 35 |     - Groq:
+ 36 |         icon: groq
+[2026-04-30T19:15:50.314Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:15:50.314Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:15:50.314Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:15:50.315Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:46.595Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:46.618Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:46.619Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:46.620Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:46.795Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:46.795Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:46.795Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:46.796Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:54.309Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:54.322Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:54.327Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:16:54.328Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:17:30.667Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:17:30.667Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:17:30.668Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:17:30.668Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:17:30.851Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:17:30.852Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:17:30.854Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:17:30.855Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:18:41.266Z] error: tab characters must not be used in indentation (32:7)
+
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 |     - Groq:
+ 32 |       →→icon: groq
+------------^
+ 33 |         container: groq # Matches you ...
+ 34 |         
+[2026-04-30T19:18:41.268Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:18:41.268Z] error: YAMLException: tab characters must not be used in indentation (32:7)
+
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 |     - Groq:
+ 32 |       →→icon: groq
+------------^
+ 33 |         container: groq # Matches you ...
+ 34 |         
+[2026-04-30T19:18:41.268Z] error: tab characters must not be used in indentation (32:7)
+
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 |     - Groq:
+ 32 |       →→icon: groq
+------------^
+ 33 |         container: groq # Matches you ...
+ 34 |         
+[2026-04-30T19:18:41.269Z] error: tab characters must not be used in indentation (32:7)
+
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 |     - Groq:
+ 32 |       →→icon: groq
+------------^
+ 33 |         container: groq # Matches you ...
+ 34 |         
+[2026-04-30T19:18:41.276Z] error: <servicesProxy> YAMLException: tab characters must not be used in indentation (32:7)
+
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 |     - Groq:
+ 32 |       →→icon: groq
+------------^
+ 33 |         container: groq # Matches you ...
+ 34 |         
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2158:7)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockSequence (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2104:5)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2536:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockSequence (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2104:5)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2536:12)
+[2026-04-30T19:18:41.278Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:18:41.278Z] error: YAMLException: tab characters must not be used in indentation (32:7)
+
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 |     - Groq:
+ 32 |       →→icon: groq
+------------^
+ 33 |         container: groq # Matches you ...
+ 34 |         
+[2026-04-30T19:18:41.305Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:18:41.306Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:18:41.306Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:18:41.307Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:18:41.447Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:18:41.447Z] error: YAMLException: tab characters must not be used in indentation (32:7)
+
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 |     - Groq:
+ 32 |       →→icon: groq
+------------^
+ 33 |         container: groq # Matches you ...
+ 34 |         
+[2026-04-30T19:19:18.454Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:19:18.454Z] error: YAMLException: bad indentation of a mapping entry (32:13)
+
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 | - Groq:
+ 32 |       →→icon: groq
+------------------^
+ 33 |         container: groq # Matches your groq ...
+ 34 |         
+[2026-04-30T19:19:18.614Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:19:18.614Z] error: YAMLException: bad indentation of a mapping entry (32:13)
+
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 | - Groq:
+ 32 |       →→icon: groq
+------------------^
+ 33 |         container: groq # Matches your groq ...
+ 34 |         
+[2026-04-30T19:19:45.879Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:19:45.879Z] error: YAMLException: tab characters must not be used in indentation (31:1)
+
+ 28 |           url: http://192.168.1 ...
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 | →→- Groq:
+------^
+ 32 | →→→→icon: groq
+ 33 | →→→→container: groq # Matches y ...
+[2026-04-30T19:19:46.049Z] error: Failed to load services.yaml, please check for errors
+[2026-04-30T19:19:46.049Z] error: YAMLException: tab characters must not be used in indentation (31:1)
+
+ 28 |           url: http://192.168.1 ...
+ 29 |           username: eric
+ 30 |           password: 100204180
+ 31 | →→- Groq:
+------^
+ 32 | →→→→icon: groq
+ 33 | →→→→container: groq # Matches y ...
+[2026-04-30T19:20:25.854Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:20:25.855Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:20:25.865Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:20:25.865Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:12.004Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:12.005Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:12.005Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:12.006Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:12.173Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:12.173Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:12.179Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:12.179Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:27.049Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:27.060Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:27.060Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:27.062Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:27.228Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:27.229Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:27.230Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:21:27.230Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:24.168Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:24.168Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:24.168Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:24.169Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:32.080Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:32.080Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:32.082Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:32.084Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:47.594Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:47.594Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:47.596Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:47.601Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:47.779Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:47.780Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:47.787Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:22:47.791Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:24:02.190Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:24:02.387Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:24:02.387Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:24:02.389Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:24:02.390Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:44.729Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:44.729Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:44.745Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:44.746Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:44.930Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:44.930Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:44.930Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:44.931Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:57.531Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:57.532Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:57.532Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:57.533Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:57.763Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:57.764Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:57.764Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:25:57.764Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:26:45.307Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:26:45.307Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:26:45.308Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:26:45.309Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:26:45.485Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:26:45.485Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:26:45.486Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:26:45.486Z] error: <dockerStatusService> Error: connect ENOENT /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:00.119Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:00.129Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:00.129Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:00.130Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:00.448Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:00.451Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:00.451Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:00.451Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:14.831Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:14.863Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:14.867Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:28:14.868Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:30:48.454Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:30:48.460Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:30:48.460Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:30:48.460Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:30:48.647Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:30:48.647Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:30:48.648Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:30:48.648Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:32:13.539Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:32:13.541Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:32:13.647Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:32:13.647Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:32:13.869Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:32:13.875Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:32:13.879Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:32:13.894Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:35:00.494Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:35:00.495Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:35:00.496Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:35:00.496Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:35:00.702Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:35:00.702Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:35:00.702Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:35:00.703Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:41.312Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:41.319Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:41.320Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:41.320Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:41.482Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:41.483Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:41.485Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:41.486Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:58.932Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:58.932Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:58.933Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:36:58.933Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:19.574Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:19.599Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:19.600Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:19.601Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:56.547Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:56.548Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:56.552Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:56.553Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:56.745Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:56.746Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:56.746Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:37:56.746Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:06.729Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:06.730Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:06.730Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:06.731Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:06.963Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:06.963Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:06.965Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:06.965Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:32.765Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:32.766Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:32.767Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:39:32.770Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:40:16.320Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:40:16.321Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:40:16.321Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:40:16.321Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:40:16.497Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:40:16.502Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:40:16.502Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:40:16.503Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:26.953Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:26.969Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:26.987Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:27.011Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:27.188Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:27.192Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:27.194Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:27.194Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:44.152Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:44.171Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:44.187Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:44.187Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:44.380Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:44.381Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:44.381Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:42:44.382Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:43:39.091Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:43:39.102Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:43:39.107Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:43:39.108Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:43:39.292Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:43:39.293Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:43:39.293Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:43:39.294Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:44:43.852Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:44:43.853Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:44:43.860Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:44:43.902Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:44:44.097Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:44:44.098Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:44:44.098Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:44:44.098Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:47:35.564Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:47:35.564Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:47:35.565Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:47:35.568Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:47:40.506Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:47:40.522Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:47:40.522Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:47:40.523Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:06.652Z] error: Failed to load widgets, please check widgets.yaml for errors or remove example entries.
+[2026-04-30T19:50:06.653Z] error: bad indentation of a sequence entry (6:13)
+
+ 3 |     memory: true
+ 4 |     disk: /
+ 5 | - openmeteo
+ 6 |     latitude: 30.5585
+-----------------^
+ 7 |     longitude: -97.8503
+ 8 |     units: imperial
+[2026-04-30T19:50:06.811Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:06.812Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:06.812Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:06.813Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:06.824Z] error: Failed to load widgets, please check widgets.yaml for errors or remove example entries.
+[2026-04-30T19:50:06.824Z] error: bad indentation of a sequence entry (6:13)
+
+ 3 |     memory: true
+ 4 |     disk: /
+ 5 | - openmeteo
+ 6 |     latitude: 30.5585
+-----------------^
+ 7 |     longitude: -97.8503
+ 8 |     units: imperial
+[2026-04-30T19:50:06.991Z] error: Failed to load widgets, please check widgets.yaml for errors or remove example entries.
+[2026-04-30T19:50:06.991Z] error: bad indentation of a sequence entry (6:13)
+
+ 3 |     memory: true
+ 4 |     disk: /
+ 5 | - openmeteo
+ 6 |     latitude: 30.5585
+-----------------^
+ 7 |     longitude: -97.8503
+ 8 |     units: imperial
+[2026-04-30T19:50:07.019Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:07.019Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:07.019Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:07.020Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:24.451Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:24.453Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:24.460Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:24.463Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:24.707Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:24.711Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:24.711Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:50:24.712Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:28.868Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:52:28.871Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:52:28.895Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:28.901Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:28.901Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:28.907Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:29.051Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:29.052Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:29.052Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:29.052Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:29.082Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:52:37.365Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:52:37.394Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:37.397Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:37.411Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:37.415Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:37.518Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:52:37.728Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:37.729Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:37.729Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:37.730Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:37.749Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:52:58.032Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:52:58.051Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:58.059Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:58.067Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:58.073Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:58.167Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:52:58.378Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:58.379Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:58.379Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:58.380Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:52:58.405Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:53:22.479Z] error: <dockerStatusService> Error: connect ENOENT /var/run/podman.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:22.486Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ENOENT /var/run/podman.sock
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'connect',
+  address: '/var/run/podman.sock'
+}
+[2026-04-30T19:53:22.488Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ENOENT /var/run/podman.sock
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'connect',
+  address: '/var/run/podman.sock'
+}
+[2026-04-30T19:53:22.488Z] error: <dockerStatusService> Error: connect ENOENT /var/run/podman.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:22.494Z] error: <dockerStatusService> Error: connect ENOENT /var/run/podman.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:22.498Z] error: <dockerStatusService> Error: connect ENOENT /var/run/podman.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:22.685Z] error: <dockerStatusService> Error: connect ENOENT /var/run/podman.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:22.685Z] error: <dockerStatusService> Error: connect ENOENT /var/run/podman.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:22.685Z] error: <dockerStatusService> Error: connect ENOENT /var/run/podman.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:22.686Z] error: <dockerStatusService> Error: connect ENOENT /var/run/podman.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:22.706Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ENOENT /var/run/podman.sock
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'connect',
+  address: '/var/run/podman.sock'
+}
+[2026-04-30T19:53:31.197Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:53:31.202Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:31.206Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-04-30T19:53:31.206Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:31.212Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:31.221Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:31.396Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:31.396Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:31.396Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:31.397Z] error: <dockerStatusService> Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-04-30T19:53:31.426Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect EACCES /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-05-01T21:27:56.028Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-01T21:27:56.033Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-01T21:28:22.755Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-01T21:28:22.756Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-01T21:28:28.886Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-01T21:28:28.887Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-02T05:18:15.880Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-02T05:18:15.883Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-03T00:19:13.584Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-03T00:19:13.587Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]

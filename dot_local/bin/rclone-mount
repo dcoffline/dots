@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mkdir -p /var/mnt/2T/
+sleep 2
+
+RCLONE="/var/home/linuxbrew/.linuxbrew/bin/rclone"
+BASE_MOUNT="$HOME/.mnt/rclone"
+CACHE_DIR="/var/mnt/2T/rclone_cache"
+LOGFILE="$HOME/.config/rclone/rclone-mount.log"
+PID_DIR="$HOME/.config/rclone/pid"
+
+declare -A REMOTES=(
+  ["alldebrid"]="AllDebrid"
+  ["gdrive"]="GDrive"
+  ["jotta"]="Archive"
+  ["onedrive"]="OneDrive"
+  ["realdebrid"]="RealDebrid"
+  ["timeline"]="Timeline"
+  ["zurg"]="Zurg"
+)
+
+# Common rclone flags (edit once, applies to ALL mounts)
+COMMON_FLAGS=(
+  --allow-other
+  --umask 002
+  --dir-perms 775
+  --file-perms 664
+  --vfs-cache-mode writes
+  --cache-dir "$CACHE_DIR"
+  --vfs-read-chunk-size=64M
+  --vfs-read-chunk-size-limit off
+  --attr-timeout 10m
+  --dir-cache-time 72h
+  --vfs-cache-max-size=10G
+  --vfs-cache-max-age=720h
+  --vfs-cache-min-free-space=20G
+  --poll-interval=1m
+  --buffer-size 64M
+  --log-file "$LOGFILE"
+  --log-level INFO
+)
+
+# Create dirs
+mkdir -p "$PID_DIR" "$BASE_MOUNT"
+
+# Launch every mount in parallel
+for remote in "${!REMOTES[@]}"; do
+  target="${REMOTES[$remote]}"
+  mountpoint="$BASE_MOUNT/$target"
+
+  mkdir -p "$mountpoint"
+
+  echo "Mounting $remote → $mountpoint"
+  "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" &
+
+  # Save the process ID of the command we just ran
+  echo $! >"$PID_DIR/${remote}.pid"
+done
+
+# Let them breathe
+sleep 5
+
+# Victory lap
+echo -e "\nMount status:"
+for remote in "${!REMOTES[@]}"; do
+  mp="$BASE_MOUNT/${REMOTES[$remote]}"
+  if mount | grep -q "$mp"; then
+    echo "OK  $remote"
+  else
+    echo "FAIL  $remote  (check $LOGFILE)" >&2
+  fi
+done

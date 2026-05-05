@@ -1,0 +1,22 @@
+[Unit]
+Description=Zurg WebDAV Server
+After=network-online.target
+
+[Container]
+Image=ghcr.io/debridmediamanager/zurg-testing:latest
+ContainerName=zurg
+Environment=TZ=America/Chicago
+EnvironmentFile=%h/.secrets
+PublishPort=9999:9999
+
+# The :Z tells SELinux to privately label this directory for this specific container
+Volume=/var/mnt/2T/appdata/zurg/config.yml:/app/config.yml:Z
+Volume=/var/mnt/2T/appdata/zurg/data:/app/data:Z
+
+[Service]
+Restart=always
+# Gives Zurg enough time to cleanly shut down its internal database
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

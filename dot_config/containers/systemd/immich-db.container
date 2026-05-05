@@ -1,0 +1,14 @@
+[Unit]
+Description=Immich-DB
+After=network-online.target
+
+[Container]
+Network=homelab.network
+ContainerName=immich-db
+Image=docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
+# DB stays on the SSD for performance
+Volume=/var/mnt/2T/appdata/immich/db:/var/lib/postgresql/data:Z
+Environment=POSTGRES_PASSWORD=100204180
+Environment=POSTGRES_USER=eric
+Environment=POSTGRES_DB=immich
+Environment=POSTGRES_INITDB_ARGS='--auth-host=scram-sha-256'

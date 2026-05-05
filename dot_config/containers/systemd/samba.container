@@ -1,0 +1,37 @@
+[Unit]
+Description=Samba File Share
+After=network-online.target
+
+[Container]
+Image=ghcr.io/servercontainers/samba:latest
+Network=homelab.network
+PublishPort=445:445
+PublishPort=139:139
+
+# Drops the SELinux wall so it can read the FUSE mount
+SecurityLabelDisable=true
+
+Volume=/var/mnt/10T:/shares/media:ro
+Volume=/var/mnt/2T/appdata/zurg/smb:/shares/zurg:ro
+Volume=%h/.mnt/rclone/Zurg:/shares/media/zurg:ro
+
+Environment=USERID=1000
+Environment=GROUPID=1000
+Environment=ACCOUNT_eric=100204180
+Environment=UID_eric=1000
+
+# SPLIT THE CONFIGURATION:
+# Global settings
+Environment="SAMBA_CONFIG_GLOBAL=server min protocol = NT1; ntlm auth = yes; guest account = nobody"
+
+# Share 1: Physical Media
+Environment="SAMBA_VOLUME_CONFIG_media=[Media]; path=/shares/media; valid users = eric; read only = yes; guest ok = no"
+
+# Share 2: Zurg Mount
+# Environment="SAMBA_VOLUME_CONFIG_zurg=[Zurg]; path=/shares/zurg; valid users = eric; read only = yes; guest ok = no"
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

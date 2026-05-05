@@ -1,0 +1,24 @@
+[Unit]
+Description=Groq AI Dictation Container
+After=graphical-session.target sound.target
+
+[Container]
+Image=localhost/groq-dictate:latest
+# 1. Hardware Access (Keyboard)
+AddDevice=/dev/input:/dev/input
+# 2. Wayland, DBUS, and PipeWire Access
+# %U automatically resolves to your user ID (e.g., 1000)
+Volume=/run/user/%U:/run/user/%U
+EnvironmentFile=%h/.secrets
+Environment=GROQDIR=/var/home/eric/src/github.com/dcoffline/groq-dictate
+Environment=XDG_RUNTIME_DIR=/run/user/%U
+Environment=WAYLAND_DISPLAY=wayland-0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+Environment=PULSE_SERVER=unix:/run/user/%U/pulse/native
+# 3. Security Overrides
+SecurityLabelDisable=true
+# Pass supplementary groups directly to podman
+PodmanArgs=--group-add=keep-groups --userns=keep-id
+
+[Install]
+WantedBy=default.target

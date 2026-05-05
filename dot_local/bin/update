@@ -1,0 +1,112 @@
+#!/bin/bash
+sudo -v
+
+DOTS="$HOME/src/gh/dcoffline/dots"
+SHELLINI="dot_config/dconf-backups/gnome-shell.ini"
+echo "[ Initiating Fortress Maintenance Protocol... ]"
+
+# =========================================================
+# ENVIRONMENT DETECTION
+# =========================================================
+if [ -f /run/.containerenv ]; then
+    ENV_TYPE="container"
+    echo "[ 🏗️  Container environment detected ]"
+elif [ -f /run/ostree-booted ]; then
+    ENV_TYPE="immutable"
+    echo "[ 🛡️  Immutable host detected ]"
+else
+    ENV_TYPE="mutable"
+    echo "[ 💻 Standard mutable host detected ]"
+fi
+
+# =========================================================
+# CONTAINER MAINTENANCE
+# =========================================================
+if [ "$ENV_TYPE" = "container" ]; then
+    echo "[ Updating Container binaries... ]"
+    if command -v dnf >/dev/null 2>&1; then
+        sudo dnf upgrade -y --skip-unavailable
+    elif command -v apt-get >/dev/null 2>&1; then
+        sudo apt-get update && sudo apt-get upgrade -y
+    elif command -v pacman >/dev/null 2>&1; then
+        sudo paru -Syu
+    fi
+    echo "[ Updating NPM packages... ]"
+    sudo npm update -g
+    echo "[ Updating Cargo packages... ]"
+    cargo install television atuin
+    
+    echo "[ Syncing Host State... ]"
+    
+    # Dump Brewfile from host
+    cd "$DOTS" && distrobox-host-exec brew bundle dump --force
+    
+    # Dump GNOME settings from host
+    distrobox-host-exec dconf dump /org/gnome/shell/ > "$DOTS/$SHELLINI"
+    
+    echo "[ Applying Dotfile Updates... ]"
+    chezmoi apply
+
+    echo "[ Backing up to GitHub... ]"
+    git add Brewfile "$SHELLINI"
+    git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
+    git push origin main
+    
+    echo "[ Starting Immutable Host Update... ]"
+    distrobox-host-exec ujust update
+
+# =========================================================
+# IMMUTABLE MAINTENANCE
+# =========================================================
+elif [ "$ENV_TYPE" = "immutable" ]; then    
+    echo "[ Syncing Host State... ]"
+    
+    # Dump Brewfile from host
+    cd "$DOTS" && brew bundle dump --force
+    
+    # Dump GNOME settings
+    dconf dump /org/gnome/shell/ > "$DOTS/$SHELLINI"
+
+    echo "[ Applying Dotfile Updates... ]"
+    chezmoi apply
+
+    echo "[ Backing up to GitHub via Container... ]"
+    distrobox enter fedora -- sh -c "cd '$DOTS' && \
+        git add Brewfile '$SHELLINI' && \
+        git commit -m 'System snapshot: \$(date +\"%Y-%m-%d\")' || true && \
+        git push origin main"
+
+    echo "[ Starting Immutable Host Update... ]"
+    ujust update
+
+# =========================================================
+# MUTABLE MAINTENANCE
+# =========================================================
+else
+    echo "[ Updating System binaries... ]"
+    
+    if command -v dnf >/dev/null 2>&1; then
+        sudo dnf upgrade -y --skip-unavailable
+    elif command -v apt-get >/dev/null 2>&1; then
+        sudo apt-get update && sudo apt-get upgrade -y
+    elif command -v pacman >/dev/null 2>&1; then
+        sudo paru -Syu
+    fi
+    echo "[ Updating NPM packages... ]"
+    sudo npm update -g
+    echo "[ Updating Cargo packages... ]"
+    cargo install television atuin
+
+    echo "[ Syncing Host State... ]"
+    cd "$DOTS" && dconf dump /org/gnome/shell/ > "$DOTS/$SHELLINI"
+    
+    echo "[ Applying Dotfile Updates... ]"
+    chezmoi apply
+
+    echo "[ Backing up to GitHub... ]"
+    git add "$SHELLINI"
+    git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
+    git push origin main
+fi
+
+echo "[ Fortress Maintenance Complete ]"

@@ -1,0 +1,33 @@
+[Unit]
+Description=Immich Photo Engine
+# Tell it to wait for the other three containers to boot first
+Requires=immich-db.service immich-redis.service immich-ml.service
+After=network-online.target immich-db.service immich-redis.service immich-ml.service
+StartLimitIntervalSec=0
+
+[Container]
+# Add the name for Cloudflare
+ContainerName=immich-server
+Network=homelab.network
+Image=ghcr.io/immich-app/immich-server:release
+
+# Bulk storage goes to the HDD
+Volume=/var/mnt/10T/Pictures/Uploads:/usr/src/app/upload
+Volume=/var/mnt/10T/Pictures/Camera:/mnt/external:ro
+Volume=%h/.mnt/rclone/Timeline:/mnt/timeline:ro
+
+# Give it the "keys" to the database
+Environment=DB_HOSTNAME=immich-db
+Environment=DB_USERNAME=eric
+Environment=DB_PASSWORD=100204180
+Environment=DB_DATABASE_NAME=immich
+
+Environment=REDIS_HOSTNAME=immich-redis
+Environment=IMMICH_MACHINE_LEARNING_URL=http://immich-ml:3003
+
+[Service]
+TimeoutStartSec=300
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,21 @@
+[Unit]
+Description=Cloudflared Container
+After=network-online.target
+
+[Container]
+ContainerName=cloudflared
+Image=docker.io/cloudflare/cloudflared:latest
+Network=homelab.network
+Volume=%h/.local/share/homelab/cloudflared/token:/run/secrets/tunnel-token:Z,ro
+Exec=tunnel --no-autoupdate run --token-file /run/secrets/tunnel-token
+AutoUpdate=registry
+DNS=1.1.1.1
+DNS=8.8.8.8
+AddHost=host.containers.internal:host-gateway
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

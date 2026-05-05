@@ -1,0 +1,8 @@
+# Files that should not be applied to the home directory
+Brewfile
+CHEATSHEET.md
+GEMINI.md
+README.md
+install.sh
+# Ignore the Age key if it ends up in the source dir (safety)
+key.txt

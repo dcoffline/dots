@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Source your monitor variables ($DUMMY and $MAIN)
+source ~/.secrets
+
+# Log what's happening to a file for debugging
+echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>"$HOME/.config/sunshine/sunshine_script.log"
+
+case "$XDG_CURRENT_DESKTOP" in
+"KDE")
+  kscreen-doctor \
+    output."$DUMMY".enable
+  sleep 1
+  kscreen-doctor \
+    output."$MAIN".disable
+  ;;
+"COSMIC")
+  cosmic-randr enable "$DUMMY"
+  sleep 1
+  cosmic-randr disable "$MAIN"
+  ;;
+"GNOME" | *"GNOME"*)
+  # Strip the -A- for Mutter compatibility
+  GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
+
+  # gdctl automatically disables the MAIN monitor because it is omitted from this layout!
+  gdctl set --logical-monitor --primary --monitor "$GNOME_DUMMY"
+  gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
+  gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
+  ;;
+esac

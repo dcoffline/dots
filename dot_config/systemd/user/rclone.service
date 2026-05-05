@@ -1,0 +1,15 @@
+[Unit]
+Description=Rclone VFS Mounts Service
+After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=/var/mnt/2T
+
+[Service]
+Type=forking
+ExecStart=%h/.local/bin/rclone-mount
+ExecStop=%h/.local/bin/rclone-unmount
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

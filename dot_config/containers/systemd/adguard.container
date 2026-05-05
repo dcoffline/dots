@@ -1,0 +1,14 @@
+[Unit]
+Description=AdGuard Home DNS Blocker
+After=network-online.target
+
+[Container]
+ContainerName=adguard
+Image=docker.io/adguard/adguardhome:latest
+Pod=adguard-stack.pod
+Volume=%h/.config/adguardhome/work:/opt/adguardhome/work:Z
+Volume=%h/.config/adguardhome/conf:/opt/adguardhome/conf:Z
+
+[Install]
+# This ensures it starts automatically on boot
+WantedBy=default.target

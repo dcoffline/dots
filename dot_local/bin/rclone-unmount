@@ -1,0 +1,32 @@
+#!/bin/bash
+
+BASE_MOUNT="$HOME/.mnt/rclone"
+
+MOUNTPOINTS=(
+  $BASE_MOUNT/AllDebrid
+  $BASE_MOUNT/Archive
+  $BASE_MOUNT/GDrive
+  $BASE_MOUNT/OneDrive
+  $BASE_MOUNT/RealDebrid
+  $BASE_MOUNT/Timeline
+  $BASE_MOUNT/Zurg
+)
+
+for mountpoint in "${MOUNTPOINTS[@]}"; do
+  # Use %h logic if you want, but absolute paths are fine here
+  remote=$(basename "$mountpoint" | tr '[:upper:]' '[:lower:]')
+  pid_file="$HOME/.config/rclone/pid/${remote}.pid"
+
+  if [ -f "$pid_file" ]; then
+    pid=$(cat "$pid_file")
+    if kill -0 "$pid" 2>/dev/null; then
+      echo "Stopping rclone for $mountpoint (PID: $pid)"
+      kill "$pid"
+    fi
+    rm -f "$pid_file"
+  fi
+
+  if mountpoint -q "$mountpoint"; then
+    fusermount -uz "$mountpoint" || fusermount -u "$mountpoint" || echo "Mount $mountpoint is stubborn; check for open files."
+  fi
+done

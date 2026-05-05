@@ -1,0 +1,12 @@
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+- openmeteo:
+    latitude: 30.5585
+    longitude: -97.8503
+    units: imperial
+    label: Leander
+- search:
+    provider: brave
+    target: _blank

@@ -1,0 +1,12 @@
+[Unit]
+Description=Immich AI Machine Learning
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Network=homelab.network
+ContainerName=immich-ml
+Image=ghcr.io/immich-app/immich-machine-learning:release
+# Give it GPU access for faster facial recognition
+AddDevice=/dev/dri/renderD128:/dev/dri/renderD128
+Volume=/var/mnt/2T/appdata/immich/model-cache:/cache:Z

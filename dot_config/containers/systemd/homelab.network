@@ -1,0 +1,5 @@
+[Unit]
+Description=Homelab Internal Network
+
+[Network]
+NetworkName=homelab

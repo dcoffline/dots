@@ -1,0 +1,23 @@
+title: Hemati Homelab
+theme: dark
+color: slate
+headerStyle: boxed
+statusStyle: "dot"
+hideVersion: true
+
+layout:
+  Media:
+    style: row
+    columns: 3
+  Cloud:
+    style: row
+    columns: 3
+  Utilities:
+    style: row
+    columns: 3
+  Infrastructure:
+    style: row
+    columns: 4
+  Security:
+    style: row
+    columns: 1
