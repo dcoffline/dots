@@ -13,5 +13,6 @@ XDG-compliant bash setup for Bazzite, macOS, and WSL.
 - Rclone, SAMBA and Zurg mounts
 - Homepage setup
 - Groq-powered Dictation Tool
+- Complete file structure managed by `chezmoi`
 
 Just clone and run `./install.sh`.

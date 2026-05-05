@@ -45,7 +45,7 @@ if [ "$ENV_TYPE" = "container" ]; then
     distrobox-host-exec dconf dump /org/gnome/shell/ > "$DOTS/$SHELLINI"
     
     echo "[ Applying Dotfile Updates... ]"
-    chezmoi apply
+    stow --restow --target="$HOME" .
 
     echo "[ Backing up to GitHub... ]"
     git add Brewfile "$SHELLINI"
@@ -68,7 +68,7 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
     dconf dump /org/gnome/shell/ > "$DOTS/$SHELLINI"
 
     echo "[ Applying Dotfile Updates... ]"
-    chezmoi apply
+    stow --restow --target="$HOME" .
 
     echo "[ Backing up to GitHub via Container... ]"
     distrobox enter fedora -- sh -c "cd '$DOTS' && \
@@ -101,7 +101,7 @@ else
     cd "$DOTS" && dconf dump /org/gnome/shell/ > "$DOTS/$SHELLINI"
     
     echo "[ Applying Dotfile Updates... ]"
-    chezmoi apply
+    stow --restow --target="$HOME" .
 
     echo "[ Backing up to GitHub... ]"
     git add "$SHELLINI"

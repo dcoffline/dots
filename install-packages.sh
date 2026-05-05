@@ -1,69 +1,69 @@
 #!/bin/bash
 
 # Package installation script for the Fortress
-# This script is managed by Chezmoi and runs automatically on apply.
-# Environment: {{ .envType }}
 
-DOTS="{{ .chezmoi.sourceDir }}"
+DOTS="$HOME/src/gh/dcoffline/dots"
 FONTDIR="https://github.com/ryanoasis/nerd-fonts/releases/latest/download"
-GNOME_INI="dot_config/dconf-backups/gnome-shell.ini"
+GNOME_INI="config/dconf-backups/gnome-shell.ini"
 
 # =========================================================
 # IMMUTABLE (Host)
 # =========================================================
-{{ if eq .envType "immutable" }}
-echo "[ Immutable host detected. Using Brewfile... ]"
+if [ -f /run/ostree-booted ]; then
+  echo "[ Immutable host detected. Using Brewfile... ]"
 
-if command -v brew >/dev/null 2>&1; then
-  brew bundle --file="$DOTS/Brewfile"
-else
-  echo "[ Homebrew not found; skipping Brewfile ]"
-fi
+  if command -v brew >/dev/null 2>&1; then
+    brew bundle --file="$DOTS/Brewfile"
+  else
+    echo "[ Homebrew not found; skipping Brewfile ]"
+  fi
 
 # =========================================================
 # CONTAINER / MUTABLE
 # =========================================================
-{{ else }}
-  {{ if lookPath "dnf" }}
-  echo "[ Fedora-based system detected. Using DNF... ]"
-  sudo dnf -y copr enable lihaohong/yazi
-  sudo dnf -y copr enable atim/starship
-  sudo dnf -y copr enable fernando-debian/dysk
+else
+  if command -v dnf >/dev/null 2>&1; then
+    echo "[ Fedora-based system detected. Using DNF... ]"
+    sudo dnf -y copr enable lihaohong/yazi
+    sudo dnf -y copr enable atim/starship
+    sudo dnf -y copr enable fernando-debian/dysk
 
-  DNF_PACKAGES=(
-    dysk gh glab ShellCheck stress-ng  
-    bat cargo chafa direnv eza fastfetch fd-find gcc golang npm nodejs 
-    pipx ripgrep starship tealdeer trash-cli yazi yq zoxide
-  )
-  sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
-  
-  EXPORT_BINS=(dysk gh glab shellcheck stress-ng)
-  {{ else if lookPath "apt-get" }}
-  echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
-  sudo apt-get update
-  APT_PACKAGES=(
-    bat cargo chafa direnv eza fastfetch fd-find gcc gh glab golang 
-    nodejs npm pipx ripgrep shellcheck starship stress-ng tealdeer 
-    trash-cli yq zoxide
-  )
-  sudo apt-get install -y "${APT_PACKAGES[@]}"
-  {{ else if lookPath "pacman" }}
-  echo "[ ARCH-based system detected. Using PACMAN/PARU... ]"
-  ARCH_PACKAGES=(
-    bat cargo chafa direnv eza fastfetch fd gcc github-cli glab go 
-    nodejs python-pipx ripgrep shellcheck starship stress-ng 
-    tealdeer trash-cli yazi yq zoxide
-  )
-  if command -v paru >/dev/null 2>&1; then
-    paru -S --noconfirm "${ARCH_PACKAGES[@]}"
-  else
-    sudo pacman -S --noconfirm "${ARCH_PACKAGES[@]}"
+    DNF_PACKAGES=(
+      dysk gh glab ShellCheck stress-ng  
+      bat cargo chafa direnv eza fastfetch fd-find gcc golang npm nodejs 
+      pipx ripgrep starship tealdeer trash-cli yazi yq zoxide
+    )
+    sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
+    
+    EXPORT_BINS=(dysk gh glab shellcheck stress-ng)
+  elif command -v apt-get >/dev/null 2>&1; then
+    echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
+    sudo apt-get update
+    APT_PACKAGES=(
+      bat cargo chafa direnv eza fastfetch fd-find gcc gh glab golang 
+      nodejs npm pipx ripgrep shellcheck starship stress-ng tealdeer 
+      trash-cli yq zoxide
+    )
+    sudo apt-get install -y "${APT_PACKAGES[@]}"
+  elif command -v pacman >/dev/null 2>&1; then
+    echo "[ ARCH-based system detected. Using PACMAN/PARU... ]"
+    ARCH_PACKAGES=(
+      bat cargo chafa direnv eza fastfetch fd gcc github-cli glab go 
+      nodejs python-pipx ripgrep shellcheck starship stress-ng 
+      tealdeer trash-cli yazi yq zoxide
+    )
+    if command -v paru >/dev/null 2>&1; then
+      paru -S --noconfirm "${ARCH_PACKAGES[@]}"
+    else
+      sudo pacman -S --noconfirm "${ARCH_PACKAGES[@]}"
+    fi
   fi
-  {{ end }}
 
   # RUST BINARIES
   echo "[ Installing Rust binaries via Cargo... ]"
-  cargo install television atuin
+  if command -v cargo >/dev/null 2>&1; then
+      cargo install television atuin
+  fi
 
   # NPM BINARIES
   echo "[ Installing Node binaries via NPM... ]"
@@ -81,7 +81,7 @@ fi
       fi
     done
   fi
-{{ end }}
+fi
 
 # =========================================================
 # UNIVERSAL (Host-aware)

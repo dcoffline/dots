@@ -1,22 +1,22 @@
 # ────── SHELL FUNCTIONS ──────
 
-# Edit and Source Bash configs via Chezmoi
+# Edit and Source Bash configs via Stow
 ebrc() {
-    chezmoi edit "$HOME/.bashrc" && chezmoi apply && source "$HOME/.config/bash/.bashrc"
+    "$EDITOR" "$HOME/src/gh/dcoffline/dots/.bashrc" && cd "$HOME/src/gh/dcoffline/dots" && stow --restow --target="$HOME" . && source "$HOME/.config/bash/.bashrc"
 }
 sbrc() {
     source "$HOME/.config/bash/.bashrc"
 }
 
 esrc() {
-    chezmoi edit "$HOME/.config/bash/.shellenv" && chezmoi apply && source "$HOME/.config/bash/.shellenv"
+    "$EDITOR" "$HOME/src/gh/dcoffline/dots/config/bash/.shellenv" && cd "$HOME/src/gh/dcoffline/dots" && stow --restow --target="$HOME" . && source "$HOME/.config/bash/.shellenv"
 }
 ssrc() {
     source "$HOME/.config/bash/.shellenv"
 }
 
 efun() {
-    chezmoi edit "$HOME/.config/bash/.functions" && chezmoi apply && source "$HOME/.config/bash/.functions"
+    "$EDITOR" "$HOME/src/gh/dcoffline/dots/config/bash/.functions" && cd "$HOME/src/gh/dcoffline/dots" && stow --restow --target="$HOME" . && source "$HOME/.config/bash/.functions"
 }
 sfun() {
     source "$HOME/.config/bash/.functions"
