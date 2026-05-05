@@ -15,14 +15,6 @@ else
   source "$HOME/.local/share/bash-preexec.sh"
 fi
 
-# Container: source host profile.d directly
-if [[ -n "$CONTAINER_ID" ]]; then
-  eval "$(distrobox-host-exec bash -c '
-    for f in /etc/profile.d/*.sh; do 
-      [[ -r $f ]] && source "$f" && echo "export -p"
-    done')"
-fi
-
 # Function to add to PATH only if it's not already there
 add_to_path() {
   if [[ ":$PATH:" != *":$1:"* ]]; then
@@ -48,11 +40,14 @@ export PATH
 
 [ "$(command -v starship)" ] && eval "$(starship init bash)"
 [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
-[ "$(command -v atuin)" ] && eval "$(atuin init bash)"
 [ "$(command -v fzf)" ] && source <(fzf --bash)
 
-# Force Atuin hooks in container
-if [[ -n "$CONTAINER_ID" ]]; then
-  export PROMPT_COMMAND="__atuin_preexec_handler ${PROMPT_COMMAND}"
-  export ATUIN_SESSION="container-$(hostname)"
+# Atuin Setup (Host and Container Safe)
+if [ "$(command -v atuin)" ]; then
+  eval "$(atuin init bash)"
+
+  # Configure Atuin hooks in container
+  if [[ -n "$CONTAINER_ID" ]]; then
+    export ATUIN_SESSION="container-$(hostname)"
+  fi
 fi
