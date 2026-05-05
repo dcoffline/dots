@@ -22,6 +22,11 @@ add_to_path "/home/linuxbrew/.linuxbrew/bin"
 
 export PATH
 
+# Only in container: source host /etc/profile.d via distrobox-host-exec
+if [[ -n "$CONTAINER_ID" ]]; then
+  eval "$(distrobox-host-exec bash -c 'for f in /etc/profile.d/*.sh; do source "$f"; done')"
+fi
+
 # ────── SHELL ENVIRONMENT ──────
 [ -f "$HOME/.config/bash/.shellenv" ] && source "$HOME/.config/bash/.shellenv"
 
