@@ -5,17 +5,24 @@ if [[ -z "$CONTAINER_ID" ]] && [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
-# Ensure bash-preexec loads (add before atuin init)
-if [[ -z "$CONTAINER_ID" ]] && [ -f /usr/share/bash-preexec ]; then
-  source /usr/share/bash-preexec
+# bash-preexec for Atuin (host OR container)
+if [[ -z "$CONTAINER_ID" ]]; then
+  # Host: use system package
+  [ -f /usr/share/bash-preexec ] && source /usr/share/bash-preexec
+else
+  # Container: portable version (install once)
+  [ -f "$HOME/.local/share/bash-preexec.sh" ] || curl -sL https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh >"$HOME/.local/share/bash-preexec.sh"
+  source "$HOME/.local/share/bash-preexec.sh"
 fi
 
 # Container: source host profile.d directly
 if [[ -n "$CONTAINER_ID" ]]; then
-  for f in /etc/profile.d/*.sh; do [[ -r $f ]] && . "$f"; done
+  eval "$(distrobox-host-exec bash -c '
+    for f in /etc/profile.d/*.sh; do 
+      [[ -r $f ]] && source "$f" && echo "export -p"
+    done')"
 fi
 
-# Rest unchanged...
 # Function to add to PATH only if it's not already there
 add_to_path() {
   if [[ ":$PATH:" != *":$1:"* ]]; then
@@ -33,14 +40,11 @@ add_to_path "/home/linuxbrew/.linuxbrew/bin"
 
 export PATH
 
-# ────── SHELL ENVIRONMENT ──────
+# ────── SHELL EXPORTS & ALIASES ──────
 [ -f "$HOME/.config/bash/.shellenv" ] && source "$HOME/.config/bash/.shellenv"
 
 # ────── CLI BLING & FUNCTIONS ──────
 [ -f "$HOME/.config/bash/.functions" ] && source "$HOME/.config/bash/.functions"
-
-# Provide Bash-like hooks for Atuin if available on the host OS
-[ -f /usr/share/bash-prexec ] && source /usr/share/bash-prexec
 
 [ "$(command -v starship)" ] && eval "$(starship init bash)"
 [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
