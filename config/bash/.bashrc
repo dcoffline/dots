@@ -1,15 +1,16 @@
 # .bashrc — The One True Config (BASH edition)
 
-# Source UBlue global definitions
-if [ -f /etc/bashrc ]; then
+# Source UBlue globals ONLY on host
+if [[ -z "$CONTAINER_ID" ]] && [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
-# If in container: source from host
+# Container: source host profile.d directly
 if [[ -n "$CONTAINER_ID" ]]; then
-  eval "$(distrobox-host-exec bash -c '. /etc/bashrc')"
+  for f in /etc/profile.d/*.sh; do [[ -r $f ]] && . "$f"; done
 fi
 
+# Rest unchanged...
 # Function to add to PATH only if it's not already there
 add_to_path() {
   if [[ ":$PATH:" != *":$1:"* ]]; then
