@@ -44,10 +44,10 @@ export PATH
 
 # Atuin Setup (Host and Container Safe)
 if [ "$(command -v atuin)" ]; then
-  eval "$(atuin init bash)"
-
   # Configure Atuin hooks in container
   if [[ -n "$CONTAINER_ID" ]]; then
-    export ATUIN_SESSION="container-$(hostname)"
+    unset ATUIN_SESSION
+    unset ATUIN_HISTORY_ID
   fi
+  eval "$(atuin init bash)"
 fi
