@@ -7,7 +7,7 @@ fi
 
 # If in container: source from host
 if [[ -n "$CONTAINER_ID" ]]; then
-    eval "$(distrobox-host-exec bash -c ". /etc/bashrc"
+  eval "$(distrobox-host-exec bash -c '. /etc/bashrc')"
 fi
 
 # Function to add to PATH only if it's not already there
