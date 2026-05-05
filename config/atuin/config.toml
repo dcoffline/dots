@@ -197,6 +197,9 @@ enter_accept = true
 ## Alternatively, set env NO_MOTION=true
 # prefers_reduced_motion = false
 
+[logs]
+dir = "$XDG_DATA_HOME/atuin/logs"
+
 [stats]
 ## Set commands where we should consider the subcommand for statistics. Eg, kubectl get vs just kubectl
 # common_subcommands = [
@@ -369,5 +372,3 @@ records = true
 ##
 ## Make directory expand instead of command:
 # columns = ["duration", "time", { type = "directory", expand = true }, { type = "command", expand = false }]
-[logs]
-logs.dir = "$XDG_DATA_HOME/atuin/logs"
