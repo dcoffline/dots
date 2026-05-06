@@ -138,6 +138,7 @@ alias cr=cosmic-randr
 alias gd=gdctl
 alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
 alias openports='ss -tulanp'
+alias gitu=gitupdate
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
