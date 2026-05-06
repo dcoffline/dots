@@ -27,30 +27,30 @@ else
     sudo dnf -y copr enable lihaohong/yazi
     sudo dnf -y copr enable atim/starship
     sudo dnf -y copr enable fernando-debian/dysk
-
     DNF_PACKAGES=(
-      dysk gh glab ShellCheck stress-ng  
-      bat cargo chafa direnv eza fastfetch fd-find gcc golang npm nodejs 
-      pipx ripgrep starship tealdeer trash-cli yazi yq zoxide
+      bat chafa direnv dysk eza fastfetch fd-find flatpak gh
+      glab gcc golang npm nodejs pipx ripgrep ShellCheck 
+      starship stress-ng tealdeer trash-cli yazi yq zoxide
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
-    
     EXPORT_BINS=(dysk gh glab shellcheck stress-ng)
+
   elif command -v apt-get >/dev/null 2>&1; then
     echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
     sudo apt-get update
     APT_PACKAGES=(
-      bat cargo chafa direnv eza fastfetch fd-find gcc gh glab golang 
-      nodejs npm pipx ripgrep shellcheck starship stress-ng tealdeer 
-      trash-cli yq zoxide
+      bat chafa direnv eza fastfetch fd-find flatpak gh 
+      glab gcc golang nodejs npm pipx ripgrep shellcheck 
+      starship stress-ng tealdeer trash-cli yazi yq zoxide
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
+
   elif command -v pacman >/dev/null 2>&1; then
     echo "[ ARCH-based system detected. Using PACMAN/PARU... ]"
     ARCH_PACKAGES=(
-      bat cargo chafa direnv eza fastfetch fd gcc github-cli glab go 
-      nodejs python-pipx ripgrep shellcheck starship stress-ng 
-      tealdeer trash-cli yazi yq zoxide
+      bat chafa direnv eza fastfetch fd flatpak github-cli 
+      glab gcc go nodejs npm python-pipx ripgrep shellcheck 
+      starship stress-ng tealdeer trash-cli yazi yq zoxide
     )
     if command -v paru >/dev/null 2>&1; then
       paru -S --noconfirm "${ARCH_PACKAGES[@]}"
@@ -59,16 +59,34 @@ else
     fi
   fi
 
-  # RUST BINARIES
+  # RUST & CARGO BINARIES
+  echo "[ Checking for Rust toolchain... ]"
+  if ! command -v cargo >/dev/null 2>&1; then
+    echo "[ Cargo not found. Installing Rustup... ]"
+    # Install Rust silently accepting all defaults
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    # Inject Cargo into the current script's PATH so the next step works.
+    # (Checking your custom XDG path first, then falling back to default)
+    if [ -f "$HOME/.local/share/cargo/env" ]; then
+      source "$HOME/.local/share/cargo/env"
+    elif [ -f "$HOME/.cargo/env" ]; then
+      source "$HOME/.cargo/env"
+    fi
+  fi
+
   echo "[ Installing Rust binaries via Cargo... ]"
   if command -v cargo >/dev/null 2>&1; then
-      cargo install television atuin
+    cargo install television atuin
+  else
+    echo "[ ERROR: Cargo is still not available. Skipping Rust binaries. ]"
   fi
 
   # NPM BINARIES
   echo "[ Installing Node binaries via NPM... ]"
   if command -v npm >/dev/null 2>&1; then
-    sudo npm install -g "@google/gemini-cli"
+    npm install -g "@google/gemini-cli"
+  else
+    echo "[ ERROR: NPM is not available. Skipping Node binaries. ]"
   fi
 
   # DISTROBOX EXPORTS
@@ -149,12 +167,12 @@ if command -v gext >/dev/null 2>&1 || ([ -f /run/.containerenv ] && command -v d
       gext install "$ext" 2>/dev/null || true
     fi
   done
-  
+
   # Load DCONF
   if [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
-    distrobox-host-exec dconf load /org/gnome/shell/ < "$DOTS/$GNOME_INI"
+    distrobox-host-exec dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
   else
-    dconf load /org/gnome/shell/ < "$DOTS/$GNOME_INI"
+    dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
   fi
 fi
 
