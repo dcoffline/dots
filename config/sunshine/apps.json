@@ -1,0 +1,80 @@
+{
+    "apps": [
+        {
+            "auto-detach": true,
+            "detached": [
+                "setsid steam steam://open/bigpicture"
+            ],
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 3,
+            "image-path": "steam.png",
+            "name": "Big Picture",
+            "output": "/home/eric/.config/sunshine/app-bigpic.log",
+            "prep-cmd": [
+                {
+                    "do": "moncon 1920x1080 120.040 1",
+                    "undo": ""
+                },
+                {
+                    "do": "",
+                    "undo": "setsid steam steam://close/bigpicture"
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "detached": [
+                ""
+            ],
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "desktop.png",
+            "name": "Desktop",
+            "output": "/home/eric/.config/sunshine/app-desktop.log",
+            "prep-cmd": [
+                {
+                    "do": "moncon 2560x1440 119.877 1",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "/home/eric/.config/sunshine/covers/macbook.png",
+            "name": "Laptop",
+            "output": "/home/eric/.config/sunshine/app-laptop.log",
+            "prep-cmd": [
+                {
+                    "do": "moncon 1680x1050 119.891 1",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "/home/eric/.config/sunshine/covers/iphone.png",
+            "name": "Phone",
+            "output": "/home/eric/.config/sunshine/app-phone.log",
+            "prep-cmd": [
+                {
+                    "do": "moncon 1280x720 119.858 1",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        }
+    ],
+    "env": {
+        "PATH": "$(PATH):$(HOME)/.local/bin"
+    }
+}
