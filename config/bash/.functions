@@ -55,11 +55,7 @@ sfun() {
 # Yazi Shell Wrapper
 y() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-    if [ -f /run/ostree-booted ]; then
-        /home/linuxbrew/.linuxbrew/bin/yazi "$@" --cwd-file="$tmp"
-    else
-        /usr/bin/yazi "$@" --cwd-file="$tmp"
-    fi  
+    yazi "$@" --cwd-file="$tmp"
     local cwd="$(command cat "$tmp")"
     [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
     command rm -f -- "$tmp"
