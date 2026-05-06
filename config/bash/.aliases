@@ -1,46 +1,8 @@
-# .shellenv - Universal Shell Variables
-
-# ────── SYSTEM VARIABLES & EXPORTS ──────
-set -a
-
-EDITOR=nvim
-LANG=en_US.UTF-8 LC_CTYPE=$LANG LC_COLLATE=$LANG
-TZ="America/Chicago"
-
-HISTFILE="$HOME/.config/bash/.histfile"
-HISTSIZE=10000 
-HISTCONTROL=ignoreboth:erasedups
-HISTTIMEFORMAT="%F %T "
-
-XDG_CACHE_HOME="$HOME/.cache"
-XDG_CONFIG_HOME="$HOME/.config"
-XDG_DATA_HOME="$HOME/.local/share" 
-XDG_STATE_HOME="$HOME/.local/state" 
-
-FZF_ALT_C_COMMAND='fd --type d'
-FZF_DEFAULT_COMMAND='fd --type f'
-FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm"
-NPM_CONFIG_PREFIX="$XDG_CONFIG_HOME/npm"
-NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-
-GNUPGHOME="$XDG_DATA_HOME/gnupg"
-CARGO_HOME="$XDG_DATA_HOME/cargo"
-DOTNET_CLI_HOME="$XDG_DATA_HOME/dotnet"
-ATUIN_CONFIG_DIR="$XDG_CONFIG_HOME/atuin"
-WAKATIME_HOME="$XDG_CONFIG_HOME/wakatime"
-GEMINI_CLI_HOME="$XDG_CONFIG_HOME"
-ANDROID_USER_HOME="$XDG_DATA_HOME/android"
-
-DOTS="$HOME/src/gh/dcoffline/dots"
-[ -f "$HOME/.secrets" ] && source "$HOME/.secrets"
-
-set +a
-
-if [ -f /run/.containerenv ]; then
+# .aliases - Universal Shell Aliases
 
 # ────── CONTAINER ALIASES ──────
+
+if [ -f /run/.containerenv ]; then
 
   [ "$(command -v fastfetch)" ] && fastfetch
 
@@ -66,7 +28,6 @@ if [ -f /run/.containerenv ]; then
   alias scudr='dhe systemctl --user daemon-reload'
   alias jc='dhe journalctl'
   alias follow='dhe journalctl --user -fu'
-  #alias linutil='curl -fsSL https://christitus.com/linux | sh'
   alias ptrans='dhe dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
 
 else
@@ -103,11 +64,25 @@ fi
 
 # ────── GLOBAL ALIASES ──────
 
-# Fix for Ptyxis/VTE terminal color query leaks
-[[ $TERM == "xterm-256color" ]] && export TERM="vte-256color"
+# Editor
+alias vi=$EDITOR
+alias nano=$EDITOR
+alias svi='sudo $EDITOR'
+alias ted='flatpak run org.gnome.TextEditor'
+
+# System Utilities
+alias gd=gdctl
+alias yey=paru
+alias j=jotta-cli
+alias ff=fastfetch
+alias openports='ss -tulanp'
+alias cid="echo $CONTAINER_ID"
+alias groqlog="cat $GROQDIR/groq_debug.log"
+alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
+#alias linutil='curl -fsSL https://christitus.com/linux | sh'
 
 # File Management
-#alias cat=bat
+alias cat=bat
 alias cp='cp -i' 
 alias mv='mv -i' 
 alias rm='trash -v' 
@@ -120,31 +95,16 @@ alias h='history | grep'
 alias p='ps aux | grep'
 alias mx='chmod a+x'
 alias dots='cd $DOTS'
-alias la='eza -la --icons=auto --group-directories-first'
 alias vich='command -v'
+alias la='eza -la --icons=auto --group-directories-first'
+
+# List recently installed packages
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl" 
 
 # Podman Tools
 alias d2q='podlet generate container podman run'
 alias podip="podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 alias podclean='podman container prune -f ; podman image prune -f ; podman network prune -f ; podman volume prune -f'
 
-# System Utilities
-alias j=jotta-cli
-alias cid="echo $CONTAINER_ID"
-alias ff='fastfetch'
-alias groqlog="cat $GROQDIR/groq_debug.log"
-alias yey=paru
-alias cr=cosmic-randr
-alias gd=gdctl
-alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
-alias openports='ss -tulanp'
-alias gitu=gitupdate
-
-# Recent installed packages
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-
-# Editor
-alias vi=$EDITOR
-alias nano=$EDITOR
-alias svi='sudo $EDITOR'
-alias ted='flatpak run org.gnome.TextEditor'
+# Fix for Ptyxis/VTE terminal color query leaks
+[[ $TERM == "xterm-256color" ]] && export TERM="vte-256color"

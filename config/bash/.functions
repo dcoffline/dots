@@ -1,7 +1,21 @@
 # ────── SHELL FUNCTIONS ──────
 
+# Run a command with secrets injected, without polluting the parent shell
+witsec() {
+    if [ ! -f "$HOME/.config/bash/.secrets" ]; then
+        echo "Error: .secrets file not found!"
+        return 1
+    fi
+    (
+        set -a
+        source "$HOME/.config/bash/.secrets"
+        set +a
+        "$@"
+    )
+}
+
 # Update Git Repository
-gitupdate() {
+gitup() {
     # Check if a commit message was actually provided
     if [ -z "$1" ]; then
         echo "Error: Please provide a commit message."
@@ -16,28 +30,28 @@ gitupdate() {
 
 # Edit, source and update BASH configs
 ebrc() {
-    "$EDITOR" "$DOTS/config/bash/.bashrc" &&
-    source "$DOTS/config/bash/.bashrc" &&
+    "$EDITOR" "$DOTS/home/.bashrc" &&
+    source "$DOTS/home/.bashrc" &&
     cd "$DOTS" &&
-    git add config/bash/.bashrc &&
+    git add home/.bashrc &&
     git commit -m "Updated .bashrc" &&
     git push &&
     cd -
 }
 sbrc() {
-    source "$DOTS/config/bash/.bashrc"
+    source "$DOTS/home/.bashrc"
 }
 esrc() {
-    "$EDITOR" "$DOTS/config/bash/.shellenv" && 
-    source "$DOTS/config/bash/.shellenv" &&
+    "$EDITOR" "$DOTS/config/bash/.aliases" && 
+    source "$DOTS/config/bash/.aliases" &&
     cd "$DOTS" && 
-    git add config/bash/.shellenv &&
-    git commit -m "Updated .shellenv" &&
+    git add config/bash/.aliases &&
+    git commit -m "Updated .aliases" &&
     git push &&
     cd -
 }
 ssrc() {
-    source "$DOTS/config/bash/.shellenv"
+    source "$DOTS/config/bash/.aliases"
 }
 efun() {
     "$EDITOR" "$DOTS/config/bash/.functions" && 

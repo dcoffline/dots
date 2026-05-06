@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Kill any old instances to prevent conflicts
+pkill -f groq-dictate.py
+
+# Bridge for Homebrew Audio
+export ALSA_PLUGIN_DIR=/usr/lib64/alsa-lib
+
+# Log for debugging
+exec >$GROQDIR/groq_debug.log 2>&1
+
+# Run it
+witsec $GROQDIR/.venv/bin/python $GROQDIR/groq-dictate.py

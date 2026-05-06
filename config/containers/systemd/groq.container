@@ -9,8 +9,8 @@ AddDevice=/dev/input:/dev/input
 # 2. Wayland, DBUS, and PipeWire Access
 # %U automatically resolves to your user ID (e.g., 1000)
 Volume=/run/user/%U:/run/user/%U
-EnvironmentFile=%h/.secrets
-Environment=GROQDIR=/var/home/eric/src/github.com/dcoffline/groq-dictate
+EnvironmentFile=%E/bash/.secrets
+Environment=GROQDIR=%h/src/github.com/dcoffline/groq-dictate
 Environment=XDG_RUNTIME_DIR=/run/user/%U
 Environment=WAYLAND_DISPLAY=wayland-0
 Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
