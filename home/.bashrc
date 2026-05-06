@@ -43,3 +43,6 @@ if [ "$(command -v atuin)" ]; then
 
   eval "$(atuin init bash)"
 fi
+
+# Clean duplicates out of the PATH
+cleanpath
