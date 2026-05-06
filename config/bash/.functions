@@ -1,5 +1,17 @@
 # ────── SHELL FUNCTIONS ──────
 
+# Remove duplicates from PATH, keeping the first occurrence 
+cleanpath() {
+    local new_path=""
+    local dir
+    while IFS= read -r -d: dir; do
+        if [[ ! ":$new_path:" == *":$dir:"* ]]; then
+            new_path="${new_path:+$new_path:}$dir"
+        fi
+    done <<< "${PATH:+$PATH:}"
+    export PATH="$new_path"
+}
+
 # Run a command with secrets injected, without polluting the parent shell
 witsec() {
     if [ ! -f "$HOME/.config/bash/.secrets" ]; then
