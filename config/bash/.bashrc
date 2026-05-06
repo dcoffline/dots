@@ -5,16 +5,6 @@ if [[ -z "$CONTAINER_ID" ]] && [ -f /etc/bashrc ]; then
   . /etc/bashrc
 fi
 
-# bash-preexec for Atuin (host OR container)
-if [[ -z "$CONTAINER_ID" ]]; then
-  # Host: use system package
-  [ -f /usr/share/bash-preexec ] && source /usr/share/bash-preexec
-else
-  # Container: portable version (install once)
-  [ -f "$HOME/.local/share/bash-preexec.sh" ] || curl -sL https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh >"$HOME/.local/share/bash-preexec.sh"
-  source "$HOME/.local/share/bash-preexec.sh"
-fi
-
 # Function to add to PATH only if it's not already there
 add_to_path() {
   if [[ ":$PATH:" != *":$1:"* ]]; then
@@ -49,5 +39,19 @@ if [ "$(command -v atuin)" ]; then
     unset ATUIN_SESSION
     unset ATUIN_HISTORY_ID
   fi
+
+  # bash-preexec for Atuin (host OR container)
+  if [[ -z "$__bp_imported" ]]; then
+    # Clear PS0 to avoid leakage from previous corrupted state
+    unset PS0
+    if [ -f /usr/share/bash-preexec/bash-preexec.sh ]; then
+      source /usr/share/bash-preexec/bash-preexec.sh
+    elif [ -f "$HOME/.local/share/bash-preexec.sh" ]; then
+      source "$HOME/.local/share/bash-preexec.sh"
+    fi
+    # Force DEBUG trap mode to avoid PS0 issues on Bash 5.3+
+    __bp_hook_preexec_proc=__bp_hook_preexec_into_debug
+  fi
+
   eval "$(atuin init bash)"
 fi
