@@ -46,3 +46,6 @@ if [ "$(command -v atuin)" ]; then
 
   eval "$(atuin init bash)"
 fi
+### bling.sh source start
+test -f /usr/share/ublue-os/bling/bling.sh && source /usr/share/ublue-os/bling/bling.sh
+### bling.sh source end

@@ -2053,3 +2053,75 @@
     port: 80
   }
 ]
+[2026-05-07T20:22:48.070Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-07T20:22:48.074Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-07T20:24:01.037Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-07T20:24:01.038Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-07T20:24:16.506Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-07T20:24:16.506Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-07T20:34:18.998Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-07T20:34:18.999Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-07T20:34:20.427Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-07T20:34:20.428Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-07T20:36:11.276Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-07T20:36:11.276Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]

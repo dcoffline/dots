@@ -1,0 +1,19 @@
+{
+  "version": "2026.503.1521",
+  "rulesets": [
+    "+adguard-spyware-url",
+    "+annoyances-cookies",
+    "+annoyances-overlays",
+    "+annoyances-others",
+    "+annoyances-notifications",
+    "+annoyances-social"
+  ],
+  "filteringModes": {
+    "none": [],
+    "basic": [],
+    "optimal": [
+      "all-urls"
+    ],
+    "complete": []
+  }
+}
