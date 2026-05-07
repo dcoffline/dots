@@ -16,6 +16,9 @@ fi
 # ────── CLI BLING & FUNCTIONS ──────
 [ -f "$HOME/.config/bash/.functions" ] && source "$HOME/.config/bash/.functions"
 
+# Clean duplicates out of the PATH
+cleanpath
+
 [ "$(command -v starship)" ] && eval "$(starship init bash)"
 [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 [ "$(command -v fzf)" ] && source <(fzf --bash)
@@ -43,6 +46,3 @@ if [ "$(command -v atuin)" ]; then
 
   eval "$(atuin init bash)"
 fi
-
-# Clean duplicates out of the PATH
-cleanpath

@@ -105,7 +105,9 @@ else
   cd "$DOTS" && dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
 
   echo "[ Applying Dotfile Updates... ]"
-  stow --restow --target="$HOME" .
+  stow -v -t "$HOME" home
+  stow -v -t "$HOME/.config" config
+  stow -v -t "$HOME/.local" local
 
   echo "[ Backing up to GitHub... ]"
   git add "$SHELLINI"
