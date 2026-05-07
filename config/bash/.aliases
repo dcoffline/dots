@@ -4,8 +4,6 @@
 
 if [ -f /run/.containerenv ]; then
 
-  #[ "$(command -v fastfetch)" ] && fastfetch
-
   # Distrobox
   alias dex='distrobox-export --app'
   alias deb='distrobox-export --export-path $HOME/.local/bin --bin'
