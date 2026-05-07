@@ -16,7 +16,7 @@ add_to_path() {
 }
 
 # Apply paths in REVERSE order of preference so the top priority ends up first
-add_to_path "$HOME/.local/share/cargo/bin"
+add_to_path "$HOME/.cargo/bin"
 add_to_path "$HOME/.local/share/go/bin"
 add_to_path "$HOME/.config/npm"
 add_to_path "$HOME/.local/bin"
