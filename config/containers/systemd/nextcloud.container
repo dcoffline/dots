@@ -19,10 +19,9 @@ Volume=/var/mnt/2T/appdata/nextcloud/data:/var/www/html/data:Z
 Volume=/var/mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone
 
+EnvironmentFile=%E/bash/.secrets
 Environment=MYSQL_HOST=nextcloud-db
 Environment=MYSQL_DATABASE=nextcloud
-Environment=MYSQL_USER=eric
-Environment=MYSQL_PASSWORD=100204180
 
 [Install]
 WantedBy=default.target

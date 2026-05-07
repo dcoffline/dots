@@ -15,9 +15,9 @@ Volume=/var/mnt/10T:/shares/media:ro
 Volume=/var/mnt/2T/appdata/zurg/smb:/shares/zurg:ro
 Volume=%h/.mnt/rclone/Zurg:/shares/media/zurg:ro
 
+EnvironmentFile=%E/bash/.secrets
 Environment=USERID=1000
 Environment=GROUPID=1000
-Environment=ACCOUNT_eric=100204180
 Environment=UID_eric=1000
 
 # SPLIT THE CONFIGURATION:
