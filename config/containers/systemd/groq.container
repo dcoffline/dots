@@ -11,7 +11,6 @@ AddDevice=/dev/input:/dev/input
 Volume=%t:%t
 EnvironmentFile=%E/bash/.secrets
 Environment=XDG_RUNTIME_DIR=%t
-Environment=WAYLAND_DISPLAY=wayland-0
 Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus
 Environment=PULSE_SERVER=unix:%t/pulse/native
 # 3. Security Overrides
