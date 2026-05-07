@@ -1,0 +1,113 @@
+#!/bin/bash
+# Launch Waydroid with Weston (Distrobox Compatible)
+# Launch Waydroid in a custom Weston window with configurable dimensions
+set -e
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
+NC='\033[0m' # No Color
+# Function to print colored output
+print_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
+print_success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
+print_warning() { echo -e "${YELLOW}[WARNING]${NC} $1"; }
+print_error() { echo -e "${RED}[ERROR]${NC} $1"; }
+print_highlight() { echo -e "${CYAN}[INPUT]${NC} $1"; }
+print_command() { echo -e "${MAGENTA}[CMD]${NC} $1"; }
+# Check dependencies
+print_info "Checking dependencies..."
+if ! command -v waydroid &> /dev/null; then
+    print_error "Waydroid is not installed or not in PATH"
+    exit 1
+fi
+if ! command -v distrobox &> /dev/null; then
+    print_error "Distrobox is not installed or not in PATH"
+    exit 1
+fi
+print_success "All dependencies found!"
+echo
+# Get window dimensions from user
+print_info "Please enter the desired Weston window dimensions:"
+echo
+# Default values
+DEFAULT_WIDTH=1920
+DEFAULT_HEIGHT=1080
+while true; do
+    print_highlight "Enter width (default: $DEFAULT_WIDTH):"
+    read -p "> " width
+    [ -z "$width" ] && width=$DEFAULT_WIDTH
+    if [[ "$width" =~ ^[0-9]+$ ]] && [ "$width" -gt 0 ] && [ "$width" -le 4096 ]; then break;
+       else print_error "Invalid width. Please enter a number between 1 and 4096"; fi
+done
+while true; do
+    print_highlight "Enter height (default: $DEFAULT_HEIGHT):"
+    read -p "> " height
+    [ -z "$height" ] && height=$DEFAULT_HEIGHT
+    if [[ "$height" =~ ^[0-9]+$ ]] && [ "$height" -gt 0 ] && [ "$height" -le 4096 ]; then
+       break; else print_error "Invalid height. Please enter a number between 1 and 4096"; fi
+done
+echo
+print_success "Window dimensions set: ${width}x${height}"
+echo
+# Stop existing waydroid session
+print_info "Stopping existing Waydroid session..."
+waydroid session stop 2>/dev/null || print_warning "No active Waydroid session found (this is
+       normal)"
+# Define a shared socket directory in Home
+SHARED_RUNTIME="$HOME/.waydroid-weston-runtime"
+mkdir -p "$SHARED_RUNTIME"
+chmod 700 "$SHARED_RUNTIME"
+# Clean up any existing weston processes
+print_info "Cleaning up existing Weston processes..."
+pkill -f "weston.*waydroid-socket" 2>/dev/null || print_info "No existing Weston processes
+       found"
+echo
+print_info "Starting Weston via Distrobox..."
+print_command "distrobox enter fedora -- env XDG_RUNTIME_DIR=\"$SHARED_RUNTIME\" weston
+       --width=$width --height=$height --socket=waydroid-socket --shell=kiosk-shell.so"
+# Start weston in background using Distrobox and force the socket into our shared dir
+distrobox enter fedora -- env XDG_RUNTIME_DIR="$SHARED_RUNTIME" weston --width="$width"
+       --height="$height" --socket=waydroid-socket --shell=kiosk-shell.so &>/dev/null &
+WESTON_PID=$!
+# Wait a moment for weston to start up
+print_info "Waiting for Weston to initialize..."
+sleep 3
+# Check if socket was successfully created
+if [ ! -S "$SHARED_RUNTIME/waydroid-socket" ]; then
+    print_error "Failed to start Weston. Socket not found at $SHARED_RUNTIME/waydroid-socket"
+    kill -9 $WESTON_PID 2>/dev/null || true
+    exit 1
+fi
+print_success "Weston started successfully (PID: $WESTON_PID)"
+echo
+print_warning "Starting Waydroid UI... This may take a few moments"
+print_info "To stop: Close this terminal or press Ctrl+C"
+echo
+# Trap signals to clean up weston and socket dir on exit
+cleanup() {
+    echo ""
+    print_info "Cleaning up..."
+    if kill -0 $WESTON_PID 2>/dev/null; then
+        print_info "Stopping Weston (PID: $WESTON_PID)..."
+        kill -9 $WESTON_PID 2>/dev/null || true
+    fi
+    print_info "Stopping Waydroid session..."
+    waydroid session stop 2>/dev/null || true
+    
+    # Clean up shared directory
+    rm -rf "$SHARED_RUNTIME"
+    
+    print_success "Cleanup completed"
+    exit 0
+}
+trap cleanup SIGINT SIGTERM
+# Launch waydroid show-full-ui pointing to the shared socket
+print_info "Launching Waydroid full UI..."
+print_command "XDG_SESSION_TYPE=wayland XDG_RUNTIME_DIR=\"$SHARED_RUNTIME\"
+       WAYLAND_DISPLAY=\"waydroid-socket\" waydroid show-full-ui"
+XDG_SESSION_TYPE=wayland XDG_RUNTIME_DIR="$SHARED_RUNTIME" WAYLAND_DISPLAY="waydroid-socket"
+       waydroid show-full-ui
+

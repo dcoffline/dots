@@ -25,10 +25,10 @@ else
     echo "[ Fedora-based system detected. Using DNF... ]"
     DNF_PACKAGES=(
       chafa direnv fastfetch gh glab gcc golang make
-      nodejs npm pipx ShellCheck stress-ng trash-cli yq
+      nodejs npm pipx ShellCheck stress-ng trash-cli weston yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
-    EXPORT_BINS=(gh glab shellcheck stress-ng)
+    EXPORT_BINS=(gh glab shellcheck stress-ng weston)
 
   elif command -v apt-get >/dev/null 2>&1; then
     echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
@@ -63,7 +63,7 @@ else
       source "$HOME/.cargo/env"
     fi
   fi
-  
+
   # RUST BINARIES
   echo "[ Installing Rust binaries... ]"
   if command -v cargo >/dev/null 2>&1; then
@@ -73,7 +73,7 @@ else
       cargo install cargo-binstall
     fi
     CARGO_PACKAGES=(
-      atuin bat dysk eza fd-find ripgrep starship 
+      atuin bat dysk eza fd-find ripgrep starship
       tealdeer television yazi-fm yazi-cli zoxide
     )
     echo "[ Fetching pre-compiled binaries... ]"

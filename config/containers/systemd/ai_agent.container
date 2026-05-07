@@ -4,8 +4,8 @@ After=network-online.target
 
 [Container]
 Image=ai_agent:latest
-Volume=/var/home/eric/src/github.com/dcoffline/ai-employee/data:/app/data:Z
-EnvironmentFile=%h/.secrets
+Volume=/var/home/eric/src/gh/dcoffline/ai-employee/data:/app/data:Z
+EnvironmentFile=%E/bash/.secrets
 # Use rootless networking
 Network=slirp4netns
 

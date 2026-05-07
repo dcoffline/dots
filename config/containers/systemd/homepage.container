@@ -7,9 +7,9 @@ ContainerName=homepage
 Image=ghcr.io/gethomepage/homepage:latest
 Network=homelab.network
 Volume=%h/.local/share/homelab/homepage:/app/config:Z
-Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+Volume=%t/podman/podman.sock:/var/run/docker.sock:ro
 SecurityLabelDisable=true
-EnvironmentFile=%h/.secrets
+EnvironmentFile=%E/bash/.secrets
 Environment=HOMEPAGE_ALLOWED_HOSTS=localhost:8080,dash.hemati.com
 AutoUpdate=registry
 AddHost=host.containers.internal:host-gateway

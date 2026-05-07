@@ -24,8 +24,8 @@
         widget:
           type: adguard
           url: http://192.168.1.18:80
-          username: {{HOMEPAGE_VAR_ADGUARD_USER}}
-          password: {{HOMEPAGE_VAR_ADGUARD_PASSWORD}}
+          username: "{{HOMEPAGE_VAR_ADGUARD_USER}}"
+          password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
 
 - Infrastructure:
     - Cloudflared:
