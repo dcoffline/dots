@@ -3,6 +3,7 @@ Description=Samba File Share
 After=network-online.target
 
 [Container]
+ContainerName=samba
 Image=ghcr.io/servercontainers/samba:latest
 Network=homelab.network
 PublishPort=445:445

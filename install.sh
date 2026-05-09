@@ -2,7 +2,7 @@
 set -e
 
 # The Fortress Bootstrapper
-DOTS="$HOME/src/gh/dcoffline/dots"
+DOTS="$HOME/src/gh/dc/dots"
 
 echo "🛡️  Bootstrapping the Fortress..."
 

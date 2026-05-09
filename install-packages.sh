@@ -2,7 +2,7 @@
 
 # Package installation script for the Fortress
 
-DOTS="$HOME/src/gh/dcoffline/dots"
+DOTS="$HOME/src/gh/dc/dots"
 FONTDIR="https://github.com/ryanoasis/nerd-fonts/releases/latest/download"
 GNOME_INI="config/dconf-backups/gnome-shell.ini"
 

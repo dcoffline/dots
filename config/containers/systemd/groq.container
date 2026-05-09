@@ -3,6 +3,7 @@ Description=Groq AI Dictation Container
 After=graphical-session.target sound.target
 
 [Container]
+ContainerName=groq
 Image=localhost/groq-dictate:latest
 # 1. Hardware Access (Keyboard)
 AddDevice=/dev/input:/dev/input

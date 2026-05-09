@@ -2125,3 +2125,79 @@
     port: 80
   }
 ]
+[2026-05-08T17:37:53.854Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-08T17:37:53.859Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-08T17:38:23.202Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-08T17:38:23.203Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-08T17:38:25.095Z] error: <dockerStatusService> Error: (HTTP code 404) no such container - no container with name or ID "systemd-samba" found: no such container 
+    at /app/node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/modem.js:383:17
+    at getCause (/app/node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/modem.js:418:7)
+    at Modem.buildPayload (/app/node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/modem.js:379:5)
+    at IncomingMessage.<anonymous> (/app/node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/modem.js:347:16)
+    at IncomingMessage.emit (node:events:531:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+[2026-05-08T17:41:21.409Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-08T17:41:21.410Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-08T17:41:23.284Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-08T17:41:23.285Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-08T17:41:38.513Z] error: <httpProxy> Error calling http://192.168.1.18/control/stats...
+[2026-05-08T17:41:38.515Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 192.168.1.18:80
+      at <unknown> (Error: connect ECONNREFUSED 192.168.1.18:80) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '192.168.1.18',
+    port: 80
+  }
+]
+[2026-05-08T17:41:40.561Z] error: <dockerStatusService> Error: (HTTP code 500) server error - no container with ID e74938effa0f90177ae3611a50e3b7f836a4ccaf2be7476963a14401763edb3a found in database: no such container 
+    at /app/node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/modem.js:383:17
+    at getCause (/app/node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/modem.js:418:7)
+    at Modem.buildPayload (/app/node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/modem.js:379:5)
+    at IncomingMessage.<anonymous> (/app/node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/modem.js:347:16)
+    at IncomingMessage.emit (node:events:531:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)

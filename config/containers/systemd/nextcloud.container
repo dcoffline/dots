@@ -13,8 +13,9 @@ Image=docker.io/library/nextcloud:latest
 # We removed PublishPort. Cloudflared will access it internally via port 80.
 
 # Config on SSD
-Volume=/var/mnt/2T/appdata/nextcloud/config:/var/www/html:Z
+Volume=/var/mnt/2T/appdata/nextcloud/config:/var/www/html/config:Z
 Volume=/var/mnt/2T/appdata/nextcloud/data:/var/www/html/data:Z
+Volume=/var/mnt/2T/appdata/nextcloud/custom_apps:/var/www/html/custom_apps:Z
 # Data on HDD
 Volume=/var/mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone
@@ -22,6 +23,11 @@ Volume=%h/.mnt/rclone:/mnt/rclone
 EnvironmentFile=%E/bash/.secrets
 Environment=MYSQL_HOST=nextcloud-db
 Environment=MYSQL_DATABASE=nextcloud
+Environment=NC_overwriteprotocol=https
+Environment=NC_overwrite.cli.url=https://cloud.hemati.com
+Environment=NC_trusted_proxies="127.0.0.1 host.containers.internal 10.88.0.1"
+Environment=NC_maintenance_window_start=1
+Environment=NC_default_phone_region=US
 
 [Install]
 WantedBy=default.target
