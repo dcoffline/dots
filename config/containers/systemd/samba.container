@@ -28,9 +28,6 @@ Environment="SAMBA_CONFIG_GLOBAL=server min protocol = NT1; ntlm auth = yes; gue
 # Share 1: Physical Media
 Environment="SAMBA_VOLUME_CONFIG_media=[Media]; path=/shares/media; valid users = eric; read only = yes; guest ok = no"
 
-# Share 2: Zurg Mount
-# Environment="SAMBA_VOLUME_CONFIG_zurg=[Zurg]; path=/shares/zurg; valid users = eric; read only = yes; guest ok = no"
-
 [Service]
 Restart=always
 

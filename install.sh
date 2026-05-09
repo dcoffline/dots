@@ -29,9 +29,9 @@ if ! command -v stow >/dev/null 2>&1; then
 fi
 
 # 2. Run package installer
-if [ -f "$DOTS/install-packages.sh" ]; then
+if [ -f "$DOTS/install-pkg.sh" ]; then
   echo "[ Running package installer... ]"
-  bash "$DOTS/install-packages.sh"
+  bash "$DOTS/install-pkg.sh"
 fi
 
 # 3. Apply Stow
@@ -40,8 +40,8 @@ if [ -d "$DOTS" ]; then
   cd "$DOTS"
   # Stow current directory (dots) into $HOME
   stow -v -t "$HOME" home
-  stow -v -t "$HOME/.config" config
   stow -v -t "$HOME/.local" local
+  stow -v -t "$XDG_CONFIG_HOME" config
 else
   echo "Error: Repository not found at $DOTS"
   exit 1

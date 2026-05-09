@@ -24,7 +24,7 @@ else
   if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     DNF_PACKAGES=(
-      chafa direnv fastfetch gh glab gcc golang make
+      busybox chafa direnv fastfetch gh glab gcc golang make
       nodejs npm pipx ShellCheck stress-ng trash-cli weston yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
@@ -34,7 +34,7 @@ else
     echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
     sudo apt-get update
     APT_PACKAGES=(
-      chafa direnv fastfetch gh glab gcc golang make
+      busybox chafa direnv fastfetch gh glab gcc golang make
       nodejs npm pipx shellcheck stress-ng trash-cli yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
@@ -42,7 +42,7 @@ else
   elif command -v pacman >/dev/null 2>&1; then
     echo "[ ARCH-based system detected. Using PACMAN/PARU... ]"
     ARCH_PACKAGES=(
-      chafa direnv fastfetch github-cli glab gcc go make
+      busybox chafa direnv fastfetch github-cli glab gcc go make
       nodejs npm python-pipx shellcheck stress-ng trash-cli yq
     )
     if command -v paru >/dev/null 2>&1; then
@@ -57,8 +57,8 @@ else
   if ! command -v cargo >/dev/null 2>&1; then
     echo "[ Cargo not found. Installing Rustup... ]"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    if [ -f "$HOME/.local/share/cargo/env" ]; then
-      source "$HOME/.local/share/cargo/env"
+    if [ -f "$XDG_DATA_HOME/cargo/env" ]; then
+      source "$XDG_DATA_HOME/cargo/env"
     elif [ -f "$HOME/.cargo/env" ]; then
       source "$HOME/.cargo/env"
     fi
@@ -110,7 +110,6 @@ fi
 FLATPAK_APPS=(
   app.zen_browser.zen
   com.bitwarden.desktop
-  com.brave.Browser
   com.stremio.Service
   org.freefilesync.FreeFileSync
 )
@@ -129,12 +128,12 @@ done
 
 # NERD FONTS
 FONT_NAME="CascadiaCode"
-mkdir -p ~/.local/share/fonts
+mkdir -p "$XDG_DATA_HOME/fonts"
 if ! ls ~/.local/share/fonts/*${FONT_NAME}* >/dev/null 2>&1; then
   echo "[ Installing ${FONT_NAME} Nerd Font... ]"
   TMP_ZIP=$(mktemp)
-  if wget --hsts-file="$HOME/.cache/wget-hsts" -qO "$TMP_ZIP" "$FONTDIR/${FONT_NAME}.zip"; then
-    unzip -qo "$TMP_ZIP" -d ~/.local/share/fonts/
+  if wget --hsts-file="$XDG_CACHE_HOME/wget-hsts" -qO "$TMP_ZIP" "$FONTDIR/${FONT_NAME}.zip"; then
+    unzip -qo "$TMP_ZIP" -d "$XDG_DATA_HOME/fonts/"
     rm -f "$TMP_ZIP"
   fi
 fi
@@ -144,6 +143,7 @@ GNOME_EXTENSIONS=(
   "AlphabeticalAppGrid@stuarthayhurst"
   "app-hider@lynith.dev"
   "clipboard-indicator@tudmotu.com"
+  "dash-to-dock@micxgx.gmail."
   "screentospace@dilzhan.dev"
   "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
   "tailscale-status@maxgallup.github.com"
@@ -151,7 +151,6 @@ GNOME_EXTENSIONS=(
   "transparent-window-moving@noobsai.github.com"
   "tweaks-system-menu@extensions.gnome-shell.fifi.org"
   "azwallpaper@azwallpaper.gitlab.com"
-  "window-list@gnome-shell-extensions.gcampax.github.com"
 )
 
 if ! command -v gext >/dev/null 2>&1 && [ ! -f /run/.containerenv ]; then

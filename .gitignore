@@ -2,4 +2,4 @@
 .histfile
 *.db
 *.sqlite
-token
+homepage.log

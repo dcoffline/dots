@@ -20,7 +20,6 @@ fi
 cleanpath
 
 [ "$(command -v starship)" ] && eval "$(starship init bash)"
-[ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 [ "$(command -v fzf)" ] && source <(fzf --bash)
 
 # Atuin Setup (Host and Container Safe)
@@ -43,9 +42,8 @@ if [ "$(command -v atuin)" ]; then
     # Force DEBUG trap mode to avoid PS0 issues on Bash 5.3+
     __bp_hook_preexec_proc=__bp_hook_preexec_into_debug
   fi
-
-  eval "$(atuin init bash)"
 fi
+
 ### bling.sh source start
 test -f /usr/share/ublue-os/bling/bling.sh && source /usr/share/ublue-os/bling/bling.sh
 ### bling.sh source end

@@ -66,11 +66,13 @@ fi
 alias vi=$EDITOR
 alias nano=$EDITOR
 alias svi='sudo $EDITOR'
+alias snano='sudo $EDITOR'
 alias ted='flatpak run org.gnome.TextEditor'
 
 # System Utilities
 alias gd=gdctl
 alias yey=paru
+alias bb=busybox
 alias j=jotta-cli
 alias ff=fastfetch
 alias openports='ss -tulanp'
