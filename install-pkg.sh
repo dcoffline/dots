@@ -108,10 +108,7 @@ fi
 
 # FLATPAKS
 FLATPAK_APPS=(
-  app.zen_browser.zen
   com.bitwarden.desktop
-  com.stremio.Service
-  org.freefilesync.FreeFileSync
 )
 echo "[ Checking GUI apps... ]"
 for app in "${FLATPAK_APPS[@]}"; do
@@ -144,8 +141,10 @@ GNOME_EXTENSIONS=(
   "app-hider@lynith.dev"
   "clipboard-indicator@tudmotu.com"
   "dash-to-dock@micxgx.gmail."
+  "lightning-gnome-launcher@avimanyu"
   "screentospace@dilzhan.dev"
   "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
+  "systemd-manager-neo@ladoleo.local"
   "tailscale-status@maxgallup.github.com"
   "tilingshell@ferrarodomenico.com"
   "transparent-window-moving@noobsai.github.com"
