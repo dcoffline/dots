@@ -2,7 +2,14 @@
 set -e
 
 # The Fortress Bootstrapper
-DOTS="$HOME/src/gh/dc/dots"
+set -a
+source ./config/environment.d/envvars.conf
+set +a
+mkdir -p $DOTS
+cp ./* $DOTS
+cd $DOTS
+
+source ./config/bash/os.bash
 
 echo "🛡️  Bootstrapping the Fortress..."
 
@@ -22,6 +29,8 @@ if ! command -v stow >/dev/null 2>&1; then
     sudo apt-get install -y stow
   elif command -v pacman >/dev/null 2>&1; then
     sudo pacman -S --noconfirm stow
+  elif [ "$IS_MAC" -eq 1 ]; then
+    brew install stow
   else
     echo "Error: Could not install stow automatically."
     exit 1
@@ -37,11 +46,12 @@ fi
 # 3. Apply Stow
 if [ -d "$DOTS" ]; then
   echo "[ Applying dotfiles with Stow... ]"
+  mkdir -p "$HOME/.config" "$HOME/.local/bin" "$HOME/.local/share"
   cd "$DOTS"
   # Stow current directory (dots) into $HOME
   stow -v -t "$HOME" home
   stow -v -t "$HOME/.local" local
-  stow -v -t "$XDG_CONFIG_HOME" config
+  stow -v -t "$HOME/.config" config
 else
   echo "Error: Repository not found at $DOTS"
   exit 1

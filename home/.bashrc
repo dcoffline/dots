@@ -1,24 +1,36 @@
 # .bashrc — The One True Config (BASH edition)
 
+# ────── MODULAR CORE ──────
+[ -f "$HOME/.config/bash/os.bash" ] && source "$HOME/.config/bash/os.bash"
+
+# Load environment variables
+if [ -f "$HOME/.config/environment.d/envvars.conf" ]; then
+  set -a
+  source "$HOME/.config/environment.d/envvars.conf"
+  set +a
+fi
+
+# Load functions (provides cleanpath)
+[ -f "$HOME/.config/bash/function.bash" ] && source "$HOME/.config/bash/function.bash"
+
+# Load path configuration (OS-aware)
+[ -f "$HOME/.config/bash/path.bash" ] && source "$HOME/.config/bash/path.bash"
+
+# Load aliases
+[ -f "$HOME/.config/bash/alias.bash" ] && source "$HOME/.config/bash/alias.bash"
+
+# ────── BASH SETTINGS ──────
 HISTSIZE=10000
 HISTTIMEFORMAT="%F %T "
 HISTCONTROL=ignoreboth:erasedups
 HISTFILE="$HOME/.config/bash/.histfile"
 
-# Source UBlue globals ONLY on host
-if [[ -z "$CONTAINER_ID" ]] && [ -f /etc/bashrc ]; then
+# Source system-wide bashrc on Linux host
+if [[ "$IS_LINUX" -eq 1 && -z "$CONTAINER_ID" && -f /etc/bashrc ]]; then
   . /etc/bashrc
 fi
 
-# ────── SHELL EXPORTS & ALIASES ──────
-[ -f "$HOME/.config/bash/.aliases" ] && source "$HOME/.config/bash/.aliases"
-
-# ────── CLI BLING & FUNCTIONS ──────
-[ -f "$HOME/.config/bash/.functions" ] && source "$HOME/.config/bash/.functions"
-
-# Clean duplicates out of the PATH
-cleanpath
-
+# ────── CLI TOOLS ──────
 [ "$(command -v fzf)" ] && source <(fzf --bash)
 [ "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 [ "$(command -v starship)" ] && eval "$(starship init bash)"

@@ -53,10 +53,16 @@ compinit
 set -a
 [ -f "$HOME/.config/environment.d/envvars.conf" ] && source "$HOME/.config/environment.d/envvars.conf"
 set +a
-[ -f "$HOME/.config/bash/.aliases" ] && source "$HOME/.config/bash/.aliases"
+
+# Load path configuration
+[ -f "$HOME/.config/bash/path.bash" ] && source "$HOME/.config/bash/path.bash"
+
+# Load aliases and functions
+[ -f "$HOME/.config/bash/alias.bash" ] && source "$HOME/.config/bash/alias.bash"
 unalias rm
 unalias git
-[ -f "$HOME/.config/bash/.functions" ] && source "$HOME/.config/bash/.functions"
+[ -f "$HOME/.config/bash/function.bash" ] && source "$HOME/.config/bash/function.bash"
+
 # Shell-specific inits
 [ "$(command -v atuin)" ] && eval "$(atuin init zsh)"
 [ "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"

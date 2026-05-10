@@ -81,7 +81,10 @@ alias openports='ss -tulanp'
 alias cid="echo $CONTAINER_ID"
 alias groqlog="cat $GROQDIR/groq_debug.log"
 alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
-#alias linutil='curl -fsSL https://christitus.com/linux | sh'
+
+if [ ! -f "$HOME/.cargo/bin/linutil" ]; then
+  alias linutil='curl -fsSL https://christitus.com/linux | sh'
+fi
 
 # ls aliases
 if [ "$(command -v eza)" ]; then

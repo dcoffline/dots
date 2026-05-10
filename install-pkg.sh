@@ -2,7 +2,6 @@
 
 # Package installation script for the Fortress
 
-DOTS="$HOME/src/gh/dc/dots"
 FONTDIR="https://github.com/ryanoasis/nerd-fonts/releases/latest/download"
 GNOME_INI="config/dconf-backups/gnome-shell.ini"
 
@@ -58,8 +57,8 @@ if [ ! -f /run/ostree-booted ]; then
   if ! command -v cargo >/dev/null 2>&1; then
     echo "[ Cargo not found. Installing Rustup... ]"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    if [ -f "$XDG_DATA_HOME/cargo/env" ]; then
-      source "$XDG_DATA_HOME/cargo/env"
+    if [ -f "$HOME/.local/share/cargo/env" ]; then
+      source "$HOME/.local/share/cargo/env"
     elif [ -f "$HOME/.cargo/env" ]; then
       source "$HOME/.cargo/env"
     fi
@@ -126,12 +125,12 @@ done
 
 # NERD FONTS
 FONT_NAME="CascadiaCode"
-mkdir -p "$XDG_DATA_HOME/fonts"
+mkdir -p "$HOME/.local/share/fonts"
 if ! ls ~/.local/share/fonts/*${FONT_NAME}* >/dev/null 2>&1; then
   echo "[ Installing ${FONT_NAME} Nerd Font... ]"
   TMP_ZIP=$(mktemp)
-  if wget --hsts-file="$XDG_CACHE_HOME/wget-hsts" -qO "$TMP_ZIP" "$FONTDIR/${FONT_NAME}.zip"; then
-    unzip -qo "$TMP_ZIP" -d "$XDG_DATA_HOME/fonts/"
+  if wget --hsts-file="$HOME/.cache/wget-hsts" -qO "$TMP_ZIP" "$FONTDIR/${FONT_NAME}.zip"; then
+    unzip -qo "$TMP_ZIP" -d "$HOME/.local/share/fonts/"
     rm -f "$TMP_ZIP"
   fi
 fi

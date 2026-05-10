@@ -1,0 +1,257 @@
+# ────── SHELL FUNCTIONS ──────
+
+# Remove duplicates from PATH, keeping the first occurrence
+cleanpath() {
+  local new_path=""
+  local dir
+  while IFS= read -r -d: dir; do
+    if [[ ! ":$new_path:" == *":$dir:"* ]]; then
+      new_path="${new_path:+$new_path:}$dir"
+    fi
+  done <<<"${PATH:+$PATH:}"
+  export PATH="$new_path"
+}
+
+# Run a command with secrets injected, without polluting the parent shell
+witsec() {
+  if [ ! -f "$HOME/.secrets" ]; then
+    echo "Error: .secrets file not found!"
+    return 1
+  fi
+  (
+    set -a
+    source "$HOME/.secrets"
+    set +a
+    "$@"
+  )
+}
+
+# Update Git Repository
+gitup() {
+  # Check if a commit message was actually provided
+  if [ -z "$1" ]; then
+    echo "Error: Please provide a commit message."
+    echo "Usage: gitup \"Your commit message here\""
+    return 1
+  fi
+  git add -A
+  # Use "$*" to capture all arguments as a single string
+  git commit -m "$*"
+  git push
+}
+
+# Update DOTS Repository
+dotup() {
+  # Check if a commit message was actually provided
+  if [ -z "$1" ]; then
+    echo "Error: Please provide a commit message."
+    echo "Usage: dotup \"Your commit message here\""
+    return 1
+  fi
+  cd "$DOTS"
+  git add -A
+  # Use "$*" to capture all arguments as a single string
+  git commit -m "$*"
+  git push
+  cd -
+}
+
+# Edit, source and update BASH configs
+ebrc() {
+  "$EDITOR" "$DOTS/home/.bashrc" &&
+    source "$DOTS/home/.bashrc" &&
+    dotup "Updated .bashrc"
+}
+sbrc() {
+  source "$DOTS/home/.bashrc"
+}
+eals() {
+  "$EDITOR" "$DOTS/config/bash/alias.bash" &&
+    source "$DOTS/config/bash/alias.bash" &&
+    dotup "Updated alias.bash"
+}
+sals() {
+  source "$DOTS/config/bash/alias.bash"
+}
+efns() {
+  "$EDITOR" "$DOTS/config/bash/function.bash" &&
+    source "$DOTS/config/bash/function.bash" &&
+    dotup "Updated function.bash"
+}
+sfns() {
+  source "$DOTS/config/bash/function.bash"
+}
+ezrc() {
+  "$EDITOR" "$DOTS/config/zsh/.zshrc" &&
+    source "$DOTS/config/zsh/.zshrc" &&
+    dotup "Updated .zshrc"
+}
+szrc() {
+  source "$DOTS/config/zsh/.zshrc"
+}
+
+# Yazi Shell Wrapper
+y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  local cwd="$(command cat "$tmp")"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  \rm -f -- "$tmp" &>/dev/null
+}
+
+# Automatically do an ls after each cd, z, or zoxide
+cd() {
+  if [ -n "$1" ]; then
+    builtin cd "$@" && ls
+  else
+    builtin cd ~ && ls
+  fi
+}
+
+# IP address lookup
+alias whatismyip="whatsmyip"
+whatsmyip() {
+  # Internal IP Lookup.
+  if command -v ip &>/dev/null; then
+    echo -n "Internal IP: "
+    ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
+  else
+    echo -n "Internal IP: "
+    ifconfig wlan0 | grep "inet " | awk '{print $2}'
+  fi
+
+  # External IP Lookup
+  echo -n "External IP: "
+  curl -4 ifconfig.me
+}
+
+# Goes up a specified number of directories  (i.e. up 4)
+up() {
+  local d=""
+  limit=$1
+  for ((i = 1; i <= limit; i++)); do
+    d=$d/..
+  done
+  d=$(echo $d | sed 's/^\///')
+  if [ -z "$d" ]; then
+    d=..
+  fi
+  cd $d
+}
+
+# Copy file with a progress bar
+cpp() {
+  set -e
+  strace -q -ewrite cp -- "${1}" "${2}" 2>&1 |
+    awk '{
+    count += $NF
+      if (count % 10 == 0) {
+        percent = count / total_size * 100
+        printf "%3d%% [", percent
+        for (i=0;i<=percent;i++)
+          printf "="
+        printf ">"
+          for (i=percent;i<100;i++)
+            printf " "
+          printf "]\r"
+      }
+  }
+  END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+}
+
+# Copy and go to the directory
+cpg() {
+  if [ -d "$2" ]; then
+    cp "$1" "$2" && cd "$2"
+  else
+    cp "$1" "$2"
+  fi
+}
+
+# Move and go to the directory
+mvg() {
+  if [ -d "$2" ]; then
+    mv "$1" "$2" && cd "$2"
+  else
+    mv "$1" "$2"
+  fi
+}
+
+# Create and go to the directory
+mkdirg() {
+  mkdir -p "$1"
+  cd "$1"
+}
+
+# Searches for text in all files in the current folder
+ftext() {
+  # -i case-insensitive
+  # -I ignore binary files
+  # -H causes filename to be printed
+  # -r recursive search
+  # -n causes line number to be printed
+  # optional -F treat search term as a literal, not a regular expression
+  # optional -l only print filenames and not the matching lines ex. grep -irl "$1" *
+  grep -iIHrn --color=always "$1" . | less -r
+}
+
+# Extracts any archive(s) (if unp isn't installed)
+extract() {
+  for archive in "$@"; do
+    if [ -f "$archive" ]; then
+      case $archive in
+      *.tar.bz2) tar xvjf $archive ;;
+      *.tar.gz) tar xvzf $archive ;;
+      *.bz2) bunzip2 $archive ;;
+      *.rar) rar x $archive ;;
+      *.gz) gunzip $archive ;;
+      *.tar) tar xvf $archive ;;
+      *.tbz2) tar xvjf $archive ;;
+      *.tgz) tar xvzf $archive ;;
+      *.zip) unzip $archive ;;
+      *.Z) uncompress $archive ;;
+      *.7z) 7z x $archive ;;
+      *) echo "don't know how to extract '$archive'..." ;;
+      esac
+    else
+      echo "'$archive' is not a valid file!"
+    fi
+  done
+}
+
+# Upload a text file or piped output to Hastebin and return the URL
+hb() {
+  local response
+  local hasteKey
+
+  # 1. Check for a file argument FIRST (Prevents Distrobox false-positives)
+  if [ $# -gt 0 ]; then
+    if [ -f "$1" ]; then
+      # File Mode
+      response=$(curl -s -X POST --data-binary @"$1" "https://bin.christitus.com/documents")
+    else
+      echo "Error: File '$1' does not exist."
+      return 1
+    fi
+  # 2. If no file, check if data is being piped in
+  elif [ ! -t 0 ]; then
+    # Pipe Mode: Using raw @- tells curl to read standard input
+    response=$(curl -s -X POST --data-binary @- "https://bin.christitus.com/documents")
+  # 3. If neither, show usage instructions
+  else
+    echo "Usage: hb <filename> OR <command> | hb"
+    return 1
+  fi
+  # Check if curl succeeded
+  if [ $? -eq 0 ]; then
+    # Extract the key
+    hasteKey=$(echo "$response" | grep -o '"key":"[^"]*' | cut -d'"' -f4)
+    if [ -n "$hasteKey" ]; then
+      echo "https://bin.christitus.com/$hasteKey"
+    else
+      echo "Error parsing response: $response"
+    fi
+  else
+    echo "Failed to upload the document."
+  fi
+}
