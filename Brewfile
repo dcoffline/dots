@@ -21,7 +21,7 @@ brew "ffmpeg"
 brew "ffmpegthumbnailer"
 brew "freerdp"
 brew "fzf"
-brew "node", link: false
+brew "node"
 brew "gemini-cli"
 brew "gh"
 brew "ghostscript"
