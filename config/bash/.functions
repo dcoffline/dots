@@ -31,7 +31,7 @@ gitup() {
     # Check if a commit message was actually provided
     if [ -z "$1" ]; then
         echo "Error: Please provide a commit message."
-        echo "Usage: gitupdate \"Your commit message here\""
+        echo "Usage: gitup \"Your commit message here\""
         return 1
     fi
     git add -A
@@ -40,39 +40,43 @@ gitup() {
     git push
 }
 
+# Update DOTS Repository
+dotup() {
+    # Check if a commit message was actually provided
+    if [ -z "$1" ]; then
+        echo "Error: Please provide a commit message."
+        echo "Usage: dotup \"Your commit message here\""
+        return 1
+    fi
+    cd "$DOTS"
+    git add -A
+    # Use "$*" to capture all arguments as a single string
+    git commit -m "$*"
+    git push
+    cd -
+}
+
 # Edit, source and update BASH configs
 ebrc() {
     "$EDITOR" "$DOTS/home/.bashrc" &&
     source "$DOTS/home/.bashrc" &&
-    cd "$DOTS" &&
-    git add home/.bashrc &&
-    git commit -m "Updated .bashrc" &&
-    git push &&
-    cd -
+    dotup "Updated .bashrc"
 }
 sbrc() {
     source "$DOTS/home/.bashrc"
 }
-esrc() {
+eali() {
     "$EDITOR" "$DOTS/config/bash/.aliases" && 
     source "$DOTS/config/bash/.aliases" &&
-    cd "$DOTS" && 
-    git add config/bash/.aliases &&
-    git commit -m "Updated .aliases" &&
-    git push &&
-    cd -
+    dotup "Updated .aliases"
 }
-ssrc() {
+sali() {
     source "$DOTS/config/bash/.aliases"
 }
 efun() {
     "$EDITOR" "$DOTS/config/bash/.functions" && 
     source "$DOTS/config/bash/.functions" && 
-    cd "$DOTS" && 
-    git add config/bash/.functions &&
-    git commit -m "Updated .functions" &&
-    git push &&
-    cd -
+    dotup "Updated .functions"
 }
 sfun() {
     source "$DOTS/config/bash/.functions"
