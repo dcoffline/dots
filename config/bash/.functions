@@ -96,7 +96,7 @@ y() {
     yazi "$@" --cwd-file="$tmp"
     local cwd="$(command cat "$tmp")"
     [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-    \rm -f -- "$tmp"
+    \rm -f -- "$tmp" &> /dev/null
 }
 
 # Automatically do an ls after each cd, z, or zoxide
