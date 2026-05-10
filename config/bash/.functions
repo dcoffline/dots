@@ -65,20 +65,20 @@ ebrc() {
 sbrc() {
     source "$DOTS/home/.bashrc"
 }
-eali() {
+eals() {
     "$EDITOR" "$DOTS/config/bash/.aliases" && 
     source "$DOTS/config/bash/.aliases" &&
     dotup "Updated .aliases"
 }
-sali() {
+sals() {
     source "$DOTS/config/bash/.aliases"
 }
-efun() {
+efnc() {
     "$EDITOR" "$DOTS/config/bash/.functions" && 
     source "$DOTS/config/bash/.functions" && 
     dotup "Updated .functions"
 }
-sfun() {
+sfnc() {
     source "$DOTS/config/bash/.functions"
 }
 ezrc() {
@@ -96,7 +96,7 @@ y() {
     yazi "$@" --cwd-file="$tmp"
     local cwd="$(command cat "$tmp")"
     [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-    command rm -f -- "$tmp"
+    command \rm -f -- "$tmp"
 }
 
 # Automatically do an ls after each cd, z, or zoxide
