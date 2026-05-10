@@ -7,20 +7,21 @@ FONTDIR="https://github.com/ryanoasis/nerd-fonts/releases/latest/download"
 GNOME_INI="config/dconf-backups/gnome-shell.ini"
 
 # =========================================================
-# IMMUTABLE (Host)
+# HOST-SPECIFIC (Homebrew)
 # =========================================================
-if [ -f /run/ostree-booted ]; then
-  echo "[ Immutable host detected. Using Brewfile... ]"
+if [ -f /run/ostree-booted ] || [ "$(uname)" = "Darwin" ]; then
+  echo "[ Host-specific environment detected. Using Brewfile... ]"
   if command -v brew >/dev/null 2>&1; then
     brew bundle --file="$DOTS/Brewfile"
   else
     echo "[ Homebrew not found; skipping Brewfile ]"
   fi
+fi
 
 # =========================================================
 # CONTAINER / MUTABLE
 # =========================================================
-else
+if [ ! -f /run/ostree-booted ]; then
   if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     DNF_PACKAGES=(
@@ -169,7 +170,7 @@ if command -v gext >/dev/null 2>&1 || ([ -f /run/.containerenv ] && command -v d
   # Load DCONF
   if [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
     distrobox-host-exec dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
-  else
+  elif command -v dconf >/dev/null 2>&1; then
     dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
   fi
 fi

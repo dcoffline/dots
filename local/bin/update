@@ -3,6 +3,12 @@ sudo -v
 
 DOTS="$HOME/src/gh/dc/dots"
 SHELLINI="config/dconf-backups/gnome-shell.ini"
+
+# Sync with remote first
+cd "$DOTS" || exit
+echo "[ Syncing with GitHub... ]"
+git pull --rebase origin main
+
 echo "[ Initiating Fortress Maintenance Protocol... ]"
 
 # =========================================================
@@ -89,6 +95,11 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
 else
   echo "[ Updating System binaries... ]"
 
+  if command -v brew >/dev/null 2>&1; then
+    echo "[ Updating Homebrew... ]"
+    brew update && brew upgrade
+  fi
+
   if command -v dnf >/dev/null 2>&1; then
     sudo dnf upgrade -y --skip-unavailable
   elif command -v apt-get >/dev/null 2>&1; then
@@ -96,21 +107,33 @@ else
   elif command -v pacman >/dev/null 2>&1; then
     sudo paru -Syu
   fi
+
   echo "[ Updating NPM packages... ]"
-  sudo npm update -g
+  if command -v npm >/dev/null 2>&1; then
+    sudo npm update -g
+  fi
+
   echo "[ Updating Cargo packages... ]"
-  cargo install television atuin
+  if command -v cargo >/dev/null 2>&1; then
+    cargo install television atuin
+  fi
 
   echo "[ Syncing Host State... ]"
-  cd "$DOTS" && dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+  cd "$DOTS" || exit
+  if command -v dconf >/dev/null 2>&1; then
+    dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+  fi
+  if command -v brew >/dev/null 2>&1; then
+    brew bundle dump --force
+  fi
 
   echo "[ Applying Dotfile Updates... ]"
-  stow -v -t "$HOME" home
-  stow -v -t "$HOME/.config" config
-  stow -v -t "$HOME/.local" local
+  stow -v --ignore=".DS_Store" -t "$HOME" home
+  stow -v --ignore=".DS_Store" -t "$HOME/.config" config
+  stow -v --ignore=".DS_Store" -t "$HOME/.local" local
 
   echo "[ Backing up to GitHub... ]"
-  git add "$SHELLINI"
+  git add "$SHELLINI" Brewfile
   git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
   git push origin main
 fi
