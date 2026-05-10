@@ -10,7 +10,7 @@ AddDevice=/dev/input:/dev/input
 # 2. Wayland, DBUS, and PipeWire Access
 # %U automatically resolves to your user ID (e.g., 1000)
 Volume=%t:%t
-EnvironmentFile=%E/bash/.secrets
+EnvironmentFile=%h/.secrets
 Environment=XDG_RUNTIME_DIR=%t
 Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus
 Environment=PULSE_SERVER=unix:%t/pulse/native

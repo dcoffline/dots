@@ -6,7 +6,7 @@ After=network-online.target
 Image=ghcr.io/debridmediamanager/zurg-testing:latest
 ContainerName=zurg
 Environment=TZ=America/Chicago
-EnvironmentFile=%E/bash/.secrets
+EnvironmentFile=%h/.secrets
 PublishPort=9999:9999
 
 # The :Z tells SELinux to privately label this directory for this specific container

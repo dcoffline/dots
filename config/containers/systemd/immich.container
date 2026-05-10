@@ -17,7 +17,7 @@ Volume=/var/mnt/10T/Pictures/Camera:/mnt/external:ro
 Volume=%h/.mnt/rclone/Timeline:/mnt/timeline:ro
 
 # Give it the "keys" to the database
-EnvironmentFile=%E/bash/.secrets
+EnvironmentFile=%h/.secrets
 Environment=DB_HOSTNAME=immich-db
 Environment=DB_DATABASE_NAME=immich
 

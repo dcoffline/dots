@@ -20,7 +20,7 @@ Volume=/var/mnt/2T/appdata/nextcloud/custom_apps:/var/www/html/custom_apps:Z
 Volume=/var/mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone
 
-EnvironmentFile=%E/bash/.secrets
+EnvironmentFile=%h/.secrets
 Environment=MYSQL_HOST=nextcloud-db
 Environment=MYSQL_DATABASE=nextcloud
 Environment=NC_overwriteprotocol=https

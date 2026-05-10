@@ -9,7 +9,7 @@ Network=homelab.network
 Volume=%h/.local/share/homelab/homepage:/app/config:Z
 Volume=%t/podman/podman.sock:/var/run/docker.sock:ro
 SecurityLabelDisable=true
-EnvironmentFile=%E/bash/.secrets
+EnvironmentFile=%h/.secrets
 Environment=HOMEPAGE_ALLOWED_HOSTS=localhost:8080,dash.hemati.com
 AutoUpdate=registry
 AddHost=host.containers.internal:host-gateway

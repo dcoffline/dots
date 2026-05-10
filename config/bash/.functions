@@ -14,13 +14,13 @@ cleanpath() {
 
 # Run a command with secrets injected, without polluting the parent shell
 witsec() {
-    if [ ! -f "$HOME/.config/bash/.secrets" ]; then
+    if [ ! -f "$HOME/.secrets" ]; then
         echo "Error: .secrets file not found!"
         return 1
     fi
     (
         set -a
-        source "$HOME/.config/bash/.secrets"
+        source "$HOME/.secrets"
         set +a
         "$@"
     )
@@ -73,12 +73,12 @@ eals() {
 sals() {
     source "$DOTS/config/bash/.aliases"
 }
-efnc() {
+efns() {
     "$EDITOR" "$DOTS/config/bash/.functions" && 
     source "$DOTS/config/bash/.functions" && 
     dotup "Updated .functions"
 }
-sfnc() {
+sfns() {
     source "$DOTS/config/bash/.functions"
 }
 ezrc() {
