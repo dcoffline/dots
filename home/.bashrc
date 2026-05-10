@@ -44,7 +44,5 @@ if [ "$(command -v atuin)" ]; then
     __bp_hook_preexec_proc=__bp_hook_preexec_into_debug
   fi
 
-  #shellcheck disable=SC1091
-  . /usr/share/bash-prexec
   eval "$(atuin init bash)"
 fi
