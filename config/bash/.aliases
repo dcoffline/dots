@@ -39,7 +39,6 @@ else
   alias defr='distrobox enter fedora -e'
   alias deu='distrobox enter ubuntu'
   alias deur='distrobox enter ubuntu -e'
-  alias git='distrobox enter fedora -e git'
   
   # Set Podman socket path for Container
   export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
@@ -51,11 +50,14 @@ else
   alias rremount='rumount; sleep 3; rmount'
     
   # System Utils (Native)
+  alias jc='journalctl'
   alias susc='sudo systemctl'
   alias scu='systemctl --user'
+  alias suscdr='sudo systemctl daemon-reload'
   alias scudr='systemctl --user daemon-reload'
-  alias jc='journalctl'
+  alias deb='ssh eric@100.120.205.70'
   alias follow='journalctl --user -fu'
+  alias git='distrobox enter fedora -e git'
   alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
   
 fi
