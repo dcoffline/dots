@@ -11,7 +11,6 @@ brew "bash-preexec"
 brew "chafa", link: false
 brew "direnv"
 brew "ffmpeg"
-brew "gemini-cli"
 brew "htop"
 brew "imagemagick"
 brew "jq"
