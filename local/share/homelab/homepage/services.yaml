@@ -16,32 +16,29 @@
         description: Home Theater
         ping: http://jellyfin:8096
 
-#- Security:
-#    - AdGuard Home:
-#        icon: adguard-home.png
-#        href: https://adguard.hemati.com
-#        description: Network-wide DNS Filtering
-#        widget:
-#          type: adguard
-#          url: http://192.168.1.18:80
-#          username: "{{HOMEPAGE_VAR_ADGUARD_USER}}"
-#          password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
-
 - Infrastructure:
     - Cloudflared:
         icon: cloudflare
         href: https://dash.cloudflare.com
         server: podman
         container: cloudflared
-    - Samba:
-        icon: samba-server
-        server: podman
-        container: systemd-samba
-    - Zurg:
-        icon: real-debrid
-        server: podman
-        container: zurg
     - Groq:
         icon: web-whisper
+        href: https://github.com/dcoffline/groq-dictate
         server: podman
-        container: systemd-groq
+        container: groq
+    - Samba:
+        icon: samba-server
+        href: https://app.plex.tv
+        server: podman
+        container: samba
+    - Stremio:
+        icon: stremio
+        href: https://stremio.hemati.com
+        server: podman
+        container: stremio-server 
+    - Zurg:
+        icon: real-debrid
+        href: https://real-debrid.com
+        server: podman
+        container: zurg

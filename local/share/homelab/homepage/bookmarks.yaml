@@ -47,7 +47,7 @@
       href: https://sendgrid.com/en-us
   - Sunshine:
     - abbr: SU
-      href: https://192.168.1.18:47990/
+      href: https://localhost:47990
 - Social & Communication:
   - Cloze:
     - abbr: CL
