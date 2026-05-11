@@ -1,0 +1,4 @@
+#!/bin/bash
+export GROQDIR="$HOME/src/Groq"
+cd "$GROQDIR"
+witsec ./.venv/bin/python groq_mac.py

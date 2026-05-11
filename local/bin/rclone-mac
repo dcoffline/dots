@@ -1,0 +1,87 @@
+#!/bin/zsh
+set -euo pipefail
+setopt NULL_GLOB
+
+RCLONE="/usr/local/bin/rclone"
+BASE_MOUNT="/Users/eric/Volumes"
+CACHE_DIR="/Users/eric/Library/Caches/rclone"
+LOGFILE="/Users/eric/.config/rclone/rclone-log.txt"
+PID_DIR="/Users/eric/.config/rclone/pid"
+
+typeset -A REMOTES
+REMOTES=(
+  AllDebrid  AllDebrid
+  Archive    Archive
+  GDrive     GDrive
+  OneDrive   OneDrive
+  RealDebrid RealDebrid
+  Timeline   Timeline
+)
+
+COMMON_FLAGS=(
+  --vfs-cache-mode writes
+  --cache-dir "$CACHE_DIR"
+  --vfs-read-chunk-size=64M
+  --vfs-cache-max-size=10G
+  --vfs-cache-max-age=720h
+  --log-file "$LOGFILE"
+  --log-level INFO
+)
+
+# Wait for internet (max 60s)
+for i in {1..12}; do
+  if ping -c1 8.8.8.8 >/dev/null 2>&1; then
+    break
+  fi
+  if [[ $i -eq 12 ]]; then
+    echo "No internet after 60s" >&2
+    exit 1
+  fi
+  sleep 5
+done
+
+mkdir -p "$PID_DIR" "$BASE_MOUNT" "$CACHE_DIR"
+
+# Clean old mounts
+pkill rclone 2>/dev/null || true
+for remote in ${(k)REMOTES}; do
+  target="${REMOTES[$remote]}"
+  mp="$BASE_MOUNT/$target"
+  if mount | grep -q "$mp"; then
+    umount "$mp" 2>/dev/null || sudo umount -f "$mp" 2>/dev/null || true
+  fi
+done
+sleep 2
+
+# Launch mounts in parallel
+for remote in ${(k)REMOTES}; do
+  target="${REMOTES[$remote]}"
+  mountpoint="$BASE_MOUNT/$target"
+  pidfile="$PID_DIR/${remote}.pid"
+
+  mkdir -p "$mountpoint"
+
+  # Remote‑specific flags
+  EXTRA_FLAGS=()
+  if [[ "$remote" == "AllDebrid" || "$remote" == "RealDebrid" ]]; then
+    EXTRA_FLAGS=(--read-only --exclude '.DS_Store' --exclude '._*')
+  fi
+
+  echo "Mounting ${remote}: → $mountpoint"
+  "$RCLONE" mount "${remote}:" "$mountpoint" \
+    "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
+  echo $! >"$pidfile"
+done
+
+# Give them a little time, then just hint at status
+sleep 5
+echo
+echo "Mount commands issued. Quick status:"
+for remote in ${(k)REMOTES}; do
+  mp="$BASE_MOUNT/${REMOTES[$remote]}"
+  if mount | grep -q "$mp"; then
+    echo "OK   $remote"
+  else
+    echo "CHECK $remote (maybe still starting; see $LOGFILE if needed)"
+  fi
+done

@@ -9,8 +9,6 @@ mkdir -p $DOTS
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/share/homelab"
 mkdir -p "$HOME/.config"
-cp -rn ./* $DOTS
-cd $DOTS
 
 source ./config/bash/os.bash
 
