@@ -13,32 +13,42 @@
     - Jellyfin:
         icon: jellyfin
         href: https://media.hemati.com
-        description: Home Theater
+        description: Home Media Server
         ping: http://jellyfin:8096
+    - Stremio:
+        icon: stremio
+        href: https://stremio.hemati.com
+        description: Freedom to Stream 
+        server: podman
+        container: stremio-server 
 
 - Infrastructure:
-    - Cloudflared:
+    - Cockpit:
+        icon: cockpit 
+        href: https://cockpit.hemati.com
+        description: Bazzite Dashboard 
+        ping: http://192.168.1.18:9090
+    - Cloudflare:
         icon: cloudflare
         href: https://dash.cloudflare.com
+        description: Reverse-Proxy 
         server: podman
         container: cloudflared
     - Groq:
         icon: web-whisper
         href: https://github.com/dcoffline/groq-dictate
+        description: AI Dictation Tool 
         server: podman
         container: groq
     - Samba:
         icon: samba-server
         href: https://app.plex.tv
+        description: Media SMB Share 
         server: podman
         container: samba
-    - Stremio:
-        icon: stremio
-        href: https://stremio.hemati.com
-        server: podman
-        container: stremio-server 
     - Zurg:
         icon: real-debrid
         href: https://real-debrid.com
+        description: Organize Real-Debrid 
         server: podman
         container: zurg
