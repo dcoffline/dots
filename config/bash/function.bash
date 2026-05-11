@@ -81,14 +81,6 @@ efns() {
 sfns() {
   source "$DOTS/config/bash/function.bash"
 }
-ezrc() {
-  "$EDITOR" "$DOTS/config/zsh/.zshrc" &&
-    source "$DOTS/config/zsh/.zshrc" &&
-    dotup "Updated .zshrc"
-}
-szrc() {
-  source "$DOTS/config/zsh/.zshrc"
-}
 
 # Yazi Shell Wrapper
 y() {

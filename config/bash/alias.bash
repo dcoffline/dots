@@ -13,9 +13,10 @@ if [ -f /run/.containerenv ]; then
 
   # Rclone (Punching out to the host)
   alias dhe='distrobox-host-exec'
-  alias rmount='dhe $HOME/.local/bin/rclone-mount'
+  [ "$IS_LINUX" -eq 1 ] && alias rmount="dhe $HOME/.local/bin/rclone-mount"
+  [ "$IS_MAC" -eq 1 ] && alias rmount="dhe $HOME/.local/bin/rclone-mac"
   alias rlsmount='dhe mount | grep rclone || echo "No rclone mounts active"'
-  alias rumount='dhe $HOME/.local/bin/rclone-unmount && rlsmount'
+  alias rumount="dhe $HOME/.local/bin/rclone-unmount && rlsmount"
   alias rremount='dhe rumount; sleep 3; rmount'
 
   # System Utils (Punching out to the host)
@@ -26,7 +27,7 @@ if [ -f /run/.containerenv ]; then
   alias scudr='dhe systemctl --user daemon-reload'
   alias jc='dhe journalctl'
   alias follow='dhe journalctl --user -fu'
-  alias ptrans='dhe dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
+  [ "$IS_LINUX" -eq 1 ] && alias ptrans='dhe dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
 
 else
 
@@ -44,7 +45,8 @@ else
   export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
 
   # Rclone (Native)
-  alias rmount='$HOME/.local/bin/rclone-mount'
+  [ "$IS_MAC" -eq 1 ] && alias rmount="$HOME/.local/bin/rclone-mac"
+  [ "$IS_LINUX" -eq 1 ] && alias rmount="$HOME/.local/bin/rclone-mount"
   alias rlsmount='mount | grep rclone || echo "No rclone mounts active"'
   alias rumount='$HOME/.local/bin/rclone-unmount && rlsmount'
   alias rremount='rumount; sleep 3; rmount'
@@ -57,8 +59,8 @@ else
   alias scudr='systemctl --user daemon-reload'
   alias deb='ssh eric@100.120.205.70'
   alias follow='journalctl --user -fu'
-  alias git='distrobox enter fedora -e git'
-  alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
+  [ "$IS_LINUX" -eq 1 ] && alias git='distrobox enter fedora -e git'
+  [ "$IS_LINUX" -eq 1 ] && alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
 
 fi
 
