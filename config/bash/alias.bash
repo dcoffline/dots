@@ -10,14 +10,14 @@ if [ -f /run/.containerenv ]; then
 
   # Set Podman socket path for Container
   export DOCKER_HOST="unix:///run/host/run/user/$(id -u)/podman/podman.sock"
-    
+
   # Rclone (Punching out to the host)
   alias dhe='distrobox-host-exec'
   alias rmount='dhe $HOME/.local/bin/rclone-mount'
   alias rlsmount='dhe mount | grep rclone || echo "No rclone mounts active"'
   alias rumount='dhe $HOME/.local/bin/rclone-unmount && rlsmount'
   alias rremount='dhe rumount; sleep 3; rmount'
-    
+
   # System Utils (Punching out to the host)
   alias btop='dhe btop'
   alias htop='dhe htop'
@@ -30,8 +30,8 @@ if [ -f /run/.containerenv ]; then
 
 else
 
-# ────── HOST ALIASES ──────
-   
+  # ────── HOST ALIASES ──────
+
   # Distrobox
   alias dea='distrobox enter arch'
   alias dear='distrobox enter arch -e'
@@ -39,16 +39,16 @@ else
   alias defr='distrobox enter fedora -e'
   alias deu='distrobox enter ubuntu'
   alias deur='distrobox enter ubuntu -e'
-  
+
   # Set Podman socket path for Container
   export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
-  
+
   # Rclone (Native)
   alias rmount='$HOME/.local/bin/rclone-mount'
   alias rlsmount='mount | grep rclone || echo "No rclone mounts active"'
   alias rumount='$HOME/.local/bin/rclone-unmount && rlsmount'
   alias rremount='rumount; sleep 3; rmount'
-    
+
   # System Utils (Native)
   alias jc='journalctl'
   alias susc='sudo systemctl'
@@ -59,7 +59,7 @@ else
   alias follow='journalctl --user -fu'
   alias git='distrobox enter fedora -e git'
   alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
-  
+
 fi
 
 # ────── GLOBAL ALIASES ──────
@@ -81,6 +81,8 @@ alias openports='ss -tulanp'
 alias cid="echo $CONTAINER_ID"
 alias groqlog="cat $GROQDIR/groq_debug.log"
 alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
+alias kittyup="curl -L https://sw.kovidgoyal.net/kitty/installer.sh \
+  | sh /dev/stdin dest=$HOME/.local/state launch=0"
 
 if [ ! -f "$HOME/.cargo/bin/linutil" ]; then
   alias linutil='curl -fsSL https://christitus.com/linux | sh'
@@ -106,12 +108,12 @@ fi
 
 # File Management
 alias cat=bat
-alias cp='cp -i' 
-alias mv='mv -i' 
-alias rm='trash -v' 
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='trash -v'
 alias mkdir='mkdir -p'
-alias ..='cd ..' 
-alias ...='cd ../..' 
+alias ..='cd ..'
+alias ...='cd ../..'
 alias ....='cd ../../..'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 alias h='history | grep'
@@ -122,7 +124,7 @@ alias vich='command -v'
 alias la='eza -la --icons=auto --group-directories-first'
 
 # List recently installed packages
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl" 
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
 # Podman Tools
 alias d2q='podlet generate container podman run'

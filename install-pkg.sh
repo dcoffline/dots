@@ -106,6 +106,18 @@ fi
 # UNIVERSAL (Host-aware)
 # =========================================================
 
+# NERD FONTS
+FONT_NAME="CascadiaCode"
+mkdir -p "$HOME/.local/share/fonts"
+if ! ls ~/.local/share/fonts/*${FONT_NAME}* >/dev/null 2>&1; then
+  echo "[ Installing ${FONT_NAME} Nerd Font... ]"
+  TMP_ZIP=$(mktemp)
+  if wget --hsts-file="$HOME/.cache/wget-hsts" -qO "$TMP_ZIP" "$FONTDIR/${FONT_NAME}.zip"; then
+    unzip -qo "$TMP_ZIP" -d "$HOME/.local/share/fonts/"
+    rm -f "$TMP_ZIP"
+  fi
+fi
+
 # FLATPAKS
 FLATPAK_APPS=(
   com.bitwarden.desktop
@@ -123,25 +135,13 @@ for app in "${FLATPAK_APPS[@]}"; do
   fi
 done
 
-# NERD FONTS
-FONT_NAME="CascadiaCode"
-mkdir -p "$HOME/.local/share/fonts"
-if ! ls ~/.local/share/fonts/*${FONT_NAME}* >/dev/null 2>&1; then
-  echo "[ Installing ${FONT_NAME} Nerd Font... ]"
-  TMP_ZIP=$(mktemp)
-  if wget --hsts-file="$HOME/.cache/wget-hsts" -qO "$TMP_ZIP" "$FONTDIR/${FONT_NAME}.zip"; then
-    unzip -qo "$TMP_ZIP" -d "$HOME/.local/share/fonts/"
-    rm -f "$TMP_ZIP"
-  fi
-fi
-
 # GNOME EXTENSIONS
 GNOME_EXTENSIONS=(
   "AlphabeticalAppGrid@stuarthayhurst"
   "app-hider@lynith.dev"
+  "bluetooth-quick-connect@bjarosze.gmail.com"
   "clipboard-indicator@tudmotu.com"
   "dash-to-dock@micxgx.gmail."
-  "lightning-gnome-launcher@avimanyu"
   "screentospace@dilzhan.dev"
   "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
   "systemd-manager-neo@ladoleo.local"
