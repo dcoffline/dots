@@ -83,8 +83,7 @@ alias openports='ss -tulanp'
 alias cid="echo $CONTAINER_ID"
 alias groqlog="cat $GROQDIR/groq_debug.log"
 alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
-alias kittyup="curl -L https://sw.kovidgoyal.net/kitty/installer.sh \
-  | sh /dev/stdin dest=$HOME/.local/state launch=0"
+alias kittyup="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=$HOME/.local/state"
 
 if [ ! -f "$HOME/.cargo/bin/linutil" ]; then
   alias linutil='curl -fsSL https://christitus.com/linux | sh'
