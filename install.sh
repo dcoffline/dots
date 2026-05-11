@@ -6,7 +6,10 @@ set -a
 source ./config/environment.d/envvars.conf
 set +a
 mkdir -p $DOTS
-cp ./* $DOTS
+mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/.local/share/homelab"
+mkdir -p "$HOME/.config"
+cp -rn ./* $DOTS
 cd $DOTS
 
 source ./config/bash/os.bash

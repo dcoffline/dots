@@ -1,0 +1,13 @@
+[Unit]
+Description=Stremio Streaming Server
+After=network-online.target
+
+[Container]
+Image=docker.io/stremio/server:latest
+PublishPort=11470:11470
+# Persists your login and settings in your home folder
+Volume=%h/.local/share/stremio-server:/root/.stremio-server:Z
+
+[Install]
+# Start automatically when you log in
+WantedBy=default.target
