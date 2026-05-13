@@ -1,8 +1,0 @@
-[Pod]
-PodName=adguard-stack
-# Expose DNS ports (53), Web UI (3000 for setup, 80/443 for dashboard)
-PublishPort=192.168.1.18:53:53/tcp
-PublishPort=192.168.1.18:53:53/udp
-PublishPort=3000:3000/tcp
-PublishPort=80:80/tcp
-PublishPort=443:443/tcp
