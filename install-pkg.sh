@@ -138,14 +138,13 @@ done
 # GNOME EXTENSIONS
 GNOME_EXTENSIONS=(
   "AlphabeticalAppGrid@stuarthayhurst"
-  "app-hider@lynith.dev"
   "bluetooth-quick-connect@bjarosze.gmail.com"
   "clipboard-indicator@tudmotu.com"
-  "dash-to-dock@micxgx.gmail."
+  "dash-to-dock@micxgx.gmail.com"
   "screentospace@dilzhan.dev"
   "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
   "systemd-manager-neo@ladoleo.local"
-  "tailscale-status@maxgallup.github.com"
+  "tailscale-gnome-qs@tailscale-qs.github.io"
   "tilingshell@ferrarodomenico.com"
   "transparent-window-moving@noobsai.github.com"
   "tweaks-system-menu@extensions.gnome-shell.fifi.org"
