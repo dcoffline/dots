@@ -3,8 +3,8 @@ format = """
 $python\
 $username\
 [](fg:#3B4252 bg:#434C5E)\
-$container\
 $os\
+$container\
 [](fg:#434C5E bg:#4C566A)\
 $directory\
 [](fg:#4C566A bg:#86BBD8)\
@@ -38,8 +38,8 @@ format = '[ $user ]($style)'
 
 # Custom container module
 [container]
-symbol = ""
-format = '[ $symbol $name ]($style)'
+symbol = " "
+format = '[ $name $symbol ]($style)'
 style = 'bg:#434C5E'
 disabled = false
 
@@ -52,13 +52,13 @@ truncation_symbol = "…/"
 # Here is how you can shorten some long paths by text replacement
 # similar to mapped_locations in Oh My Posh:
 [directory.substitutions]
-"Documents" = " 󰈙 "
-"Downloads" = "  "
-"Music" = "  "
-"Pictures" = "  "
-".config" = "  "
-".local" = " ⌘ "
-"debrid-stack" = "  "
+"Documents" = "󰈙"
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+".config" = " "
+".local" = "⌘"
+"debrid-stack" = " "
 
 # Keep in mind that the order matters. For example:
 # "Important Documents" = "  "
@@ -82,7 +82,7 @@ style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
-symbol = ""
+symbol = " "
 style = "fg:#3B4252 bg:#86BBD8"
 format = '[ $symbol $branch ]($style)'
 
@@ -111,7 +111,7 @@ style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [nodejs]
-symbol = ""
+symbol = " "
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
@@ -125,7 +125,7 @@ style = "bg:#06969A"
 format = '[(\($virtualenv\) )]($style)'
 
 [rust]
-symbol = ""
+symbol = " "
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
@@ -147,49 +147,49 @@ AlmaLinux = "💠 "
 Alpine = "🏔️ "
 Amazon = "🙂 "
 Android = "🤖 "
-Arch = "🎗️ "
-Artix = "🎗️ "
+Arch = " "
+Artix = " "
 Bluefin = "🐟 "
-CachyOS = "🎗️ "
-CentOS = "💠 "
-Debian = "🌀 "
+CachyOS = " "
+CentOS = " "
+Debian = " "
 DragonFly = "🐉 "
 Emscripten = "🔗 "
-EndeavourOS = "🚀 "
-Fedora = "🎩 "
-FreeBSD = "😈 "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
 Garuda = "🦅 "
-Gentoo = "🗜️ "
+Gentoo = " "
 HardenedBSD = "🛡️ "
 Illumos = "🐦 "
-Kali = "🐉 "
-Linux = "🐧 "
+Kali = " "
+Linux = " "
 Mabox = "📦 "
-Macos = "🍎 "
-Manjaro = "🥭 "
+Macos = " "
+Manjaro = " "
 Mariner = "🌊 "
 MidnightBSD = "🌘 "
-Mint = "🌿 "
+Mint = " "
 NetBSD = "🚩 "
-NixOS = "❄️ "
-Nobara = "🎩 "
-OpenBSD = "🐡 "
+NixOS = " "
+Nobara = " "
+OpenBSD = " "
 OpenCloudOS = "☁️ "
 openEuler = "🦉 "
-openSUSE = "🦎 "
+openSUSE = " "
 OracleLinux = "🦴 "
-Pop = "🍭 "
-Raspbian = "🍓 "
-Redhat = "🎩 "
-RedHatEnterprise = "🎩 "
-RockyLinux = "💠 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
 Redox = "🧪 "
-Solus = "⛵ "
-SUSE = "🦎 "
-Ubuntu = "🎯 "
+Solus = " "
+SUSE = " "
+Ubuntu = " "
 Ultramarine = "🔷 "
 Unknown = "❓ "
 Uos = "🐲 "
-Void = "  "
-Windows = "🪟 "
+Void = " "
+Windows = " "
 
