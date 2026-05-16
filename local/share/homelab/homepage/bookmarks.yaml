@@ -1,8 +1,8 @@
-- Productivity & Work:
+- Productivity:
   - '#s':
     - abbr: '#S'
       href: https://docs.google.com/spreadsheets/d/16KxgJnVDcuxo986PgcHy_zUh_DBP6DzEYIWjXq3EcUI/edit?gid=150432301#gid=150432301
-  - Agent-CRM:
+  - ACRM:
     - abbr: AG
       href: https://app.agent-crm.com/v2/location/L1EHjj6ASYM2Y1CPgw8e/dashboard
   - Gateway:
@@ -11,47 +11,47 @@
   - Gemini:
     - abbr: GE
       href: https://gemini.google.com
-  - Integrity Connect:
-    - abbr: IN
-      href: https://clients.integrity.com/
+  - ICon:
+    - abbr: IC
+      href: https://clients.integrity.com
   - Marblism:
     - abbr: MA
       href: https://ai.marblism.com/organizations/5f9218b9-826d-4e63-95bf-325c742389ab/chat/1b7c33b5-cdfb-4767-9c8b-800f3d3d7c55
   - Perplexity:
     - abbr: PE
-      href: https://www.perplexity.ai/
+      href: https://www.perplexity.ai
   - Salesflare:
     - abbr: SA
-      href: https://app.salesflare.com/#/tasks/today?search=
-- Cloud & Infrastructure:
+      href: https://app.salesflare.com
+- Cloud:
   - Github:
     - abbr: GH
       href: https://github.com/dcoffline
   - iCloud:
     - abbr: IC
-      href: https://www.icloud.com/
+      href: https://www.icloud.com
   - Jottacloud:
     - abbr: JO
       href: https://www.jottacloud.com/web/secure
   - Namecheap:
     - abbr: NA
-      href: https://www.namecheap.com/
+      href: https://www.namecheap.com
   - OneDrive:
     - abbr: 'ON'
       href: https://onedrive.live.com/?id=root&cid=9FB84147040DA7BF
   - Reddit:
     - abbr: RE
-      href: https://www.reddit.com/
+      href: https://www.reddit.com
   - Sendgrid:
     - abbr: SE
       href: https://sendgrid.com/en-us
   - Sunshine:
     - abbr: SU
       href: https://localhost:47990
-- Social & Communication:
+- Social:
   - Cloze:
     - abbr: CL
-      href: https://www.cloze.com/in/
+      href: https://www.cloze.com/in
   - Discord:
     - abbr: DI
       href: https://discord.com/channels/@me
@@ -60,41 +60,41 @@
       href: https://www.facebook.com/?_rdr
   - Flipboard:
     - abbr: FL
-      href: https://flipboard.com/
+      href: https://flipboard.com
   - Instagram:
     - abbr: IN
-      href: https://www.instagram.com/
+      href: https://www.instagram.com
   - LinkedIn:
     - abbr: LI
-      href: https://www.linkedin.com/feed/
+      href: https://www.linkedin.com/feed
   - Telegram:
     - abbr: TE
-      href: https://web.telegram.org/k/
+      href: https://web.telegram.org/k
   - X:
     - abbr: X
       href: https://x.com/home
-- Media & Utilities:
+- Media:
   - Amazon:
     - abbr: AM
-      href: https://www.amazon.com/
+      href: https://www.amazon.com
   - Location:
     - abbr: 20
-      href: https://mylocation.org/
-  - YouTube Music:
-    - abbr: MU
-      href: https://music.youtube.com/
+      href: https://mylocation.org
   - MyChart:
     - abbr: MY
       href: https://mychart.austinregionalclinic.com/MyChart/Authentication/Login?action=logout
   - ReStream:
     - abbr: RE
       href: https://studio.restream.io/eqq-rtre-kay
+  - Spotify:
+    - abbr: SP
+      href: https://open.spotify.com
   - Truthfinder:
     - abbr: TR
       href: https://www.truthfinder.com/dashboard
   - TV Guide:
     - abbr: TV
-      href: https://titantv.com/
+      href: https://titantv.com
   - YouTube:
     - abbr: YT
-      href: https://www.youtube.com/feed/subscriptions
+      href: https://www.youtube.com/feed/subscriptions 

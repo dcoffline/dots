@@ -6,18 +6,9 @@ statusStyle: "dot"
 hideVersion: true
 
 layout:
-  Media:
+  Servers:
     style: row
     columns: 4 
-  Cloud:
-    style: row
-    columns: 4 
-  Utilities:
-    style: row
-    columns: 4
-  Infrastructure:
+  Services:
     style: row
     columns: 5
-  Security:
-    style: row
-    columns: 1

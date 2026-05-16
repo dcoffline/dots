@@ -1,5 +1,5 @@
 ---
-- Cloud:
+- Servers:
     - Nextcloud:
         icon: nextcloud
         href: https://cloud.hemati.com
@@ -22,7 +22,7 @@
         server: podman
         container: stremio-server 
 
-- Infrastructure:
+- Services:
     - Cockpit:
         icon: cockpit 
         href: https://cockpit.hemati.com
@@ -49,6 +49,6 @@
     - Zurg:
         icon: real-debrid
         href: https://real-debrid.com
-        description: Organize Real-Debrid 
+        description: Organize Media 
         server: podman
         container: zurg

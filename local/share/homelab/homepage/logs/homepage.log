@@ -2201,3 +2201,34 @@
     at IncomingMessage.emit (node:events:531:35)
     at endReadableNT (node:internal/streams/readable:1698:12)
     at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+[2026-05-13T05:48:50.296Z] error: bad indentation of a sequence entry (2:3)
+
+ 1 |  - Productivity:
+ 2 |   - '#s':
+-------^
+ 3 |     - abbr: '#S'
+ 4 |       href: https://docs.google.co ...
+[2026-05-13T05:48:50.382Z] error: <index> YAMLException: bad indentation of a sequence entry (2:3)
+
+ 1 |  - Productivity:
+ 2 |   - '#s':
+-------^
+ 3 |     - abbr: '#S'
+ 4 |       href: https://docs.google.co ...
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at readBlockSequence (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2111:7)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2536:12)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2721:3)
+    at loadDocuments (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2784:5)
+    at Object.load$1 [as load] (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2810:19)
+    at n (/app/.next/server/pages/index.js:11:47685)
+    at async K (/app/.next/server/pages/index.js:6:120985)
+    at async rg (/app/node_modules/.pnpm/next@16.1.7_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/pages.runtime.prod.js:13:4344)
+[2026-05-13T05:48:50.576Z] error: bad indentation of a sequence entry (2:3)
+
+ 1 |  - Productivity:
+ 2 |   - '#s':
+-------^
+ 3 |     - abbr: '#S'
+ 4 |       href: https://docs.google.co ...
