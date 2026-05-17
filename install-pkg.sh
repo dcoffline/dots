@@ -24,7 +24,7 @@ if [ ! -f /run/ostree-booted ]; then
   if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     DNF_PACKAGES=(
-      busybox chafa direnv fastfetch gh glab gcc golang make
+      busybox chafa direnv fastfetch gh glab gcc golang make neovim
       nodejs npm pipx ShellCheck stress-ng trash-cli weston yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
@@ -34,7 +34,7 @@ if [ ! -f /run/ostree-booted ]; then
     echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
     sudo apt-get update
     APT_PACKAGES=(
-      busybox chafa direnv fastfetch gh glab gcc golang make
+      busybox chafa direnv fastfetch gh glab gcc golang make neovim
       nodejs npm pipx shellcheck stress-ng trash-cli yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
@@ -42,7 +42,7 @@ if [ ! -f /run/ostree-booted ]; then
   elif command -v pacman >/dev/null 2>&1; then
     echo "[ ARCH-based system detected. Using PACMAN/PARU... ]"
     ARCH_PACKAGES=(
-      busybox chafa direnv fastfetch github-cli glab gcc go make
+      busybox chafa direnv fastfetch github-cli glab gcc go make neovim
       nodejs npm python-pipx shellcheck stress-ng trash-cli which yq
     )
     if command -v paru >/dev/null 2>&1; then
