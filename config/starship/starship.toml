@@ -39,7 +39,7 @@ format = '[ $user ]($style)'
 # Custom container module
 [container]
 symbol = ""
-format = '[ $symbol $name ]($style)'
+format = '[ $symbol ]($style)'
 style = 'bg:#434C5E'
 disabled = false
 
