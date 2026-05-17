@@ -34,8 +34,8 @@ else
   # ────── HOST ALIASES ──────
 
   # Distrobox
-  alias dea='podman exec -u $(whoami) -it arch /bin/bash -l'
-  alias dear='podman exec -u $(whoami) -it arch /bin/bash -lc'
+  alias dea='podman exec -w ~ -u $(whoami) -it arch /bin/bash -l'
+  alias dear='podman exec -w ~ -u $(whoami) -it arch /bin/bash -lc'
   alias def='distrobox enter fedora'
   alias defr='distrobox enter fedora -e'
   alias deu='distrobox enter ubuntu'
