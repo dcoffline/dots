@@ -43,7 +43,7 @@ if [ ! -f /run/ostree-booted ]; then
     echo "[ ARCH-based system detected. Using PACMAN/PARU... ]"
     ARCH_PACKAGES=(
       busybox chafa direnv fastfetch github-cli glab gcc go make
-      nodejs npm python-pipx shellcheck stress-ng trash-cli yq
+      nodejs npm python-pipx shellcheck stress-ng trash-cli which yq
     )
     if command -v paru >/dev/null 2>&1; then
       paru -S --noconfirm "${ARCH_PACKAGES[@]}"
