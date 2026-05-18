@@ -18,6 +18,7 @@ This project manages the configuration and installation of a development environ
 - Since `~` is shared between host and container, most dotfiles should remain static and universal.
 
 ## Recent Changes
+- **Secrets Management**: Removed `local/share/homelab/cloudflared/token` from Git tracking to ensure it remains local-only, as per security practices.
 - **macOS & Zsh Re-integration**: Re-introduced Zsh configuration and Oh My Zsh themes. Improved macOS support and overall script robustness.
 - **Migration to GNU Stow**: Reverted from Chezmoi back to GNU Stow for simplicity.
   - Renamed `dot_` directories back to standard names.
