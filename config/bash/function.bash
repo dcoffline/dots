@@ -65,20 +65,20 @@ ebrc() {
 sbrc() {
   source "$DOTS/home/.bashrc"
 }
-eals() {
+eali() {
   "$EDITOR" "$DOTS/config/bash/alias.bash" &&
     source "$DOTS/config/bash/alias.bash" &&
     dotup "Updated alias.bash"
 }
-sals() {
+sali() {
   source "$DOTS/config/bash/alias.bash"
 }
-efns() {
+efun() {
   "$EDITOR" "$DOTS/config/bash/function.bash" &&
     source "$DOTS/config/bash/function.bash" &&
     dotup "Updated function.bash"
 }
-sfns() {
+sfun() {
   source "$DOTS/config/bash/function.bash"
 }
 
