@@ -16,6 +16,7 @@ This directory contains the Starship prompt configuration files for the project.
 - **Config Fix**: Removed invalid OS symbol definitions (symbol1, symbol2, etc.) from the `[os.symbols]` section in `starship.toml` that were causing startup warnings. Attempted to add `BlackArch` but removed it as it's not a recognized variant in the `[os.symbols]` module.
 - **2D OS Emblems**: Replaced emoji-based OS symbols (like 🐧, 🍎, 🎩, 🎯) with modern 2D emblems from Nerd Fonts (, , , ) for a cleaner, more consistent visual style across Linux distributions and macOS.
 - **Scan Timeout Fix**: Added `scan_timeout = 1000` to `starship.toml` to prevent warnings about directory scanning timing out on slower or networked file systems.
+- **Username Visibility**: Enabled `show_always = true` in the `[username]` module to ensure the username is always displayed in the first prompt block, resolving an issue where it was hidden on macOS by default.
 - **Username Config Fix**: Removed unsupported `symbol` key from the `[username]` module and hardcoded the symbol into the `format` string to resolve a configuration warning.
 
 ## Future Notes

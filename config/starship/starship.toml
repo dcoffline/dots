@@ -32,7 +32,7 @@ scan_timeout = 1000
 
 # You can also replace your username with a neat symbol like  to save some space
 [username]
-#show_always = true
+show_always = true
 style_user = "bg:#3B4252"
 style_root = "bg:#3B4252"
 format = '[ $user ]($style)'
