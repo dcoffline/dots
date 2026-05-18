@@ -32,7 +32,7 @@ scan_timeout = 1000
 
 # You can also replace your username with a neat symbol like  to save some space
 [username]
-show_always = true
+#show_always = true
 style_user = "bg:#3B4252"
 style_root = "bg:#3B4252"
 format = '[ $user ]($style)'
@@ -40,7 +40,7 @@ format = '[ $user ]($style)'
 # Custom container module
 [container]
 symbol = ""
-format = '[ $symbol ]($style)'
+format = '[ $symbol $name ]($style)'
 style = 'bg:#434C5E'
 disabled = false
 
@@ -53,14 +53,14 @@ truncation_symbol = "…/"
 # Here is how you can shorten some long paths by text replacement
 # similar to mapped_locations in Oh My Posh:
 [directory.substitutions]
-"Documents" = "󰈙"
-"Downloads" = ""
-"Music" = ""
-"Pictures" = ""
-".config" = ""
-".local" = "⌘"
-"dots" = ""
-"Videos" = "" 
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"Videos" = " " 
+"dots" = " "
+".config" = " "
+".local" = "⌘ "
 
 # Keep in mind that the order matters. For example:
 # "Important Documents" = "  "
@@ -69,22 +69,22 @@ truncation_symbol = "…/"
 # "Important  " = "  "
 
 [c]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [elixir]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [elm]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
-symbol = " "
+symbol = ""
 style = "fg:#3B4252 bg:#86BBD8"
 format = '[ $symbol $branch ]($style)'
 
@@ -93,32 +93,32 @@ style = "bold red bg:#86BBD8"
 format = '[$all_status$ahead_behind ]($style)'
 
 [golang]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [haskell]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [java]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [julia]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [nodejs]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
 [nim]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
@@ -127,7 +127,7 @@ style = "bg:#3B4252"
 format = '[(\($virtualenv\) )]($style)'
 
 [rust]
-symbol = " "
+symbol = ""
 style = "bg:#06969A"
 format = '[ $symbol ($version) ]($style)'
 
@@ -143,54 +143,54 @@ style = "bg:#06969A"
 format = "[ $symbol]($style)"
 
 [os.symbols]
-AIX = "➿ "
-Alpaquita = "🔔 "
-AlmaLinux = "💠 "
-Alpine = "🏔️ "
-Amazon = "🙂 "
-Android = "🤖 "
-Arch = " "
-Artix = " "
-Bluefin = "🐟 "
-CachyOS = " "
-CentOS = " "
-Debian = " "
-DragonFly = "🐉 "
-Emscripten = "🔗 "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Garuda = "🦅 "
-Gentoo = " "
-HardenedBSD = "🛡️ "
-Illumos = "🐦 "
-Kali = " "
-Linux = " "
-Mabox = "📦 "
-Macos = " "
-Manjaro = " "
-Mariner = "🌊 "
-MidnightBSD = "🌘 "
-Mint = " "
-NetBSD = "🚩 "
-NixOS = " "
-Nobara = " "
-OpenBSD = " "
-OpenCloudOS = "☁️ "
-openEuler = "🦉 "
-openSUSE = " "
-OracleLinux = "🦴 "
-Pop = " "
-Raspbian = " "
-Redhat = " "
-RedHatEnterprise = " "
-RockyLinux = " "
-Redox = "🧪 "
-Solus = " "
-SUSE = " "
-Ubuntu = " "
-Ultramarine = "🔷 "
-Unknown = "❓ "
-Uos = "🐲 "
-Void = " "
-Windows = " "
+AIX = "➿  "
+Alpaquita = "🔔  "
+AlmaLinux = "💠  "
+Alpine = "🏔️  "
+Amazon = "🙂  "
+Android = "🤖  "
+Arch = "  "
+Artix = "  "
+Bluefin = "🐟  "
+CachyOS = "  "
+CentOS = "  "
+Debian = "  "
+DragonFly = "🐉  "
+Emscripten = "🔗  "
+EndeavourOS = "  "
+Fedora = "  "
+FreeBSD = "  "
+Garuda = "🦅  "
+Gentoo = "  "
+HardenedBSD = "🛡️  "
+Illumos = "🐦  "
+Kali = "  "
+Linux = "  "
+Mabox = "📦  "
+Macos = "  "
+Manjaro = "  "
+Mariner = "🌊  "
+MidnightBSD = "🌘  "
+Mint = "  "
+NetBSD = "🚩  "
+NixOS = "  "
+Nobara = "  "
+OpenBSD = "  "
+OpenCloudOS = "☁️  "
+openEuler = "🦉  "
+openSUSE = "  "
+OracleLinux = "🦴  "
+Pop = "  "
+Raspbian = "  "
+Redhat = "  "
+RedHatEnterprise = "  "
+RockyLinux = "  "
+Redox = "🧪  "
+Solus = "  "
+SUSE = "  "
+Ubuntu = "  "
+Ultramarine = "🔷  "
+Unknown = "❓  "
+Uos = "🐲  "
+Void = "  "
+Windows = "  "
