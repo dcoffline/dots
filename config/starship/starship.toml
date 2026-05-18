@@ -26,6 +26,7 @@ $time\
 [](fg:#33658A)
 $character"""
 command_timeout = 5000
+scan_timeout = 1000
 # Disable the blank line at the start of the prompt
 # add_newline = false
 
@@ -193,4 +194,3 @@ Unknown = "❓ "
 Uos = "🐲 "
 Void = " "
 Windows = " "
-

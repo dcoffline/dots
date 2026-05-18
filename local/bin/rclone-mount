@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-mkdir -p /var/mnt/2T/
 sleep 2
 
 if [ -f /run/ostree-booted ]; then
+  mkdir -p /var/mnt/2T/
   RCLONE="/var/home/linuxbrew/.linuxbrew/bin/rclone"
   CACHE_DIR="/var/mnt/2T/rclone_cache"
   declare -A REMOTES=(
@@ -17,10 +17,11 @@ if [ -f /run/ostree-booted ]; then
     ["zurg"]="Zurg"
   )
 else
+  mkdir -p "$HOME/.cache/rclone_cache"
   RCLONE="/usr/bin/rclone"
   CACHE_DIR="$HOME/.cache/rclone_cache"
   declare -A REMOTES=(
-    ["10T"]="10T"
+    ["bee"]="Bee"
     ["gdrive"]="GDrive"
     ["jotta"]="Archive"
     ["onedrive"]="OneDrive"
