@@ -1,0 +1,11 @@
+[Unit]
+Description=Jottacloud Daemon inside Fedora Distrobox
+After=podman.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/distrobox-enter -n fedora -- jottad
+Restart=always
+
+[Install]
+WantedBy=default.target
