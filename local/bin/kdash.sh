@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # This script launches Kitty with a simple horizontal split.
 # You will then manually create the right-side panes.
@@ -26,6 +26,6 @@ kitty \
   -o allow_remote_control=yes \
   -o enabled_layouts=horizontal,vertical \
   btop \
-  new-window zsh
+  new-window bash
 
 echo "Kitty window launched. Please follow the manual steps above."

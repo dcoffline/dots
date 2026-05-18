@@ -1,4 +1,4 @@
-# .aliases - Universal Shell Aliases
+# .alias - Universal Shell Aliases
 
 # ────── CONTAINER ALIASES ──────
 
@@ -27,46 +27,44 @@ if [ -f /run/.containerenv ]; then
   alias scudr='dhe systemctl --user daemon-reload'
   alias jc='dhe journalctl'
   alias follow='dhe journalctl --user -fu'
-  [ "$IS_LINUX" -eq 1 ] && alias ptrans='dhe dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
+  alias ptrans='dhe dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
 
-else
+# ────── HOST ALIASES ──────
 
-  # ────── HOST ALIASES ──────
-
-  # Distrobox
-  #alias dea='podman exec -w ~ -u $(whoami) -it arch /bin/bash -l'
-  #alias dear='podman exec -w ~ -u $(whoami) -it arch /bin/bash -lc'
-  alias def='distrobox enter fedora'
-  alias defr='distrobox enter fedora -e'
-  alias dea='distrobox enter arch'
-  alias dear='distrobox enter arch -e'
-  alias deu='distrobox enter ubuntu'
-  alias deur='distrobox enter ubuntu -e'
-
-  # Set Podman socket path for Container
-  export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
-
-  # Rclone (Native)
-  [ "$IS_MAC" -eq 1 ] && alias rmount="$HOME/.local/bin/rclone-mac"
-  [ "$IS_LINUX" -eq 1 ] && alias rmount="$HOME/.local/bin/rclone-mount"
-  alias rlsmount='mount | grep rclone || echo "No rclone mounts active"'
-  alias rumount='$HOME/.local/bin/rclone-unmount && rlsmount'
-  alias rremount='rumount; sleep 3; rmount'
-
-  # System Utils (Native)
-  alias jc='journalctl'
-  alias susc='sudo systemctl'
-  alias scu='systemctl --user'
-  alias suscdr='sudo systemctl daemon-reload'
-  alias scudr='systemctl --user daemon-reload'
-  alias deb='ssh eric@100.120.205.70'
-  alias follow='journalctl --user -fu'
+elif [ -f /run/ostree-booted ]; then
   [ "$IS_LINUX" -eq 1 ] && alias git='distrobox enter fedora -e git'
-  [ "$IS_LINUX" -eq 1 ] && alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
-
 fi
 
 # ────── GLOBAL ALIASES ──────
+
+# Distrobox
+#alias dea='podman exec -w ~ -u $(whoami) -it arch /bin/bash -l'
+#alias dear='podman exec -w ~ -u $(whoami) -it arch /bin/bash -lc'
+alias def='distrobox enter fedora'
+alias defr='distrobox enter fedora -e'
+alias dea='distrobox enter arch'
+alias dear='distrobox enter arch -e'
+alias deu='distrobox enter ubuntu'
+alias deur='distrobox enter ubuntu -e'
+
+# Set Podman socket path for Container
+export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
+
+# Rclone (Native)
+[ "$IS_MAC" -eq 1 ] && alias rmount="$HOME/.local/bin/rclone-mac"
+[ "$IS_LINUX" -eq 1 ] && alias rmount="$HOME/.local/bin/rclone-mount"
+alias rlsmount='mount | grep rclone || echo "No rclone mounts active"'
+alias rumount='$HOME/.local/bin/rclone-unmount && rlsmount'
+alias rremount='rumount; sleep 3; rmount'
+
+# System Utils (Native)
+alias jc='journalctl'
+alias susc='sudo systemctl'
+alias scu='systemctl --user'
+alias suscdr='sudo systemctl daemon-reload'
+alias scudr='systemctl --user daemon-reload'
+alias follow='journalctl --user -fu'
+alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
 
 # Editor
 alias vi=$EDITOR

@@ -121,6 +121,12 @@ fi
 # FLATPAKS
 FLATPAK_APPS=(
   com.bitwarden.desktop
+  com.mattjakeman.ExtensionManager
+  com.github.tchx84.Flatseal
+  it.mijorus.gearlever
+  io.github.flattool.Ignition
+  io.github.fabrialberio.pinapp
+  page.tesk.Refine
 )
 echo "[ Checking GUI apps... ]"
 for app in "${FLATPAK_APPS[@]}"; do

@@ -4,21 +4,32 @@ set -euo pipefail
 mkdir -p /var/mnt/2T/
 sleep 2
 
-RCLONE="/var/home/linuxbrew/.linuxbrew/bin/rclone"
+if [ -f /run/ostree-booted ]; then
+  RCLONE="/var/home/linuxbrew/.linuxbrew/bin/rclone"
+  CACHE_DIR="/var/mnt/2T/rclone_cache"
+  declare -A REMOTES=(
+    ["alldebrid"]="AllDebrid"
+    ["gdrive"]="GDrive"
+    ["jotta"]="Archive"
+    ["onedrive"]="OneDrive"
+    ["realdebrid"]="RealDebrid"
+    ["timeline"]="Timeline"
+    ["zurg"]="Zurg"
+  )
+else
+  RCLONE="/usr/bin/rclone"
+  CACHE_DIR="$HOME/.cache/rclone_cache"
+  declare -A REMOTES=(
+    ["10T"]="10T"
+    ["gdrive"]="GDrive"
+    ["jotta"]="Archive"
+    ["onedrive"]="OneDrive"
+  )
+fi
+
 BASE_MOUNT="$HOME/.mnt/rclone"
-CACHE_DIR="/var/mnt/2T/rclone_cache"
 LOGFILE="$HOME/.config/rclone/rclone-mount.log"
 PID_DIR="$HOME/.config/rclone/pid"
-
-declare -A REMOTES=(
-  ["alldebrid"]="AllDebrid"
-  ["gdrive"]="GDrive"
-  ["jotta"]="Archive"
-  ["onedrive"]="OneDrive"
-  ["realdebrid"]="RealDebrid"
-  ["timeline"]="Timeline"
-  ["zurg"]="Zurg"
-)
 
 # Common rclone flags (edit once, applies to ALL mounts)
 COMMON_FLAGS=(

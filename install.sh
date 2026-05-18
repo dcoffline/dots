@@ -41,7 +41,6 @@ fi
 
 # 3. Apply Stow
 echo "[ Applying dotfiles with Stow... ]"
-mkdir -p "$HOME/.config" "$HOME/.local/bin" "$HOME/.local/share/homelab"
 stow -v -t "$HOME" home
 stow -v -t "$HOME/.local" local
 stow -v -t "$HOME/.config" config
