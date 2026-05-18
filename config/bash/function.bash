@@ -60,23 +60,23 @@ dotup() {
 ebrc() {
   "$EDITOR" "$DOTS/home/.bashrc" &&
     source "$DOTS/home/.bashrc" &&
-    dotup "Updated .bashrc"
-}
-sbrc() {
-  source "$DOTS/home/.bashrc"
+    dotup "Updated bashrc"
 }
 eali() {
   "$EDITOR" "$DOTS/config/bash/alias.bash" &&
     source "$DOTS/config/bash/alias.bash" &&
-    dotup "Updated alias.bash"
-}
-sali() {
-  source "$DOTS/config/bash/alias.bash"
+    dotup "Updated shell aliases"
 }
 efun() {
   "$EDITOR" "$DOTS/config/bash/function.bash" &&
     source "$DOTS/config/bash/function.bash" &&
-    dotup "Updated function.bash"
+    dotup "Updated shell functions"
+}
+sbrc() {
+  source "$DOTS/home/.bashrc"
+}
+sali() {
+  source "$DOTS/config/bash/alias.bash"
 }
 sfun() {
   source "$DOTS/config/bash/function.bash"
