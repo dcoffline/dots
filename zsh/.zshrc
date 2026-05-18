@@ -59,13 +59,9 @@ set +a
 
 # Load aliases and functions
 [ -f "$HOME/.config/bash/alias.bash" ] && source "$HOME/.config/bash/alias.bash"
-unalias rm
-unalias git
 [ -f "$HOME/.config/bash/function.bash" ] && source "$HOME/.config/bash/function.bash"
 
 # Shell-specific inits
 [ "$(command -v atuin)" ] && eval "$(atuin init zsh)"
 [ "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
 [ "$(command -v starship)" ] && eval "$(starship init zsh)"
-
-

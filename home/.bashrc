@@ -26,9 +26,7 @@ HISTCONTROL=ignoreboth:erasedups
 HISTFILE="$HOME/.config/bash/.histfile"
 
 # Source system-wide bashrc on Linux host
-if [[ "$IS_LINUX" -eq 1 && -z "$CONTAINER_ID" && -f /etc/bashrc ]]; then
-  . /etc/bashrc
-fi
+[[ "$IS_LINUX" -eq 1 && -z "$CONTAINER_ID" && -f /etc/bashrc ]] && . /etc/bashrc
 
 # ────── CLI TOOLS ──────
 [ "$(command -v fzf)" ] && source <(fzf --bash)
