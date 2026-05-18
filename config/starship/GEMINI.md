@@ -19,5 +19,10 @@ This directory contains the Starship prompt configuration files for the project.
 - **Username Visibility**: Enabled `show_always = true` in the `[username]` module to ensure the username is always displayed in the first prompt block, resolving an issue where it was hidden on macOS by default.
 - **Username Config Fix**: Removed unsupported `symbol` key from the `[username]` module and hardcoded the symbol into the `format` string to resolve a configuration warning.
 
+## Prompt Symbols Reference
+- **Git Status**:
+  - `$` (Red): Indicates stashed changes (`git stash`).
+  - Other symbols follow default Starship behavior unless customized in `starship.toml`.
+
 ## Future Notes
 - Any future color adjustments should consider the Nord-inspired palette already in use (`#3B4252`, `#434C5E`, `#4C566A`, etc.).
