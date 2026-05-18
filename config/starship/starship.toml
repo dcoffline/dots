@@ -69,7 +69,7 @@ format = '[$all_status$ahead_behind ]($style)'
 [os]
 disabled = false
 style = "bg:#06969A"
-format = "[  $symbol  ]($style)"
+format = "[ $symbol ]($style)"
 
 [time]
 disabled = false
