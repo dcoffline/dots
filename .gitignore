@@ -1,8 +1,9 @@
-.secrets
-*.db
-*.sqlite
 homepage.log
-.zcompdump*
-.*hist*
+token
+.secrets
 .DS_Store
 .zsh_sessions
+.zcompdump*
+.*hist*
+*.db
+*.sqlite
