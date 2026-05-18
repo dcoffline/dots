@@ -13,8 +13,8 @@ if [ -f /run/.containerenv ]; then
 
   # Rclone (Punching out to the host)
   alias dhe='distrobox-host-exec'
-  [ "$IS_LINUX" -eq 1 ] && alias rmount="dhe $HOME/.local/bin/rclone-mount"
   [ "$IS_MAC" -eq 1 ] && alias rmount="dhe $HOME/.local/bin/rclone-mac"
+  [ "$IS_LINUX" -eq 1 ] && alias rmount="dhe $HOME/.local/bin/rclone-mount"
   alias rlsmount='dhe mount | grep rclone || echo "No rclone mounts active"'
   alias rumount="dhe $HOME/.local/bin/rclone-unmount && rlsmount"
   alias rremount='dhe rumount; sleep 3; rmount'
@@ -57,15 +57,16 @@ fi
 
 # ────── GLOBAL ALIASES ──────
 
-# System Utils (Native)
-alias jc='journalctl'
-alias sc='systemctl'
-alias susc='sudo systemctl'
-alias scu='systemctl --user'
-alias suscdr='sudo systemctl daemon-reload'
-alias scudr='systemctl --user daemon-reload'
-alias follow='journalctl --user -fu'
-alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
+# Fix for Ptyxis/VTE terminal color query leaks
+[[ $TERM == "xterm-256color" ]] && export TERM="vte-256color"
+
+# List recently installed packages
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+
+# Podman Tools
+alias d2q='podlet generate container podman run'
+alias podip="podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
+alias podclean='podman container prune -f ; podman image prune -f ; podman network prune -f ; podman volume prune -f'
 
 # Editor
 alias vi=$EDITOR
@@ -74,21 +75,42 @@ alias svi='sudo $EDITOR'
 alias snano='sudo $EDITOR'
 alias ted='flatpak run org.gnome.TextEditor'
 
-# System Utilities
+# System Utils (Native)
 alias gd=gdctl
 alias yey=paru
 alias bb=busybox
 alias j=jotta-cli
 alias ff=fastfetch
+alias sc='systemctl'
+alias susc='sudo systemctl'
+alias scu='systemctl --user'
+alias suscdr='sudo systemctl daemon-reload'
+alias scudr='systemctl --user daemon-reload'
+alias jc='journalctl'
+alias follow='journalctl --user -fu'
 alias openports='ss -tulanp'
 alias cid="echo $CONTAINER_ID"
 alias groqlog="cat $GROQDIR/groq_debug.log"
 alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
+alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
 alias kittyup="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=$HOME/.local/state"
 
-if [ ! -f "$HOME/.cargo/bin/linutil" ]; then
-  alias linutil='curl -fsSL https://christitus.com/linux | sh'
-fi
+# File Management
+alias cat=bat
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='trash -v'
+alias mkdir='mkdir -p'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias da='date "+%Y-%m-%d %A %T %Z"'
+alias h='history | grep'
+alias p='ps aux | grep'
+alias mx='chmod a+x'
+alias dots='cd $DOTS'
+alias vich='command -v'
+alias la='eza -la --icons=auto --group-directories-first'
 
 # ls aliases
 if [ "$(command -v eza)" ]; then
@@ -108,30 +130,7 @@ if [ "$(command -v ug)" ]; then
   alias xzfgrep='ug -zF'
 fi
 
-# File Management
-alias cat=bat
-alias cp='cp -i'
-alias mv='mv -i'
-alias rm='trash -v'
-alias mkdir='mkdir -p'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias da='date "+%Y-%m-%d %A %T %Z"'
-alias h='history | grep'
-alias p='ps aux | grep'
-alias mx='chmod a+x'
-alias dots='cd $DOTS'
-alias vich='command -v'
-alias la='eza -la --icons=auto --group-directories-first'
-
-# List recently installed packages
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-
-# Podman Tools
-alias d2q='podlet generate container podman run'
-alias podip="podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
-alias podclean='podman container prune -f ; podman image prune -f ; podman network prune -f ; podman volume prune -f'
-
-# Fix for Ptyxis/VTE terminal color query leaks
-[[ $TERM == "xterm-256color" ]] && export TERM="vte-256color"
+# Chris Titus Linux Utilities
+if [ ! -f "$HOME/.cargo/bin/linutil" ]; then
+  alias linutil='curl -fsSL https://christitus.com/linux | sh'
+fi

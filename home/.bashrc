@@ -4,11 +4,10 @@
 [ -f "$HOME/.config/bash/os.bash" ] && source "$HOME/.config/bash/os.bash"
 
 # Load environment variables
-if [ -f "$HOME/.config/environment.d/envvars.conf" ]; then
-  set -a
+set -a
+[ -f "$HOME/.config/environment.d/envvars.conf" ] &&
   source "$HOME/.config/environment.d/envvars.conf"
-  set +a
-fi
+set +a
 
 # Load functions (provides cleanpath)
 [ -f "$HOME/.config/bash/function.bash" ] && source "$HOME/.config/bash/function.bash"

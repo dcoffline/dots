@@ -26,7 +26,7 @@ if [ "$IS_MAC" -eq 1 ]; then
 
 elif [ "$IS_LINUX" -eq 1 ]; then
   # Linuxbrew if available
-  if [ -d /home/linuxbrew/.linuxbrew ]; then
+  if [ -d /home/linuxbrew/.linuxbrew/bin/brew ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
   fi
 fi
