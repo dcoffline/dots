@@ -87,6 +87,7 @@ alias scu='systemctl --user'
 alias suscdr='sudo systemctl daemon-reload'
 alias scudr='systemctl --user daemon-reload'
 alias jc='journalctl'
+alias jcu="journalctl --user -xeu"
 alias follow='journalctl --user -fu'
 alias openports='ss -tulanp'
 alias cid="echo $CONTAINER_ID"
