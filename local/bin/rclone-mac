@@ -3,19 +3,19 @@ set -euo pipefail
 setopt NULL_GLOB
 
 RCLONE="/usr/local/bin/rclone"
-BASE_MOUNT="/Users/eric/Volumes"
-CACHE_DIR="/Users/eric/Library/Caches/rclone"
-LOGFILE="/Users/eric/.config/rclone/rclone-log.txt"
-PID_DIR="/Users/eric/.config/rclone/pid"
+BASE_MOUNT="$HOME/Volumes"
+CACHE_DIR="$HOME/Library/Caches/rclone"
+LOGFILE="$HOME/.config/rclone/rclone-log.txt"
+PID_DIR="$HOME/.config/rclone/pid"
 
 typeset -A REMOTES
 REMOTES=(
-  AllDebrid  AllDebrid
-  Archive    Archive
-  GDrive     GDrive
-  OneDrive   OneDrive
-  RealDebrid RealDebrid
-  Timeline   Timeline
+  alldebrid  AllDebrid
+  archive    Archive
+  gdrive     GDrive
+  onedrive   OneDrive
+  realdebrid RealDebrid
+  timeline   Timeline
 )
 
 COMMON_FLAGS=(
@@ -63,7 +63,7 @@ for remote in ${(k)REMOTES}; do
 
   # Remote‑specific flags
   EXTRA_FLAGS=()
-  if [[ "$remote" == "AllDebrid" || "$remote" == "RealDebrid" ]]; then
+  if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
     EXTRA_FLAGS=(--read-only --exclude '.DS_Store' --exclude '._*')
   fi
 

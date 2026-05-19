@@ -5,26 +5,27 @@ sleep 2
 
 if [ -f /run/ostree-booted ]; then
   mkdir -p /var/mnt/2T/
-  RCLONE="/var/home/linuxbrew/.linuxbrew/bin/rclone"
+  RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
   CACHE_DIR="/var/mnt/2T/rclone_cache"
   declare -A REMOTES=(
     ["alldebrid"]="AllDebrid"
-    ["gdrive"]="GDrive"
     ["jotta"]="Archive"
+    ["10T"]="Backup"
+    ["gdrive"]="GDrive"
     ["onedrive"]="OneDrive"
     ["realdebrid"]="RealDebrid"
     ["timeline"]="Timeline"
     ["zurg"]="Zurg"
   )
-else
-  mkdir -p "$HOME/.cache/rclone_cache"
+elif [ -f /usr/bin/rclone ]; then
   RCLONE="/usr/bin/rclone"
   CACHE_DIR="$HOME/.cache/rclone_cache"
   declare -A REMOTES=(
-    ["bee"]="Bee"
-    ["gdrive"]="GDrive"
     ["jotta"]="Archive"
+    ["10T"]="Backup"
+    ["gdrive"]="GDrive"
     ["onedrive"]="OneDrive"
+    ["timeline"]="Timeline"
   )
 fi
 
@@ -63,8 +64,14 @@ for remote in "${!REMOTES[@]}"; do
 
   mkdir -p "$mountpoint"
 
+  # Remote‑specific flags
+  EXTRA_FLAGS=()
+  if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
+    EXTRA_FLAGS=(--read-only --exclude '.DS_Store' --exclude '._*')
+  fi
+
   echo "Mounting $remote → $mountpoint"
-  "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" &
+  "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
 
   # Save the process ID of the command we just ran
   echo $! >"$PID_DIR/${remote}.pid"
