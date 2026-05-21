@@ -149,7 +149,6 @@ GNOME_EXTENSIONS=(
   "dash-to-dock@micxgx.gmail.com"
   "screentospace@dilzhan.dev"
   "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
-  "systemd-manager-neo@ladoleo.local"
   "tailscale-gnome-qs@tailscale-qs.github.io"
   "tilingshell@ferrarodomenico.com"
   "transparent-window-moving@noobsai.github.com"
