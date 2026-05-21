@@ -147,13 +147,13 @@ GNOME_EXTENSIONS=(
   "bluetooth-quick-connect@bjarosze.gmail.com"
   "clipboard-indicator@tudmotu.com"
   "dash-to-dock@micxgx.gmail.com"
+  "randomwallpaper@iflow.space"
   "screentospace@dilzhan.dev"
   "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
   "tailscale-gnome-qs@tailscale-qs.github.io"
   "tilingshell@ferrarodomenico.com"
   "transparent-window-moving@noobsai.github.com"
   "tweaks-system-menu@extensions.gnome-shell.fifi.org"
-  "azwallpaper@azwallpaper.gitlab.com"
 )
 
 if ! command -v gext >/dev/null 2>&1 && [ ! -f /run/.containerenv ]; then
