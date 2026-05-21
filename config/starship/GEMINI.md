@@ -18,6 +18,7 @@ This directory contains the Starship prompt configuration files for the project.
 - **Scan Timeout Fix**: Added `scan_timeout = 1000` to `starship.toml` to prevent warnings about directory scanning timing out on slower or networked file systems.
 - **Username Visibility**: Enabled `show_always = true` in the `[username]` module to ensure the username is always displayed in the first prompt block, resolving an issue where it was hidden on macOS by default.
 - **Username Config Fix**: Removed unsupported `symbol` key from the `[username]` module and hardcoded the symbol into the `format` string to resolve a configuration warning.
+- **Videos Symbol Update**: Replaced the Haskell logo (``) with a modern video icon (`󰎁`) for the "Videos" directory substitution in `starship.toml` to improve visual accuracy.
 
 ## Prompt Symbols Reference
 - **Git Status**:

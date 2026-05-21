@@ -20,6 +20,7 @@ This project manages the configuration and installation of a development environ
 ## Recent Changes
 - **Secrets Management**: Removed `local/share/homelab/cloudflared/token` from Git tracking to ensure it remains local-only, as per security practices.
 - **macOS & Zsh Re-integration**: Re-introduced Zsh configuration and Oh My Zsh themes. Improved macOS support and overall script robustness.
+- **Zurg Rclone Mount Fix**: Resolved an issue where the Zurg rclone mount appeared empty due to an authentication mismatch. Updated `~/.config/rclone/rclone.conf` with the correct obfuscated password matching `zurg/config.yml`.
 - **Migration to GNU Stow**: Reverted from Chezmoi back to GNU Stow for simplicity.
   - Renamed `dot_` directories back to standard names.
   - Updated `install-pkg.sh` to handle package management.
