@@ -51,9 +51,9 @@ if [ "$ENV_TYPE" = "container" ]; then
   distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
 
   echo "[ Applying Dotfile Updates... ]"
-  stow -v -t "$HOME" home
-  stow -v -t "$HOME/.config" config
-  stow -v -t "$HOME/.local" local
+  stow -R -v --ignore=".DS_Store" -t "$HOME" home
+  stow -R -v --ignore=".DS_Store" -t "$HOME/.config" config
+  stow -R -v --ignore=".DS_Store" -t "$HOME/.local" local
 
   echo "[ Backing up to GitHub... ]"
   git add Brewfile "$SHELLINI"
@@ -62,6 +62,7 @@ if [ "$ENV_TYPE" = "container" ]; then
 
   echo "[ Starting Immutable Host Update... ]"
   distrobox-host-exec ujust update
+  cd -
 
 # =========================================================
 # IMMUTABLE MAINTENANCE
@@ -76,9 +77,9 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
   dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
 
   echo "[ Applying Dotfile Updates... ]"
-  stow -v -t "$HOME" home
-  stow -v -t "$HOME/.config" config
-  stow -v -t "$HOME/.local" local
+  stow -R -v --ignore=".DS_Store" -t "$HOME" home
+  stow -R -v --ignore=".DS_Store" -t "$HOME/.config" config
+  stow -R -v --ignore=".DS_Store" -t "$HOME/.local" local
 
   echo "[ Backing up to GitHub via Container... ]"
   # Find the first running container, fallback to any existing container
@@ -94,6 +95,7 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
 
   echo "[ Starting Immutable Host Update... ]"
   ujust update
+  cd -
 
 # =========================================================
 # MUTABLE MAINTENANCE
@@ -134,14 +136,15 @@ else
   fi
 
   echo "[ Applying Dotfile Updates... ]"
-  stow -v --ignore=".DS_Store" -t "$HOME" home
-  stow -v --ignore=".DS_Store" -t "$HOME/.config" config
-  stow -v --ignore=".DS_Store" -t "$HOME/.local" local
+  stow -R -v --ignore=".DS_Store" -t "$HOME" home
+  stow -R -v --ignore=".DS_Store" -t "$HOME/.config" config
+  stow -R -v --ignore=".DS_Store" -t "$HOME/.local" local
 
   echo "[ Backing up to GitHub... ]"
   git add "$SHELLINI" Brewfile
   git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
   git push origin main
+  cd -
 fi
 
 echo "[ Fortress Maintenance Complete ]"
