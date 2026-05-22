@@ -3,10 +3,14 @@ set -euo pipefail
 
 sleep 2
 
+RCLONE=/usr/bin/rclone
+BASE_MOUNT="$HOME/.mnt/rclone"
+LOGFILE="$HOME/.config/rclone/rclone-mount.log"
+PID_DIR="$HOME/.config/rclone/pid"
+
 if [ -f /run/ostree-booted ]; then
-  mkdir -p /var/mnt/2T/
-  RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
-  CACHE_DIR="/var/mnt/2T/rclone_cache"
+  mkdir -p /var/mnt/2T/rclone_cache
+  CACHE_DIR=/var/mnt/2T/rclone_cache
   declare -A REMOTES=(
     ["alldebrid"]="AllDebrid"
     ["jotta"]="Archive"
@@ -17,8 +21,7 @@ if [ -f /run/ostree-booted ]; then
     ["timeline"]="Timeline"
     ["zurg"]="Zurg"
   )
-elif [ -f /usr/bin/rclone ]; then
-  RCLONE="/usr/bin/rclone"
+else
   CACHE_DIR="$HOME/.cache/rclone_cache"
   declare -A REMOTES=(
     ["jotta"]="Archive"
@@ -28,10 +31,6 @@ elif [ -f /usr/bin/rclone ]; then
     ["timeline"]="Timeline"
   )
 fi
-
-BASE_MOUNT="$HOME/.mnt/rclone"
-LOGFILE="$HOME/.config/rclone/rclone-mount.log"
-PID_DIR="$HOME/.config/rclone/pid"
 
 # Common rclone flags (edit once, applies to ALL mounts)
 COMMON_FLAGS=(

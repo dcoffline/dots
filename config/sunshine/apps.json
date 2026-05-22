@@ -9,10 +9,10 @@
             "exit-timeout": 3,
             "image-path": "steam.png",
             "name": "Big Picture",
-            "output": "/home/eric/.config/sunshine/app-bigpic.log",
+            "output": "/var/home/eric/.var/app/dev.lizardbyte.app.Sunshine/config/sunshine/app-bigpic.log",
             "prep-cmd": [
                 {
-                    "do": "moncon 1920x1080 120.040 1",
+                    "do": "/var/home/eric/.local/bin/moncon 1920x1080 120.040 1",
                     "undo": ""
                 },
                 {
@@ -31,10 +31,10 @@
             "exit-timeout": 5,
             "image-path": "desktop.png",
             "name": "Desktop",
-            "output": "/home/eric/.config/sunshine/app-desktop.log",
+            "output": "/var/home/eric/.var/app/dev.lizardbyte.app.Sunshine/config/sunshine/app-desktop.log",
             "prep-cmd": [
                 {
-                    "do": "moncon 2560x1440 119.877 1",
+                    "do": "/var/home/eric/.local/bin/moncon 2560x1440 119.877 1",
                     "undo": ""
                 }
             ],
@@ -46,12 +46,12 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/home/eric/.config/sunshine/covers/macbook.png",
+            "image-path": "/var/home/eric/.config/sunshine/covers/macbook.png",
             "name": "Laptop",
-            "output": "/home/eric/.config/sunshine/app-laptop.log",
+            "output": "/var/home/eric/.var/app/dev.lizardbyte.app.Sunshine/config/sunshine/app-laptop.log",
             "prep-cmd": [
                 {
-                    "do": "moncon 1680x1050 119.891 1",
+                    "do": "/var/home/eric/.local/bin/moncon 1680x1050 119.891 1",
                     "undo": ""
                 }
             ],
@@ -62,12 +62,12 @@
             "cmd": "",
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/home/eric/.config/sunshine/covers/iphone.png",
+            "image-path": "/var/home/eric/.config/sunshine/covers/iphone.png",
             "name": "Phone",
-            "output": "/home/eric/.config/sunshine/app-phone.log",
+            "output": "/var/home/eric/.var/app/dev.lizardbyte.app.Sunshine/config/sunshine/app-phone.log",
             "prep-cmd": [
                 {
-                    "do": "moncon 1280x720 119.858 1",
+                    "do": "/var/home/eric/.local/bin/moncon 1280x720 119.858 1",
                     "undo": ""
                 }
             ],
