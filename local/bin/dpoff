@@ -1,6 +1,6 @@
 #!/bin/bash
 MAIN="DP-1"
-DUMMY="HDMI-A-1"
+DUMMY="DP-6"
 
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
 RUN=()
@@ -24,10 +24,16 @@ case "$XDG_CURRENT_DESKTOP" in
 "GNOME" | *"GNOME"*)
   GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
 
+  # 1. Wake the compositor from sleep
+  "${RUN[@]}" busctl --user call org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver SimulateUserActivity
+  
+  # 2. Wait for the KMS pipeline to spin up
+  sleep 2
+  
   # Using short flags to avoid the argparse grouping error
-  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
+  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -e "$GNOME_DUMMY" -d "$MAIN"
   "${RUN[@]}" gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
   "${RUN[@]}" gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
-  sleep 5
+  sleep 2
   ;;
 esac

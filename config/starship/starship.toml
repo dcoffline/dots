@@ -2,14 +2,14 @@ format = """
 [](#3B4252)\
 $username\
 [](fg:#3B4252 bg:#434C5E)\
-$container\
+$os\
 [](fg:#434C5E bg:#4C566A)\
 $directory\
 [](fg:#4C566A bg:#86BBD8)\
 $git_branch\
 $git_status\
 [](fg:#86BBD8 bg:#06969A)\
-$os\
+$container\
 $c\
 $elixir\
 $elm\
@@ -34,28 +34,16 @@ style_user = "bg:#3B4252"
 style_root = "bg:#3B4252"
 format = '[ $user ]($style)'
 
-[container]
-symbol = ""
-format = '[ $symbol ]($style)'
-style = 'bg:#434C5E'
+[os]
 disabled = false
+style = "bg:#434C5E"
+format = "[ $symbol ]($style)"
 
 [directory]
 style = 'bg:#4C566A'
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
-
-[directory.substitutions]
-# Shorten some long paths by text replacement
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
-"Videos" = "󰎁 " 
-"dots" = " "
-".config" = " "
-".local" = "⌘ "
 
 [git_branch]
 symbol = ""
@@ -66,10 +54,11 @@ format = '[ $symbol $branch ]($style)'
 style = "bold red bg:#86BBD8"
 format = '[$all_status$ahead_behind ]($style)'
 
-[os]
+[container]
+symbol = ""
+format = '[ $symbol ]($style)'
+style = 'bg:#06969A'
 disabled = false
-style = "bg:#06969A"
-format = "[ $symbol ]($style)"
 
 [time]
 disabled = false
@@ -129,6 +118,17 @@ Unknown = "❓"
 Uos = "🐲"
 Void = ""
 Windows = ""
+
+[directory.substitutions]
+# Shorten some long paths by text replacement
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"Videos" = "󰎁 " 
+"dots" = " "
+".config" = " "
+".local" = "⌘ "
 
 # Programming Languages
 

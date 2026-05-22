@@ -3,21 +3,21 @@
         {
             "auto-detach": true,
             "detached": [
-                "setsid steam steam://open/bigpicture"
+                ""
             ],
             "exclude-global-prep-cmd": false,
             "exit-timeout": 3,
             "image-path": "steam.png",
             "name": "Big Picture",
-            "output": "/var/home/eric/.var/app/dev.lizardbyte.app.Sunshine/config/sunshine/app-bigpic.log",
+            "output": "/var/home/eric/.config/sunshine/app-bigpic.log",
             "prep-cmd": [
                 {
-                    "do": "/var/home/eric/.local/bin/moncon 1920x1080 120.040 1",
+                    "do": "monctl",
                     "undo": ""
                 },
                 {
-                    "do": "",
-                    "undo": "setsid steam steam://close/bigpicture"
+                    "do": "/var/home/eric/.local/bin/steam steam://open/bigpicture",
+                    "undo": "/var/home/eric/.local/bin/steam -shutdown"
                 }
             ],
             "wait-all": true
@@ -31,10 +31,10 @@
             "exit-timeout": 5,
             "image-path": "desktop.png",
             "name": "Desktop",
-            "output": "/var/home/eric/.var/app/dev.lizardbyte.app.Sunshine/config/sunshine/app-desktop.log",
+            "output": "/var/home/eric/.config/sunshine/app-desktop.log",
             "prep-cmd": [
                 {
-                    "do": "/var/home/eric/.local/bin/moncon 2560x1440 119.877 1",
+                    "do": "monctl 2560x1440 119.877",
                     "undo": ""
                 }
             ],
@@ -48,10 +48,10 @@
             "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/macbook.png",
             "name": "Laptop",
-            "output": "/var/home/eric/.var/app/dev.lizardbyte.app.Sunshine/config/sunshine/app-laptop.log",
+            "output": "/var/home/eric/.config/sunshine/app-laptop.log",
             "prep-cmd": [
                 {
-                    "do": "/var/home/eric/.local/bin/moncon 1680x1050 119.891 1",
+                    "do": "monctl 1920x1200 119.909",
                     "undo": ""
                 }
             ],
@@ -64,10 +64,27 @@
             "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/iphone.png",
             "name": "Phone",
-            "output": "/var/home/eric/.var/app/dev.lizardbyte.app.Sunshine/config/sunshine/app-phone.log",
+            "output": "/var/home/eric/.config/sunshine/app-phone.log",
             "prep-cmd": [
                 {
-                    "do": "/var/home/eric/.local/bin/moncon 1280x720 119.858 1",
+                    "do": "monctl 1280x720 119.858",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "/var/home/eric/src/gh/dc/dots/config/sunshine/covers/ultra.png",
+            "name": "Ultrawide",
+            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
+            "prep-cmd": [
+                {
+                    "do": "monctl 3440x1440 119.945",
                     "undo": ""
                 }
             ],

@@ -1,0 +1,17 @@
+[Unit]
+Description=Sunshine Game Streaming (KMS) - User Service
+After=graphical-session.target
+Requisite=graphical-session.target
+
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/sunshine
+Restart=on-failure
+RestartSec=3
+Environment=WAYLAND_DISPLAY=wayland-0
+Environment=XDG_SESSION_TYPE=wayland
+Environment=SUNSHINE_CONFIG_DIR=%h/.config/sunshine
+
+[Install]
+WantedBy=graphical-session.target

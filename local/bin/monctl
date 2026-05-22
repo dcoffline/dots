@@ -1,7 +1,8 @@
 #!/bin/bash
 MAIN="DP-1"
-DUMMY="HDMI-A-1"
+DUMMY="DP-6"
 
+# Dynamically detect Flatpak or Toolbx/Distrobox containers
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
   RUN=(flatpak-spawn --host --env=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" --env=XAUTHORITY="$XAUTHORITY")
@@ -10,8 +11,8 @@ fi
 echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>/tmp/sunshine_script.log
 
 RES=${1:-1920x1080}     
-REFRESH=${2:-60.000} 
-SCALE=${3:-1.0}  
+REFRESH=${2:-59.963} 
+SCALE=${3:-1}  
 
 case "$XDG_CURRENT_DESKTOP" in
 "KDE")
@@ -27,7 +28,7 @@ case "$XDG_CURRENT_DESKTOP" in
 "GNOME" | *"GNOME"*)
   GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
 
-  # Remember to verify $RES, $REFRESH, and $SCALE are actually supported by your EDID/dummy plug
+  # Remember to verify $RES, $REFRESH, and $SCALE are actually supported
   "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m "${RES}@${REFRESH}" -s "$SCALE"
   ;;
 esac
