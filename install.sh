@@ -42,8 +42,8 @@ fi
 # 3. Apply Stow
 echo "[ Applying dotfiles with Stow... ]"
 mkdir -p "$HOME/.config/systemd/user"
-stow -v -t "$HOME" home
-stow -v -t "$HOME/.local" local
-stow -v -t "$HOME/.config" config
+stow -R -v -t "$HOME" home
+stow -R -v -t "$HOME/.local" local
+stow -R -v -t "$HOME/.config" config
 
 echo "✅ Fortress bootstrap complete!"

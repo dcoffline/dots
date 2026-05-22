@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BREWFILE="/usr/share/ublue-os/homebrew/cncf.Brewfile"
+
+grep '^brew "' "$BREWFILE" \
+  | sed -E 's/^brew "([^"]+)".*/\1/' \
+  | while read -r formula; do
+      echo "Uninstalling $formula..."
+      brew uninstall --ignore-dependencies "$formula" || {
+        echo "  (skipped or failed: $formula)"
+      }
+    done
+
+echo "Done. The taps from the Brewfile are still present."

@@ -144,9 +144,7 @@ done
 # GNOME EXTENSIONS
 GNOME_EXTENSIONS=(
   "AlphabeticalAppGrid@stuarthayhurst"
-  "bluetooth-quick-connect@bjarosze.gmail.com"
   "clipboard-indicator@tudmotu.com"
-  "dash-to-dock@micxgx.gmail.com"
   "randomwallpaper@iflow.space"
   "screentospace@dilzhan.dev"
   "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
