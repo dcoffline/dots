@@ -31,9 +31,8 @@ case "$XDG_CURRENT_DESKTOP" in
   sleep 2
   
   # Using short flags to avoid the argparse grouping error
-  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -e "$GNOME_DUMMY" -d "$MAIN"
+  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
   "${RUN[@]}" gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
   "${RUN[@]}" gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
-  sleep 2
   ;;
 esac

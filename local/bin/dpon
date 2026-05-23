@@ -24,9 +24,9 @@ case "$XDG_CURRENT_DESKTOP" in
   "${RUN[@]}" cosmic-randr disable "$DUMMY"
   ;;
 "GNOME" | *"GNOME"*)
-  GNOME_MAIN=$(echo "$MAIN" | sed 's/-A-/-/g')
+  GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
 
-  "${RUN[@]}" gdctl set -L -p -M "$GNOME_MAIN"
+  "${RUN[@]}" gdctl set -L -p -M "$MAIN"
   "${RUN[@]}" gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
   "${RUN[@]}" gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
   ;;
