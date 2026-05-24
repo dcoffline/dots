@@ -61,8 +61,6 @@ __bp_imported="${bash_preexec_imported}"
 # Should be available to each precmd and preexec
 # functions, should they want it. $? and $_ are available as $? and $_, but
 # $PIPESTATUS is available only in a copy, $BP_PIPESTATUS.
-# TODO: Figure out how to restore PIPESTATUS before each precmd or preexec
-# function.
 __bp_last_ret_value="$?"
 BP_PIPESTATUS=("${PIPESTATUS[@]}")
 __bp_last_argument_prev_command="$_"

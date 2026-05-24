@@ -2,9 +2,7 @@
 
 # The Fortress Bootstrapper
 set -e
-set -a
 source ./config/environment.d/envvars.conf
-set +a
 source ./config/bash/os.bash
 
 echo "🛡️  Bootstrapping the Fortress..."

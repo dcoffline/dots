@@ -16,8 +16,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "steam -bigpicture",
-                    "undo": "steam -shutdown"
+                    "do": "/var/home/eric/.local/bin/steam steam://open/bigpicture",
+                    "undo": "/var/home/eric/.local/bin/steam -shutdown"
                 }
             ],
             "wait-all": true
@@ -46,25 +46,8 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/var/home/eric/src/gh/dc/dots/config/sunshine/covers/ultra.png",
-            "name": "LG Ultrawide",
-            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
-            "prep-cmd": [
-                {
-                    "do": "monctl 3440x1440 119.945",
-                    "undo": ""
-                }
-            ],
-            "wait-all": true
-        },
-        {
-            "auto-detach": true,
-            "cmd": "",
-            "elevated": false,
-            "exclude-global-prep-cmd": false,
-            "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/macbook.png",
-            "name": "Macbook",
+            "name": "Laptop",
             "output": "/var/home/eric/.config/sunshine/app-laptop.log",
             "prep-cmd": [
                 {
@@ -85,6 +68,23 @@
             "prep-cmd": [
                 {
                     "do": "monctl 1280x720 119.858",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "/var/home/eric/src/gh/dc/dots/config/sunshine/covers/ultra.png",
+            "name": "Ultrawide",
+            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
+            "prep-cmd": [
+                {
+                    "do": "monctl 3440x1440 119.945",
                     "undo": ""
                 }
             ],
