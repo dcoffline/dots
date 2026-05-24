@@ -13,3 +13,4 @@ grep '^brew "' "$BREWFILE" \
     done
 
 echo "Done. The taps from the Brewfile are still present."
+

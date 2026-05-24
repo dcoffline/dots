@@ -1,29 +1,18 @@
 #!/bin/bash
 sudo -v
+set -e
 
-DOTS="$HOME/src/gh/dc/dots"
+source ./config/environment.d/envvars.conf
+source ./config/bash/os.bash
+
 SHELLINI="config/dconf-backups/gnome-shell.ini"
 
 # Sync with remote first
-cd "$DOTS" || exit
+cd "$DOTS" || exit 1
 echo "[ Syncing with GitHub... ]"
-git pull --rebase origin main
+git pull --rebase origin main || echo "⚠️ Warning: Git pull failed. Continuing with local files..."
 
 echo "[ Initiating Fortress Maintenance Protocol... ]"
-
-# =========================================================
-# ENVIRONMENT DETECTION
-# =========================================================
-if [ -f /run/.containerenv ]; then
-  ENV_TYPE="container"
-  echo "[ 🏗️  Container environment detected ]"
-elif [ -f /run/ostree-booted ]; then
-  ENV_TYPE="immutable"
-  echo "[ 🛡️  Immutable host detected ]"
-else
-  ENV_TYPE="mutable"
-  echo "[ 💻 Standard mutable host detected ]"
-fi
 
 # =========================================================
 # CONTAINER MAINTENANCE
@@ -37,18 +26,17 @@ if [ "$ENV_TYPE" = "container" ]; then
   elif command -v pacman >/dev/null 2>&1; then
     sudo paru -Syu
   fi
+
   echo "[ Updating NPM packages... ]"
   sudo npm update -g
+
   echo "[ Updating Cargo packages... ]"
-  cargo install television atuin
+  cargo install television atuin || echo "⚠️ Warning: Cargo updates failed. Skipping..."
 
   echo "[ Syncing Host State... ]"
-
-  # Dump Brewfile from host
-  cd "$DOTS" && distrobox-host-exec brew bundle dump --force
-
-  # Dump GNOME settings from host
-  distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+  # Execute on host, keep working directory explicit
+  distrobox-host-exec sh -c "cd '$DOTS' && brew bundle dump --force"
+  distrobox-host-exec dconf dump /org/gnome/shell/ > "$DOTS/$SHELLINI"
 
   echo "[ Applying Dotfile Updates... ]"
   stow -R -v --ignore=".DS_Store" -t "$HOME" home
@@ -58,22 +46,17 @@ if [ "$ENV_TYPE" = "container" ]; then
   echo "[ Backing up to GitHub... ]"
   git add Brewfile "$SHELLINI"
   git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
-  git push origin main
+  git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
 
   echo "[ Starting Immutable Host Update... ]"
   distrobox-host-exec ujust update
-  cd -
 
 # =========================================================
 # IMMUTABLE MAINTENANCE
 # =========================================================
 elif [ "$ENV_TYPE" = "immutable" ]; then
   echo "[ Syncing Host State... ]"
-
-  # Dump Brewfile from host
-  cd "$DOTS" && brew bundle dump --force
-
-  # Dump GNOME settings
+  brew bundle dump --force || echo "⚠️ Warning: Homebrew dump failed."
   dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
 
   echo "[ Applying Dotfile Updates... ]"
@@ -83,19 +66,18 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
 
   echo "[ Backing up to GitHub via Container... ]"
   # Find the first running container, fallback to any existing container
-  CONTAINER_NAME=$(distrobox list --no-color | awk 'NR>1 {print $3}' | head -n 1)
+  CONTAINER_NAME=$(distrobox list --no-color | awk -F '|' 'NR>1 {gsub(/[ \t]+/, "", $2); print $2}' | head -n 1)
   if [ -n "$CONTAINER_NAME" ]; then
     distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && \
           git add Brewfile '$SHELLINI' && \
           git commit -m 'System snapshot: \$(date +\"%Y-%m-%d\")' || true && \
-          git push origin main"
+          git push origin main" || echo "⚠️ Warning: Container Git operations failed."
   else
-    echo "Warning: No distrobox container found for GitHub backup."
+    echo "⚠️ Warning: No distrobox container found for GitHub backup."
   fi
 
   echo "[ Starting Immutable Host Update... ]"
   ujust update
-  cd -
 
 # =========================================================
 # MUTABLE MAINTENANCE
@@ -123,11 +105,10 @@ else
 
   echo "[ Updating Cargo packages... ]"
   if command -v cargo >/dev/null 2>&1; then
-    cargo install television atuin
-  fi
+    cargo install television atuin || echo "⚠️ Warning: Cargo updates failed."
+    fi
 
   echo "[ Syncing Host State... ]"
-  cd "$DOTS" || exit
   if command -v dconf >/dev/null 2>&1; then
     dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
   fi
@@ -143,8 +124,7 @@ else
   echo "[ Backing up to GitHub... ]"
   git add "$SHELLINI" Brewfile
   git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
-  git push origin main
-  cd -
+  git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
 fi
 
 echo "[ Fortress Maintenance Complete ]"

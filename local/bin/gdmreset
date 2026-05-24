@@ -1,0 +1,4 @@
+#!/bin/bash
+mv ~/.config/monitors.xml ~/.config/monitors.xml.bak
+sudo mv /var/lib/gdm/.config/monitors.xml /var/lib/gdm/.config/monitors.xml.bak
+sudo systemctl restart gdm

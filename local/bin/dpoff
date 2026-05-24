@@ -24,11 +24,14 @@ case "$XDG_CURRENT_DESKTOP" in
 "GNOME" | *"GNOME"*)
   GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
 
-  # 1. Wake the compositor from sleep
-  "${RUN[@]}" busctl --user call org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver SimulateUserActivity
+  # 1. Force the script to talk to the active user's GNOME session
+  export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
+
+  # 2. Tell Mutter directly to change Display Power to ON (0)
+  "${RUN[@]}" busctl --user set-property org.gnome.Mutter.DisplayConfig /org/gnome/Mutter/DisplayConfig org.gnome.Mutter.DisplayConfig PowerSaveMode i 0
   
-  # 2. Wait for the KMS pipeline to spin up
-  sleep 2
+  # Reduced sleep to prevent Moonlight connection timeouts
+  sleep 1
   
   # Using short flags to avoid the argparse grouping error
   "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
@@ -36,3 +39,4 @@ case "$XDG_CURRENT_DESKTOP" in
   "${RUN[@]}" gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
   ;;
 esac
+monctl

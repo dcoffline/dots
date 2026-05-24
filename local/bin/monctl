@@ -10,8 +10,8 @@ fi
 
 echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>/tmp/sunshine_script.log
 
-RES=${1:-1920x1080}     
-REFRESH=${2:-59.963} 
+RES=${1:-1280x720}     
+REFRESH=${2:-119.858}
 SCALE=${3:-1}  
 
 case "$XDG_CURRENT_DESKTOP" in

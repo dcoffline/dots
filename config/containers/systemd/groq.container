@@ -19,5 +19,9 @@ SecurityLabelDisable=true
 # Pass supplementary groups directly to podman
 PodmanArgs=--group-add=keep-groups --userns=keep-id
 
+[Service]
+Restart=always
+RestartSec=2s
+
 [Install]
 WantedBy=default.target

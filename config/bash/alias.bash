@@ -94,6 +94,7 @@ alias cid="echo $CONTAINER_ID"
 alias groqlog="cat $GROQDIR/groq_debug.log"
 alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
 alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
+alias code="code --user-data-dir ~/.config/vscode-config --extensions-dir ~/.local/share/vscode/extensions"
 alias kittyup="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin dest=$HOME/.local/state"
 
 # File Management
