@@ -1,14 +1,13 @@
 #!/bin/bash
 sudo -v
 set -e
-
-source ./config/environment.d/envvars.conf
-source ./config/bash/os.bash
-
 SHELLINI="config/dconf-backups/gnome-shell.ini"
 
 # Sync with remote first
 cd "$DOTS" || exit 1
+source ./config/environment.d/envvars.conf
+source ./config/bash/os.bash
+
 echo "[ Syncing with GitHub... ]"
 git pull --rebase origin main || echo "⚠️ Warning: Git pull failed. Continuing with local files..."
 
@@ -36,7 +35,7 @@ if [ "$ENV_TYPE" = "container" ]; then
   echo "[ Syncing Host State... ]"
   # Execute on host, keep working directory explicit
   distrobox-host-exec sh -c "cd '$DOTS' && brew bundle dump --force"
-  distrobox-host-exec dconf dump /org/gnome/shell/ > "$DOTS/$SHELLINI"
+  distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
 
   echo "[ Applying Dotfile Updates... ]"
   stow -R -v --ignore=".DS_Store" -t "$HOME" home
@@ -106,7 +105,7 @@ else
   echo "[ Updating Cargo packages... ]"
   if command -v cargo >/dev/null 2>&1; then
     cargo install television atuin || echo "⚠️ Warning: Cargo updates failed."
-    fi
+  fi
 
   echo "[ Syncing Host State... ]"
   if command -v dconf >/dev/null 2>&1; then

@@ -3,7 +3,7 @@
         {
             "auto-detach": true,
             "detached": [
-                ""
+                "/var/home/eric/.local/bin/steam -bigpicture"
             ],
             "exclude-global-prep-cmd": false,
             "exit-timeout": 3,
@@ -14,10 +14,6 @@
                 {
                     "do": "monctl 1920x1080 59.963",
                     "undo": ""
-                },
-                {
-                    "do": "/var/home/eric/.local/bin/steam steam://open/bigpicture",
-                    "undo": "/var/home/eric/.local/bin/steam -shutdown"
                 }
             ],
             "wait-all": true
