@@ -1,7 +1,7 @@
 {
   "autoupdate:channel": "latest",
   "web:defaulturl": "https://dash.hemati.com/",
-  "term:fontsize": 16,
+  "term:fontsize": 15,
   "term:transparency": 0.15,
   "ai:preset": "ai@global",
   "ai:model": "gpt-5-mini",
