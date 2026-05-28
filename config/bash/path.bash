@@ -33,6 +33,6 @@ fi
 
 # ────── CLEANUP ──────
 # Use cleanpath function from .functions if available
-[ command -v cleanpath ] && cleanpath
+cleanpath
 
 export PATH
