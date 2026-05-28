@@ -28,6 +28,7 @@ if [ -f /run/.containerenv ]; then
   alias jc='dhe journalctl'
   alias follow='dhe journalctl --user -fu'
   alias ptrans='dhe dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
+  alias brew='dhe /home/linuxbrew/.linuxbrew/bin/brew'
 
 # ──────  HOST ALIASES ──────
 

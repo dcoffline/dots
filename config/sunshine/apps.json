@@ -75,7 +75,7 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/var/home/eric/src/gh/dc/dots/config/sunshine/covers/ultra.png",
+            "image-path": "/var/home/eric/src/dots/config/sunshine/covers/ultra.png",
             "name": "Ultrawide",
             "output": "/var/home/eric/.config/sunshine/app-ultra.log",
             "prep-cmd": [
