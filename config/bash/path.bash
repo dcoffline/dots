@@ -9,6 +9,7 @@ add_to_path() {
 }
 
 # ────── COMMON PATHS ──────
+add_to_path "/home/linuxbrew/.linuxbrew/bin"
 add_to_path "$HOME/.local/share/go/bin"
 add_to_path "$HOME/.config/npm/bin"
 add_to_path "$HOME/.cargo/bin"
