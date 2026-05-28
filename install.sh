@@ -5,6 +5,20 @@ set -e
 source ./config/environment.d/envvars.conf
 source ./config/bash/os.bash
 
+# =========================================================
+# ENVIRONMENT DETECTION
+# =========================================================
+if [ -f /run/.containerenv ]; then
+  ENV_TYPE="container"
+  echo "[ 🏗️  Container environment detected ]"
+elif [ -f /run/ostree-booted ] || [ "$OS_TYPE" = "mac" ]; then
+  ENV_TYPE="immutable"
+  echo "[ 🛡️  Immutable host detected ]"
+else
+  ENV_TYPE="mutable"
+  echo "[ 💻 Standard mutable host detected ]"
+fi
+
 echo "🛡️  Bootstrapping the Fortress..."
 
 # 1. Ensure Stow is installed
