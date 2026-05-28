@@ -2,6 +2,11 @@
 sudo -v
 set -e
 SHELLINI="config/dconf-backups/gnome-shell.ini"
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
 
 # =========================================================
 # ENVIRONMENT DETECTION
@@ -48,7 +53,7 @@ if [ "$ENV_TYPE" = "container" ]; then
 
   echo "[ Syncing Host State... ]"
   # Execute on host, keep working directory explicit
-  distrobox-host-exec sh -c "cd '$DOTS' && brew bundle dump --force"
+  distrobox-host-exec sh -c "cd '$DOTS' && /home/linuxbrew/.linuxbrew/bin/brew bundle dump --force"
   distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
 
   echo "[ Applying Dotfile Updates... ]"
@@ -62,7 +67,7 @@ if [ "$ENV_TYPE" = "container" ]; then
   git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
 
   echo "[ Starting Immutable Host Update... ]"
-  distrobox-host-exec ujust update
+  distrobox-host-exec sudo ujust update
 
 # =========================================================
 # IMMUTABLE MAINTENANCE
@@ -90,7 +95,7 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
   fi
 
   echo "[ Starting Immutable Host Update... ]"
-  ujust update
+  sudo ujust update
 
 # =========================================================
 # MUTABLE MAINTENANCE
