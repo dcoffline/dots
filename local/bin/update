@@ -84,22 +84,28 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
 
   echo "[ Backing up to GitHub via Container... ]"
   # Find the first running container, fallback to any existing container
-  CONTAINER_NAME=$(distrobox list --no-color | awk -F '|' 'NR>1 {gsub(/[ \t]+/, "", $2); print $2}' | head -n 1)
   if [ "$OS_TYPE" = "mac" ]; then
-    git add Brewfile '$SHELLINI' &&
-      git commit -m 'System snapshot: \$(date +\"%Y-%m-%d\")' || true &&
-      git push origin main || echo "⚠️ Warning: Container Git operations failed."
-  elif [ -n "$CONTAINER_NAME" ]; then
-    distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && \
-          git add Brewfile '$SHELLINI' && \
-          git commit -m 'System snapshot: \$(date +\"%Y-%m-%d\")' || true && \
-          git push origin main" || echo "⚠️ Warning: Container Git operations failed."
+    git add Brewfile
+    git commit -m 'System snapshot: \$(date +\"%Y-%m-%d\")' || true
+    git push origin main || echo "⚠️ Warning: Container Git operations failed."
+  elif [ command -v distrobox ]; then
+    CONTAINER_NAME=$(distrobox list --no-color |
+      awk -F '|' 'NR>1 {gsub(/[ \t]+/, "", $2); print $2}' | head -n 1)
   else
     echo "⚠️ Warning: No distrobox container found for GitHub backup."
   fi
 
-  echo "[ Starting Immutable Host Update... ]"
-  [ command -v ujust ] && ujust update
+  if [ -n "$CONTAINER_NAME" ]; then
+    distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && \
+      git add Brewfile '$SHELLINI' && \
+      git commit -m 'System snapshot: \$(date +\"%Y-%m-%d\")' || true && \
+      git push origin main" || echo "⚠️ Warning: Container Git operations failed."
+  fi
+
+  if [ "$OS_TYPE" = "linux" ]; then
+    echo "[ Starting Immutable Host Update... ]"
+    [ command -v ujust ] && ujust update
+  fi
 
 # =========================================================
 # MUTABLE MAINTENANCE
