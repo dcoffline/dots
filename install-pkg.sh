@@ -49,7 +49,7 @@ if [ ! -f /run/ostree-booted ]; then
     else
       sudo pacman -S --noconfirm "${ARCH_PACKAGES[@]}"
     fi
-    EXPORT_BINS=(gh glab jotta-cli shellcheck stress-ng weston)
+    EXPORT_BINS=(gh git glab jotta-cli shellcheck stress-ng weston)
   fi
 
   # RUST & CARGO TOOLCHAINS
@@ -81,14 +81,6 @@ if [ ! -f /run/ostree-booted ]; then
   else
     echo "[ ERROR: Cargo is still not available. Skipping Rust binaries. ]"
   fi
-
-  #  # NPM BINARIES
-  #  echo "[ Installing Node binaries via NPM... ]"
-  #  if command -v npm >/dev/null 2>&1; then
-  #    npm install -g "@google/gemini-cli"
-  #  else
-  #    echo "[ ERROR: NPM is not available. Skipping Node binaries. ]"
-  #  fi
 
   # DISTROBOX EXPORTS
   if [ -f /run/.containerenv ] && [ -n "${EXPORT_BINS[*]}" ]; then

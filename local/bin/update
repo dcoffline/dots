@@ -75,7 +75,7 @@ if [ "$ENV_TYPE" = "container" ]; then
 elif [ "$ENV_TYPE" = "immutable" ]; then
   echo "[ Syncing Host State... ]"
   brew bundle dump --force || echo "⚠️ Warning: Homebrew dump failed."
-  dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+  [command -v dconf ] && dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
 
   echo "[ Applying Dotfile Updates... ]"
   stow -R -v --ignore=".DS_Store" -t "$HOME" home
@@ -85,7 +85,11 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
   echo "[ Backing up to GitHub via Container... ]"
   # Find the first running container, fallback to any existing container
   CONTAINER_NAME=$(distrobox list --no-color | awk -F '|' 'NR>1 {gsub(/[ \t]+/, "", $2); print $2}' | head -n 1)
-  if [ -n "$CONTAINER_NAME" ]; then
+  if [ "$OS_TYPE" = "mac" ]; then
+    git add Brewfile '$SHELLINI' &&
+      git commit -m 'System snapshot: \$(date +\"%Y-%m-%d\")' || true &&
+      git push origin main || echo "⚠️ Warning: Container Git operations failed."
+  elif [ -n "$CONTAINER_NAME" ]; then
     distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && \
           git add Brewfile '$SHELLINI' && \
           git commit -m 'System snapshot: \$(date +\"%Y-%m-%d\")' || true && \
@@ -95,7 +99,7 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
   fi
 
   echo "[ Starting Immutable Host Update... ]"
-  ujust update
+  [ command -v ujust ] && ujust update
 
 # =========================================================
 # MUTABLE MAINTENANCE
