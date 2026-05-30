@@ -34,18 +34,17 @@
         description: Reverse-Proxy 
         server: podman
         container: cloudflared
-    - Groq:
-        icon: web-whisper
-        href: https://github.com/dcoffline/groq-dictate
-        description: AI Dictation Tool 
-        server: podman
-        container: groq
     - Samba:
         icon: samba-server
         href: https://app.plex.tv
         description: Media SMB Share 
         server: podman
         container: samba
+    - Sunshine:
+        icon: sunshine
+        href: https://localhost:47990
+        description: Game Streaming 
+        ping: http://localhost:47990 
     - Zurg:
         icon: real-debrid
         href: https://real-debrid.com

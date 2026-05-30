@@ -82,13 +82,13 @@ if [ ! -f /run/ostree-booted ]; then
     echo "[ ERROR: Cargo is still not available. Skipping Rust binaries. ]"
   fi
 
-#  # NPM BINARIES
-#  echo "[ Installing Node binaries via NPM... ]"
-#  if command -v npm >/dev/null 2>&1; then
-#    npm install -g "@google/gemini-cli"
-#  else
-#    echo "[ ERROR: NPM is not available. Skipping Node binaries. ]"
-#  fi
+  #  # NPM BINARIES
+  #  echo "[ Installing Node binaries via NPM... ]"
+  #  if command -v npm >/dev/null 2>&1; then
+  #    npm install -g "@google/gemini-cli"
+  #  else
+  #    echo "[ ERROR: NPM is not available. Skipping Node binaries. ]"
+  #  fi
 
   # DISTROBOX EXPORTS
   if [ -f /run/.containerenv ] && [ -n "${EXPORT_BINS[*]}" ]; then
@@ -129,6 +129,7 @@ FLATPAK_APPS=(
   io.github.fabrialberio.pinapp
   page.tesk.Refine
   dev.deedles.Trayscale
+  com.github.marhkb.Pods
 )
 echo "[ Checking GUI apps... ]"
 for app in "${FLATPAK_APPS[@]}"; do
@@ -142,6 +143,32 @@ for app in "${FLATPAK_APPS[@]}"; do
     fi
   fi
 done
+
+# PODMAN API SOCKET & FLATPAK OVERRIDES
+if [ ! -f /run/.containerenv ]; then
+  if command -v systemctl >/dev/null 2>&1; then
+    echo "[ Ensuring Podman API socket is active and initialized... ]"
+    systemctl --user enable --now podman.socket 2>/dev/null || true
+    if [ ! -S "/run/user/$(id -u)/podman/podman.sock" ]; then
+      echo "[ Podman socket file is missing; restarting podman.socket... ]"
+      systemctl --user restart podman.socket 2>/dev/null || true
+    fi
+  fi
+
+  if command -v flatpak >/dev/null 2>&1; then
+    echo "[ Configuring Flatpak overrides for Pods... ]"
+    flatpak override --user --filesystem=xdg-run/podman:ro com.github.marhkb.Pods 2>/dev/null || true
+  fi
+else
+  if command -v distrobox-host-exec >/dev/null 2>&1; then
+    echo "[ Requesting Host to ensure Podman socket and Flatpak overrides are configured... ]"
+    distrobox-host-exec systemctl --user enable --now podman.socket 2>/dev/null || true
+    if ! distrobox-host-exec test -S "/run/user/\$(id -u)/podman/podman.sock"; then
+      distrobox-host-exec systemctl --user restart podman.socket 2>/dev/null || true
+    fi
+    distrobox-host-exec flatpak override --user --filesystem=xdg-run/podman:ro com.github.marhkb.Pods 2>/dev/null || true
+  fi
+fi
 
 # GNOME EXTENSIONS
 GNOME_EXTENSIONS=(
@@ -186,4 +213,3 @@ if command -v gext >/dev/null 2>&1 || ([ -f /run/.containerenv ] && command -v d
 fi
 
 echo "[ Fortress package installation complete ]"
-
