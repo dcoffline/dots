@@ -82,13 +82,13 @@ if [ ! -f /run/ostree-booted ]; then
     echo "[ ERROR: Cargo is still not available. Skipping Rust binaries. ]"
   fi
 
-  # NPM BINARIES
-  echo "[ Installing Node binaries via NPM... ]"
-  if command -v npm >/dev/null 2>&1; then
-    npm install -g "@google/gemini-cli"
-  else
-    echo "[ ERROR: NPM is not available. Skipping Node binaries. ]"
-  fi
+#  # NPM BINARIES
+#  echo "[ Installing Node binaries via NPM... ]"
+#  if command -v npm >/dev/null 2>&1; then
+#    npm install -g "@google/gemini-cli"
+#  else
+#    echo "[ ERROR: NPM is not available. Skipping Node binaries. ]"
+#  fi
 
   # DISTROBOX EXPORTS
   if [ -f /run/.containerenv ] && [ -n "${EXPORT_BINS[*]}" ]; then
@@ -129,7 +129,6 @@ FLATPAK_APPS=(
   io.github.fabrialberio.pinapp
   page.tesk.Refine
   dev.deedles.Trayscale
-  org.pvermeer.WebAppHub
 )
 echo "[ Checking GUI apps... ]"
 for app in "${FLATPAK_APPS[@]}"; do
@@ -146,8 +145,15 @@ done
 
 # GNOME EXTENSIONS
 GNOME_EXTENSIONS=(
+  "allowlockedremotedesktop@kamens.us"
   "AlphabeticalAppGrid@stuarthayhurst"
+  "app-hider@lynith.dev"
+  "apps-menu@gnome-shell-extensions.gcampax.github.com"
   "clipboard-indicator@tudmotu.com"
+  "dash-to-dock@micxgx.gmail.com"
+  "desktop-cube@schneegans.github.com"
+  "extension-list@tu.berry"
+  "places-menu@gnome-shell-extensions.gcampax.github.com"
   "randomwallpaper@iflow.space"
   "screentospace@dilzhan.dev"
   "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
