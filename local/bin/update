@@ -67,7 +67,7 @@ if [ "$ENV_TYPE" = "container" ]; then
   git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
 
   echo "[ Starting Immutable Host Update... ]"
-  distrobox-host-exec sudo ujust update
+  distrobox-host-exec ujust update
 
 # =========================================================
 # IMMUTABLE MAINTENANCE
@@ -95,7 +95,7 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
   fi
 
   echo "[ Starting Immutable Host Update... ]"
-  sudo ujust update
+  ujust update
 
 # =========================================================
 # MUTABLE MAINTENANCE

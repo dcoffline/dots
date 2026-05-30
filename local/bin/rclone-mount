@@ -3,7 +3,7 @@ set -euo pipefail
 
 sleep 2
 
-RCLONE=/usr/bin/rclone
+RCLONE=/home/linuxbrew/.linuxbrew/bin/rclone
 BASE_MOUNT="$HOME/.mnt/rclone"
 LOGFILE="$HOME/.config/rclone/rclone-mount.log"
 PID_DIR="$HOME/.config/rclone/pid"
