@@ -24,32 +24,32 @@ if [ ! -f /run/ostree-booted ]; then
   if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     DNF_PACKAGES=(
-      busybox chafa direnv fastfetch gh glab gcc golang make neovim
-      nodejs npm pipx ShellCheck stress-ng trash-cli weston yq
+      busybox chafa direnv fastfetch gh glab gcc golang make
+      neovim nodejs npm pipx ShellCheck stress-ng trash-cli weston yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
-    EXPORT_BINS=(gh glab shellcheck stress-ng weston)
 
   elif command -v apt-get >/dev/null 2>&1; then
     echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
     sudo apt-get update
     APT_PACKAGES=(
-      busybox chafa direnv fastfetch gh glab gcc golang make neovim
-      nodejs npm pipx shellcheck stress-ng trash-cli yq
+      busybox chafa direnv fastfetch gh glab gcc golang make
+      neovim nodejs npm pipx shellcheck stress-ng trash-cli yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
 
   elif command -v pacman >/dev/null 2>&1; then
     echo "[ ARCH-based system detected. Using PACMAN/PARU... ]"
     ARCH_PACKAGES=(
-      busybox chafa direnv fastfetch github-cli glab gcc go make neovim
-      nodejs npm python-pipx shellcheck stress-ng trash-cli which yq
+      busybox chafa direnv fastfetch github-cli glab gcc go jotta-cli make
+      neovim nodejs npm python-pipx shellcheck stress-ng trash-cli which yq
     )
     if command -v paru >/dev/null 2>&1; then
       paru -S --noconfirm "${ARCH_PACKAGES[@]}"
     else
       sudo pacman -S --noconfirm "${ARCH_PACKAGES[@]}"
     fi
+    EXPORT_BINS=(gh glab jotta-cli shellcheck stress-ng weston)
   fi
 
   # RUST & CARGO TOOLCHAINS
@@ -180,3 +180,4 @@ if command -v gext >/dev/null 2>&1 || ([ -f /run/.containerenv ] && command -v d
 fi
 
 echo "[ Fortress package installation complete ]"
+
