@@ -3,7 +3,7 @@
         {
             "auto-detach": true,
             "detached": [
-                "/var/home/eric/.local/bin/steam -bigpicture"
+                "steam -bigpicture"
             ],
             "exclude-global-prep-cmd": false,
             "exit-timeout": 3,
