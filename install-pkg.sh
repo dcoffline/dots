@@ -39,15 +39,15 @@ if [ ! -f /run/ostree-booted ]; then
     sudo apt-get install -y "${APT_PACKAGES[@]}"
 
   elif command -v pacman >/dev/null 2>&1; then
-    echo "[ ARCH-based system detected. Using PACMAN/PARU... ]"
+    echo "[ ARCH-based system detected. Using PACMAN/yay... ]"
     ARCH_PACKAGES=(
       busybox chafa direnv fastfetch github-cli glab gcc go jotta-cli make
       neovim nodejs npm python-pipx shellcheck stress-ng trash-cli which yq
     )
-    if command -v paru >/dev/null 2>&1 && paru --version >/dev/null 2>&1; then
-      paru -S --noconfirm "${ARCH_PACKAGES[@]}"
+    if command -v yay >/dev/null 2>&1 && yay --version >/dev/null 2>&1; then
+      yay -S --noconfirm "${ARCH_PACKAGES[@]}"
     else
-      echo "[ paru is not available or broken. Falling back to pacman package-by-package... ]"
+      echo "[ yay is not available or broken. Falling back to pacman package-by-package... ]"
       for pkg in "${ARCH_PACKAGES[@]}"; do
         sudo pacman -S --noconfirm --needed "$pkg" || echo "[ Warning: Failed to install $pkg via pacman ]"
       done

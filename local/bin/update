@@ -42,15 +42,12 @@ if [ "$ENV_TYPE" = "container" ]; then
   elif command -v apt-get >/dev/null 2>&1; then
     sudo apt-get update && sudo apt-get upgrade -y
   elif command -v pacman >/dev/null 2>&1; then
-    if command -v paru >/dev/null 2>&1 && paru --version >/dev/null 2>&1; then
-      paru -Syu
+    if command -v yay >/dev/null 2>&1 && yay --version >/dev/null 2>&1; then
+      yay -Syu
     else
       sudo pacman -Syu
     fi
   fi
-
-  echo "[ Updating NPM packages... ]"
-  sudo npm update -g
 
   echo "[ Updating Cargo packages... ]"
   cargo install television atuin || echo "⚠️ Warning: Cargo updates failed. Skipping..."
@@ -127,8 +124,8 @@ else
   elif command -v apt-get >/dev/null 2>&1; then
     sudo apt-get update && sudo apt-get upgrade -y
   elif command -v pacman >/dev/null 2>&1; then
-    if command -v paru >/dev/null 2>&1 && paru --version >/dev/null 2>&1; then
-      paru -Syu
+    if command -v yay >/dev/null 2>&1 && yay --version >/dev/null 2>&1; then
+      yay -Syu
     else
       sudo pacman -Syu
     fi
