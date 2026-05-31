@@ -55,3 +55,7 @@ if [ "$(command -v atuin)" ]; then
 
   eval "$(atuin init bash)"
 fi
+
+
+# Added by Antigravity CLI installer
+export PATH="/var/home/eric/.local/bin:$PATH"

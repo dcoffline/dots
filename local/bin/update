@@ -42,7 +42,11 @@ if [ "$ENV_TYPE" = "container" ]; then
   elif command -v apt-get >/dev/null 2>&1; then
     sudo apt-get update && sudo apt-get upgrade -y
   elif command -v pacman >/dev/null 2>&1; then
-    sudo paru -Syu
+    if command -v paru >/dev/null 2>&1 && paru --version >/dev/null 2>&1; then
+      paru -Syu
+    else
+      sudo pacman -Syu
+    fi
   fi
 
   echo "[ Updating NPM packages... ]"
@@ -123,7 +127,11 @@ else
   elif command -v apt-get >/dev/null 2>&1; then
     sudo apt-get update && sudo apt-get upgrade -y
   elif command -v pacman >/dev/null 2>&1; then
-    sudo paru -Syu
+    if command -v paru >/dev/null 2>&1 && paru --version >/dev/null 2>&1; then
+      paru -Syu
+    else
+      sudo pacman -Syu
+    fi
   fi
 
   echo "[ Updating NPM packages... ]"

@@ -44,10 +44,13 @@ if [ ! -f /run/ostree-booted ]; then
       busybox chafa direnv fastfetch github-cli glab gcc go jotta-cli make
       neovim nodejs npm python-pipx shellcheck stress-ng trash-cli which yq
     )
-    if command -v paru >/dev/null 2>&1; then
+    if command -v paru >/dev/null 2>&1 && paru --version >/dev/null 2>&1; then
       paru -S --noconfirm "${ARCH_PACKAGES[@]}"
     else
-      sudo pacman -S --noconfirm "${ARCH_PACKAGES[@]}"
+      echo "[ paru is not available or broken. Falling back to pacman package-by-package... ]"
+      for pkg in "${ARCH_PACKAGES[@]}"; do
+        sudo pacman -S --noconfirm --needed "$pkg" || echo "[ Warning: Failed to install $pkg via pacman ]"
+      done
     fi
     EXPORT_BINS=(gh git glab jotta-cli shellcheck stress-ng weston)
   fi
@@ -88,7 +91,7 @@ if [ ! -f /run/ostree-booted ]; then
     for bin in "${EXPORT_BINS[@]}"; do
       BIN_PATH=$(which -a "$bin" 2>/dev/null | grep -v "$HOME" | head -n 1)
       if [ -n "$BIN_PATH" ]; then
-        distrobox-export --bin "$BIN_PATH"
+        distrobox-export --bin "$BIN_PATH" --export-path "$HOME/.local/bin"
       fi
     done
   fi
