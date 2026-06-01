@@ -1,0 +1,16 @@
+[Unit]
+Description=openwispr hold-to-talk daemon
+After=graphical-session.target
+Wants=openwispr-engine.service
+After=openwispr-engine.service
+Wants=xdg-desktop-portal.service xdg-desktop-portal-gnome.service
+After=xdg-desktop-portal.service xdg-desktop-portal-gnome.service
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/openwispr daemon --backend auto --trigger <Super>z --evdev-key z
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target
