@@ -3,7 +3,19 @@ set -euo pipefail
 
 sleep 2
 
-RCLONE=/home/linuxbrew/.linuxbrew/bin/rclone
+# Locate rclone dynamically
+if command -v rclone >/dev/null 2>&1; then
+  RCLONE=$(command -v rclone)
+elif [ -f "$HOME/.local/bin/rclone" ]; then
+  RCLONE="$HOME/.local/bin/rclone"
+elif [ -f /var/home/linuxbrew/.linuxbrew/bin/rclone ]; then
+  RCLONE="/var/home/linuxbrew/.linuxbrew/bin/rclone"
+elif [ -f /home/linuxbrew/.linuxbrew/bin/rclone ]; then
+  RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
+else
+  echo "Error: rclone binary not found. Please place the rclone binary at ~/.local/bin/rclone" >&2
+  exit 1
+fi
 BASE_MOUNT="$HOME/.mnt/rclone"
 LOGFILE="$HOME/.config/rclone/rclone-mount.log"
 PID_DIR="$HOME/.config/rclone/pid"

@@ -54,7 +54,11 @@ if [ "$ENV_TYPE" = "container" ]; then
 
   echo "[ Syncing Host State... ]"
   # Execute on host, keep working directory explicit
-  distrobox-host-exec sh -c "cd '$DOTS' && /home/linuxbrew/.linuxbrew/bin/brew bundle dump --force"
+  if distrobox-host-exec command -v brew >/dev/null 2>&1; then
+    distrobox-host-exec sh -c "cd '$DOTS' && brew bundle dump --force"
+  elif distrobox-host-exec test -f /var/home/linuxbrew/.linuxbrew/bin/brew; then
+    distrobox-host-exec sh -c "cd '$DOTS' && /var/home/linuxbrew/.linuxbrew/bin/brew bundle dump --force"
+  fi
   distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
 
   echo "[ Applying Dotfile Updates... ]"
@@ -68,15 +72,24 @@ if [ "$ENV_TYPE" = "container" ]; then
   git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
 
   echo "[ Starting Immutable Host Update... ]"
-  distrobox-host-exec ujust update
+  if distrobox-host-exec command -v ujust >/dev/null 2>&1; then
+    distrobox-host-exec ujust update
+  elif distrobox-host-exec command -v bootc >/dev/null 2>&1; then
+    echo "[ Upgrading host bootc image... ]"
+    distrobox-host-exec sudo bootc upgrade
+  fi
 
 # =========================================================
 # IMMUTABLE MAINTENANCE
 # =========================================================
 elif [ "$ENV_TYPE" = "immutable" ]; then
   echo "[ Syncing Host State... ]"
-  brew bundle dump --force || echo "⚠️ Warning: Homebrew dump failed."
-  [command -v dconf ] && dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+  if command -v brew >/dev/null 2>&1; then
+    brew bundle dump --force || echo "⚠️ Warning: Homebrew dump failed."
+  fi
+  if command -v dconf >/dev/null 2>&1; then
+    dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+  fi
 
   echo "[ Applying Dotfile Updates... ]"
   stow -R -v --ignore=".DS_Store" -t "$HOME" home
@@ -105,7 +118,12 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
 
   if [ "$OS_TYPE" = "linux" ]; then
     echo "[ Starting Immutable Host Update... ]"
-    ujust update
+    if command -v ujust >/dev/null 2>&1; then
+      ujust update
+    elif command -v bootc >/dev/null 2>&1; then
+      echo "[ Upgrading host bootc image... ]"
+      sudo bootc upgrade
+    fi
   fi
 
 # =========================================================

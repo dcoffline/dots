@@ -185,26 +185,34 @@ GNOME_EXTENSIONS=(
   "tweaks-system-menu@extensions.gnome-shell.fifi.org"
 )
 
-if ! command -v gext >/dev/null 2>&1 && [ ! -f /run/.containerenv ]; then
-  pipx install gnome-extensions-cli --system-site-packages || true
+if ! command -v gext >/dev/null 2>&1; then
+  echo "[ gext not found. Attempting to install gnome-extensions-cli... ]"
+  if command -v pipx >/dev/null 2>&1; then
+    pipx install gnome-extensions-cli --system-site-packages || true
+  elif command -v pip >/dev/null 2>&1; then
+    pip install --user gnome-extensions-cli || true
+  fi
 fi
 
-if command -v gext >/dev/null 2>&1 || ([ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1); then
-  echo "[ Installing GNOME Extensions... ]"
+if command -v gext >/dev/null 2>&1; then
+  echo "[ Installing GNOME Extensions locally... ]"
   for ext in "${GNOME_EXTENSIONS[@]}"; do
-    if [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
-      distrobox-host-exec gext install "$ext" 2>/dev/null || true
-    else
-      gext install "$ext" 2>/dev/null || true
-    fi
+    gext install "$ext" 2>/dev/null || true
   done
+elif [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+  echo "[ Installing GNOME Extensions via Host... ]"
+  for ext in "${GNOME_EXTENSIONS[@]}"; do
+    distrobox-host-exec gext install "$ext" 2>/dev/null || true
+  done
+fi
 
-  # Load DCONF
-  if [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
-    distrobox-host-exec dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
-  elif command -v dconf >/dev/null 2>&1; then
-    dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
-  fi
+# Load DCONF
+if command -v dconf >/dev/null 2>&1; then
+  echo "[ Loading GNOME Shell DCONF settings... ]"
+  dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
+elif [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+  echo "[ Loading GNOME Shell DCONF settings via Host... ]"
+  distrobox-host-exec dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
 fi
 
 echo "[ Fortress package installation complete ]"
