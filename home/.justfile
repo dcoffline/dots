@@ -56,6 +56,7 @@ update:
       echo "[ Syncing Host State... ]"
       distrobox-host-exec sh -c "cd '$DOTS' && /home/linuxbrew/.linuxbrew/bin/brew bundle dump --force"
       distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+      sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
 
       echo "[ Applying Dotfile Updates... ]"
       stow -R -v --ignore=".DS_Store" -t "$HOME" home
@@ -73,7 +74,10 @@ update:
     elif [ "$ENV_TYPE" = "immutable" ]; then
       echo "[ Syncing Host State... ]"
       brew bundle dump --force || echo "⚠️ Warning: Homebrew dump failed."
-      [ command -v dconf ] && dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+      if command -v dconf >/dev/null 2>&1; then
+        dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+        sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
+      fi
 
       echo "[ Applying Dotfile Updates... ]"
       stow -R -v --ignore=".DS_Store" -t "$HOME" home
@@ -104,7 +108,10 @@ update:
       if command -v cargo >/dev/null 2>&1; then cargo install television atuin || echo "⚠️ Warning: Cargo failed."; fi
 
       echo "[ Syncing Host State & Dotfiles... ]"
-      if command -v dconf >/dev/null 2>&1; then dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"; fi
+      if command -v dconf >/dev/null 2>&1; then
+        dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+        sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
+      fi
       if command -v brew >/dev/null 2>&1; then brew bundle dump --force; fi
 
       stow -R -v --ignore=".DS_Store" -t "$HOME" home
@@ -167,10 +174,8 @@ mount:
       # Linux Mount Logic
       # ===============================
       echo "[ Linux Detected - Running Linux Rclone Routine ]"
-      [ command -v /home/linuxbrew/.linuxbrew/bin/rclone ] && \
-	RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
-      [ command -v /usr/bin/rclone ] && \
-	RCLONE="/usr/bin/rclone"
+      [ command -v /home/linuxbrew/.linuxbrew/bin/rclone ] && RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
+      [ command -v /usr/bin/rclone ] && RCLONE="/usr/bin/rclone"
       BASE_MOUNT="$HOME/.mnt/rclone"
       LOGFILE="$HOME/.config/rclone/rclone-mount.log"
       PID_DIR="$HOME/.config/rclone/pid"
