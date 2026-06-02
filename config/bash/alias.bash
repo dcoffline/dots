@@ -13,10 +13,9 @@ if [ -f /run/.containerenv ]; then
 
   # Rclone (Punching out to the host)
   alias dhe='distrobox-host-exec'
-  [ "$IS_MAC" -eq 1 ] && alias rmount="dhe $HOME/.local/bin/rclone-mac"
-  [ "$IS_LINUX" -eq 1 ] && alias rmount="dhe $HOME/.local/bin/rclone-mount"
+  alias rmount="dhe just mount"
   alias rlsmount='dhe mount | grep rclone || echo "No rclone mounts active"'
-  alias rumount="dhe $HOME/.local/bin/rclone-unmount && rlsmount"
+  alias rumount="dhe just unmount"
   alias rremount='dhe rumount; sleep 3; rmount'
 
   # System Utils (Punching out to the host)
@@ -48,12 +47,10 @@ else
   alias deur='distrobox enter ubuntu -e'
 
   # Rclone (Native)
-  [ "$IS_MAC" -eq 1 ] && alias rmount="$HOME/.local/bin/rclone-mac"
-  [ "$IS_LINUX" -eq 1 ] && alias rmount="$HOME/.local/bin/rclone-mount"
+  alias rmount='just mount'
   alias rlsmount='mount | grep rclone || echo "No rclone mounts active"'
-  alias rumount='$HOME/.local/bin/rclone-unmount && rlsmount'
+  alias rumount='just unmount'
   alias rremount='rumount; sleep 3; rmount'
-
 fi
 
 # ────── GLOBAL ALIASES ──────
