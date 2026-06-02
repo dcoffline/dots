@@ -134,7 +134,7 @@ mount:
       RCLONE="/usr/local/bin/rclone"
       BASE_MOUNT="$HOME/Volumes"
       CACHE_DIR="$HOME/Library/Caches/rclone"
-      LOGFILE="$HOME/.config/rclone/rclone-log.txt"
+      LOGFILE="$HOME/.config/rclone/rclone-mount.log"
       PID_DIR="$HOME/.config/rclone/pid"
 
       declare -A REMOTES=( ["alldebrid"]="AllDebrid" ["archive"]="Archive" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["realdebrid"]="RealDebrid" ["timeline"]="Timeline" )
@@ -167,7 +167,10 @@ mount:
       # Linux Mount Logic
       # ===============================
       echo "[ Linux Detected - Running Linux Rclone Routine ]"
-      RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
+      [ command -v /home/linuxbrew/.linuxbrew/bin/rclone ] && \
+	RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
+      [ command -v /usr/bin/rclone ] && \
+	RCLONE="/usr/bin/rclone"
       BASE_MOUNT="$HOME/.mnt/rclone"
       LOGFILE="$HOME/.config/rclone/rclone-mount.log"
       PID_DIR="$HOME/.config/rclone/pid"
