@@ -13,7 +13,7 @@ mkdir -p $DOTS/config/systemd/user $DOTS/local/bin $HOME/.local/share/applicatio
 
 curl -fsSL "$REPO/${BIN}.tar.gz" -o "$TMP/${BIN}.tar.gz"
 tar -xzf "$TMP/${BIN}.tar.gz" -C "$TMP"
-install -Dm755 "$TMP/$BIN" $DOTS/local/bin/openwispr
+install -Dm755 "$TMP/$BIN" $HOME/.local/bin/openwispr
 
 curl -fsSL "$REPO/openwispr-engine.service" -o $DOTS/config/systemd/user/openwispr-engine.service
 curl -fsSL "$REPO/openwispr-hotkeyd.service" -o $DOTS/config/systemd/user/openwispr-hotkeyd.service

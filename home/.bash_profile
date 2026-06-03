@@ -5,3 +5,7 @@
 
 # Added by Antigravity CLI installer
 export PATH="/var/home/eric/.local/bin:$PATH"
+
+
+# Added by Antigravity CLI installer
+export PATH="/Users/eric/.local/bin:$PATH"

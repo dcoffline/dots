@@ -132,38 +132,34 @@ update:
 mount:
     #!/usr/bin/env bash
     set -euo pipefail
-    
+    BASE_MOUNT="$HOME/.mnt/rclone"
+    LOGFILE="$HOME/.config/rclone/rclone-mount.log"
+    PID_DIR="$HOME/.config/rclone/pid"
+    declare -A REMOTES=( ["alldebrid"]="AllDebrid" ["jotta"]="Archive" ["10T"]="Backup" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["realdebrid"]="RealDebrid" ["timeline"]="Timeline" ["zurg"]="Zurg" )
+    EXTRA_FLAGS=()
+    if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
+      EXTRA_FLAGS=( --read-only --exclude '.DS_Store' --exclude '._*' )
+    fi
+
     if [[ "$(uname -s)" == "Darwin" ]]; then
       # ===============================
       # macOS Mount Logic
       # ===============================
       echo "[ macOS Detected - Running Mac Rclone Routine ]"
       RCLONE="/usr/local/bin/rclone"
-      BASE_MOUNT="$HOME/Volumes"
       CACHE_DIR="$HOME/Library/Caches/rclone"
-      LOGFILE="$HOME/.config/rclone/rclone-mount.log"
-      PID_DIR="$HOME/.config/rclone/pid"
-
-      declare -A REMOTES=( ["alldebrid"]="AllDebrid" ["archive"]="Archive" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["realdebrid"]="RealDebrid" ["timeline"]="Timeline" )
-      
-      COMMON_FLAGS=( --vfs-cache-mode writes --cache-dir "$CACHE_DIR" --vfs-read-chunk-size=64M --vfs-cache-max-size=10G --vfs-cache-max-age=720h --log-file "$LOGFILE" --log-level INFO )
-
       for i in {1..12}; do ping -c1 8.8.8.8 >/dev/null 2>&1 && break; if [[ $i -eq 12 ]]; then echo "No internet" >&2; exit 1; fi; sleep 5; done
 
       mkdir -p "$PID_DIR" "$BASE_MOUNT" "$CACHE_DIR"
       pkill rclone 2>/dev/null || true
       sleep 2
 
+      COMMON_FLAGS=( --vfs-cache-mode writes --cache-dir "$CACHE_DIR" --vfs-read-chunk-size=64M --vfs-cache-max-size=10G --vfs-cache-max-age=720h --log-file "$LOGFILE" --log-level INFO )
       for remote in "${!REMOTES[@]}"; do
         target="${REMOTES[$remote]}"
         mountpoint="$BASE_MOUNT/$target"
         mkdir -p "$mountpoint"
         
-        EXTRA_FLAGS=()
-        if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
-          EXTRA_FLAGS=(--read-only --exclude '.DS_Store' --exclude '._*')
-        fi
-
         echo "Mounting ${remote}: → $mountpoint"
         "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
         echo $! >"$PID_DIR/${remote}.pid"
@@ -176,33 +172,24 @@ mount:
       echo "[ Linux Detected - Running Linux Rclone Routine ]"
       [ command -v /home/linuxbrew/.linuxbrew/bin/rclone ] && RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
       [ command -v /usr/bin/rclone ] && RCLONE="/usr/bin/rclone"
-      BASE_MOUNT="$HOME/.mnt/rclone"
-      LOGFILE="$HOME/.config/rclone/rclone-mount.log"
-      PID_DIR="$HOME/.config/rclone/pid"
 
       if [ -f /run/ostree-booted ]; then
-        mkdir -p /var/mnt/2T/rclone_cache
         CACHE_DIR=/var/mnt/2T/rclone_cache
-        declare -A REMOTES=( ["alldebrid"]="AllDebrid" ["jotta"]="Archive" ["10T"]="Backup" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["realdebrid"]="RealDebrid" ["timeline"]="Timeline" ["zurg"]="Zurg" )
       else
         CACHE_DIR="$HOME/.cache/rclone_cache"
-        declare -A REMOTES=( ["jotta"]="Archive" ["10T"]="Backup" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["timeline"]="Timeline" )
       fi
 
       COMMON_FLAGS=( --allow-other --umask 002 --dir-perms 775 --file-perms 664 --vfs-cache-mode writes --cache-dir "$CACHE_DIR" --vfs-read-chunk-size=64M --vfs-read-chunk-size-limit off --attr-timeout 10m --dir-cache-time 72h --vfs-cache-max-size=10G --vfs-cache-max-age=720h --vfs-cache-min-free-space=20G --poll-interval=1m --buffer-size 64M --log-file "$LOGFILE" --log-level INFO )
 
-      mkdir -p "$PID_DIR" "$BASE_MOUNT"
+      mkdir -p "$PID_DIR" "$BASE_MOUNT" "$CACHE_DIR"
+      pkill rclone 2>/dev/null || true
+      sleep 2
 
       for remote in "${!REMOTES[@]}"; do
         target="${REMOTES[$remote]}"
         mountpoint="$BASE_MOUNT/$target"
         mkdir -p "$mountpoint"
         
-        EXTRA_FLAGS=()
-        if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
-          EXTRA_FLAGS=(--read-only --exclude '.DS_Store' --exclude '._*')
-        fi
-
         echo "Mounting $remote → $mountpoint"
         "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
         echo $! >"$PID_DIR/${remote}.pid"
@@ -215,13 +202,8 @@ mount:
 # Unmounts all rclone directories
 unmount:
     #!/usr/bin/env bash
-    if [[ "$(uname -s)" == "Darwin" ]]; then
-      BASE_MOUNT="$HOME/Volumes"
-      MOUNTPOINTS=( $BASE_MOUNT/AllDebrid $BASE_MOUNT/Archive $BASE_MOUNT/GDrive $BASE_MOUNT/OneDrive $BASE_MOUNT/RealDebrid $BASE_MOUNT/Timeline )
-    else
-      BASE_MOUNT="$HOME/.mnt/rclone"
-      MOUNTPOINTS=( $BASE_MOUNT/AllDebrid $BASE_MOUNT/Archive $BASE_MOUNT/GDrive $BASE_MOUNT/OneDrive $BASE_MOUNT/RealDebrid $BASE_MOUNT/Timeline $BASE_MOUNT/Zurg )
-    fi
+    BASE_MOUNT="$HOME/.mnt/rclone"
+    MOUNTPOINTS=( $BASE_MOUNT/AllDebrid $BASE_MOUNT/Archive $BASE_MOUNT/Backup $BASE_MOUNT/GDrive $BASE_MOUNT/OneDrive $BASE_MOUNT/RealDebrid $BASE_MOUNT/Timeline $BASE_MOUNT/Zurg )
 
     for mountpoint in "${MOUNTPOINTS[@]}"; do
       remote=$(basename "$mountpoint" | tr '[:upper:]' '[:lower:]')
