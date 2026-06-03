@@ -237,3 +237,12 @@ unmount:
         fi
       fi
     done
+
+# =============================================================================
+# DEVELOPMENT TOOLS
+# =============================================================================
+
+# Installs the Antigravity CLI
+install-agy:
+    curl -fsSL https://antigravity.google/cli/install.sh | bash
+
