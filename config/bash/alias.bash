@@ -4,7 +4,7 @@
 
 if [ -f /run/.containerenv ]; then
 
-  [ -f /usr/bin/fastfetch ] && fastfetch
+  [ -f $(which fastfetch) ] && fastfetch
 
   # Set Podman socket path for Container
   export DOCKER_HOST="unix:///run/host/run/user/$(id -u)/podman/podman.sock"
