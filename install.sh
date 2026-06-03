@@ -2,20 +2,24 @@
 
 # The Fortress Bootstrapper
 set -e
-source ./config/environment.d/envvars.conf
-source ./config/bash/os.bash
+
+# Determine the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Export all environment variables sourced from configuration
+set -a
+source "$SCRIPT_DIR/config/environment.d/envvars.conf"
+source "$SCRIPT_DIR/config/bash/os.bash"
+set +a
 
 # =========================================================
 # ENVIRONMENT DETECTION
 # =========================================================
-if [ -f /run/.containerenv ]; then
-  ENV_TYPE="container"
+if [ "$ENV_TYPE" == "container" ]; then
   echo "[ 🏗️  Container environment detected ]"
-elif [ -f /run/ostree-booted ] || [ "$OS_TYPE" = "mac" ]; then
-  ENV_TYPE="immutable"
+elif [ "$ENV_TYPE" == "immutable" ]; then
   echo "[ 🛡️  Immutable host detected ]"
 else
-  ENV_TYPE="mutable"
   echo "[ 💻 Standard mutable host detected ]"
 fi
 
@@ -24,7 +28,7 @@ echo "🛡️  Bootstrapping the Fortress..."
 # 1. Ensure Stow is installed
 if ! command -v stow >/dev/null 2>&1; then
   echo "[ Stow not found. Installing... ]"
-  if [ -f /run/ostree-booted ]; then
+  if [ "$ENV_TYPE" == "immutable" ]; then
     if command -v brew >/dev/null 2>&1; then
       brew install stow
     else
@@ -37,8 +41,6 @@ if ! command -v stow >/dev/null 2>&1; then
     sudo apt-get install -y stow
   elif command -v pacman >/dev/null 2>&1; then
     sudo pacman -S --noconfirm stow
-  elif [ "$IS_MAC" -eq 1 ]; then
-    brew install stow
   else
     echo "Error: Could not install stow automatically."
     exit 1
@@ -46,16 +48,16 @@ if ! command -v stow >/dev/null 2>&1; then
 fi
 
 # 2. Run package installer
-if [ -f "./install-pkg.sh" ]; then
+if [ -f "$SCRIPT_DIR/install-pkg.sh" ]; then
   echo "[ Running package installer... ]"
-  bash "./install-pkg.sh"
+  bash "$SCRIPT_DIR/install-pkg.sh"
 fi
 
 # 3. Apply Stow
 echo "[ Applying dotfiles with Stow... ]"
 mkdir -p "$HOME/.config/systemd/user"
-stow -R -v -t "$HOME" home
-stow -R -v -t "$HOME/.local" local
-stow -R -v -t "$HOME/.config" config
+stow -d "$SCRIPT_DIR" -R -v -t "$HOME" home
+stow -d "$SCRIPT_DIR" -R -v -t "$HOME/.local" local
+stow -d "$SCRIPT_DIR" -R -v -t "$HOME/.config" config
 
 echo "✅ Fortress bootstrap complete!"

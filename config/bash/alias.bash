@@ -4,7 +4,7 @@
 
 if [ -f /run/.containerenv ]; then
 
-  [ -f $(which fastfetch) ] && fastfetch
+  command -v fastfetch >/dev/null 2>&1 && fastfetch
 
   # Set Podman socket path for Container
   export DOCKER_HOST="unix:///run/host/run/user/$(id -u)/podman/podman.sock"
@@ -56,6 +56,7 @@ else
 fi
 
 # ────── GLOBAL ALIASES ──────
+[[ "$OS_TYPE" = "mac" || "$ENV_TYPE" = "mutable" ]] && command -v fastfetch >/dev/null 2>&1 && fastfetch
 
 # Fix for Ptyxis/VTE terminal color query leaks
 [[ $TERM == "xterm-256color" ]] && export TERM="vte-256color"

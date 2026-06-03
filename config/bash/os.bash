@@ -20,3 +20,10 @@ linux*)
   ;;
 esac
 
+if [ -f /run/.containerenv ]; then
+  export ENV_TYPE="container"
+elif [ -f /run/ostree-booted ] || [ "$OS_TYPE" = "mac" ]; then
+  export ENV_TYPE="immutable"
+else
+  export ENV_TYPE="mutable"
+fi

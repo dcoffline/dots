@@ -19,12 +19,12 @@ This project manages the configuration and installation of a development environ
 
 ## Recent Changes
 - **Secrets Management**: Removed `local/share/homelab/cloudflared/token` from Git tracking to ensure it remains local-only, as per security practices.
-- **macOS & Zsh Re-integration**: Re-introduced Zsh configuration and Oh My Zsh themes. Improved macOS support and overall script robustness.
+- **macOS & Bash-Only Streamlining**: Streamlined macOS support and overall script robustness. Retained Zsh configs as archived, with Bash as the sole active shell across all environments.
 - **Zurg Rclone Mount Fix**: Resolved an issue where the Zurg rclone mount appeared empty due to an authentication mismatch. Updated `~/.config/rclone/rclone.conf` with the correct obfuscated password matching `zurg/config.yml`.
 - **Migration to GNU Stow**: Reverted from Chezmoi back to GNU Stow for simplicity.
   - Renamed `dot_` directories back to standard names.
   - Updated `install-pkg.sh` to handle package management.
-- **Pure Bash Migration (Legacy)**: Previously migrated to 100% Bash, but Zsh support was later restored for better cross-platform compatibility.
+- **Pure Bash Migration**: Reverted back to 100% Bash across all environments (macOS, Linux hosts, and containers) for consistency and simplicity. Zsh configurations and Oh My Zsh custom files are kept in the `archive/` directory.
 
 ## Future Notes
 - When adding new CLI tools, ensure they are added to both `install-pkg.sh` (DNF/Cargo/NPM sections) and the `Brewfile` to maintain parity across environments.

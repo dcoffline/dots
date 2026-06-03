@@ -2,13 +2,22 @@
 
 # Package installation script for the Fortress
 
+# Sourcing environment if run directly/independently
+if [ -z "$ENV_TYPE" ] || [ -z "$DOTS" ]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  set -a
+  [ -f "$SCRIPT_DIR/config/environment.d/envvars.conf" ] && source "$SCRIPT_DIR/config/environment.d/envvars.conf"
+  [ -f "$SCRIPT_DIR/config/bash/os.bash" ] && source "$SCRIPT_DIR/config/bash/os.bash"
+  set +a
+fi
+
 FONTDIR="https://github.com/ryanoasis/nerd-fonts/releases/latest/download"
 GNOME_INI="config/dconf-backups/gnome-shell.ini"
 
 # =========================================================
 # HOST-SPECIFIC (Homebrew)
 # =========================================================
-if [ -f /run/ostree-booted ] || [ "$(uname)" = "Darwin" ]; then
+if [ "$ENV_TYPE" = "immutable" ]; then
   echo "[ Host-specific environment detected. Using Brewfile... ]"
   if command -v brew >/dev/null 2>&1; then
     brew bundle --file="$DOTS/Brewfile"
@@ -20,12 +29,12 @@ fi
 # =========================================================
 # CONTAINER / MUTABLE
 # =========================================================
-if [ ! -f /run/ostree-booted ]; then
+if [ "$ENV_TYPE" != "immutable" ]; then
   if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     DNF_PACKAGES=(
-      busybox chafa direnv fastfetch gh glab gcc golang make
-      neovim nodejs npm pipx ShellCheck stress-ng trash-cli weston yq
+      busybox chafa direnv fastfetch gh glab gcc make
+      neovim pipx ShellCheck stress-ng trash-cli weston yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
 
@@ -33,16 +42,16 @@ if [ ! -f /run/ostree-booted ]; then
     echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
     sudo apt-get update
     APT_PACKAGES=(
-      busybox chafa direnv fastfetch gh glab gcc golang make
-      neovim nodejs npm pipx shellcheck stress-ng trash-cli yq
+      busybox chafa direnv fastfetch gh glab gcc make
+      neovim pipx shellcheck stress-ng trash-cli yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
 
   elif command -v pacman >/dev/null 2>&1; then
     echo "[ ARCH-based system detected. Using PACMAN/yay... ]"
     ARCH_PACKAGES=(
-      busybox chafa direnv fastfetch github-cli glab gcc go jotta-cli make
-      neovim nodejs npm python-pipx shellcheck stress-ng trash-cli which yq
+      busybox chafa direnv fastfetch github-cli glab gcc jotta-cli make
+      neovim python-pipx shellcheck stress-ng trash-cli which yq
     )
     if command -v yay >/dev/null 2>&1 && yay --version >/dev/null 2>&1; then
       yay -S --noconfirm "${ARCH_PACKAGES[@]}"
@@ -52,37 +61,7 @@ if [ ! -f /run/ostree-booted ]; then
         sudo pacman -S --noconfirm --needed "$pkg" || echo "[ Warning: Failed to install $pkg via pacman ]"
       done
     fi
-    EXPORT_BINS=(gh git glab jotta-cli shellcheck stress-ng weston)
-  fi
-
-  # RUST & CARGO TOOLCHAINS
-  echo "[ Checking for Rust toolchain... ]"
-  if ! command -v cargo >/dev/null 2>&1; then
-    echo "[ Cargo not found. Installing Rustup... ]"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    if [ -f "$HOME/.local/share/cargo/env" ]; then
-      source "$HOME/.local/share/cargo/env"
-    elif [ -f "$HOME/.cargo/env" ]; then
-      source "$HOME/.cargo/env"
-    fi
-  fi
-
-  # RUST BINARIES
-  echo "[ Installing Rust binaries... ]"
-  if command -v cargo >/dev/null 2>&1; then
-    # Install cargo-binstall for lightning-fast, pre-compiled deployments
-    if ! command -v cargo-binstall >/dev/null 2>&1; then
-      echo "[ Installing cargo-binstall... ]"
-      cargo install cargo-binstall
-    fi
-    CARGO_PACKAGES=(
-      atuin bat dysk eza fd-find ripgrep starship
-      tealdeer television yazi-fm yazi-cli zoxide
-    )
-    echo "[ Fetching pre-compiled binaries... ]"
-    cargo binstall -y "${CARGO_PACKAGES[@]}"
-  else
-    echo "[ ERROR: Cargo is still not available. Skipping Rust binaries. ]"
+    EXPORT_BINS=(busybox gh git glab jotta-cli shellcheck stress-ng weston)
   fi
 
   # DISTROBOX EXPORTS
@@ -95,11 +74,41 @@ if [ ! -f /run/ostree-booted ]; then
       fi
     done
   fi
-fi
+fi  
 
 # =========================================================
 # UNIVERSAL (Host-aware)
 # =========================================================
+
+# RUST & CARGO TOOLCHAINS
+echo "[ Checking for Rust toolchain... ]"
+if ! command -v cargo >/dev/null 2>&1; then
+  echo "[ Cargo not found. Installing Rustup... ]"
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  if [ -f "$HOME/.local/share/cargo/env" ]; then
+    source "$HOME/.local/share/cargo/env"
+  elif [ -f "$HOME/.cargo/env" ]; then
+    source "$HOME/.cargo/env"
+  fi
+fi
+
+# RUST BINARIES
+echo "[ Installing Rust binaries... ]"
+if command -v cargo >/dev/null 2>&1; then
+  # Install cargo-binstall for lightning-fast, pre-compiled deployments
+  if ! command -v cargo-binstall >/dev/null 2>&1; then
+    echo "[ Installing cargo-binstall... ]"
+    cargo install cargo-binstall
+  fi
+  CARGO_PACKAGES=(
+    atuin bat dysk eza fd-find ripgrep starship
+    tealdeer television yazi-fm yazi-cli zoxide
+  )
+  echo "[ Fetching pre-compiled binaries... ]"
+  cargo binstall -y "${CARGO_PACKAGES[@]}"
+else
+  echo "[ ERROR: Cargo is still not available. Skipping Rust binaries. ]"
+fi
 
 # NERD FONTS
 FONT_NAME="CascadiaCode"
@@ -127,8 +136,9 @@ FLATPAK_APPS=(
   com.github.marhkb.Pods
 )
 echo "[ Checking GUI apps... ]"
+
 for app in "${FLATPAK_APPS[@]}"; do
-  if [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+  if [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
     if ! distrobox-host-exec flatpak list --app --columns=application | grep -q "^$app$"; then
       distrobox-host-exec flatpak install --system -y flathub "$app"
     fi
@@ -140,7 +150,7 @@ for app in "${FLATPAK_APPS[@]}"; do
 done
 
 # PODMAN API SOCKET & FLATPAK OVERRIDES
-if [ ! -f /run/.containerenv ]; then
+if [ "$ENV_TYPE" != "container" ]; then
   if command -v systemctl >/dev/null 2>&1; then
     echo "[ Ensuring Podman API socket is active and initialized... ]"
     systemctl --user enable --now podman.socket 2>/dev/null || true
@@ -166,53 +176,55 @@ else
 fi
 
 # GNOME EXTENSIONS
-GNOME_EXTENSIONS=(
-  "allowlockedremotedesktop@kamens.us"
-  "AlphabeticalAppGrid@stuarthayhurst"
-  "app-hider@lynith.dev"
-  "apps-menu@gnome-shell-extensions.gcampax.github.com"
-  "clipboard-indicator@tudmotu.com"
-  "dash-to-dock@micxgx.gmail.com"
-  "desktop-cube@schneegans.github.com"
-  "extension-list@tu.berry"
-  "places-menu@gnome-shell-extensions.gcampax.github.com"
-  "randomwallpaper@iflow.space"
-  "screentospace@dilzhan.dev"
-  "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
-  "tailscale-gnome-qs@tailscale-qs.github.io"
-  "tilingshell@ferrarodomenico.com"
-  "transparent-window-moving@noobsai.github.com"
-  "tweaks-system-menu@extensions.gnome-shell.fifi.org"
-)
+if [ "${IS_LINUX:-0}" -eq 1 ]; then
+  GNOME_EXTENSIONS=(
+    "allowlockedremotedesktop@kamens.us"
+    "AlphabeticalAppGrid@stuarthayhurst"
+    "app-hider@lynith.dev"
+    "apps-menu@gnome-shell-extensions.gcampax.github.com"
+    "clipboard-indicator@tudmotu.com"
+    "dash-to-dock@micxgx.gmail.com"
+    "desktop-cube@schneegans.github.com"
+    "extension-list@tu.berry"
+    "places-menu@gnome-shell-extensions.gcampax.github.com"
+    "randomwallpaper@iflow.space"
+    "screentospace@dilzhan.dev"
+    "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
+    "tailscale-gnome-qs@tailscale-qs.github.io"
+    "tilingshell@ferrarodomenico.com"
+    "transparent-window-moving@noobsai.github.com"
+    "tweaks-system-menu@extensions.gnome-shell.fifi.org"
+  )
 
-if ! command -v gext >/dev/null 2>&1; then
-  echo "[ gext not found. Attempting to install gnome-extensions-cli... ]"
-  if command -v pipx >/dev/null 2>&1; then
-    pipx install gnome-extensions-cli --system-site-packages || true
-  elif command -v pip >/dev/null 2>&1; then
-    pip install --user gnome-extensions-cli || true
+  if ! command -v gext >/dev/null 2>&1; then
+    echo "[ gext not found. Attempting to install gnome-extensions-cli... ]"
+    if command -v pipx >/dev/null 2>&1; then
+      pipx install gnome-extensions-cli --system-site-packages || true
+    elif command -v pip >/dev/null 2>&1; then
+      pip install --user gnome-extensions-cli || true
+    fi
   fi
-fi
 
-if command -v gext >/dev/null 2>&1; then
-  echo "[ Installing GNOME Extensions locally... ]"
-  for ext in "${GNOME_EXTENSIONS[@]}"; do
-    gext install "$ext" 2>/dev/null || true
-  done
-elif [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
-  echo "[ Installing GNOME Extensions via Host... ]"
-  for ext in "${GNOME_EXTENSIONS[@]}"; do
-    distrobox-host-exec gext install "$ext" 2>/dev/null || true
-  done
-fi
+  if command -v gext >/dev/null 2>&1; then
+    echo "[ Installing GNOME Extensions locally... ]"
+    for ext in "${GNOME_EXTENSIONS[@]}"; do
+      gext install "$ext" 2>/dev/null || true
+    done
+  elif [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+    echo "[ Installing GNOME Extensions via Host... ]"
+    for ext in "${GNOME_EXTENSIONS[@]}"; do
+      distrobox-host-exec gext install "$ext" 2>/dev/null || true
+    done
+  fi
 
-# Load DCONF
-if command -v dconf >/dev/null 2>&1; then
-  echo "[ Loading GNOME Shell DCONF settings... ]"
-  dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
-elif [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
-  echo "[ Loading GNOME Shell DCONF settings via Host... ]"
-  distrobox-host-exec dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
+  # Load DCONF
+  if command -v dconf >/dev/null 2>&1; then
+    echo "[ Loading GNOME Shell DCONF settings... ]"
+    dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
+  elif [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+    echo "[ Loading GNOME Shell DCONF settings via Host... ]"
+    distrobox-host-exec dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
+  fi
 fi
 
 echo "[ Fortress package installation complete ]"

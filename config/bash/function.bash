@@ -104,17 +104,29 @@ cd() {
 alias whatismyip="whatsmyip"
 whatsmyip() {
   # Internal IP Lookup.
+  echo -n "Internal IP: "
   if command -v ip &>/dev/null; then
-    echo -n "Internal IP: "
-    ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
+    local default_iface=$(ip route show default 2>/dev/null | awk '/default/ {print $5}')
+    if [ -n "$default_iface" ]; then
+      ip addr show "$default_iface" | grep "inet " | awk '{print $2}' | cut -d/ -f1 | head -n 1
+    else
+      hostname -I | awk '{print $1}'
+    fi
+  elif command -v ipconfig &>/dev/null; then
+    local default_iface=$(route -n get default 2>/dev/null | awk '/interface:/{print $2}')
+    if [ -n "$default_iface" ]; then
+      ipconfig getifaddr "$default_iface"
+    else
+      ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -n 1
+    fi
   else
-    echo -n "Internal IP: "
-    ifconfig wlan0 | grep "inet " | awk '{print $2}'
+    ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -n 1
   fi
 
   # External IP Lookup
   echo -n "External IP: "
-  curl -4 ifconfig.me
+  curl -4s ifconfig.me
+  echo ""
 }
 
 # Goes up a specified number of directories  (i.e. up 4)
