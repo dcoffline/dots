@@ -56,8 +56,8 @@ fi
 # 3. Apply Stow
 echo "[ Applying dotfiles with Stow... ]"
 mkdir -p "$HOME/.config/systemd/user"
-stow -d "$SCRIPT_DIR" -R -v -t "$HOME" home
-stow -d "$SCRIPT_DIR" -R -v -t "$HOME/.local" local
-stow -d "$SCRIPT_DIR" -R -v -t "$HOME/.config" config
+stow -d "$SCRIPT_DIR" --ignore='.DS_Store' -R -v -t "$HOME" home
+stow -d "$SCRIPT_DIR" --ignore='.DS_Store' -R -v -t "$HOME/.local" local
+stow -d "$SCRIPT_DIR" --ignore='.DS_Store' -R -v -t "$HOME/.config" config
 
 echo "✅ Fortress bootstrap complete!"
