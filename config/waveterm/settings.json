@@ -4,7 +4,7 @@
   "term:fontsize": 15,
   "term:transparency": 0.15,
   "ai:preset": "ai@global",
-  "ai:model": "gpt-5-mini",
+  "ai:model": "gemini-3-pro-preview",
   "ai:maxtokens": 4000,
   "ai:timeoutms": 60000,
   "app:defaultnewblock": "term",
