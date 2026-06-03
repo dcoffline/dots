@@ -136,10 +136,6 @@ mount:
     LOGFILE="$HOME/.config/rclone/rclone-mount.log"
     PID_DIR="$HOME/.config/rclone/pid"
     declare -A REMOTES=( ["alldebrid"]="AllDebrid" ["jotta"]="Archive" ["10T"]="Backup" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["realdebrid"]="RealDebrid" ["timeline"]="Timeline" ["zurg"]="Zurg" )
-    EXTRA_FLAGS=()
-    if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
-      EXTRA_FLAGS=( --read-only --exclude '.DS_Store' --exclude '._*' )
-    fi
 
     if [[ "$(uname -s)" == "Darwin" ]]; then
       # ===============================
@@ -160,6 +156,11 @@ mount:
         mountpoint="$BASE_MOUNT/$target"
         mkdir -p "$mountpoint"
         
+        EXTRA_FLAGS=()
+        if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
+          EXTRA_FLAGS=( --read-only --exclude '.DS_Store' --exclude '._*' )
+        fi
+        
         echo "Mounting ${remote}: → $mountpoint"
         "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
         echo $! >"$PID_DIR/${remote}.pid"
@@ -170,8 +171,12 @@ mount:
       # Linux Mount Logic
       # ===============================
       echo "[ Linux Detected - Running Linux Rclone Routine ]"
-      [ command -v /home/linuxbrew/.linuxbrew/bin/rclone ] && RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
-      [ command -v /usr/bin/rclone ] && RCLONE="/usr/bin/rclone"
+      RCLONE="rclone"
+      if [ -x /home/linuxbrew/.linuxbrew/bin/rclone ]; then
+        RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
+      elif [ -x /usr/bin/rclone ]; then
+        RCLONE="/usr/bin/rclone"
+      fi
 
       if [ -f /run/ostree-booted ]; then
         CACHE_DIR=/var/mnt/2T/rclone_cache
@@ -190,6 +195,11 @@ mount:
         mountpoint="$BASE_MOUNT/$target"
         mkdir -p "$mountpoint"
         
+        EXTRA_FLAGS=()
+        if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
+          EXTRA_FLAGS=( --read-only --exclude '.DS_Store' --exclude '._*' )
+        fi
+
         echo "Mounting $remote → $mountpoint"
         "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
         echo $! >"$PID_DIR/${remote}.pid"
@@ -203,10 +213,11 @@ mount:
 unmount:
     #!/usr/bin/env bash
     BASE_MOUNT="$HOME/.mnt/rclone"
-    MOUNTPOINTS=( $BASE_MOUNT/AllDebrid $BASE_MOUNT/Archive $BASE_MOUNT/Backup $BASE_MOUNT/GDrive $BASE_MOUNT/OneDrive $BASE_MOUNT/RealDebrid $BASE_MOUNT/Timeline $BASE_MOUNT/Zurg )
+    declare -A REMOTES=( ["alldebrid"]="AllDebrid" ["jotta"]="Archive" ["10T"]="Backup" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["realdebrid"]="RealDebrid" ["timeline"]="Timeline" ["zurg"]="Zurg" )
 
-    for mountpoint in "${MOUNTPOINTS[@]}"; do
-      remote=$(basename "$mountpoint" | tr '[:upper:]' '[:lower:]')
+    for remote in "${!REMOTES[@]}"; do
+      target="${REMOTES[$remote]}"
+      mountpoint="$BASE_MOUNT/$target"
       pid_file="$HOME/.config/rclone/pid/${remote}.pid"
 
       if [ -f "$pid_file" ]; then
