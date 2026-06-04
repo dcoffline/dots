@@ -2,9 +2,7 @@
 
 # ────── CONTAINER ALIASES ──────
 
-if [ -f /run/.containerenv ]; then
-
-  command -v fastfetch >/dev/null 2>&1 && fastfetch
+if [ "$ENV_TYPE" = "container" ]; then
 
   # Set Podman socket path for Container
   export DOCKER_HOST="unix:///run/host/run/user/$(id -u)/podman/podman.sock"
@@ -39,8 +37,6 @@ else
   export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
 
   # Distrobox
-  #alias dea='podman exec -w ~ -u $(whoami) -it arch /bin/bash -l'
-  #alias dear='podman exec -w ~ -u $(whoami) -it arch /bin/bash -lc'
   alias def='distrobox enter fedora'
   alias defr='distrobox enter fedora -e'
   alias dea='distrobox enter arch'
@@ -56,7 +52,6 @@ else
 fi
 
 # ────── GLOBAL ALIASES ──────
-[[ "$OS_TYPE" = "mac" || "$ENV_TYPE" = "mutable" ]] && command -v fastfetch >/dev/null 2>&1 && fastfetch
 
 # Fix for Ptyxis/VTE terminal color query leaks
 [[ $TERM == "xterm-256color" ]] && export TERM="vte-256color"
@@ -73,7 +68,6 @@ alias podclean='podman container prune -f ; podman image prune -f ; podman netwo
 alias vi=$EDITOR
 alias nano=$EDITOR
 alias svi='sudo $EDITOR'
-alias snano='sudo $EDITOR'
 alias ted='flatpak run org.gnome.TextEditor'
 
 # System Utils (Native)
