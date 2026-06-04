@@ -34,7 +34,7 @@ if [ "$ENV_TYPE" != "immutable" ]; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     DNF_PACKAGES=(
       busybox chafa direnv fastfetch gh glab gcc make
-      neovim pipx ShellCheck stress-ng trash-cli weston yq
+      neovim nodejs pipx ShellCheck stress-ng trash-cli weston yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
 
@@ -43,7 +43,7 @@ if [ "$ENV_TYPE" != "immutable" ]; then
     sudo apt-get update
     APT_PACKAGES=(
       busybox chafa direnv fastfetch gh glab gcc make
-      neovim pipx shellcheck stress-ng trash-cli yq
+      neovim nodejs npm pipx shellcheck stress-ng trash-cli yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
 
@@ -51,7 +51,7 @@ if [ "$ENV_TYPE" != "immutable" ]; then
     echo "[ ARCH-based system detected. Using PACMAN/yay... ]"
     ARCH_PACKAGES=(
       busybox chafa direnv fastfetch github-cli glab gcc jotta-cli make
-      neovim python-pipx shellcheck stress-ng trash-cli which yq
+      neovim nodejs npm python-pipx shellcheck stress-ng trash-cli which yq
     )
     if command -v yay >/dev/null 2>&1 && yay --version >/dev/null 2>&1; then
       yay -S --noconfirm "${ARCH_PACKAGES[@]}"
