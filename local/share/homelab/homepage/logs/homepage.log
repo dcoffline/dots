@@ -2312,3 +2312,5 @@
   syscall: 'connect',
   address: '/var/run/docker.sock'
 }
+[2026-06-04T07:45:10.565Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+[2026-06-05T19:33:21.242Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙

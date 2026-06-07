@@ -8,5 +8,5 @@
     units: imperial
     label: Leander
 - search:
-    provider: brave
+    provider: google
     target: _blank
