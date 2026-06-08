@@ -50,8 +50,8 @@ if [ "$ENV_TYPE" != "immutable" ]; then
   elif command -v pacman >/dev/null 2>&1; then
     echo "[ ARCH-based system detected. Using PACMAN/yay... ]"
     ARCH_PACKAGES=(
-      busybox chafa direnv fastfetch github-cli glab gcc jotta-cli make
-      neovim nodejs npm python-pipx shellcheck stress-ng trash-cli which yq
+      age busybox chafa direnv fastfetch github-cli glab gcc jotta-cli make
+      neovim nodejs npm python-pipx shellcheck sops stress-ng trash-cli which yq
     )
     if command -v yay >/dev/null 2>&1 && yay --version >/dev/null 2>&1; then
       yay -S --noconfirm "${ARCH_PACKAGES[@]}"
@@ -61,7 +61,7 @@ if [ "$ENV_TYPE" != "immutable" ]; then
         sudo pacman -S --noconfirm --needed "$pkg" || echo "[ Warning: Failed to install $pkg via pacman ]"
       done
     fi
-    EXPORT_BINS=(busybox gh git glab jotta-cli shellcheck stress-ng weston)
+    EXPORT_BINS=(age busybox gh git glab jotta-cli shellcheck sops stress-ng weston)
   fi
 
   # DISTROBOX EXPORTS
@@ -74,7 +74,7 @@ if [ "$ENV_TYPE" != "immutable" ]; then
       fi
     done
   fi
-fi  
+fi
 
 # =========================================================
 # UNIVERSAL (Host-aware)
@@ -228,3 +228,4 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
 fi
 
 echo "[ Fortress package installation complete ]"
+
