@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: .*\.enc\.env$
+    age: "age1ug38qscqh85rxg54rc8sw4475kml4fvc3zx9j2zmuu9gflefaeqqks67l9"

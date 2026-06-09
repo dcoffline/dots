@@ -25,7 +25,7 @@ Environment=MYSQL_HOST=nextcloud-db
 Environment=MYSQL_DATABASE=nextcloud
 Environment=NC_overwriteprotocol=https
 Environment=NC_overwrite.cli.url=https://cloud.hemati.com
-Environment=NC_trusted_proxies="127.0.0.1 host.containers.internal 10.88.0.1"
+Environment=TRUSTED_PROXIES="127.0.0.1 10.89.0.0/24 10.88.0.0/16 169.254.1.2"
 Environment=NC_maintenance_window_start=1
 Environment=NC_default_phone_region=US
 
