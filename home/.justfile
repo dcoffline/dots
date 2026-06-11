@@ -135,7 +135,7 @@ mount:
     BASE_MOUNT="$HOME/.mnt/rclone"
     LOGFILE="$HOME/.config/rclone/rclone-mount.log"
     PID_DIR="$HOME/.config/rclone/pid"
-    declare -A REMOTES=( ["alldebrid"]="AllDebrid" ["jotta"]="Archive" ["10T"]="Backup" ["bee"]="Bee" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["realdebrid"]="RealDebrid" ["timeline"]="Timeline" ["zurg"]="Zurg" )
+    declare -A REMOTES=( ["alldebrid"]="AllDebrid" ["jotta"]="Archive" ["10T"]="Backup" ["nextcloud"]="Nextcloud" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["realdebrid"]="RealDebrid" ["timeline"]="Timeline" ["zurg"]="Zurg" )
 
     if [[ "$(uname -s)" == "Darwin" ]]; then
       # ===============================
