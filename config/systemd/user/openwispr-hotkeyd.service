@@ -3,8 +3,9 @@ Description=openwispr hold-to-talk daemon
 After=graphical-session.target
 Wants=openwispr-engine.service
 After=openwispr-engine.service
-Wants=xdg-desktop-portal.service xdg-desktop-portal-gnome.service
-After=xdg-desktop-portal.service xdg-desktop-portal-gnome.service
+Wants=xdg-desktop-portal.service
+After=xdg-desktop-portal.service
+
 
 [Service]
 Type=simple

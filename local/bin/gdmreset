@@ -1,4 +1,21 @@
 #!/bin/bash
-mv ~/.config/monitors.xml ~/.config/monitors.xml.bak
-sudo mv /var/lib/gdm/.config/monitors.xml /var/lib/gdm/.config/monitors.xml.bak
-sudo systemctl restart gdm
+if [ "$XDG_CURRENT_DESKTOP" = "KDE" ] || [ "$XDG_CURRENT_DESKTOP" = "plasma" ]; then
+  echo "Resetting KDE KScreen configurations..."
+  mkdir -p ~/.local/share/kscreen.bak
+  mv ~/.local/share/kscreen/* ~/.local/share/kscreen.bak/ 2>/dev/null || true
+  if systemctl is-active --quiet sddm; then
+    echo "Restarting SDDM..."
+    sudo systemctl restart sddm
+  fi
+else
+  echo "Resetting GNOME monitor configurations..."
+  mv ~/.config/monitors.xml ~/.config/monitors.xml.bak 2>/dev/null || true
+  if [ -d /var/lib/gdm ]; then
+    sudo mv /var/lib/gdm/.config/monitors.xml /var/lib/gdm/.config/monitors.xml.bak 2>/dev/null || true
+  fi
+  if systemctl is-active --quiet gdm; then
+    echo "Restarting GDM..."
+    sudo systemctl restart gdm
+  fi
+fi
+

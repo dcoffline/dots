@@ -177,7 +177,18 @@ fi
 
 # GNOME EXTENSIONS
 if [ "${IS_LINUX:-0}" -eq 1 ]; then
-  GNOME_EXTENSIONS=(
+  IS_GNOME=0
+  if [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+    HOST_DESKTOP=$(distrobox-host-exec printenv XDG_CURRENT_DESKTOP 2>/dev/null || echo "")
+    if [[ "$HOST_DESKTOP" =~ "GNOME" ]]; then
+      IS_GNOME=1
+    fi
+  elif [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
+    IS_GNOME=1
+  fi
+
+  if [ "$IS_GNOME" -eq 1 ]; then
+    GNOME_EXTENSIONS=(
     "allowlockedremotedesktop@kamens.us"
     "AlphabeticalAppGrid@stuarthayhurst"
     "app-hider@lynith.dev"
@@ -226,6 +237,8 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
     distrobox-host-exec dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
   fi
 fi
+fi
+
 
 echo "[ Fortress package installation complete ]"
 

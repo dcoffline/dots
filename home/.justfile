@@ -55,8 +55,10 @@ update:
 
       echo "[ Syncing Host State... ]"
       distrobox-host-exec sh -c "cd '$DOTS' && /home/linuxbrew/.linuxbrew/bin/brew bundle dump --force"
-      distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
-      sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
+      if distrobox-host-exec printenv XDG_CURRENT_DESKTOP 2>/dev/null | grep -qi gnome; then
+        distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
+        sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
+      fi
 
       echo "[ Applying Dotfile Updates... ]"
       stow -R -v --ignore=".DS_Store" -t "$HOME" home
@@ -74,7 +76,7 @@ update:
     elif [ "$ENV_TYPE" = "immutable" ]; then
       echo "[ Syncing Host State... ]"
       brew bundle dump --force || echo "⚠️ Warning: Homebrew dump failed."
-      if command -v dconf >/dev/null 2>&1; then
+      if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
       fi
@@ -108,7 +110,7 @@ update:
       if command -v cargo >/dev/null 2>&1; then cargo install television atuin || echo "⚠️ Warning: Cargo failed."; fi
 
       echo "[ Syncing Host State & Dotfiles... ]"
-      if command -v dconf >/dev/null 2>&1; then
+      if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
       fi
