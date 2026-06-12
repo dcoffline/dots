@@ -6,48 +6,87 @@ tap "macos-fuse-t/cask"
 tap "nikitabobko/tap"
 tap "samtay/tui"
 tap "valkyrie00/bbrew"
+# Aquarium animation in ASCII art
 brew "asciiquarium"
+# Core application library for C
 brew "glib"
+# Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
+# JPEG image codec that aids compression and decompression
 brew "jpeg-turbo"
+# Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
+# Preexec and precmd functions for Bash (like Zsh)
 brew "bash-preexec"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
+# Versatile and fast Unicode/ASCII/ANSI graphics renderer
 brew "chafa", link: false
+# Console Matrix
 brew "cmatrix"
+# Load/unload environment variables based on $PWD
 brew "direnv"
+# Generic library support script
 brew "libtool"
+# Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
+# Create thumbnails for your video files
 brew "ffmpegthumbnailer"
+# Improved top (interactive process viewer)
 brew "htop"
+# Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# Lightweight and flexible command-line JSON processor
 brew "jq"
+# Command-line music player
 brew "kew"
+# Lazier way to manage everything docker
 brew "lazydocker"
+# Modern and intuitive terminal-based text editor
 brew "micro"
+# Feature-rich command-line audio/video downloader
 brew "yt-dlp"
+# Media player based on MPlayer and mplayer2
 brew "mpv"
+# Tail multiple files in one terminal simultaneously
 brew "multitail"
+# Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# RSS/Atom feed reader for text terminals
 brew "newsboat"
+# Open-source, cross-platform JavaScript runtime environment
 brew "node"
+# Podman Terminal User Interface
 brew "podman-tui"
+# PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Cross-platform library for audio I/O
 brew "portaudio"
+# Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
+# Rsync for cloud storage
 brew "rclone"
+# SVG rendering tool and library
 brew "resvg"
+# Display and control your Android device
 brew "scrcpy"
+# 7-Zip is a file archiver with a high compression ratio
 brew "sevenzip"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# Performance monitoring tools for Linux
 brew "sysstat"
+# Command-line interface to the freedesktop.org trashcan
 brew "trash-cli"
+# Ultra fast grep with query UI, fuzzy search, archive search, and more
 brew "ugrep"
+# Sends magic packets to wake up network-devices
 brew "wakeonlan"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
-brew "browsh-org/browsh/browsh"
-brew "lizardbyte/homebrew/sunshine"
-brew "valkyrie00/bbrew/bbrew"
+# The modern, text-based browser
+brew "browsh-org/browsh/browsh", trusted: true
+# Android SDK component
 cask "android-platform-tools"
 cask "font-0xproto-nerd-font"
 cask "font-blex-mono-nerd-font"
@@ -146,6 +185,7 @@ flatpak "org.jellyfin.JellyfinDesktop"
 flatpak "org.libreoffice.LibreOffice"
 flatpak "org.mozilla.firefox"
 flatpak "org.pulseaudio.pavucontrol"
+flatpak "org.quetoo.Quetoo"
 flatpak "org.srb2.SRB2Kart"
 flatpak "org.telegram.desktop"
 flatpak "page.tesk.Refine"
