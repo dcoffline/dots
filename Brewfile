@@ -39,8 +39,6 @@ brew "htop"
 brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
-# Jottacloud command-line interface
-brew "jotta-cli"
 # Command-line music player
 brew "kew"
 # Lazier way to manage everything docker
@@ -137,6 +135,7 @@ flatpak "com.realm667.Wolfenstein_Blade_of_Agony"
 flatpak "de.haeckerfelix.Fragments"
 flatpak "de.haeckerfelix.Shortwave"
 flatpak "de.leopoldluley.Clapgrep"
+flatpak "dev.deedles.Trayscale"
 flatpak "dev.fredol.open-tv"
 flatpak "io.github.diegopvlk.Cine"
 flatpak "io.github.fabrialberio.pinapp"
