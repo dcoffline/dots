@@ -39,6 +39,8 @@ brew "htop"
 brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Jottacloud command-line interface
+brew "jotta-cli"
 # Command-line music player
 brew "kew"
 # Lazier way to manage everything docker

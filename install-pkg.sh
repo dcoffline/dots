@@ -30,20 +30,38 @@ fi
 # CONTAINER / MUTABLE
 # =========================================================
 if [ "$ENV_TYPE" != "immutable" ]; then
+  EXPORT_BINS=(age busybox gh git glab jotta-cli shellcheck sops stress-ng weston)
+
   if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
+    if [ ! -f /etc/yum.repos.d/jotta-cli.repo ] && [ ! -f /etc/yum.repos.d/JottaCLI.repo ]; then
+      echo "[ Configuring Jottacloud CLI repository... ]"
+      sudo tee /etc/yum.repos.d/jotta-cli.repo > /dev/null <<'EOF'
+[jotta-cli]
+name=Jottacloud CLI
+baseurl=https://repo.jotta.cloud/redhat
+gpgcheck=1
+gpgkey=https://repo.jotta.cloud/public.gpg
+EOF
+    fi
     DNF_PACKAGES=(
-      busybox chafa direnv fastfetch gh glab gcc make
-      neovim nodejs pipx ShellCheck stress-ng trash-cli weston yq
+      age busybox chafa direnv fastfetch gh glab gcc jotta-cli make neovim
+      nodejs npm pipx ShellCheck sops stress-ng trash-cli weston which yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
 
   elif command -v apt-get >/dev/null 2>&1; then
     echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
+    if [ ! -f /etc/apt/sources.list.d/jotta-cli.list ]; then
+      echo "[ Configuring Jottacloud CLI repository... ]"
+      sudo mkdir -p /usr/share/keyrings
+      sudo curl -fsSL https://repo.jotta.cloud/jotta.gpg -o /usr/share/keyrings/jotta.gpg
+      echo "deb [signed-by=/usr/share/keyrings/jotta.gpg] https://repo.jotta.cloud/debian debian main" | sudo tee /etc/apt/sources.list.d/jotta-cli.list > /dev/null
+    fi
     sudo apt-get update
     APT_PACKAGES=(
-      busybox chafa direnv fastfetch gh glab gcc make
-      neovim nodejs npm pipx shellcheck stress-ng trash-cli yq
+      age busybox chafa direnv fastfetch gh glab gcc jotta-cli make neovim nodejs
+      npm pipx shellcheck sops stress-ng trash-cli weston which yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
 
@@ -61,7 +79,6 @@ if [ "$ENV_TYPE" != "immutable" ]; then
         sudo pacman -S --noconfirm --needed "$pkg" || echo "[ Warning: Failed to install $pkg via pacman ]"
       done
     fi
-    EXPORT_BINS=(age busybox gh git glab jotta-cli shellcheck sops stress-ng weston)
   fi
 
   # DISTROBOX EXPORTS
