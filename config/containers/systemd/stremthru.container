@@ -1,0 +1,25 @@
+[Unit]
+Description=StremThru Proxy Service
+After=network-online.target
+
+[Container]
+ContainerName=stremthru
+Image=ghcr.io/muniftanjim/stremthru:latest
+PublishPort=8080:8080
+
+# Environment variables for access
+EnvironmentFile=%h/.secrets
+Environment=STREMTHRU_BASE_URL=https://stremthru.hemati.com
+
+# For multi-IP protection outside your home network, set your external access URL:
+# Environment=STREMTHRU_BASE_URL=https://your-domain-or-tailscale-ip:8080
+
+# Persistent storage for configuration data
+Volume=/var/mnt/2T/appdata/stremthru:/app/data:Z
+
+[Service]
+Restart=always
+
+[Install]
+# Pull the service into the multi-user target flow
+WantedBy=default.target
