@@ -37,6 +37,7 @@ case "$XDG_CURRENT_DESKTOP" in
   "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
   "${RUN[@]}" gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
   "${RUN[@]}" gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
+  "${RUN[@]}" gnome-extensions enable dash-to-dock@micxgx.gmail.com
   ;;
 esac
 monctl

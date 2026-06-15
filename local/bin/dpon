@@ -26,8 +26,12 @@ case "$XDG_CURRENT_DESKTOP" in
 "GNOME" | *"GNOME"*)
   GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
 
+  # Force the script to talk to the active user's GNOME session
+  export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
+
   "${RUN[@]}" gdctl set -L -p -M "$MAIN"
   "${RUN[@]}" gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
   "${RUN[@]}" gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
+  "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
   ;;
 esac
