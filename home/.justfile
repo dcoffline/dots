@@ -215,7 +215,7 @@ mount:
 unmount:
     #!/usr/bin/env bash
     BASE_MOUNT="$HOME/.mnt/rclone"
-    declare -A REMOTES=( ["alldebrid"]="AllDebrid" ["jotta"]="Archive" ["10T"]="Backup" ["gdrive"]="GDrive" ["onedrive"]="OneDrive" ["realdebrid"]="RealDebrid" ["timeline"]="Timeline" ["zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["RealDebrid"]="RealDebrid" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
 
     for remote in "${!REMOTES[@]}"; do
       target="${REMOTES[$remote]}"
