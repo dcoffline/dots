@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to your local Logseq markdown directory
-LOGSEQ_DIR="$HOME/src/logseq/Hemati"
+LOGSEQ_DIR="$HOME/src/logseq"
 
 cd "$LOGSEQ_DIR" || exit
 
