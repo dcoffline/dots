@@ -9,18 +9,18 @@ tap "ublue-os/tap"
 tap "valkyrie00/bbrew"
 # Aquarium animation in ASCII art
 brew "asciiquarium"
-# Core application library for C
-brew "glib"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
-# JPEG image codec that aids compression and decompression
-brew "jpeg-turbo"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
 # Preexec and precmd functions for Bash (like Zsh)
 brew "bash-preexec"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
+# Core application library for C
+brew "glib"
+# JPEG image codec that aids compression and decompression
+brew "jpeg-turbo"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
 brew "chafa", link: false
 # Console Matrix
@@ -148,7 +148,6 @@ flatpak "io.github.kolunmi.Bazaar"
 flatpak "io.github.tanaybhomia.Whisp"
 flatpak "io.gitlab.adhami3310.Impression"
 flatpak "io.missioncenter.MissionCenter"
-flatpak "io.podman_desktop.PodmanDesktop"
 flatpak "io.sourceforge.pysolfc.PySolFC"
 flatpak "it.mijorus.gearlever"
 flatpak "net.retrodeck.retrodeck"
@@ -184,13 +183,13 @@ flatpak "org.gnome.gitlab.wwarner.Solitaire"
 flatpak "org.gnome.meld"
 flatpak "org.gnome.seahorse.Application"
 flatpak "org.indii.mendingwall"
+flatpak "org.jellyfin.JellyfinDesktop"
 flatpak "org.libreoffice.LibreOffice"
 flatpak "org.mozilla.firefox"
 flatpak "org.mozilla.thunderbird"
 flatpak "org.pulseaudio.pavucontrol"
 flatpak "org.quetoo.Quetoo"
 flatpak "org.srb2.SRB2Kart"
-flatpak "org.telegram.desktop"
 flatpak "org.virt_manager.virt-manager"
 flatpak "page.codeberg.libre_menu_editor.LibreMenuEditor"
 flatpak "page.tesk.Refine"
