@@ -13,7 +13,7 @@ git pull origin main --rebase
 echo "🚀 Launching Logseq..."
 # Launches the application and waits until you close it
 # (Adjust this command if you run Logseq via Flatpak or AppImage)
-/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=run.sh --file-forwarding com.logseq.Logseq
+env DESKTOPINTEGRATION=1 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=run.sh --file-forwarding com.logseq.Logseq
 
 echo "📦 Logseq closed. Shipping latest commits to GitHub..."
 # Logseq automatically commits when the window closes.

@@ -2,7 +2,7 @@
   "autoupdate:channel": "latest",
   "web:defaulturl": "https://dash.hemati.com/",
   "term:fontsize": 15,
-  "term:transparency": 0.15,
+  "term:transparency": 5,
   "ai:preset": "ai@global",
   "ai:model": "gemini-3-pro-preview",
   "ai:maxtokens": 4000,
