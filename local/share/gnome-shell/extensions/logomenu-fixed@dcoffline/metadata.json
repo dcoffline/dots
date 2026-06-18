@@ -8,7 +8,7 @@
   "settings-schema": "org.gnome.shell.extensions.logo-menu",
   "shell-version": ["46", "47", "48", "49", "50"],
   "url": "https://github.com/Aryan20/Logomenu",
-  "uuid": "logomenu-fixed@eric",
+  "uuid": "logomenu-fixed@dcoffline",
   "version": 38,
   "version-name": "24.6"
 }
