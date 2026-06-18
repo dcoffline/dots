@@ -1,0 +1,11 @@
+{
+  "apiKey": "AIzaSyDjNrJsY8kCxfIM4oTnR5MH6cVvwBwplnw",
+  "basePath": "https://generativelanguage.googleapis.com/v1beta/openai",
+  "model": "gemini-2.5-flash",
+  "tag": "[[🤖]]",
+  "customPrompts": {
+    "enable": false,
+    "prompts": []
+  },
+  "disabled": false
+}

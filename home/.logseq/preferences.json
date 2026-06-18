@@ -1,0 +1,15 @@
+{
+  "theme": null,
+  "themes": {
+    "mode": "light",
+    "light": null,
+    "dark": null
+  },
+  "externals": [],
+  "pinnedToolbarItems": [
+    "logseq-vim-shortcuts:vim-shortcuts-marks",
+    "logseq-awesome-props:AwesomeProps",
+    "logseq-agenda:Agenda3",
+    "logseq-agenda:Agenda2-Legacy"
+  ]
+}
