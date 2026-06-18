@@ -53,11 +53,24 @@ if [ -f "$SCRIPT_DIR/install-pkg.sh" ]; then
   bash "$SCRIPT_DIR/install-pkg.sh"
 fi
 
-# 3. Apply Stow
 echo "[ Applying dotfiles with Stow... ]"
 mkdir -p "$HOME/.config/systemd/user"
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -v -t "$HOME" home
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -v -t "$HOME/.local" local
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -v -t "$HOME/.config" config
+
+# 4. Enable GNOME Shell extensions if applicable
+if command -v gsettings >/dev/null 2>&1; then
+  echo "[ Configuring GNOME Shell extensions... ]"
+  current_extensions=$(gsettings get org.gnome.shell enabled-extensions 2>/dev/null || echo "[]")
+  if [[ "$current_extensions" != *"logomenu-fixed@dcoffline"* ]]; then
+    if [[ "$current_extensions" == "@as []" || "$current_extensions" == "[]" ]]; then
+      gsettings set org.gnome.shell enabled-extensions "['logomenu-fixed@dcoffline']"
+    else
+      new_extensions=$(echo "$current_extensions" | sed "s/]/, 'logomenu-fixed@dcoffline']/g")
+      gsettings set org.gnome.shell enabled-extensions "$new_extensions"
+    fi
+  fi
+fi
 
 echo "✅ Fortress bootstrap complete!"
