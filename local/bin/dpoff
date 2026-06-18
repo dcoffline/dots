@@ -29,15 +29,16 @@ case "$XDG_CURRENT_DESKTOP" in
 
   # 2. Tell Mutter directly to change Display Power to ON (0)
   "${RUN[@]}" busctl --user set-property org.gnome.Mutter.DisplayConfig /org/gnome/Mutter/DisplayConfig org.gnome.Mutter.DisplayConfig PowerSaveMode i 0
-  
+
   # Reduced sleep to prevent Moonlight connection timeouts
   sleep 1
-  
+
   # Using short flags to avoid the argparse grouping error
   "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
-  "${RUN[@]}" gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
   "${RUN[@]}" gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
   "${RUN[@]}" gnome-extensions enable dash-to-dock@micxgx.gmail.com
+  "${RUN[@]}" gnome-extensions disable openwispr-gnome-extension@tnfssc.github.com
   ;;
 esac
 monctl
+

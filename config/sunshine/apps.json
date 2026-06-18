@@ -8,29 +8,11 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 3,
             "image-path": "steam.png",
-            "name": "Big Picture",
+            "name": "1-Big Picture",
             "output": "/var/home/eric/.config/sunshine/app-bigpic.log",
             "prep-cmd": [
                 {
                     "do": "monctl 1920x1080 59.963",
-                    "undo": ""
-                }
-            ],
-            "wait-all": true
-        },
-        {
-            "auto-detach": true,
-            "detached": [
-                ""
-            ],
-            "exclude-global-prep-cmd": false,
-            "exit-timeout": 5,
-            "image-path": "desktop.png",
-            "name": "Desktop",
-            "output": "/var/home/eric/.config/sunshine/app-desktop.log",
-            "prep-cmd": [
-                {
-                    "do": "monctl 2560x1440 119.877",
                     "undo": ""
                 }
             ],
@@ -43,7 +25,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/src/dots/config/sunshine/covers/ultra.png",
-            "name": "LG Ultrawide",
+            "name": "2-Ultrawide",
             "output": "/var/home/eric/.config/sunshine/app-ultra.log",
             "prep-cmd": [
                 {
@@ -60,7 +42,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/macbook.png",
-            "name": "Laptop",
+            "name": "3-Laptop",
             "output": "/var/home/eric/.config/sunshine/app-laptop.log",
             "prep-cmd": [
                 {
@@ -76,11 +58,29 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/iphone.png",
-            "name": "Phone",
+            "name": "4-Phone",
             "output": "/var/home/eric/.config/sunshine/app-phone.log",
             "prep-cmd": [
                 {
                     "do": "monctl 1280x720 119.858",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "detached": [
+                ""
+            ],
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "desktop.png",
+            "name": "5-Desktop",
+            "output": "/var/home/eric/.config/sunshine/app-desktop.log",
+            "prep-cmd": [
+                {
+                    "do": "monctl 2560x1440 119.877",
                     "undo": ""
                 }
             ],
