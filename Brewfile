@@ -1,7 +1,7 @@
 tap "achannarasappa/tap", "https://github.com/achannarasappa/tap.git"
 tap "browsh-org/browsh"
 tap "jotta/cli"
-tap "lizardbyte/homebrew"
+tap "lizardbyte/homebrew", trusted: true
 tap "macos-fuse-t/cask"
 tap "nikitabobko/tap"
 tap "samtay/tui"
@@ -9,18 +9,22 @@ tap "ublue-os/tap"
 tap "valkyrie00/bbrew"
 # Aquarium animation in ASCII art
 brew "asciiquarium"
+# Core application library for C
+brew "glib"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
+# Service Discovery for Linux using mDNS/DNS-SD
+brew "avahi"
+# JPEG image codec that aids compression and decompression
+brew "jpeg-turbo"
 # Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
 # Preexec and precmd functions for Bash (like Zsh)
 brew "bash-preexec"
+# Collection of portable C++ source libraries
+brew "boost"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
-# Core application library for C
-brew "glib"
-# JPEG image codec that aids compression and decompression
-brew "jpeg-turbo"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
 brew "chafa", link: false
 # Console Matrix
@@ -33,6 +37,8 @@ brew "libtool"
 brew "ffmpeg"
 # Create thumbnails for your video files
 brew "ffmpegthumbnailer"
+# GNU implementation of which utility
+brew "gnu-which"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Improved top (interactive process viewer)
@@ -45,8 +51,14 @@ brew "jq"
 brew "kew"
 # Lazier way to manage everything docker
 brew "lazydocker"
+# Ayatana Application Indicators Shared Library
+brew "libayatana-appindicator"
+# X.Org: X Session Management Library
+brew "libsm"
 # Modern and intuitive terminal-based text editor
 brew "micro"
+# UPnP IGD client library and daemon
+brew "miniupnpc"
 # Feature-rich command-line audio/video downloader
 brew "yt-dlp"
 # Media player based on MPlayer and mplayer2
@@ -59,6 +71,10 @@ brew "neovim"
 brew "newsboat"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
+# NUMA support for Linux
+brew "numactl"
+# Server and user space API to deal with multimedia pipelines
+brew "pipewire"
 # Podman Terminal User Interface
 brew "podman-tui"
 # PDF rendering library (based on the xpdf-3.0 code base)
@@ -91,6 +107,8 @@ brew "whisper-cpp"
 brew "yq"
 # The modern, text-based browser
 brew "browsh-org/browsh/browsh", trusted: true
+# Self-hosted game stream host for Moonlight
+brew "lizardbyte/homebrew/sunshine", trusted: true
 # Android SDK component
 cask "android-platform-tools"
 cask "font-0xproto-nerd-font"
