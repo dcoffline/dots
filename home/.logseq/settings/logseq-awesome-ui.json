@@ -10,7 +10,7 @@
   "leftSidebarHeading": null,
   "vaultButtonToBottom": true,
   "compactSidebarMenu": true,
-  "menuCalendar": true,
+  "menuCalendar": false,
   "hideSidebarPageIcons": true,
   "hideAddNewPage": true,
   "rightSidebarHeading": null,
