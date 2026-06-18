@@ -4,7 +4,7 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-Environment="PATH=/usr/bin:/bin:/usr/local/bin"
+Environment="PATH=%h/.local/bin:/usr/bin:/home/linuxbrew/.linuxbrew/bin:/bin:/usr/local/bin"
 ExecStart=%h/.local/bin/openwispr engine
 Restart=on-failure
 RestartSec=2
