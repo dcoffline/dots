@@ -33,6 +33,8 @@ brew "libtool"
 brew "ffmpeg"
 # Create thumbnails for your video files
 brew "ffmpegthumbnailer"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
 # Improved top (interactive process viewer)
 brew "htop"
 # Tools and libraries to manipulate images in select formats
@@ -83,6 +85,8 @@ brew "trash-cli"
 brew "ugrep"
 # Sends magic packets to wake up network-devices
 brew "wakeonlan"
+# Port of OpenAI's Whisper model in C/C++
+brew "whisper-cpp"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
 # The modern, text-based browser
@@ -128,6 +132,7 @@ flatpak "com.github.jeromerobert.pdfarranger"
 flatpak "com.github.marhkb.Pods"
 flatpak "com.github.tchx84.Flatseal"
 flatpak "com.google.Chrome"
+flatpak "com.heroicgameslauncher.hgl"
 flatpak "com.logseq.Logseq"
 flatpak "com.mattjakeman.ExtensionManager"
 flatpak "com.moddb.TotalChaos"
