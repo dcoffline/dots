@@ -30,7 +30,7 @@ fi
 # CONTAINER / MUTABLE
 # =========================================================
 if [ "$ENV_TYPE" != "immutable" ]; then
-  EXPORT_BINS=(age busybox gh git glab jotta-cli shellcheck sops stress-ng weston)
+  EXPORT_BINS=(age busybox cava gh git glab jotta-cli shellcheck sops stress-ng weston)
 
   if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
@@ -60,7 +60,7 @@ EOF
     fi
     sudo apt-get update
     APT_PACKAGES=(
-      age busybox chafa direnv fastfetch gh glab gcc jotta-cli make neovim nodejs
+      age busybox cava chafa direnv fastfetch gh glab gcc jotta-cli make neovim nodejs
       npm pipx shellcheck sops stress-ng trash-cli weston which yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
@@ -149,7 +149,6 @@ FLATPAK_APPS=(
   io.github.flattool.Ignition
   io.github.fabrialberio.pinapp
   page.tesk.Refine
-  dev.deedles.Trayscale
   com.github.marhkb.Pods
 )
 echo "[ Checking GUI apps... ]"
@@ -209,19 +208,27 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
     "allowlockedremotedesktop@kamens.us"
     "AlphabeticalAppGrid@stuarthayhurst"
     "app-hider@lynith.dev"
+    "appindicatorsupport@rgcjonas.gmail.com"
     "apps-menu@gnome-shell-extensions.gcampax.github.com"
+    "blur-my-shell@aunetx"
     "clipboard-indicator@tudmotu.com"
     "dash-to-dock@micxgx.gmail.com"
     "desktop-cube@schneegans.github.com"
+    "dynamic-music-pill@andbal"
     "extension-list@tu.berry"
+    "hotedge@jonathan.jdoda.ca"
+    "logomenu-fixed@dcoffline"
+    "openwispr-gnome-extension"
     "places-menu@gnome-shell-extensions.gcampax.github.com"
+    "quick-sound-switcher@dustin-hawkins"
     "randomwallpaper@iflow.space"
     "screentospace@dilzhan.dev"
     "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
-    "tailscale-gnome-qs@tailscale-qs.github.io"
+    "tailscale-status@maxgallup.github.com"
     "tilingshell@ferrarodomenico.com"
     "transparent-window-moving@noobsai.github.com"
     "tweaks-system-menu@extensions.gnome-shell.fifi.org"
+    "workspace-bar@jguece"
   )
 
   if ! command -v gext >/dev/null 2>&1; then
