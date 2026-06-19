@@ -90,8 +90,8 @@ alias openports='ss -tulanp'
 alias cid="echo $CONTAINER_ID"
 alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
 alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
-alias ns-true='env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true'
-alias ns-false='env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false'
+alias natscr='env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll'
+
 # File Management
 alias cat=bat
 alias cp='cp -i'
