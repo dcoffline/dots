@@ -267,6 +267,17 @@ logseq:
     REPO_DIR="$HOME/src/logseq"
     cd "$REPO_DIR" || exit 1
 
+    # Notification Helper Function
+    notify() {
+      local title="Logseq Sync"
+      local message="$1"
+      if [[ "$OS_TYPE" == "mac" ]]; then
+        osascript -e "display notification \"$message\" with title \"$title\""
+      elif command -v notify-send &>/dev/null; then
+        notify-send "$title" "$message"
+      fi
+    }
+
     echo "🔄 Checking for mobile changes on GitHub..."
     if curl -sI --connect-timeout 3 https://github.com &>/dev/null && git fetch origin main &>/dev/null; then
       LOCAL_HASH=$(git rev-parse @)
@@ -277,39 +288,68 @@ logseq:
         echo "✅ Repository is already up-to-date."
       elif [ "$LOCAL_HASH" = "$BASE_HASH" ]; then
         echo "📥 Remote changes detected. Pulling..."
-        git pull --rebase origin main
+        if git pull --rebase origin main; then
+          notify "📥 Pulled latest changes from GitHub."
+        fi
       elif [ "$REMOTE_HASH" = "$BASE_HASH" ]; then
         echo "🚀 Local changes ahead of remote. Proceeding..."
       else
         echo "⚠️ Diverged! Attempting pull --rebase..."
-        git pull --rebase origin main
+        if git pull --rebase origin main; then
+          notify "📥 Pulled and rebased latest changes."
+        fi
       fi
     else
       echo "⚠️ Warning: Could not contact remote repository. Starting Logseq offline."
+      notify "⚠️ Offline: Starting Logseq in offline mode."
     fi
 
     echo "🚀 Launching Logseq..."
     if [ "$OS_TYPE" = "mac" ]; then
-      open -W -a Logseq
+      if [ -d "$HOME/.logseq-app/Logseq.app" ]; then
+        open -W "$HOME/.logseq-app/Logseq.app"
+      else
+        open -W -a Logseq
+      fi
     else
       env DESKTOPINTEGRATION=1 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=run.sh --file-forwarding com.logseq.Logseq
     fi
 
     echo "📦 Logseq closed. Shipping latest changes to GitHub..."
+    CHANGES_COMMITTED=false
     if [ -n "$(git status --porcelain)" ]; then
       echo "Changes detected. Staging and committing..."
       git add -A
       git commit -m "sync: $(date '+%Y-%m-%d %H:%M:%S') from $OS_TYPE" || true
+      CHANGES_COMMITTED=true
     fi
 
     if curl -sI --connect-timeout 3 https://github.com &>/dev/null; then
-      if git push origin main; then
-        echo "✅ Sync complete!"
+      if [ "$CHANGES_COMMITTED" = true ]; then
+        if git push origin main; then
+          echo "✅ Sync complete!"
+          notify "📤 Uploaded your latest edits to GitHub."
+        else
+          echo "⚠️ Error: Failed to push changes."
+          notify "⚠️ Error: Failed to push edits to GitHub."
+        fi
       else
-        echo "⚠️ Error: Failed to push changes. Local changes are saved."
+        # Try pushing anyway just in case the auto-commit plugin committed things
+        if git push origin main &>/dev/null || git diff-index --quiet HEAD --; then
+          echo "✅ Sync complete! (No new local changes to push)"
+          notify "✅ Sync complete. Repository is up-to-date."
+        else
+          notify "⚠️ Error: Failed to push changes."
+        fi
       fi
     else
-      echo "⚠️ Offline: Changes saved locally but could not push."
+      if [ "$CHANGES_COMMITTED" = true ]; then
+        echo "⚠️ Offline: Changes saved locally but could not push."
+        notify "⚠️ Offline: Edits saved locally (will push next sync)."
+      else
+        echo "⚠️ Offline: Started and closed offline."
+      fi
     fi
+
 
 
