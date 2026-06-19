@@ -30,7 +30,7 @@ case "$XDG_CURRENT_DESKTOP" in
   export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 
   "${RUN[@]}" gdctl set -L -p -M "$MAIN"
-  "${RUN[@]}" gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
+  "${RUN[@]}" /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
   "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
   "${RUN[@]}" gnome-extensions enable openwispr-gnome-extension@tnfssc.github.com
   ;;
