@@ -248,3 +248,68 @@ unmount:
 install-agy:
     curl -fsSL https://antigravity.google/cli/install.sh | bash
 
+# =============================================================================
+# LOGSEQ SYNC PROTOCOL (Cross-Platform)
+# =============================================================================
+
+# Launches Logseq with automated git pull/rebase and push sync (Mac & Linux compatible)
+logseq:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    OS_TYPE=""
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+      OS_TYPE="mac"
+    else
+      OS_TYPE="linux"
+    fi
+
+    REPO_DIR="$HOME/src/logseq"
+    cd "$REPO_DIR" || exit 1
+
+    echo "🔄 Checking for mobile changes on GitHub..."
+    if curl -sI --connect-timeout 3 https://github.com &>/dev/null && git fetch origin main &>/dev/null; then
+      LOCAL_HASH=$(git rev-parse @)
+      REMOTE_HASH=$(git rev-parse @{u})
+      BASE_HASH=$(git merge-base @ @{u})
+
+      if [ "$LOCAL_HASH" = "$REMOTE_HASH" ]; then
+        echo "✅ Repository is already up-to-date."
+      elif [ "$LOCAL_HASH" = "$BASE_HASH" ]; then
+        echo "📥 Remote changes detected. Pulling..."
+        git pull --rebase origin main
+      elif [ "$REMOTE_HASH" = "$BASE_HASH" ]; then
+        echo "🚀 Local changes ahead of remote. Proceeding..."
+      else
+        echo "⚠️ Diverged! Attempting pull --rebase..."
+        git pull --rebase origin main
+      fi
+    else
+      echo "⚠️ Warning: Could not contact remote repository. Starting Logseq offline."
+    fi
+
+    echo "🚀 Launching Logseq..."
+    if [ "$OS_TYPE" = "mac" ]; then
+      open -W -a Logseq
+    else
+      env DESKTOPINTEGRATION=1 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=run.sh --file-forwarding com.logseq.Logseq
+    fi
+
+    echo "📦 Logseq closed. Shipping latest changes to GitHub..."
+    if [ -n "$(git status --porcelain)" ]; then
+      echo "Changes detected. Staging and committing..."
+      git add -A
+      git commit -m "sync: $(date '+%Y-%m-%d %H:%M:%S') from $OS_TYPE" || true
+    fi
+
+    if curl -sI --connect-timeout 3 https://github.com &>/dev/null; then
+      if git push origin main; then
+        echo "✅ Sync complete!"
+      else
+        echo "⚠️ Error: Failed to push changes. Local changes are saved."
+      fi
+    else
+      echo "⚠️ Offline: Changes saved locally but could not push."
+    fi
+
+
