@@ -9,3 +9,4 @@ token
 *.sqlite
 *._*
 home/.logseq/graphs/
+home/.logseq/git/
