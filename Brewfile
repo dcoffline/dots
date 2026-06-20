@@ -1,4 +1,4 @@
-tap "achannarasappa/tap"
+tap "achannarasappa/tap", "https://github.com/achannarasappa/tap.git"
 tap "browsh-org/browsh"
 tap "jotta/cli"
 tap "lizardbyte/homebrew"
