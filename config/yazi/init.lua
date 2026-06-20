@@ -7,6 +7,6 @@ function Linemode:size_and_mtime()
     else
         time = os.date("%b %d %Y", time)
     end
-    local size = self._file:size()
+    local size = self._file.cha.is_dir and self._file:size() or self._file.cha.len
     return string.format("%s %s", size and ya.readable_size(size) or "-", time)
 end
