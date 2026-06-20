@@ -204,53 +204,55 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
   fi
 
   if [ "$IS_GNOME" -eq 1 ]; then
-    #    GNOME_EXTENSIONS=(
-    #    "allowlockedremotedesktop@kamens.us"
-    #    "AlphabeticalAppGrid@stuarthayhurst"
-    #    "app-hider@lynith.dev"
-    #    "appindicatorsupport@rgcjonas.gmail.com"
-    #    "apps-menu@gnome-shell-extensions.gcampax.github.com"
-    #    "blur-my-shell@aunetx"
-    #    "clipboard-indicator@tudmotu.com"
-    #    "dash-to-dock@micxgx.gmail.com"
-    #    "desktop-cube@schneegans.github.com"
-    #    "dynamic-music-pill@andbal"
-    #    "extension-list@tu.berry"
-    #    "hotedge@jonathan.jdoda.ca"
-    #    "logomenu-fixed@dcoffline"
-    #    "openwispr-gnome-extension"
-    #    "places-menu@gnome-shell-extensions.gcampax.github.com"
-    #    "quick-sound-switcher@dustin-hawkins"
-    #    "randomwallpaper@iflow.space"
-    #    "screentospace@dilzhan.dev"
-    #    "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
-    #    "tailscale-status@maxgallup.github.com"
-    #    "tilingshell@ferrarodomenico.com"
-    #    "transparent-window-moving@noobsai.github.com"
-    #    "tweaks-system-menu@extensions.gnome-shell.fifi.org"
-    #    "workspace-bar@jguece"
-    #  )
-    #
-    #  if ! command -v gext >/dev/null 2>&1; then
-    #    echo "[ gext not found. Attempting to install gnome-extensions-cli... ]"
-    #    if command -v pipx >/dev/null 2>&1; then
-    #      pipx install gnome-extensions-cli --system-site-packages || true
-    #    elif command -v pip >/dev/null 2>&1; then
-    #      pip install --user gnome-extensions-cli || true
-    #    fi
-    #  fi
-    #
-    #  if command -v gext >/dev/null 2>&1; then
-    #    echo "[ Installing GNOME Extensions locally... ]"
-    #    for ext in "${GNOME_EXTENSIONS[@]}"; do
-    #      gext install "$ext" 2>/dev/null || true
-    #    done
-    #  elif [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
-    #    echo "[ Installing GNOME Extensions via Host... ]"
-    #    for ext in "${GNOME_EXTENSIONS[@]}"; do
-    #      distrobox-host-exec gext install "$ext" 2>/dev/null || true
-    #    done
-    #  fi
+    GNOME_EXTENSIONS=(
+      "allowlockedremotedesktop@kamens.us"
+      "AlphabeticalAppGrid@stuarthayhurst"
+      "app-hider@lynith.dev"
+      "appindicatorsupport@rgcjonas.gmail.com"
+      "apps-menu@gnome-shell-extensions.gcampax.github.com"
+      "blur-my-shell@aunetx"
+      "clipboard-indicator@tudmotu.com"
+      "dash-to-dock@micxgx.gmail.com"
+      "desktop-cube@schneegans.github.com"
+      "dynamic-music-pill@andbal"
+      "extension-list@tu.berry"
+      "gjsosk2vishram1123.com"
+      "hotedge@jonathan.jdoda.ca"
+      "logomenu-fixed@dcoffline"
+      "openwispr-gnome-extension"
+      "places-menu@gnome-shell-extensions.gcampax.github.com"
+      "randomwallpaper@iflow.space"
+      "screentospace@dilzhan.dev"
+      "smart-pause-resume@erenseymen.github.io"
+      "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
+      "tailscale-gnome-qs@tailscale-qs.github.io"
+      "tilingshell@ferrarodomenico.com"
+      "transparent-window-moving@noobsai.github.com"
+      "tweaks-system-menu@extensions.gnome-shell.fifi.org"
+      "volume-percentage-quick-settings@imdarktom"
+      "workspace-bar@jguece"
+    )
+
+    if ! command -v gext >/dev/null 2>&1; then
+      echo "[ gext not found. Attempting to install gnome-extensions-cli... ]"
+      if command -v pipx >/dev/null 2>&1; then
+        pipx install gnome-extensions-cli --system-site-packages || true
+      elif command -v pip >/dev/null 2>&1; then
+        pip install --user gnome-extensions-cli || true
+      fi
+    fi
+
+    if command -v gext >/dev/null 2>&1; then
+      echo "[ Installing GNOME Extensions locally... ]"
+      for ext in "${GNOME_EXTENSIONS[@]}"; do
+        gext install "$ext" 2>/dev/null || true
+      done
+    elif [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+      echo "[ Installing GNOME Extensions via Host... ]"
+      for ext in "${GNOME_EXTENSIONS[@]}"; do
+        distrobox-host-exec gext install "$ext" 2>/dev/null || true
+      done
+    fi
 
     # Load DCONF
     if command -v dconf >/dev/null 2>&1; then
