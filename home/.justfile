@@ -61,6 +61,7 @@ update:
       fi
 
       echo "[ Applying Dotfile Updates... ]"
+      mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/share/gnome-shell/extensions"
       stow -R --ignore=".DS_Store" -t "$HOME" home
       stow -R --ignore=".DS_Store" -t "$HOME/.config" config
       stow -R --ignore=".DS_Store" -t "$HOME/.local" local
