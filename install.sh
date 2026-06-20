@@ -7,6 +7,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Export all environment variables sourced from configuration
+mkdir -p "$HOME/.local/bin" "$HOME/.config/systemd/user"
 set -a
 source "$SCRIPT_DIR/config/environment.d/envvars.conf"
 source "$SCRIPT_DIR/config/bash/os.bash"
@@ -47,17 +48,18 @@ if ! command -v stow >/dev/null 2>&1; then
   fi
 fi
 
-# 2. Run package installer
-if [ -f "$SCRIPT_DIR/install-pkg.sh" ]; then
-  echo "[ Running package installer... ]"
-  bash "$SCRIPT_DIR/install-pkg.sh"
-fi
-
+# 2. Apply dotfiles with stow
 echo "[ Applying dotfiles with Stow... ]"
 mkdir -p "$HOME/.config/systemd/user"
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
+
+# 3. Run package installer
+if [ -f "$SCRIPT_DIR/install-pkg.sh" ]; then
+  echo "[ Running package installer... ]"
+  bash "$SCRIPT_DIR/install-pkg.sh"
+fi
 
 # 4. Enable GNOME Shell extensions if applicable
 if command -v gsettings >/dev/null 2>&1; then
