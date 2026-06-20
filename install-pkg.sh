@@ -36,7 +36,7 @@ if [ "$ENV_TYPE" != "immutable" ]; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     if [ ! -f /etc/yum.repos.d/jotta-cli.repo ] && [ ! -f /etc/yum.repos.d/JottaCLI.repo ]; then
       echo "[ Configuring Jottacloud CLI repository... ]"
-      sudo tee /etc/yum.repos.d/jotta-cli.repo > /dev/null <<'EOF'
+      sudo tee /etc/yum.repos.d/jotta-cli.repo >/dev/null <<'EOF'
 [jotta-cli]
 name=Jottacloud CLI
 baseurl=https://repo.jotta.cloud/redhat
@@ -56,7 +56,7 @@ EOF
       echo "[ Configuring Jottacloud CLI repository... ]"
       sudo mkdir -p /usr/share/keyrings
       sudo curl -fsSL https://repo.jotta.cloud/jotta.gpg -o /usr/share/keyrings/jotta.gpg
-      echo "deb [signed-by=/usr/share/keyrings/jotta.gpg] https://repo.jotta.cloud/debian debian main" | sudo tee /etc/apt/sources.list.d/jotta-cli.list > /dev/null
+      echo "deb [signed-by=/usr/share/keyrings/jotta.gpg] https://repo.jotta.cloud/debian debian main" | sudo tee /etc/apt/sources.list.d/jotta-cli.list >/dev/null
     fi
     sudo apt-get update
     APT_PACKAGES=(
@@ -204,65 +204,63 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
   fi
 
   if [ "$IS_GNOME" -eq 1 ]; then
-    GNOME_EXTENSIONS=(
-    "allowlockedremotedesktop@kamens.us"
-    "AlphabeticalAppGrid@stuarthayhurst"
-    "app-hider@lynith.dev"
-    "appindicatorsupport@rgcjonas.gmail.com"
-    "apps-menu@gnome-shell-extensions.gcampax.github.com"
-    "blur-my-shell@aunetx"
-    "clipboard-indicator@tudmotu.com"
-    "dash-to-dock@micxgx.gmail.com"
-    "desktop-cube@schneegans.github.com"
-    "dynamic-music-pill@andbal"
-    "extension-list@tu.berry"
-    "hotedge@jonathan.jdoda.ca"
-    "logomenu-fixed@dcoffline"
-    "openwispr-gnome-extension"
-    "places-menu@gnome-shell-extensions.gcampax.github.com"
-    "quick-sound-switcher@dustin-hawkins"
-    "randomwallpaper@iflow.space"
-    "screentospace@dilzhan.dev"
-    "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
-    "tailscale-status@maxgallup.github.com"
-    "tilingshell@ferrarodomenico.com"
-    "transparent-window-moving@noobsai.github.com"
-    "tweaks-system-menu@extensions.gnome-shell.fifi.org"
-    "workspace-bar@jguece"
-  )
+    #    GNOME_EXTENSIONS=(
+    #    "allowlockedremotedesktop@kamens.us"
+    #    "AlphabeticalAppGrid@stuarthayhurst"
+    #    "app-hider@lynith.dev"
+    #    "appindicatorsupport@rgcjonas.gmail.com"
+    #    "apps-menu@gnome-shell-extensions.gcampax.github.com"
+    #    "blur-my-shell@aunetx"
+    #    "clipboard-indicator@tudmotu.com"
+    #    "dash-to-dock@micxgx.gmail.com"
+    #    "desktop-cube@schneegans.github.com"
+    #    "dynamic-music-pill@andbal"
+    #    "extension-list@tu.berry"
+    #    "hotedge@jonathan.jdoda.ca"
+    #    "logomenu-fixed@dcoffline"
+    #    "openwispr-gnome-extension"
+    #    "places-menu@gnome-shell-extensions.gcampax.github.com"
+    #    "quick-sound-switcher@dustin-hawkins"
+    #    "randomwallpaper@iflow.space"
+    #    "screentospace@dilzhan.dev"
+    #    "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
+    #    "tailscale-status@maxgallup.github.com"
+    #    "tilingshell@ferrarodomenico.com"
+    #    "transparent-window-moving@noobsai.github.com"
+    #    "tweaks-system-menu@extensions.gnome-shell.fifi.org"
+    #    "workspace-bar@jguece"
+    #  )
+    #
+    #  if ! command -v gext >/dev/null 2>&1; then
+    #    echo "[ gext not found. Attempting to install gnome-extensions-cli... ]"
+    #    if command -v pipx >/dev/null 2>&1; then
+    #      pipx install gnome-extensions-cli --system-site-packages || true
+    #    elif command -v pip >/dev/null 2>&1; then
+    #      pip install --user gnome-extensions-cli || true
+    #    fi
+    #  fi
+    #
+    #  if command -v gext >/dev/null 2>&1; then
+    #    echo "[ Installing GNOME Extensions locally... ]"
+    #    for ext in "${GNOME_EXTENSIONS[@]}"; do
+    #      gext install "$ext" 2>/dev/null || true
+    #    done
+    #  elif [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+    #    echo "[ Installing GNOME Extensions via Host... ]"
+    #    for ext in "${GNOME_EXTENSIONS[@]}"; do
+    #      distrobox-host-exec gext install "$ext" 2>/dev/null || true
+    #    done
+    #  fi
 
-  if ! command -v gext >/dev/null 2>&1; then
-    echo "[ gext not found. Attempting to install gnome-extensions-cli... ]"
-    if command -v pipx >/dev/null 2>&1; then
-      pipx install gnome-extensions-cli --system-site-packages || true
-    elif command -v pip >/dev/null 2>&1; then
-      pip install --user gnome-extensions-cli || true
+    # Load DCONF
+    if command -v dconf >/dev/null 2>&1; then
+      echo "[ Loading GNOME Shell DCONF settings... ]"
+      dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
+    elif [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+      echo "[ Loading GNOME Shell DCONF settings via Host... ]"
+      distrobox-host-exec dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
     fi
   fi
-
-  if command -v gext >/dev/null 2>&1; then
-    echo "[ Installing GNOME Extensions locally... ]"
-    for ext in "${GNOME_EXTENSIONS[@]}"; do
-      gext install "$ext" 2>/dev/null || true
-    done
-  elif [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
-    echo "[ Installing GNOME Extensions via Host... ]"
-    for ext in "${GNOME_EXTENSIONS[@]}"; do
-      distrobox-host-exec gext install "$ext" 2>/dev/null || true
-    done
-  fi
-
-  # Load DCONF
-  if command -v dconf >/dev/null 2>&1; then
-    echo "[ Loading GNOME Shell DCONF settings... ]"
-    dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
-  elif [ "$ENV_TYPE" = "container" ] && command -v distrobox-host-exec >/dev/null 2>&1; then
-    echo "[ Loading GNOME Shell DCONF settings via Host... ]"
-    distrobox-host-exec dconf load /org/gnome/shell/ <"$DOTS/$GNOME_INI"
-  fi
 fi
-fi
-
 
 echo "[ Fortress package installation complete ]"
-
