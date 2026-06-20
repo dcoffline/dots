@@ -1,0 +1,29 @@
+.rwg-new-label {
+    font-size: 130%;
+}
+
+.rwg-history-index {
+    text-align: left;
+    padding-top: .4em;
+    margin-right: .2em;
+    font-size: 120%;
+}
+
+.rwg-history-date {
+    font-size: 100%;
+}
+
+.rwg-history-time {
+    font-size: 80%;
+}
+
+.rwg-preview-image {
+    border-radius: 0.3em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.rwg-submenu-separator {
+    background-color: rgba(255,255,255,0.1);
+}
