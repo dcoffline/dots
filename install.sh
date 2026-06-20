@@ -55,9 +55,9 @@ fi
 
 echo "[ Applying dotfiles with Stow... ]"
 mkdir -p "$HOME/.config/systemd/user"
-stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -v -t "$HOME" home
-stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -v -t "$HOME/.local" local
-stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -v -t "$HOME/.config" config
+stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
+stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
+stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
 
 # 4. Enable GNOME Shell extensions if applicable
 if command -v gsettings >/dev/null 2>&1; then

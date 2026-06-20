@@ -61,9 +61,9 @@ update:
       fi
 
       echo "[ Applying Dotfile Updates... ]"
-      stow -R -v --ignore=".DS_Store" -t "$HOME" home
-      stow -R -v --ignore=".DS_Store" -t "$HOME/.config" config
-      stow -R -v --ignore=".DS_Store" -t "$HOME/.local" local
+      stow -R --ignore=".DS_Store" -t "$HOME" home
+      stow -R --ignore=".DS_Store" -t "$HOME/.config" config
+      stow -R --ignore=".DS_Store" -t "$HOME/.local" local
 
       echo "[ Backing up to GitHub... ]"
       git add Brewfile "$SHELLINI"
@@ -82,9 +82,9 @@ update:
       fi
 
       echo "[ Applying Dotfile Updates... ]"
-      stow -R -v --ignore=".DS_Store" -t "$HOME" home
-      stow -R -v --ignore=".DS_Store" -t "$HOME/.config" config
-      stow -R -v --ignore=".DS_Store" -t "$HOME/.local" local
+      stow -R --ignore=".DS_Store" -t "$HOME" home
+      stow -R --ignore=".DS_Store" -t "$HOME/.config" config
+      stow -R --ignore=".DS_Store" -t "$HOME/.local" local
 
       echo "[ Backing up to GitHub via Container... ]"
       if [ "$OS_TYPE" = "mac" ]; then
@@ -116,9 +116,9 @@ update:
       fi
       if command -v brew >/dev/null 2>&1; then brew bundle dump --force; fi
 
-      stow -R -v --ignore=".DS_Store" -t "$HOME" home
-      stow -R -v --ignore=".DS_Store" -t "$HOME/.config" config
-      stow -R -v --ignore=".DS_Store" -t "$HOME/.local" local
+      stow -R --ignore=".DS_Store" -t "$HOME" home
+      stow -R --ignore=".DS_Store" -t "$HOME/.config" config
+      stow -R --ignore=".DS_Store" -t "$HOME/.local" local
 
       git add "$SHELLINI" Brewfile
       git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
@@ -159,7 +159,7 @@ mount:
         mkdir -p "$mountpoint"
         
         EXTRA_FLAGS=()
-        if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
+        if [[ "$remote" == "realdebrid" ]]; then
           EXTRA_FLAGS=( --read-only --exclude '.DS_Store' --exclude '._*' )
         fi
         
@@ -186,7 +186,7 @@ mount:
         CACHE_DIR="$HOME/.cache/rclone_cache"
       fi
 
-      COMMON_FLAGS=( --allow-other --umask 002 --dir-perms 775 --file-perms 664 --vfs-cache-mode writes --cache-dir "$CACHE_DIR" --vfs-read-chunk-size=64M --vfs-read-chunk-size-limit off --attr-timeout 10m --dir-cache-time 72h --vfs-cache-max-size=10G --vfs-cache-max-age=720h --vfs-cache-min-free-space=20G --poll-interval=1m --buffer-size 64M --log-file "$LOGFILE" --log-level INFO )
+      COMMON_FLAGS=( --allow-other --exclude '.DS_Store' --exclude '._*' --umask 002 --dir-perms 775 --file-perms 664 --vfs-cache-mode writes --cache-dir "$CACHE_DIR" --vfs-read-chunk-size=64M --vfs-read-chunk-size-limit off --attr-timeout 10m --dir-cache-time 72h --vfs-cache-max-size=10G --vfs-cache-max-age=720h --vfs-cache-min-free-space=20G --poll-interval=1m --buffer-size 64M --log-file "$LOGFILE" --log-level INFO )
 
       mkdir -p "$PID_DIR" "$BASE_MOUNT" "$CACHE_DIR"
       pkill rclone 2>/dev/null || true
@@ -199,7 +199,7 @@ mount:
         
         EXTRA_FLAGS=()
         if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
-          EXTRA_FLAGS=( --read-only --exclude '.DS_Store' --exclude '._*' )
+          EXTRA_FLAGS=( --read-only )
         fi
 
         echo "Mounting $remote → $mountpoint"
