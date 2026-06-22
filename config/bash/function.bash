@@ -259,3 +259,10 @@ hb() {
     echo "Failed to upload the document."
   fi
 }
+
+# Monitor streaming logs side-by-side
+monitor-streams() {
+  tmux new-session -d -s streamlogs 'podman logs -f --tail 50 stremthru'
+  tmux split-window -h -t streamlogs 'podman logs -f --tail 50 aiostreams'
+  tmux attach-session -t streamlogs
+}
