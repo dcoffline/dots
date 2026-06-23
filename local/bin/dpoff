@@ -38,7 +38,7 @@ case "$XDG_CURRENT_DESKTOP" in
   "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
   "${RUN[@]}" gnome-extensions enable dash-to-dock@micxgx.gmail.com
   "${RUN[@]}" gnome-extensions disable openwispr-gnome-extension@tnfssc.github.com
+  "${RUN[@]}" gnome-extensions disable dynamic-music-pill@andbal
   ;;
 esac
 monctl
-
