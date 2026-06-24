@@ -1,7 +1,7 @@
 tap "achannarasappa/tap", "https://github.com/achannarasappa/tap.git"
 tap "browsh-org/browsh"
 tap "jotta/cli"
-tap "lizardbyte/homebrew", trusted: true
+tap "lizardbyte/homebrew", "https://github.com/LizardByte/homebrew-homebrew", trusted: true
 tap "macos-fuse-t/cask"
 tap "nikitabobko/tap"
 tap "samtay/tui"
