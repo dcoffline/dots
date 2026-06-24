@@ -64,7 +64,7 @@
             "output": "/var/home/eric/.config/sunshine/app-laptop.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1680x1050 119.891",
+                    "do": "monctl 1920x1200 119.909",
                     "undo": ""
                 }
             ],
