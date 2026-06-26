@@ -93,7 +93,7 @@
     "useJournalDayAsSchedule": true
   },
   "viewOptions": {
-    "showTimeLog": false,
+    "showTimeLog": true,
     "hideCompleted": true
   },
   "ignoreTag": null,

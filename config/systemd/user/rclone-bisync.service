@@ -1,0 +1,7 @@
+[Unit]
+Description=Bidirectional sync for Documents and Google Drive
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/var/home/linuxbrew/.linuxbrew/bin/rclone bisync %h/Documents GDrive: --conflict-resolve newer --exclude "._*" --exclude ".DS_Store" --verbose

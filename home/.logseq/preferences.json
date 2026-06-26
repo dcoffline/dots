@@ -8,9 +8,8 @@
   "externals": [],
   "pinnedToolbarItems": [
     "logseq-vim-shortcuts:vim-shortcuts-marks",
-    "logseq-agenda:Agenda3",
-    "logseq-agenda:Agenda2-Legacy",
     "logseq-awesome-props:AwesomeProps",
-    "logseq-todo-plugin:logseq-plugin-todo"
+    "logseq-todo-plugin:logseq-plugin-todo",
+    "logseq-agenda:Agenda2-Legacy"
   ]
 }
