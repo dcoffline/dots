@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Exit if a sync is already running to avoid overlaps
+if pidof -x $(basename $0) -o %PPID >/dev/null; then
+    echo "Sync already running. Exiting."
+    exit 1
+fi
+
+# Set the environment variable to completely hide Google Docs/Sheets
+export RCLONE_DRIVE_SKIP_GDOC=true
+
+# Common flags for speed and safety
+FLAGS="--ignore-errors --track-renames --exclude ._* --exclude .DS_Store -v"
+
+echo "=== Step 1: Pulling down changes from GDrive ==="
+/var/home/linuxbrew/.linuxbrew/bin/rclone sync GDrive: ~/Documents $FLAGS
+
+echo "=== Step 2: Pushing up local changes to GDrive ==="
+/var/home/linuxbrew/.linuxbrew/bin/rclone sync ~/Documents GDrive: $FLAGS
+
+echo "=== Sync Complete ==="
