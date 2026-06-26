@@ -212,7 +212,6 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
       "apps-menu@gnome-shell-extensions.gcampax.github.com"
       "blur-my-shell@aunetx"
       "clipboard-indicator@tudmotu.com"
-      "dash-to-dock@micxgx.gmail.com"
       "desktop-cube@schneegans.github.com"
       "dynamic-music-pill@andbal"
       "extension-list@tu.berry"
@@ -230,6 +229,7 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
       "transparent-window-moving@noobsai.github.com"
       "tweaks-system-menu@extensions.gnome-shell.fifi.org"
       "volume-percentage-quick-settings@imdarktom"
+      "window-list@gnome-shell-extensions.gcampax.github.com"
       "workspace-bar@jguece"
     )
 

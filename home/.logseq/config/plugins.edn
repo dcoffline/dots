@@ -6,4 +6,5 @@
  :logseq-plugin-task-check-date {:version "2.1.0", :repo "DimitryDushkin/logseq-plugin-task-check-date", :effect false, :theme false}
  :logseq-plugin-ai-assistant {:version "v1.6.0", :repo "ahonn/logseq-plugin-ai-assistant", :effect true, :theme false}
  :logseq-awesome-props {:version "v1.10.0", :repo "yoyurec/logseq-awesome-props", :effect true, :theme false}
- :logseq-todo-plugin {:version "v1.22.0", :repo "ahonn/logseq-plugin-todo", :effect true, :theme false}}
+ :logseq-todo-plugin {:version "v1.22.0", :repo "ahonn/logseq-plugin-todo", :effect true, :theme false}
+ :logseq-agenda {:version "v3.13.1", :repo "haydenull/logseq-plugin-agenda", :effect true, :theme false}}

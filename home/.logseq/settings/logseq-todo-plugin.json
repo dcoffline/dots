@@ -6,7 +6,7 @@
   "whereToPlaceNewTask": "",
   "showNextNDaysTask": false,
   "numberOfNextNDays": 14,
-  "treatJournalEntriesAsScheduled": true,
+  "treatJournalEntriesAsScheduled": false,
   "openInRightSidebar": false,
   "useDefaultColors": false,
   "sectionTitleColor": "#106ba3",
