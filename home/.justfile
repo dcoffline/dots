@@ -10,6 +10,38 @@ default:
 # SYSTEM MAINTENANCE
 # =============================================================================
 
+# Keep GDrive synced with Nextcloud Documents
+sync-gdrive:
+    #!/bin/bash
+    
+    # Define RCLONE for various systems
+    RCLONE="rclone"
+    if [ -x /home/linuxbrew/.linuxbrew/bin/rclone ]; then
+        RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
+    elif [ -x /usr/bin/rclone ]; then
+        RCLONE="/usr/bin/rclone"
+    fi
+
+    # Exit if a sync is already running to avoid overlaps
+    if pidof -x $(basename $0) -o %PPID >/dev/null; then
+        echo "Sync already running. Exiting."
+        exit 1
+    fi
+
+    # Set the environment variable to completely hide Google Docs/Sheets
+    export RCLONE_DRIVE_SKIP_GDOC=true
+
+    # Common flags for speed and safety
+    FLAGS="-u --delete-after --ignore-errors --no-update-dir-modtime --exclude ._* --exclude .DS_Store -v"
+
+    echo "=== Step 1: Pushing up local changes to GDrive ==="
+    $RCLONE sync ~/Documents GDrive: $FLAGS
+
+    echo "=== Step 2: Pulling down changes from GDrive ==="
+    $RCLONE sync GDrive: ~/Documents $FLAGS
+
+    echo "=== Sync Complete ==="
+
 # Initiates the Fortress Maintenance Protocol (Updates, Syncs, Backups)
 update:
     #!/usr/bin/env bash
