@@ -86,6 +86,7 @@ alias follow='journalctl --user -fu'
 alias gsettings='/usr/bin/gsettings'
 alias update='just update'
 alias openports='ss -tulanp'
+alias lzd='lazydocker'
 alias cid="echo $CONTAINER_ID"
 alias rlog="tail $HOME/.config/rclone/rclone-mount.log"
 alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
