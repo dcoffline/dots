@@ -4,4 +4,5 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/var/home/linuxbrew/.linuxbrew/bin/rclone bisync %h/Documents GDrive: --conflict-resolve newer --exclude "._*" --exclude ".DS_Store" --verbose
+Environment="RCLONE_DRIVE_SKIP_GDOC=true"
+ExecStart=/var/home/linuxbrew/.linuxbrew/bin/rclone bisync %h/Documents GDrive: --conflict-resolve newer --ignore-errors --exclude "._*" --exclude ".DS_Store" --verbose
