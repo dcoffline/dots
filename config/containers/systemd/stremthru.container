@@ -9,11 +9,9 @@ PublishPort=8080:8080
 
 # Environment variables for access
 EnvironmentFile=%h/.secrets
-Environment=STREMTHRU_BASE_URL=https://stremthru.hemati.com
-
 # For multi-IP protection outside your home network, set your external access URL:
 # Environment=STREMTHRU_BASE_URL=https://your-domain-or-tailscale-ip:8080
-
+Environment=STREMTHRU_BASE_URL=https://stremthru.hemati.com
 # Persistent storage for configuration data
 Volume=/var/mnt/2T/appdata/stremthru:/app/data:Z
 

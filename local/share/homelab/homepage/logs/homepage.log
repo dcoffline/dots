@@ -2320,3 +2320,161 @@
 [2026-06-20T22:22:29.142Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
 [2026-06-22T09:13:15.508Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
 [2026-06-25T04:00:14.536Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+[2026-06-26T15:29:26.834Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+[2026-06-26T15:33:27.384Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:27.384Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:27.394Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:27.395Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:27.409Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:31.566Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:31.567Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:31.582Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:31.590Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:31.599Z] error: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:31.667Z] error: Failed to load services.yaml, please check for errors
+[2026-06-26T15:33:31.667Z] error: YAMLException: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:31.670Z] error: Failed to load services.yaml, please check for errors
+[2026-06-26T15:33:31.670Z] error: YAMLException: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T15:33:31.906Z] error: Failed to load services.yaml, please check for errors
+[2026-06-26T15:33:31.907Z] error: YAMLException: bad indentation of a sequence entry (8:5)
+
+ 5 |         href: https://cockpit.hemati.com
+ 6 |         description: Bazzite Dashboard 
+ 7 |         ping: http://192.168.1.18:9090
+ 8 |     - Cloudflare:
+---------^
+ 9 |         icon: cloudflare
+ 10 |         href: https://dash.cloudflar ...
+[2026-06-26T16:31:45.030Z] error: bad indentation of a sequence entry (108:11)
+
+ 105 |     - abbr: SP
+ 106 |       href: https://open.spotify.com
+ 107 |   - Tasks
+ 108 |     - abbr: GT
+-----------------^
+ 109 |       href: https://tasks.google.com/tasks
+ 110 |   - Telegram:
+[2026-06-26T16:31:45.137Z] error: <index> YAMLException: bad indentation of a sequence entry (108:11)
+
+ 105 |     - abbr: SP
+ 106 |       href: https://open.spotify.com
+ 107 |   - Tasks
+ 108 |     - abbr: GT
+-----------------^
+ 109 |       href: https://tasks.google.com/tasks
+ 110 |   - Telegram:
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at readBlockSequence (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2111:7)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2568:45)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockSequence (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2104:5)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2536:12)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2721:3)
+    at loadDocuments (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2784:5)
+[2026-06-26T16:31:45.420Z] error: bad indentation of a sequence entry (108:11)
+
+ 105 |     - abbr: SP
+ 106 |       href: https://open.spotify.com
+ 107 |   - Tasks
+ 108 |     - abbr: GT
+-----------------^
+ 109 |       href: https://tasks.google.com/tasks
+ 110 |   - Telegram:
