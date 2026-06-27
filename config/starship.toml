@@ -126,7 +126,7 @@ Windows = ""
 "Music" = " "
 "Pictures" = " "
 "Videos" = "󰎁 " 
-"dots" = " "
+#"dots" = " "
 ".config" = " "
 ".local" = "⌘ "
 
