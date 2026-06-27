@@ -142,7 +142,6 @@ fi
 # FLATPAKS
 FLATPAK_APPS=(
   com.bitwarden.desktop
-  com.google.Chrome
   com.mattjakeman.ExtensionManager
   com.github.tchx84.Flatseal
   it.mijorus.gearlever
@@ -224,7 +223,7 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
       "screentospace@dilzhan.dev"
       "smart-pause-resume@erenseymen.github.io"
       "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
-      "tailscale-gnome-qs@tailscale-qs.github.io"
+      "tailscale-status@maxgallup.github.com"
       "tilingshell@ferrarodomenico.com"
       "transparent-window-moving@noobsai.github.com"
       "tweaks-system-menu@extensions.gnome-shell.fifi.org"
