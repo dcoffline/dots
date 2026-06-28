@@ -324,7 +324,7 @@ logseq:
     else
       OS_TYPE="linux"
     fi
-
+    
     REPO_DIR="$HOME/src/logseq"
     cd "$REPO_DIR" || exit 1
 
@@ -373,7 +373,9 @@ logseq:
         open -W -a Logseq
       fi
     else
-      env DESKTOPINTEGRATION=1 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=run.sh --file-forwarding com.logseq.Logseq
+      env DESKTOPINTEGRATION=1 "$HOME/Applications/logseq.appimage"
+      #env DESKTOPINTEGRATION=1 "$XDG_DATA_HOME/logseq/Logseq"
+      #env DESKTOPINTEGRATION=1 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=run.sh --file-forwarding com.logseq.Logseq
     fi
 
     echo "📦 Logseq closed. Shipping latest changes to GitHub..."
