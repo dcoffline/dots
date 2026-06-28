@@ -23,4 +23,3 @@ background-opacity = 0.85
 #gtk-titlebar = false
 confirm-close-surface = false
 shell-integration-features = no-cursor
-word-wrap = true

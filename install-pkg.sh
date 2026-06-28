@@ -20,6 +20,8 @@ GNOME_INI="config/dconf-backups/gnome-shell.ini"
 if [ "$ENV_TYPE" = "immutable" ]; then
   echo "[ Host-specific environment detected. Using Brewfile... ]"
   if command -v brew >/dev/null 2>&1; then
+    # Trust Brewfile taps to prevent trust prompts / warnings
+    brew trust achannarasappa/tap browsh-org/browsh jotta/cli lizardbyte/homebrew macos-fuse-t/cask nikitabobko/tap samtay/tui ublue-os/tap valkyrie00/bbrew 2>/dev/null || true
     brew bundle --file="$DOTS/Brewfile"
   else
     echo "[ Homebrew not found; skipping Brewfile ]"
