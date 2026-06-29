@@ -1,7 +1,7 @@
 {
   "google-gemini": {
-    "display:name": "Gemini 3 Pro",
+    "display:name": "Gemini 2.5 Pro",
     "ai:provider": "google",
-    "ai:model": "gemini-3-pro-preview"
+    "ai:model": "gemini-2.5-pro"
   }
 }
