@@ -12,8 +12,8 @@ Network=homelab.network
 Image=ghcr.io/immich-app/immich-server:release
 
 # Bulk storage goes to the HDD
-Volume=/var/mnt/10T/Pictures/Uploads:/usr/src/app/upload
-Volume=/var/mnt/10T/Pictures/Camera:/mnt/external:ro
+Volume=%h/.mnt/10T/Pictures/Uploads:/usr/src/app/upload
+Volume=%h/.mnt/10T/Pictures/Camera:/mnt/external:ro
 Volume=%h/.mnt/rclone/Timeline:/mnt/timeline:ro
 
 # Give it the "keys" to the database

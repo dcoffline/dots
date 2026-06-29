@@ -13,11 +13,11 @@ Image=docker.io/library/nextcloud:latest
 # We removed PublishPort. Cloudflared will access it internally via port 80.
 
 # Config on SSD
-Volume=/var/mnt/2T/appdata/nextcloud/config:/var/www/html/config:Z
-Volume=/var/mnt/2T/appdata/nextcloud/data:/var/www/html/data:Z
-Volume=/var/mnt/2T/appdata/nextcloud/custom_apps:/var/www/html/custom_apps:Z
+Volume=%h/.mnt/2T/appdata/nextcloud/config:/var/www/html/config:Z
+Volume=%h/.mnt/2T/appdata/nextcloud/data:/var/www/html/data:Z
+Volume=%h/.mnt/2T/appdata/nextcloud/custom_apps:/var/www/html/custom_apps:Z
 # Data on HDD
-Volume=/var/mnt/10T:/mnt/10T
+Volume=%h/.mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone
 
 EnvironmentFile=%h/.secrets

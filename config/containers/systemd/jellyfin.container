@@ -11,11 +11,11 @@ Network=homelab.network
 AddDevice=/dev/dri/renderD128:/dev/dri/renderD128
 
 # Config and Cache go on the fast SSD
-Volume=/var/mnt/2T/appdata/jellyfin/config:/config:Z
-Volume=/var/mnt/2T/appdata/jellyfin/cache:/cache:Z
+Volume=%h/.mnt/2T/appdata/jellyfin/config:/config:Z
+Volume=%h/.mnt/2T/appdata/jellyfin/cache:/cache:Z
 
 # Bulk Media Storage on the HDD (No :Z flag to protect the filesystem!)
-Volume=/var/mnt/10T:/media
+Volume=%h/.mnt/10T:/media
 Volume=%h/.mnt/rclone/Zurg:/media/zurg
 
 Environment=TZ=America/Chicago

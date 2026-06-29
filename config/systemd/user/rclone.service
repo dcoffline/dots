@@ -2,7 +2,7 @@
 Description=Rclone VFS Mounts Service
 After=network-online.target
 Wants=network-online.target
-RequiresMountsFor=/var/mnt/2T
+RequiresMountsFor=%h/.mnt/2T
 
 [Service]
 Type=forking

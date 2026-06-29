@@ -13,7 +13,7 @@ EnvironmentFile=%h/.secrets
 # Environment=STREMTHRU_BASE_URL=https://your-domain-or-tailscale-ip:8080
 Environment=STREMTHRU_BASE_URL=https://stremthru.hemati.com
 # Persistent storage for configuration data
-Volume=/var/mnt/2T/appdata/stremthru:/app/data:Z
+Volume=%h/.mnt/2T/appdata/stremthru:/app/data:Z
 
 [Service]
 Restart=always

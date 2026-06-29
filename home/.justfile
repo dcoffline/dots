@@ -242,7 +242,7 @@ mount:
       fi
 
       if [ -f /run/ostree-booted ]; then
-        CACHE_DIR=/var/mnt/2T/rclone_cache
+        CACHE_DIR=$HOME/.mnt/2T/rclone_cache
       else
         CACHE_DIR="$HOME/.cache/rclone_cache"
       fi
