@@ -247,7 +247,7 @@ mount:
         CACHE_DIR="$HOME/.cache/rclone_cache"
       fi
 
-      COMMON_FLAGS=( --allow-other --exclude '.DS_Store' --exclude '._*' --umask 002 --dir-perms 775 --file-perms 664 --vfs-cache-mode writes --cache-dir "$CACHE_DIR" --vfs-read-chunk-size=64M --vfs-read-chunk-size-limit off --attr-timeout 10m --dir-cache-time 72h --vfs-cache-max-size=10G --vfs-cache-max-age=720h --vfs-cache-min-free-space=20G --poll-interval=1m --buffer-size 64M --log-file "$LOGFILE" --log-level INFO )
+      COMMON_FLAGS=( --allow-other --exclude '.DS_Store' --exclude '._*' --umask 002 --dir-perms 775 --file-perms 664 --vfs-cache-mode writes --cache-dir "$CACHE_DIR" --vfs-read-chunk-size=64M --vfs-read-chunk-size-limit off --attr-timeout 10m --vfs-cache-max-size=10G --vfs-cache-max-age=720h --vfs-cache-min-free-space=20G --poll-interval=1m --buffer-size 64M --log-file "$LOGFILE" --log-level INFO )
 
       mkdir -p "$PID_DIR" "$BASE_MOUNT" "$CACHE_DIR"
       pkill rclone 2>/dev/null || true
@@ -260,7 +260,11 @@ mount:
         
         EXTRA_FLAGS=()
         if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
-          EXTRA_FLAGS=( --read-only )
+          EXTRA_FLAGS=( --read-only --dir-cache-time 72h )
+        elif [[ "$remote" == "Zurg" ]]; then
+          EXTRA_FLAGS=( --dir-cache-time 10s )
+        else
+          EXTRA_FLAGS=( --dir-cache-time 72h )
         fi
 
         echo "Mounting $remote → $mountpoint"
