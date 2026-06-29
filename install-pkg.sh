@@ -32,7 +32,7 @@ fi
 # CONTAINER / MUTABLE
 # =========================================================
 if [ "$ENV_TYPE" != "immutable" ]; then
-  EXPORT_BINS=(age busybox cava gh git glab jotta-cli shellcheck sops stress-ng weston)
+  EXPORT_BINS=(busybox cava gh git git-crypt glab jotta-cli shellcheck sops stress-ng weston)
 
   if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
@@ -47,8 +47,8 @@ gpgkey=https://repo.jotta.cloud/public.gpg
 EOF
     fi
     DNF_PACKAGES=(
-      age busybox chafa direnv fastfetch gh glab gcc jotta-cli make neovim
-      nodejs npm pipx ShellCheck sops stress-ng trash-cli weston which yq
+      busybox cava chafa direnv fastfetch gh git-crypt glab gcc jotta-cli make
+      neovim nodejs npm pipx ShellCheck sops stress-ng trash-cli weston which yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
 
@@ -62,16 +62,16 @@ EOF
     fi
     sudo apt-get update
     APT_PACKAGES=(
-      age busybox cava chafa direnv fastfetch gh glab gcc jotta-cli make neovim nodejs
-      npm pipx shellcheck sops stress-ng trash-cli weston which yq
+      busybox cava chafa direnv fastfetch gh git-crypt glab gcc jotta-cli make 
+      neovim nodejs npm pipx shellcheck sops stress-ng trash-cli weston which yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
 
   elif command -v pacman >/dev/null 2>&1; then
     echo "[ ARCH-based system detected. Using PACMAN/yay... ]"
     ARCH_PACKAGES=(
-      age busybox chafa direnv fastfetch github-cli glab gcc jotta-cli make
-      neovim nodejs npm python-pipx shellcheck sops stress-ng trash-cli which yq
+      busybox chafa direnv fastfetch github-cli glab gcc jotta-cli make npm
+      neovim nodejs python-pipx shellcheck sops stress-ng trash-cli which yq
     )
     if command -v yay >/dev/null 2>&1 && yay --version >/dev/null 2>&1; then
       yay -S --noconfirm "${ARCH_PACKAGES[@]}"
