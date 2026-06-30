@@ -32,9 +32,9 @@ fi
 # CONTAINER / MUTABLE
 # =========================================================
 if [ "$ENV_TYPE" != "immutable" ]; then
-  EXPORT_BINS=(busybox cava gh git git-crypt glab jotta-cli shellcheck sops stress-ng weston)
 
-  if command -v dnf >/dev/null 2>&1; then
+# Fedora-based systems
+    if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     if [ ! -f /etc/yum.repos.d/jotta-cli.repo ] && [ ! -f /etc/yum.repos.d/JottaCLI.repo ]; then
       echo "[ Configuring Jottacloud CLI repository... ]"
@@ -51,7 +51,9 @@ EOF
       neovim nodejs npm pipx ShellCheck sops stress-ng trash-cli weston which yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
+    EXPORT_BINS=(busybox cava gh git git-crypt glab jotta-cli shellcheck sops stress-ng weston)
 
+# Ubuntu-based systems
   elif command -v apt-get >/dev/null 2>&1; then
     echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
     if [ ! -f /etc/apt/sources.list.d/jotta-cli.list ]; then
@@ -67,6 +69,7 @@ EOF
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
 
+# Arch-based systems
   elif command -v pacman >/dev/null 2>&1; then
     echo "[ ARCH-based system detected. Using PACMAN/yay... ]"
     ARCH_PACKAGES=(
@@ -150,7 +153,6 @@ FLATPAK_APPS=(
   io.github.flattool.Ignition
   io.github.fabrialberio.pinapp
   page.tesk.Refine
-  com.github.marhkb.Pods
 )
 echo "[ Checking GUI apps... ]"
 

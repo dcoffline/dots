@@ -237,7 +237,7 @@ mount:
     COMMON_FLAGS=(
       --vfs-cache-mode writes
       --cache-dir "$CACHE_DIR"
-      --drive-import-formats
+      --drive-import-formats docx,xlsx,pptx
       --vfs-read-chunk-size=64M
       --vfs-cache-max-size=10G
       --vfs-cache-max-age=720h
@@ -264,6 +264,7 @@ mount:
 
     # 3. Preparation
     mkdir -p "$PID_DIR" "$BASE_MOUNT" "$CACHE_DIR"
+    just unmount || true
     pkill rclone 2>/dev/null || true
     sleep 2
 
@@ -290,7 +291,7 @@ mount:
       fi
 
       echo "Mounting $remote → $mountpoint"
-      "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
+      nohup "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" >/dev/null 2>&1 &
       echo $! >"$PID_DIR/${remote}.pid"
     done
 
@@ -317,7 +318,7 @@ unmount:
         rm -f "$pid_file"
       fi
 
-      if mountpoint -q "$mountpoint" 2>/dev/null || df | grep -q "$mountpoint"; then
+      if mountpoint -q "$mountpoint" 2>/dev/null || grep -Fq "$mountpoint" /proc/mounts 2>/dev/null || mount | grep -Fq "$mountpoint"; then
         if [[ "$(uname -s)" == "Darwin" ]]; then
           umount "$mountpoint" 2>/dev/null || diskutil unmount force "$mountpoint"
         else
