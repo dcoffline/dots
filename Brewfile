@@ -1,12 +1,12 @@
-tap "achannarasappa/tap", "https://github.com/achannarasappa/tap.git"
-tap "browsh-org/browsh"
-tap "jotta/cli"
+tap "achannarasappa/tap", "https://github.com/achannarasappa/tap.git", trusted: true
+tap "browsh-org/browsh", trusted: true
+tap "jotta/cli", trusted: true
 tap "lizardbyte/homebrew", "https://github.com/LizardByte/homebrew-homebrew", trusted: true
-tap "macos-fuse-t/cask"
-tap "nikitabobko/tap"
-tap "samtay/tui"
-tap "ublue-os/tap"
-tap "valkyrie00/bbrew"
+tap "macos-fuse-t/cask", trusted: true
+tap "nikitabobko/tap", trusted: true
+tap "samtay/tui", trusted: true
+tap "ublue-os/tap", trusted: true
+tap "valkyrie00/bbrew", trusted: true
 # Aquarium animation in ASCII art
 brew "asciiquarium"
 # Core application library for C
@@ -109,6 +109,8 @@ brew "yq"
 brew "browsh-org/browsh/browsh", trusted: true
 # Self-hosted game stream host for Moonlight
 brew "lizardbyte/homebrew/sunshine", trusted: true
+# Modern TUI for managing Homebrew packages and casks on macOS and Linux
+brew "valkyrie00/bbrew/bbrew"
 # Android SDK component
 cask "android-platform-tools"
 cask "font-0xproto-nerd-font"
@@ -159,6 +161,7 @@ flatpak "com.q3rally.Q3Rally"
 flatpak "com.ranfdev.DistroShelf"
 flatpak "com.realm667.Wolfenstein_Blade_of_Agony"
 flatpak "com.spotify.Client"
+flatpak "com.stremio.Stremio"
 flatpak "com.vysp3r.ProtonPlus"
 flatpak "de.haeckerfelix.Fragments"
 flatpak "de.haeckerfelix.Shortwave"
@@ -169,6 +172,7 @@ flatpak "io.github.flattool.Warehouse"
 flatpak "io.github.fragglet.sdl_sopwith"
 flatpak "io.github.getnf.embellish"
 flatpak "io.github.kolunmi.Bazaar"
+flatpak "io.github.zaedus.spider"
 flatpak "io.gitlab.adhami3310.Impression"
 flatpak "io.missioncenter.MissionCenter"
 flatpak "io.sourceforge.pysolfc.PySolFC"
