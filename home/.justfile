@@ -200,39 +200,24 @@ mount:
     PID_DIR="$HOME/.config/rclone/pid"
     declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["RealDebrid"]="RealDebrid" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
 
-    if [[ "$(uname -s)" == "Darwin" ]]; then
-      # ===============================
-      # macOS Mount Logic
-      # ===============================
+    OS_TYPE="$(uname -s)"
+
+    # 1. OS-Specific Setup (Binaries, Caches, & Pre-flight checks)
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
       echo "[ macOS Detected - Running Mac Rclone Routine ]"
       RCLONE="/usr/local/bin/rclone"
       CACHE_DIR="$HOME/Library/Caches/rclone"
-      for i in {1..12}; do ping -c1 8.8.8.8 >/dev/null 2>&1 && break; if [[ $i -eq 12 ]]; then echo "No internet" >&2; exit 1; fi; sleep 5; done
-
-      mkdir -p "$PID_DIR" "$BASE_MOUNT" "$CACHE_DIR"
-      pkill rclone 2>/dev/null || true
-      sleep 2
-
-      COMMON_FLAGS=( --vfs-cache-mode writes --cache-dir "$CACHE_DIR" --vfs-read-chunk-size=64M --vfs-cache-max-size=10G --vfs-cache-max-age=720h --log-file "$LOGFILE" --log-level INFO )
-      for remote in "${!REMOTES[@]}"; do
-        target="${REMOTES[$remote]}"
-        mountpoint="$BASE_MOUNT/$target"
-        mkdir -p "$mountpoint"
-        
-        EXTRA_FLAGS=()
-        if [[ "$remote" == "realdebrid" ]]; then
-          EXTRA_FLAGS=( --read-only --exclude '.DS_Store' --exclude '._*' )
+      
+      # macOS Pre-flight Internet check
+      for i in {1..12}; do
+        ping -c1 8.8.8.8 >/dev/null 2>&1 && break
+        if [[ $i -eq 12 ]]; then
+          echo "No internet" >&2
+          exit 1
         fi
-        
-        echo "Mounting ${remote}: → $mountpoint"
-        "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
-        echo $! >"$PID_DIR/${remote}.pid"
+        sleep 5
       done
-
     else
-      # ===============================
-      # Linux Mount Logic
-      # ===============================
       echo "[ Linux Detected - Running Linux Rclone Routine ]"
       RCLONE="rclone"
       if [ -x /home/linuxbrew/.linuxbrew/bin/rclone ]; then
@@ -242,37 +227,73 @@ mount:
       fi
 
       if [ -f /run/ostree-booted ]; then
-        CACHE_DIR=$HOME/.mnt/2T/rclone_cache
+        CACHE_DIR="$HOME/.mnt/2T/rclone_cache"
       else
         CACHE_DIR="$HOME/.cache/rclone_cache"
       fi
+    fi
 
-      COMMON_FLAGS=( --allow-other --exclude '.DS_Store' --exclude '._*' --umask 002 --dir-perms 775 --file-perms 664 --vfs-cache-mode writes --cache-dir "$CACHE_DIR" --vfs-read-chunk-size=64M --vfs-read-chunk-size-limit off --attr-timeout 10m --vfs-cache-max-size=10G --vfs-cache-max-age=720h --vfs-cache-min-free-space=20G --poll-interval=1m --buffer-size 64M --log-file "$LOGFILE" --log-level INFO )
+    # 2. Define COMMON_FLAGS
+    COMMON_FLAGS=(
+      --vfs-cache-mode writes
+      --cache-dir "$CACHE_DIR"
+      --drive-import-formats
+      --vfs-read-chunk-size=64M
+      --vfs-cache-max-size=10G
+      --vfs-cache-max-age=720h
+      --log-file "$LOGFILE"
+      --log-level ERROR
+    )
 
-      mkdir -p "$PID_DIR" "$BASE_MOUNT" "$CACHE_DIR"
-      pkill rclone 2>/dev/null || true
-      sleep 2
+    if [[ "$OS_TYPE" != "Darwin" ]]; then
+      # Append Linux-specific flags
+      COMMON_FLAGS+=(
+        --allow-other
+        --exclude '.DS_Store'
+        --exclude '._*'
+        --umask 002
+        --dir-perms 775
+        --file-perms 664
+        --vfs-read-chunk-size-limit off
+        --attr-timeout 10m
+        --vfs-cache-min-free-space=20G
+        --poll-interval=1m
+        --buffer-size 64M
+      )
+    fi
 
-      for remote in "${!REMOTES[@]}"; do
-        target="${REMOTES[$remote]}"
-        mountpoint="$BASE_MOUNT/$target"
-        mkdir -p "$mountpoint"
-        
-        EXTRA_FLAGS=()
-        if [[ "$remote" == "alldebrid" || "$remote" == "realdebrid" ]]; then
+    # 3. Preparation
+    mkdir -p "$PID_DIR" "$BASE_MOUNT" "$CACHE_DIR"
+    pkill rclone 2>/dev/null || true
+    sleep 2
+
+    # 4. Mount Loop
+    for remote in "${!REMOTES[@]}"; do
+      target="${REMOTES[$remote]}"
+      mountpoint="$BASE_MOUNT/$target"
+      mkdir -p "$mountpoint"
+
+      EXTRA_FLAGS=()
+      if [[ "$OS_TYPE" == "Darwin" ]]; then
+        if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid" ]]; then
+          EXTRA_FLAGS=( --read-only --exclude '.DS_Store' --exclude '._*' )
+        fi
+      else
+        # Linux
+        if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid" ]]; then
           EXTRA_FLAGS=( --read-only --dir-cache-time 72h )
         elif [[ "$remote" == "Zurg" ]]; then
           EXTRA_FLAGS=( --dir-cache-time 10s )
         else
           EXTRA_FLAGS=( --dir-cache-time 72h )
         fi
+      fi
 
-        echo "Mounting $remote → $mountpoint"
-        "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
-        echo $! >"$PID_DIR/${remote}.pid"
-      done
-    fi
-    
+      echo "Mounting $remote → $mountpoint"
+      "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" &
+      echo $! >"$PID_DIR/${remote}.pid"
+    done
+
     sleep 5
     echo -e "\nMount commands issued."
 
