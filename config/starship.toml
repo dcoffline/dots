@@ -2,7 +2,7 @@ format = """
 [](#3B4252)\
 $username\
 [](fg:#3B4252 bg:#434C5E)\
-$os\
+${custom.os_icon}\
 [](fg:#434C5E bg:#4C566A)\
 $directory\
 [](fg:#4C566A bg:#86BBD8)\
@@ -34,10 +34,6 @@ style_user = "bg:#3B4252"
 style_root = "bg:#3B4252"
 format = '[ $user ]($style)'
 
-[os]
-disabled = false
-style = "bg:#434C5E"
-format = "[ $symbol ]($style)"
 
 [directory]
 style = 'bg:#4C566A'
@@ -66,58 +62,29 @@ time_format = "%R" # Hour:Minute Format
 style = "bg:#33658A"
 format = '[ $time ]($style)'
 
-[os.symbols]
-AIX = "➿"
-Alpaquita = "🔔"
-AlmaLinux = "💠"
-Alpine = "🏔️"
-Amazon = "🙂"
-Android = "🤖"
-Arch = ""
-Artix = ""
-Bluefin = "🐟"
-CachyOS = ""
-CentOS = ""
-Debian = ""
-DragonFly = "🐉"
-Emscripten = "🔗"
-EndeavourOS = ""
-Fedora = ""
-FreeBSD = ""
-Garuda = "🦅"
-Gentoo = ""
-HardenedBSD = "🛡️"
-Illumos = "🐦"
-Kali = ""
-Linux = ""
-Mabox = "📦"
-Macos = ""
-Manjaro = ""
-Mariner = "🌊"
-MidnightBSD = "🌘"
-Mint = ""
-NetBSD = "🚩"
-NixOS = ""
-Nobara = ""
-OpenBSD = ""
-OpenCloudOS = "☁️"
-openEuler = "🦉"
-openSUSE = ""
-OracleLinux = "🦴"
-Pop = ""
-Raspbian = ""
-Redhat = ""
-RedHatEnterprise = ""
-RockyLinux = ""
-Redox = "🧪"
-Solus = ""
-SUSE = ""
-Ubuntu = ""
-Ultramarine = "🔷"
-Unknown = "❓"
-Uos = "🐲"
-Void = ""
-Windows = ""
+[custom.os_icon]
+command = """
+if [ "$(uname)" = "Darwin" ]; then
+    echo ""
+elif [ -f /etc/os-release ]; then
+    . /etc/os-release
+    case "$ID" in
+        bazzite) echo "󰓓" ;;
+        arch) echo "" ;;
+        debian) echo "" ;;
+        fedora) echo "" ;;
+        linuxmint) echo "" ;;
+        nixos) echo "" ;;
+        ubuntu) echo "" ;;
+        *) echo "" ;;
+    esac
+else
+    echo ""
+fi
+"""
+when = "true"
+style = "bg:#434C5E"
+format = "[ $output ]($style)"
 
 [directory.substitutions]
 # Shorten some long paths by text replacement
