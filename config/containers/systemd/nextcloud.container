@@ -9,6 +9,7 @@ Requires=nextcloud-db.service
 ContainerName=nextcloud
 Network=homelab.network
 Image=docker.io/library/nextcloud:latest
+AutoUpdate=registry
 
 # We removed PublishPort. Cloudflared will access it internally via port 80.
 

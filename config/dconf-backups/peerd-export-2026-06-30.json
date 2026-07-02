@@ -1,0 +1,42 @@
+{
+  "format": "peerd-export",
+  "version": 1,
+  "exportedAt": "2026-06-30T16:37:17.683Z",
+  "channel": "preview",
+  "settings": {
+    "providerName": "openrouter",
+    "providerModel": "google/gemma-4-26b-a4b-it:free",
+    "openrouterModels": [
+      "google/gemma-4-26b-a4b-it:free",
+      "google/gemma-4-31b-it:free",
+      "google/gemini-2.5-flash"
+    ],
+    "voiceEngine": "moonshine",
+    "voiceEnabled": false,
+    "voiceOnboardingDismissed": true
+  },
+  "providerEndpoints": null,
+  "secrets": {
+    "kdf": "PBKDF2-SHA256",
+    "iterations": 600000,
+    "salt": "hQ8tbYWycj1qqGhnh98gqA==",
+    "cipher": "AES-GCM",
+    "data": "SIsJsyzP+Zv7Wv6YcA2E2kRAlOX0x0e6m9W7JmlIrMfi1AH/TSu1JelVJR7kgv0glZnC1zCMDmLyBx4XXxNMN5HnNKmXytZjvsm0zg4rErKExhy5QDcihdyGdmVrI/pMmGDtirE1mgPIqY61f6TakWf15kWa7aGmmpdea6cs"
+  },
+  "memory": {
+    "version": 1,
+    "exportedAt": 1782837437683,
+    "docs": [
+      {
+        "id": "user",
+        "kind": "user",
+        "workspace": "",
+        "body": "# User memory\n\n## About the user\n- Prefers to be called: Eric\n\n- **Professional Context**\n\t- **Role:** Insurance sales professional, agency owner, and partner with Integrity Marketing Group. I also serve as the designated health insurance contact for Family First Life agents.\n\t- **Primary Objective:** I develop AI-powered business automations for the insurance industry, focusing heavily on API integrations, lead management, and recruitment workflows.\n- **Technical Environment & Stack**\n\t- **Operating Systems:** I use immutable/atomic Linux distributions (specifically Bluefin and Bazzite) running on AMD GPU hardware. My primary system hostname is `bee`.\n\t- **Infrastructure & Homelab:** I heavily utilize Podman Quadlets to manage containerized services (including Nextcloud, Stremio, Cloudflared, and rclone mounts).\n\t- **Development Tools:** My configuration workflow relies on `justfile` recipes for cross-platform task management (bridging Linux and macOS) and GitHub for syncing dotfiles and system configurations.\n\t- **Automation & AI:** My development stack frequently includes GoHighLevel, Groq, Gemini, Python, and various agentic AI tools.\n- **Communication & Formatting Preferences**\n\t- **Tone:** Provide direct, highly technical, and solution-oriented responses. Skip the conversational filler, generalizations, and fluff.\n\t- **Technical Precision:** When providing terminal commands or system configurations, strictly account for immutable file system constraints and cloud-native workflows. Default to Podman over Docker.\n\t- **Code Delivery:** Deliver complete, ready-to-implement Python scripts or `justfile` recipes rather than fragmented code snippets.\n\t- **Hardware Awareness:** Keep in mind that I utilize specialized hardware, including a 2242 M.2 SSD and various AR/spatial computing glasses (XREAL, Viture).\n- **Personal Nuance (For Context)**\n\t- I live in Leander, Texas. I balance my homelab and professional development with family life (married to Loa, with a son and daughter), youth sports coaching, and hobbies like electric bikes. Practical, time-saving solutions are always the priority.\n",
+        "createdAt": 1782813319205,
+        "updatedAt": 1782813319205
+      }
+    ]
+  },
+  "hooks": [],
+  "skills": []
+}

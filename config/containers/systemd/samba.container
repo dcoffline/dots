@@ -5,6 +5,7 @@ After=network-online.target
 [Container]
 ContainerName=samba
 Image=ghcr.io/servercontainers/samba:latest
+AutoUpdate=registry
 Network=host
 # Drops the SELinux wall so it can read the FUSE mount
 SecurityLabelDisable=true

@@ -7,6 +7,8 @@ Wants=network-online.target
 Network=homelab.network
 ContainerName=immich-ml
 Image=ghcr.io/immich-app/immich-machine-learning:release
+AutoUpdate=registry
+
 # Give it GPU access for faster facial recognition
 AddDevice=/dev/dri/renderD128:/dev/dri/renderD128
 Volume=%h/.mnt/2T/appdata/immich/model-cache:/cache:Z

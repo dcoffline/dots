@@ -5,6 +5,7 @@ After=network-online.target
 [Container]
 ContainerName=aiostreams
 Image=ghcr.io/viren070/aiostreams:latest
+AutoUpdate=registry
 PublishPort=3000:3000
 
 # Required: Replace this with your own unique 64-character hex key

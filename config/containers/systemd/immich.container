@@ -10,6 +10,7 @@ StartLimitIntervalSec=0
 ContainerName=immich-server
 Network=homelab.network
 Image=ghcr.io/immich-app/immich-server:release
+AutoUpdate=registry
 
 # Bulk storage goes to the HDD
 Volume=%h/.mnt/10T/Pictures/Uploads:/usr/src/app/upload

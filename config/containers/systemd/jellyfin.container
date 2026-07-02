@@ -5,6 +5,7 @@ After=network-online.target
 [Container]
 ContainerName=jellyfin
 Image=docker.io/jellyfin/jellyfin:latest
+AutoUpdate=registry
 Network=homelab.network
 
 # AMD Hardware Acceleration (Passes the GPU directly to the container)

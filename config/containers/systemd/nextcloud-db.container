@@ -6,6 +6,8 @@ After=network-online.target
 Network=homelab.network
 ContainerName=nextcloud-db
 Image=docker.io/library/mariadb:10.6
+AutoUpdate=registry
+
 Volume=%h/.mnt/2T/appdata/nextcloud/db:/var/lib/mysql:Z
 EnvironmentFile=%h/.secrets
 Environment=MYSQL_DATABASE=nextcloud

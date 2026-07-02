@@ -5,7 +5,9 @@ After=network-online.target
 [Container]
 Network=homelab.network
 ContainerName=immich-db
-Image=docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
+Image=ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+AutoUpdate=registry
+
 # DB stays on the SSD for performance
 Volume=%h/.mnt/2T/appdata/immich/db:/var/lib/postgresql/data:Z
 EnvironmentFile=%h/.secrets

@@ -4,6 +4,7 @@ After=network-online.target
 
 [Container]
 Image=ghcr.io/debridmediamanager/zurg-testing:latest
+AutoUpdate=registry
 ContainerName=zurg
 Environment=TZ=America/Chicago
 EnvironmentFile=%h/.secrets

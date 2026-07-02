@@ -5,6 +5,7 @@ After=network-online.target
 [Container]
 ContainerName=stremthru
 Image=ghcr.io/muniftanjim/stremthru:latest
+AutoUpdate=registry
 PublishPort=8080:8080
 
 # Environment variables for access

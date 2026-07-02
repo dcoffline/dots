@@ -6,3 +6,4 @@ After=network-online.target
 ContainerName=immich-redis
 Network=homelab.network
 Image=docker.io/library/redis:6.2-alpine
+AutoUpdate=registry
