@@ -1,0 +1,8 @@
+[Unit]
+Description=Rclone Mount Watchdog Service
+After=network-online.target
+RequiresMountsFor=%h/.mnt/2T
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/just --justfile %h/.justfile check-mounts

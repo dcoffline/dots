@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Rclone Mount Watchdog every 5 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=5min
+Unit=rclone-watchdog.service
+
+[Install]
+WantedBy=timers.target

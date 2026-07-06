@@ -327,6 +327,61 @@ unmount:
       fi
     done
 
+# Checks all rclone mount points and restarts the service if any are dead/hung
+check-mounts:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    BASE_MOUNT="$HOME/.mnt/rclone"
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["RealDebrid"]="RealDebrid" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+
+    OS_TYPE="$(uname -s)"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+      echo "Watchdog not supported on macOS in this configuration."
+      exit 0
+    fi
+
+    # Check if the main rclone service is active. If not, do not force-start it.
+    if ! systemctl --user is-active --quiet rclone.service; then
+      echo "rclone.service is not active. Skipping watchdog check."
+      exit 0
+    fi
+
+    trigger_restart=false
+    failed_remote=""
+
+    for remote in "${!REMOTES[@]}"; do
+      target="${REMOTES[$remote]}"
+      mountpoint="$BASE_MOUNT/$target"
+
+      echo "Checking mountpoint: $mountpoint"
+
+      # 1. Check if it's mounted
+      if ! mountpoint -q "$mountpoint" 2>/dev/null; then
+        echo "❌ $remote is not mounted!"
+        trigger_restart=true
+        failed_remote="$remote (not mounted)"
+        break
+      fi
+
+      # 2. Check if the mount is responsive (non-blocking test)
+      if ! timeout 3 stat "$mountpoint" >/dev/null 2>&1; then
+        echo "❌ $remote mount is hung or unresponsive!"
+        trigger_restart=true
+        failed_remote="$remote (unresponsive)"
+        break
+      fi
+    done
+
+    if [ "$trigger_restart" = true ]; then
+      echo "Reconnecting mounts... Failure detected on: $failed_remote"
+      if command -v notify-send &>/dev/null; then
+        notify-send -u critical "Rclone Watchdog" "Mount failed on $failed_remote. Reconnecting..."
+      fi
+      systemctl --user restart rclone.service
+    else
+      echo "✅ All rclone mounts are healthy."
+    fi
+
 # =============================================================================
 # DEVELOPMENT TOOLS
 # =============================================================================
