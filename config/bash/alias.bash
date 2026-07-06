@@ -16,6 +16,7 @@ if [ "$ENV_TYPE" = "container" ]; then
   alias rmount="dhe just mount"
   alias rlsmount='dhe mount | grep rclone || echo "No rclone mounts active"'
   alias rumount="dhe just unmount"
+  alias rcheck='dhe just check-mounts'
   alias rremount='dhe rumount; sleep 3; rmount'
 
   # System Utils (Punching out to the host)
@@ -47,6 +48,7 @@ else
   # Rclone (Native)
   alias rlsmount='mount | grep rclone || echo "No rclone mounts active"'
   alias rumount='just unmount'
+  alias rcheck='just check-mounts'
   alias rremount='rumount; sleep 3; rmount'
 fi
 
