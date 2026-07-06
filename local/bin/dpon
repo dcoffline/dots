@@ -31,9 +31,10 @@ case "$XDG_CURRENT_DESKTOP" in
 
   timeout 2 "${RUN[@]}" gdctl set -L -p -M "$MAIN"
   timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
-  #  timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
+  timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
   timeout 2 "${RUN[@]}" gnome-extensions enable openwispr-gnome-extension@tnfssc.github.com
   timeout 2 "${RUN[@]}" gnome-extensions enable dynamic-music-pill@andbal
   timeout 2 "${RUN[@]}" gnome-extensions disable gjsosk@vishram1123.com
+  #timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
   ;;
 esac
