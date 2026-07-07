@@ -26,7 +26,7 @@ brew "boost"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
-brew "chafa", link: false
+brew "chafa"
 # Console Matrix
 brew "cmatrix"
 # Load/unload environment variables based on $PWD
