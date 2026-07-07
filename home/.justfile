@@ -395,11 +395,7 @@ install-openwispr:
     source $HOME/.config/environment.d/envvars.conf
 
     ARCH="$(uname -m)"
-    case "$ARCH" in
-      x86_64) BIN="openwispr-linux-amd64" ;;
-      aarch64|arm64) BIN="openwispr-linux-arm64" ;;
-      *) echo "Unsupported architecture: $ARCH"; exit 1 ;;
-    esac
+    case "$ARCH" in x86_64) BIN="openwispr-linux-amd64" ;; aarch64|arm64) BIN="openwispr-linux-arm64" ;; *) echo "Unsupported architecture: $ARCH"; exit 1 ;; esac
     REPO="https://github.com/tnfssc/openwispr-gnome-extension/releases/latest/download"
     TMP="$(mktemp -d)"
 
