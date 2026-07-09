@@ -1,5 +1,4 @@
----
-- System:
+- Servers:
     - Cloudflare:
         icon: cloudflare
         href: https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/home/overview
@@ -11,35 +10,55 @@
         href: https://cockpit.hemati.com
         description: Bazzite Dashboard 
         ping: http://192.168.1.18:9090
+    - Immich:
+        icon: immich
+        href: https://photos.hemati.com
+        description: Photo & Video Backup
+        server: podman
+        container: immich-server
+    - Nextcloud:
+        icon: nextcloud
+        href: https://cloud.hemati.com
+        description: Private File Storage
+        server: podman
+        container: nextcloud
     - Samba:
         icon: samba-server
         href: https://app.plex.tv
         description: Media SMB Share 
         server: podman
         container: samba
-
-- Servers:
+    - Sunshine:
+        icon: sunshine
+        href: https://100.120.205.70:47990
+        description: Game Streaming 
+        ping: http://localhost:47990 
+        
+- Streaming:
     - AIOStreams:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/aiostreams-light.svg
         href: https://aiostreams.hemati.com
         description: Stream Aggregator
         server: podman
         container: aiostreams
-    - Immich:
-        icon: immich
-        href: https://photos.hemati.com
-        description: Photo & Video Backup
-        ping: http://immich-server:2283
+    - Comet:
+        icon: https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/cometapi-color.png
+        href: https://comet.hemati.com
+        description: Index Aggregator
+        server: podman
+        container: comet
     - Jellyfin:
         icon: jellyfin
         href: https://media.hemati.com
         description: Home Media Server
-        ping: http://jellyfin:8096
-    - Nextcloud:
-        icon: nextcloud
-        href: https://cloud.hemati.com
-        description: Private File Storage
-        ping: http://nextcloud:80
+        server: podman
+        container: jellyfin
+    - Prowlarr:
+        icon: prowlarr
+        href: https://prowlarr.hemati.com
+        description: Media Indexer
+        server: podman
+        container: prowlarr
     - Stremio:
         icon: stremio
         href: https://web.stremio.com
@@ -52,11 +71,6 @@
         description: Debrid Cache Proxy
         server: podman
         container: stremthru
-    - Sunshine:
-        icon: sunshine
-        href: https://100.120.205.70:47990
-        description: Game Streaming 
-        ping: http://localhost:47990 
     - Zurg:
         icon: real-debrid
         href: https://real-debrid.com

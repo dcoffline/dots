@@ -6,10 +6,10 @@ statusStyle: "dot"
 hideVersion: true
 
 layout:
-  System:
+  Servers:
     style: row
     columns: 3
-  Servers:
+  Streaming:
     style: row
     columns: 4
   Sites:

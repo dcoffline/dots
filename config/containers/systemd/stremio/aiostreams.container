@@ -7,9 +7,6 @@ ContainerName=aiostreams
 Image=ghcr.io/viren070/aiostreams:latest
 AutoUpdate=registry
 Network=homelab.network
-
-# Required: Replace this with your own unique 64-character hex key
-# You can generate one in your terminal using: openssl rand -hex 32
 EnvironmentFile=%h/.secrets
 Environment=BASE_URL=https://aiostreams.hemati.com
 

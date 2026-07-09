@@ -1,5 +1,0 @@
-[Unit]
-Description=MediaFusion PostgreSQL Volume
-
-[Volume]
-VolumeName=mediafusion_db_data
