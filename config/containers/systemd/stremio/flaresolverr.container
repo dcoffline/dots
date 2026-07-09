@@ -1,0 +1,13 @@
+[Unit]
+Description=FlareSolverr Cloudflare Bypass
+After=network-online.target
+
+[Container]
+Image=ghcr.io/flaresolverr/flaresolverr:latest
+ContainerName=flaresolverr
+Network=homelab.network
+Environment=LOG_LEVEL=info
+Environment=TZ=America/Chicago
+
+[Install]
+WantedBy=default.target

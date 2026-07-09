@@ -8,7 +8,7 @@ AutoUpdate=registry
 ContainerName=zurg
 Environment=TZ=America/Chicago
 EnvironmentFile=%h/.secrets
-PublishPort=9999:9999
+Network=homelab.network
 
 # The :Z tells SELinux to privately label this directory for this specific container
 Volume=%h/.mnt/2T/appdata/zurg/config.yml:/app/config.yml:Z

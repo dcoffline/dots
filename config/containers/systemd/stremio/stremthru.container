@@ -6,7 +6,7 @@ After=network-online.target
 ContainerName=stremthru
 Image=ghcr.io/muniftanjim/stremthru:latest
 AutoUpdate=registry
-PublishPort=8080:8080
+Network=homelab.network
 
 # Environment variables for access
 EnvironmentFile=%h/.secrets

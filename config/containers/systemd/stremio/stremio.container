@@ -4,7 +4,6 @@ Description=Stremio Streaming Server
 [Container]
 Image=docker.io/stremio/server:latest
 AutoUpdate=registry
-PublishPort=11470:11470
 Volume=%h/.local/share/stremio-server:/root/.stremio-server:Z
 # Join the shared network
 Network=homelab.network

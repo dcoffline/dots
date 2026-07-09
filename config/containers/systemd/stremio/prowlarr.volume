@@ -1,0 +1,5 @@
+[Unit]
+Description=Prowlarr Configuration Volume
+
+[Volume]
+VolumeName=prowlarr_data
