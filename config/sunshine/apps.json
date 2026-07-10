@@ -3,7 +3,7 @@
         {
             "auto-detach": true,
             "detached": [
-                "steam -bigpicture"
+                "/usr/bin/bazzite-steam-bpm"
             ],
             "exclude-global-prep-cmd": false,
             "exit-timeout": 3,
@@ -66,6 +66,14 @@
                 {
                     "do": "monctl 1680x1050 119.891",
                     "undo": ""
+                },
+                {
+                    "do": "gnome-extensions enable dash-to-dock@micxgx.gmail.com",
+                    "undo": "gnome-extensions disable dash-to-dock@micxgx.gmail.com"
+                },
+                {
+                    "do": "gnome-extensions disable window-list@gnome-shell-extensions.gcampax.github.com",
+                    "undo": "gnome-extensions enable window-list@gnome-shell-extensions.gcampax.github.com"
                 }
             ],
             "wait-all": true
@@ -82,6 +90,14 @@
                 {
                     "do": "monctl 1280x720 119.858",
                     "undo": ""
+                },
+                {
+                    "do": "gnome-extensions disable window-list@gnome-shell-extensions.gcampax.github.com",
+                    "undo": "gnome-extensions enable window-list@gnome-shell-extensions.gcampax.github.com"
+                },
+                {
+                    "do": "gnome-extensions enable dash-to-dock@micxgx.gmail.com",
+                    "undo": "gnome-extensions disable dash-to-dock@micxgx.gmail.com"
                 }
             ],
             "wait-all": true
