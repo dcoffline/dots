@@ -1,0 +1,19 @@
+[Unit]
+Description=MediaFlow Proxy Light (Rust Engine)
+# Force systemd to wait until the Quadlet network unit is actually active
+After=homelab-network.service
+Requires=homelab-network.service
+
+[Container]
+Image=ghcr.io/mhdzumair/mediaflow-proxy-light:latest
+ContainerName=mediaflow
+EnvironmentFile=%h/.secrets
+Network=homelab.network
+
+# Gives the container a tiny grace period to initialize network sockets
+[Service]
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target

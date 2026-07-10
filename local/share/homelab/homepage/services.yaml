@@ -1,76 +1,66 @@
-- Servers:
-    - Cloudflare:
-        icon: cloudflare
-        href: https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/home/overview
-        description: Reverse-Proxy 
-        server: podman
-        container: cloudflared
+- Infrastructure:
     - Cockpit:
         icon: cockpit-light
         href: https://cockpit.hemati.com
         description: Bazzite Dashboard 
         ping: http://192.168.1.18:9090
-    - Immich:
-        icon: immich
-        href: https://photos.hemati.com
-        description: Photo & Video Backup
+    - Cloudflare:
+        icon: cloudflare
+        href: https://t.ly/6gAzk
+        description: Reverse-Proxy 
         server: podman
-        container: immich-server
+        container: cloudflared
+    - Sunshine:
+        icon: sunshine
+        href: https://100.120.205.70:47990
+        description: Game Streaming 
+        ping: http://localhost:47990 
+
+- Servers:
     - Nextcloud:
         icon: nextcloud
         href: https://cloud.hemati.com
         description: Private File Storage
         server: podman
         container: nextcloud
+    - Immich:
+        icon: immich
+        href: https://photos.hemati.com
+        description: Photo & Video Backup
+        server: podman
+        container: immich-server
     - Samba:
         icon: samba-server
         href: https://app.plex.tv
         description: Media SMB Share 
         server: podman
         container: samba
-    - Sunshine:
-        icon: sunshine
-        href: https://100.120.205.70:47990
-        description: Game Streaming 
-        ping: http://localhost:47990 
-        
+
 - Streaming:
-    - AIOStreams:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/aiostreams-light.svg
-        href: https://aiostreams.hemati.com
-        description: Stream Aggregator
-        server: podman
-        container: aiostreams
-    - Comet:
-        icon: https://cdn.jsdelivr.net/npm/@lobehub/icons-static-png@latest/light/cometapi-color.png
-        href: https://comet.hemati.com
-        description: Index Aggregator
-        server: podman
-        container: comet
-    - Jellyfin:
-        icon: jellyfin
-        href: https://media.hemati.com
-        description: Home Media Server
-        server: podman
-        container: jellyfin
-    - Prowlarr:
-        icon: prowlarr
-        href: https://prowlarr.hemati.com
-        description: Media Indexer
-        server: podman
-        container: prowlarr
     - Stremio:
         icon: stremio
         href: https://web.stremio.com
         description: Freedom to Stream 
         server: podman
         container: stremio-server 
-    - StremThru:
-        icon: https://pb.dashboardicons.com/api/files/community_gallery/ix4re5u6udy2may/256_3xh027hgmz.png
-        href: https://stremthru.hemati.com
+    - AIOStreams:
+        icon: https://t.ly/mVFPd
+        href: https://aiostreams.hemati.com
+        description: Stream Aggregator
+        server: podman
+        container: aiostreams
+    - MediaFlow:
+        icon: https://mediaflowtools.com/mediaflow-logo.svg
+        href: https://mediaflow.hemati.com
         description: Debrid Cache Proxy
         server: podman
-        container: stremthru
+        container: mediaflow
+    - Jellyfin:
+        icon: jellyfin
+        href: https://media.hemati.com
+        description: Home Media Server
+        server: podman
+        container: jellyfin
     - Zurg:
         icon: real-debrid
         href: https://real-debrid.com

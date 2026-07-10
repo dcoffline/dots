@@ -5,3 +5,52 @@
 [2026-06-30T23:14:14.586Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
 [2026-07-02T17:56:01.590Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
 [2026-07-03T21:03:35.911Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+[2026-07-09T22:51:49.891Z] info: 🌐 i18next is made possible by our own product, Locize — consider powering your project with managed localization (AI, CDN, integrations): https://locize.com 💙
+[2026-07-10T00:08:35.686Z] error: bad indentation of a mapping entry (54:20)
+
+ 51 |         container: jellyfin
+ 52 |     - Stremio:
+ 53 |         icon: stremio
+ 54 |         href: https: https://web.stremio.com
+-------------------------^
+ 55 |         description: Freedom to Stream 
+ 56 |         server: podman
+[2026-07-10T00:08:35.741Z] error: bad indentation of a mapping entry (54:20)
+
+ 51 |         container: jellyfin
+ 52 |     - Stremio:
+ 53 |         icon: stremio
+ 54 |         href: https: https://web.stremio.com
+-------------------------^
+ 55 |         description: Freedom to Stream 
+ 56 |         server: podman
+[2026-07-10T00:08:35.822Z] error: Failed to load services.yaml, please check for errors
+[2026-07-10T00:08:35.822Z] error: YAMLException: bad indentation of a mapping entry (54:20)
+
+ 51 |         container: jellyfin
+ 52 |     - Stremio:
+ 53 |         icon: stremio
+ 54 |         href: https: https://web.stremio.com
+-------------------------^
+ 55 |         description: Freedom to Stream 
+ 56 |         server: podman
+[2026-07-10T00:08:35.917Z] error: Failed to load services.yaml, please check for errors
+[2026-07-10T00:08:35.917Z] error: YAMLException: bad indentation of a mapping entry (54:20)
+
+ 51 |         container: jellyfin
+ 52 |     - Stremio:
+ 53 |         icon: stremio
+ 54 |         href: https: https://web.stremio.com
+-------------------------^
+ 55 |         description: Freedom to Stream 
+ 56 |         server: podman
+[2026-07-10T00:08:36.217Z] error: Failed to load services.yaml, please check for errors
+[2026-07-10T00:08:36.217Z] error: YAMLException: bad indentation of a mapping entry (54:20)
+
+ 51 |         container: jellyfin
+ 52 |     - Stremio:
+ 53 |         icon: stremio
+ 54 |         href: https: https://web.stremio.com
+-------------------------^
+ 55 |         description: Freedom to Stream 
+ 56 |         server: podman
