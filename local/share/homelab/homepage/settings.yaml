@@ -3,7 +3,7 @@ theme: dark
 color: slate
 headerStyle: boxed
 statusStyle: "dot"
-hideVersion: true
+hideVersion: false
 
 layout:
   Infrastructure:
