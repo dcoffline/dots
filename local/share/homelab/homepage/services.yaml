@@ -6,7 +6,7 @@
         ping: http://192.168.1.18:9090
     - Cloudflare:
         icon: cloudflare
-        href: https://t.ly/6gAzk
+        href: https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/one/networks/connectors/cloudflare-tunnels/cloudflared/f675bd2e-853b-481a-8242-3dab60bfa54e/edit/public-hostname
         description: Reverse-Proxy 
         server: podman
         container: cloudflared
@@ -39,12 +39,12 @@
 - Streaming:
     - Stremio:
         icon: stremio
-        href: https://web.stremio.com
+        href: https://app.strem.io/shell-v4.4/?streamingServer=https%3A%2F%2Fstremio.hemati.com#/
         description: Freedom to Stream 
         server: podman
         container: stremio-server 
     - AIOStreams:
-        icon: https://t.ly/mVFPd
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
         href: https://aiostreams.hemati.com
         description: Stream Aggregator
         server: podman
