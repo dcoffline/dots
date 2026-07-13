@@ -1,0 +1,8 @@
+[Unit]
+Description=Run Nextcloud database upgrade
+After=nextcloud.service
+Requires=nextcloud.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/podman exec --user www-data nextcloud php occ upgrade
