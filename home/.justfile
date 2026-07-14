@@ -274,10 +274,17 @@ mount:
       mountpoint="$BASE_MOUNT/$target"
       mkdir -p "$mountpoint"
 
+      if [[ "$remote" == "Zurg" ]]; then
+        if ! curl -s --connect-timeout 3 https://zurg.hemati.com/ >/dev/null 2>&1; then
+          echo "⚠️ Zurg WebDAV server is not responding. Skipping mount."
+          continue
+        fi
+      fi
+
       EXTRA_FLAGS=()
       if [[ "$OS_TYPE" == "Darwin" ]]; then
         EXTRA_FLAGS+=( --volname "$remote" )
-        if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid" ]]; then
+        if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid" || "$remote" == "Zurg" ]]; then
           EXTRA_FLAGS+=( --read-only )
         fi
       else
@@ -285,7 +292,7 @@ mount:
         if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid" ]]; then
           EXTRA_FLAGS=( --read-only --dir-cache-time 72h )
         elif [[ "$remote" == "Zurg" ]]; then
-          EXTRA_FLAGS=( --dir-cache-time 10s )
+          EXTRA_FLAGS=( --read-only --dir-cache-time 10s )
         elif [[ "$remote" == "Nextcloud" ]]; then
           EXTRA_FLAGS=( --dir-cache-time 10s )
         else
@@ -306,6 +313,8 @@ unmount:
     #!/usr/bin/env bash
     BASE_MOUNT="$HOME/.mnt/rclone"
     declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["RealDebrid"]="RealDebrid" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+
+    # Zurg is now mounted on macOS as well
 
     for remote in "${!REMOTES[@]}"; do
       target="${REMOTES[$remote]}"
@@ -355,6 +364,14 @@ check-mounts:
     for remote in "${!REMOTES[@]}"; do
       target="${REMOTES[$remote]}"
       mountpoint="$BASE_MOUNT/$target"
+
+      # Skip checking Zurg if it is offline
+      if [[ "$remote" == "Zurg" ]]; then
+        if ! curl -s --connect-timeout 3 https://zurg.hemati.com/ >/dev/null 2>&1; then
+          echo "⚠️ Zurg WebDAV is offline. Skipping watchdog check."
+          continue
+        fi
+      fi
 
       echo "Checking mountpoint: $mountpoint"
 
