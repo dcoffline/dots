@@ -5,7 +5,8 @@ Wants=network-online.target
 RequiresMountsFor=%h/.mnt/2T
 
 [Service]
-Type=forking
+Type=oneshot
+RemainAfterExit=yes
 ExecStart=/usr/bin/just mount
 ExecStop=/usr/bin/just unmount
 Restart=on-failure

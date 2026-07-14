@@ -31,14 +31,13 @@ sync-gdrive:
     # Set the environment variable to completely hide Google Docs/Sheets
     export RCLONE_DRIVE_SKIP_GDOC=true
 
-    # Common flags for speed and safety
-    FLAGS="-u --delete-after --ignore-errors --no-update-dir-modtime --exclude ._* --exclude .DS_Store -v"
-
-    echo "=== Step 1: Pushing up local changes to GDrive ==="
-    $RCLONE sync ~/Documents GDrive: $FLAGS
-
-    echo "=== Step 2: Pulling down changes from GDrive ==="
-    $RCLONE sync GDrive: ~/Documents $FLAGS
+    # Use bisync for bidirectional sync to prevent data loss / overwrite conflicts
+    echo "=== Running Bisync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
+    if ! $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --exclude '._*' --exclude '.DS_Store' --drive-skip-dangling-shortcuts -v; then
+        echo "⚠️ Bisync failed. If this is your first time running bisync, you must run:"
+        echo "  rclone bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync"
+        exit 1
+    fi
 
     echo "=== Sync Complete ==="
 
@@ -235,7 +234,7 @@ mount:
 
     # 2. Define COMMON_FLAGS
     COMMON_FLAGS=(
-      --vfs-cache-mode writes
+      --vfs-cache-mode full
       --cache-dir "$CACHE_DIR"
       --drive-import-formats docx,xlsx,pptx
       --vfs-read-chunk-size=64M
@@ -243,21 +242,22 @@ mount:
       --vfs-cache-max-age=720h
       --log-file "$LOGFILE"
       --log-level ERROR
+      --exclude '.DS_Store'
+      --exclude '._*'
+      --dir-cache-time 30m
+      --poll-interval 1m
+      --attr-timeout 10m
     )
 
     if [[ "$OS_TYPE" != "Darwin" ]]; then
       # Append Linux-specific flags
       COMMON_FLAGS+=(
         --allow-other
-        --exclude '.DS_Store'
-        --exclude '._*'
         --umask 002
         --dir-perms 775
         --file-perms 664
         --vfs-read-chunk-size-limit off
-        --attr-timeout 10m
         --vfs-cache-min-free-space=20G
-        --poll-interval=1m
         --buffer-size 64M
       )
     fi
@@ -276,14 +276,17 @@ mount:
 
       EXTRA_FLAGS=()
       if [[ "$OS_TYPE" == "Darwin" ]]; then
+        EXTRA_FLAGS+=( --volname "$remote" )
         if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid" ]]; then
-          EXTRA_FLAGS=( --read-only --exclude '.DS_Store' --exclude '._*' )
+          EXTRA_FLAGS+=( --read-only )
         fi
       else
         # Linux
         if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid" ]]; then
           EXTRA_FLAGS=( --read-only --dir-cache-time 72h )
         elif [[ "$remote" == "Zurg" ]]; then
+          EXTRA_FLAGS=( --dir-cache-time 10s )
+        elif [[ "$remote" == "Nextcloud" ]]; then
           EXTRA_FLAGS=( --dir-cache-time 10s )
         else
           EXTRA_FLAGS=( --dir-cache-time 72h )
@@ -519,3 +522,106 @@ logseq:
         echo "⚠️ Offline: Started and closed offline."
       fi
     fi
+
+# Launches Obsidian with git pull/rebase and push sync (Mac & Linux)
+obsidian:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    OS_TYPE=""
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+      OS_TYPE="mac"
+    else
+      OS_TYPE="linux"
+    fi
+    
+    REPO_DIR="$HOME/src/logseq"
+    cd "$REPO_DIR" || exit 1
+
+    # Notification Helper Function
+    notify() {
+      local title="Obsidian Sync"
+      local message="$1"
+      if [[ "$OS_TYPE" == "mac" ]]; then
+        osascript -e "display notification \"$message\" with title \"$title\""
+      elif command -v notify-send &>/dev/null; then
+        notify-send "$title" "$message"
+      fi
+    }
+
+    echo "🔄 Checking for mobile changes on GitHub..."
+    if curl -sI --connect-timeout 3 https://github.com &>/dev/null && git fetch origin main &>/dev/null; then
+      LOCAL_HASH=$(git rev-parse @)
+      REMOTE_HASH=$(git rev-parse @{u})
+      BASE_HASH=$(git merge-base @ @{u})
+
+      if [ "$LOCAL_HASH" = "$REMOTE_HASH" ]; then
+        echo "✅ Repository is already up-to-date."
+      elif [ "$LOCAL_HASH" = "$BASE_HASH" ]; then
+        echo "📥 Remote changes detected. Pulling..."
+        if git pull --rebase origin main; then
+          notify "📥 Pulled latest changes from GitHub."
+        fi
+      elif [ "$REMOTE_HASH" = "$BASE_HASH" ]; then
+        echo "🚀 Local changes ahead of remote. Proceeding..."
+      else
+        echo "⚠️ Diverged! Attempting pull --rebase..."
+        if git pull --rebase origin main; then
+          notify "📥 Pulled and rebased latest changes."
+        fi
+      fi
+    else
+      echo "⚠️ Warning: Could not contact remote repository. Starting Obsidian offline."
+      notify "⚠️ Offline: Starting Obsidian in offline mode."
+    fi
+
+    echo "🚀 Launching Obsidian..."
+    if [ "$OS_TYPE" = "mac" ]; then
+      open -W -a Obsidian
+    else
+      if command -v obsidian &>/dev/null; then
+        obsidian
+      elif flatpak list | grep -qi obsidian; then
+        flatpak run md.obsidian.Obsidian
+      else
+        echo "Obsidian not found! Please install it first."
+        notify "⚠️ Error: Obsidian is not installed on this system."
+        exit 1
+      fi
+    fi
+
+    echo "📦 Obsidian closed. Shipping latest changes to GitHub..."
+    CHANGES_COMMITTED=false
+    if [ -n "$(git status --porcelain)" ]; then
+      echo "Changes detected. Staging and committing..."
+      git add -A
+      git commit -m "sync: $(date '+%Y-%m-%d %H:%M:%S') from $OS_TYPE (Obsidian)" || true
+      CHANGES_COMMITTED=true
+    fi
+
+    if curl -sI --connect-timeout 3 https://github.com &>/dev/null; then
+      if [ "$CHANGES_COMMITTED" = true ]; then
+        if git push origin main; then
+          echo "✅ Sync complete!"
+          notify "📤 Uploaded your latest edits to GitHub."
+        else
+          echo "⚠️ Error: Failed to push changes."
+          notify "⚠️ Error: Failed to push edits to GitHub."
+        fi
+      else
+        if git push origin main &>/dev/null || git diff-index --quiet HEAD --; then
+          echo "✅ Sync complete! (No new local changes to push)"
+          notify "✅ Sync complete. Repository is up-to-date."
+        else
+          notify "⚠️ Error: Failed to push changes."
+        fi
+      fi
+    else
+      if [ "$CHANGES_COMMITTED" = true ]; then
+        echo "⚠️ Offline: Changes saved locally but could not push."
+        notify "⚠️ Offline: Edits saved locally (will push next sync)."
+      else
+        echo "⚠️ Offline: Started and closed offline."
+      fi
+    fi
+

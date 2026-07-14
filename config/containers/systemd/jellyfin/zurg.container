@@ -9,6 +9,7 @@ ContainerName=zurg
 Environment=TZ=America/Chicago
 EnvironmentFile=%h/.secrets
 Network=homelab.network
+PublishPort=9999:9999
 
 # The :Z tells SELinux to privately label this directory for this specific container
 Volume=%h/.mnt/2T/appdata/zurg/config.yml:/app/config.yml:Z

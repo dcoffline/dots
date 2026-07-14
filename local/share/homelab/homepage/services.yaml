@@ -63,7 +63,7 @@
         container: jellyfin
     - Zurg:
         icon: real-debrid
-        href: https://real-debrid.com
+        href: https://zurg.hemati.com
         description: Organize Media 
         server: podman
         container: zurg
