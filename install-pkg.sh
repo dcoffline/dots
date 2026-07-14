@@ -33,8 +33,8 @@ fi
 # =========================================================
 if [ "$ENV_TYPE" != "immutable" ]; then
 
-# Fedora-based systems
-    if command -v dnf >/dev/null 2>&1; then
+  # Fedora-based systems
+  if command -v dnf >/dev/null 2>&1; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     if [ ! -f /etc/yum.repos.d/jotta-cli.repo ] && [ ! -f /etc/yum.repos.d/JottaCLI.repo ]; then
       echo "[ Configuring Jottacloud CLI repository... ]"
@@ -53,7 +53,7 @@ EOF
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
     EXPORT_BINS=(busybox cava gh git git-crypt glab jotta-cli shellcheck sops stress-ng weston)
 
-# Ubuntu-based systems
+    # Ubuntu-based systems
   elif command -v apt-get >/dev/null 2>&1; then
     echo "[ Debian/Ubuntu-based system detected. Using APT... ]"
     if [ ! -f /etc/apt/sources.list.d/jotta-cli.list ]; then
@@ -64,12 +64,12 @@ EOF
     fi
     sudo apt-get update
     APT_PACKAGES=(
-      busybox cava chafa direnv fastfetch gh git-crypt glab gcc jotta-cli make 
+      busybox cava chafa direnv fastfetch gh git-crypt glab gcc jotta-cli make
       neovim nodejs npm pipx shellcheck sops stress-ng trash-cli weston which yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
 
-# Arch-based systems
+    # Arch-based systems
   elif command -v pacman >/dev/null 2>&1; then
     echo "[ ARCH-based system detected. Using PACMAN/yay... ]"
     ARCH_PACKAGES=(
@@ -210,30 +210,21 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
     GNOME_EXTENSIONS=(
       "allowlockedremotedesktop@kamens.us"
       "AlphabeticalAppGrid@stuarthayhurst"
-      "app-hider@lynith.dev"
       "appindicatorsupport@rgcjonas.gmail.com"
-      "apps-menu@gnome-shell-extensions.gcampax.github.com"
       "blur-my-shell@aunetx"
       "clipboard-indicator@tudmotu.com"
       "desktop-cube@schneegans.github.com"
       "dynamic-music-pill@andbal"
-      "extension-list@tu.berry"
-      "gjsosk2vishram1123.com"
-      "hotedge@jonathan.jdoda.ca"
       "logomenu-fixed@dcoffline"
       "openwispr-gnome-extension"
-      "places-menu@gnome-shell-extensions.gcampax.github.com"
       "randomwallpaper@iflow.space"
       "screentospace@dilzhan.dev"
       "smart-pause-resume@erenseymen.github.io"
       "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
       "tailscale-status@maxgallup.github.com"
       "tilingshell@ferrarodomenico.com"
-      "transparent-window-moving@noobsai.github.com"
       "tweaks-system-menu@extensions.gnome-shell.fifi.org"
-      "volume-percentage-quick-settings@imdarktom"
       "window-list@gnome-shell-extensions.gcampax.github.com"
-      "workspace-bar@jguece"
     )
 
     if ! command -v gext >/dev/null 2>&1; then
