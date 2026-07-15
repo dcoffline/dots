@@ -1,0 +1,12 @@
+[Unit]
+Description=Nextcloud Redis Container
+After=network-online.target
+
+[Container]
+ContainerName=nextcloud-redis
+Network=homelab.network
+Image=docker.io/library/redis:alpine
+AutoUpdate=registry
+
+[Install]
+WantedBy=default.target

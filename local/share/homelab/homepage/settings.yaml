@@ -6,19 +6,21 @@ statusStyle: "dot"
 hideVersion: false
 
 layout:
+  Management:
+    style: row
+    columns: 2
+    header: false
   Infrastructure:
     style: row
-    columns: 3
-  Management:
-    style: column
-    columns: 1
-    header: false
+    columns: 4
   Servers:
     style: row
-    columns: 4
+    columns: 3
+    header: false
   Streaming:
     style: row
     columns: 5
+    header: false
   Sites:
     style: row
     columns: 4

@@ -1,8 +1,8 @@
 [Unit]
 Description=Nextcloud Container
 # Tell it to wait for and require the DB to start
-After=network-online.target nextcloud-db.service
-Requires=nextcloud-db.service
+After=network-online.target nextcloud-db.service nextcloud-redis.service
+Requires=nextcloud-db.service nextcloud-redis.service
 
 [Container]
 # Add the name so Cloudflare can find it
@@ -23,6 +23,7 @@ Volume=%h/.mnt/rclone:/mnt/rclone
 
 EnvironmentFile=%h/.secrets
 Environment=MYSQL_HOST=nextcloud-db
+Environment=REDIS_HOST=nextcloud-redis
 Environment=MYSQL_DATABASE=nextcloud
 Environment=NC_overwriteprotocol=https
 Environment=NC_overwrite.cli.url=https://cloud.hemati.com

@@ -4,22 +4,27 @@
         href: https://cockpit.hemati.com
         description: Bazzite Dashboard 
         ping: http://192.168.1.18:9090
-    - Pi-hole:
-        icon: pi-hole
-        href: http://192.168.1.18:8080/admin
-        description: DNS & Ad-blocker
-        ping: http://192.168.1.18:8080/admin
-        widget:
-          type: pihole
-          url: http://host.containers.internal:8080
-          version: 6
-          key: admin
     - Cloudflare:
         icon: cloudflare
         href: https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/one/networks/connectors/cloudflare-tunnels/cloudflared/f675bd2e-853b-481a-8242-3dab60bfa54e/edit/public-hostname
         description: Reverse-Proxy 
         server: podman
         container: cloudflared
+    - Pi-hole:
+        icon: pi-hole
+        href: https://pi.hemati.com/admin
+        description: DNS & Ad-blocker
+        ping: http://192.168.1.18:8080/admin
+#        widget:
+#          type: pihole
+#          url: http://host.containers.internal:8080
+#          version: 6
+#          key: admin
+    - Sunshine:
+        icon: sunshine
+        href: https://sunshine.hemati.com
+        description: Game Streaming 
+        ping: http://localhost:47990
 
 - Servers:
     - Nextcloud:
@@ -40,11 +45,6 @@
         description: Media SMB Share 
         server: podman
         container: samba
-    - Sunshine:
-        icon: sunshine
-        href: https://100.120.205.70:47990
-        description: Game Streaming 
-        ping: http://localhost:47990
 
 - Streaming:
     - Stremio:
