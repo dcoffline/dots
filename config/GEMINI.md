@@ -5,7 +5,6 @@ This directory contains the Starship prompt configuration files for the project.
 
 ## Architecture
 - `starship.toml`: The primary configuration file used by the shell.
-- `starship_titus.toml`: An alternative configuration (likely based on Titus's setup).
 
 ## Recent Changes
 - **macOS Indicator**: Added a macOS indicator (Apple logo) to the Starship prompt, integrated into the same segment as the container indicator for visual consistency across different environments.

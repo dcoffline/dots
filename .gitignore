@@ -1,14 +1,8 @@
-homepage.log
-token
 .DS_Store
-.zsh_sessions
-.zcompdump*
 .*hist*
 *.db
 *.sqlite
 *._*
 archive/
-home/.logseq/graphs/
-home/.logseq/git/
 local/share/homepage/log/
 dotfiles.key

@@ -1,6 +1,0 @@
-[Unit]
-Description=Nextcloud Preview Generation
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/podman exec --user www-data nextcloud php occ preview:pre-generate
