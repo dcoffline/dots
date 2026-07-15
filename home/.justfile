@@ -82,6 +82,10 @@ update:
       fi
 
       echo "[ Updating Cargo packages... ]"
+      if command -v rustup >/dev/null 2>&1; then
+        echo "[ Updating Rust toolchain... ]"
+        rustup update stable
+      fi
       cargo install television atuin || echo "⚠️ Warning: Cargo updates failed."
 
       echo "[ Syncing Host State... ]"
@@ -139,7 +143,13 @@ update:
       if command -v apt-get >/dev/null 2>&1; then sudo apt-get update && sudo apt-get upgrade -y; fi
       if command -v pacman >/dev/null 2>&1; then command -v yay >/dev/null 2>&1 && yay -Syu || sudo pacman -Syu; fi
       if command -v npm >/dev/null 2>&1; then sudo npm update -g; fi
-      if command -v cargo >/dev/null 2>&1; then cargo install television atuin || echo "⚠️ Warning: Cargo failed."; fi
+      if command -v cargo >/dev/null 2>&1; then
+        if command -v rustup >/dev/null 2>&1; then
+          echo "[ Updating Rust toolchain... ]"
+          rustup update stable
+        fi
+        cargo install television atuin || echo "⚠️ Warning: Cargo failed."
+      fi
 
       echo "[ Syncing Host State & Dotfiles... ]"
       if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
