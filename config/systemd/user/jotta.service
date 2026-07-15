@@ -4,7 +4,7 @@ After=podman.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/distrobox-enter -n fedora -- jottad
+ExecStart=/usr/bin/distrobox-enter -n fedora -- jottad datadir /var/home/eric/.local/share/jottad
 Restart=always
 
 [Install]

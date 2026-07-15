@@ -11,7 +11,7 @@ add_to_path() {
 # ────── COMMON PATHS ──────
 add_to_path "$HOME/.local/share/go/bin"
 add_to_path "$HOME/.config/npm/bin"
-add_to_path "$HOME/.cargo/bin"
+add_to_path "$HOME/.local/share/cargo/bin"
 add_to_path "$HOME/.local/bin"
 # ────── OS SPECIFIC PATHS ──────
 if [ "$IS_MAC" -eq 1 ]; then

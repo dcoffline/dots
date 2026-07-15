@@ -131,6 +131,6 @@ if [ "$(command -v ug)" ]; then
 fi
 
 # Chris Titus Linux Utilities
-if [ ! -f "$HOME/.cargo/bin/linutil" ]; then
+if [ ! -f "$HOME/.local/share/cargo/bin/linutil" ]; then
   alias linutil='curl -fsSL https://christitus.com/linux | sh'
 fi
