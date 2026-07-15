@@ -11,7 +11,7 @@ EnvironmentFile=%h/.secrets
 Environment=BASE_URL=https://aiostreams.hemati.com
 
 # Persistent storage for local instance databases/sessions
-Volume=%h/.mnt/2T/appdata/aiostreams:/app/data:Z
+Volume=%h/.local/share/aiostreams:/app/data:Z
 
 [Service]
 Restart=always

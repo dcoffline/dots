@@ -11,4 +11,4 @@ AutoUpdate=registry
 
 # Give it GPU access for faster facial recognition
 AddDevice=/dev/dri/renderD128:/dev/dri/renderD128
-Volume=%h/.mnt/2T/appdata/immich/model-cache:/cache:Z
+Volume=%h/.local/share/immich/model-cache:/cache:Z

@@ -9,9 +9,13 @@ layout:
   Infrastructure:
     style: row
     columns: 3
+  Management:
+    style: column
+    columns: 1
+    header: false
   Servers:
     style: row
-    columns: 3
+    columns: 4
   Streaming:
     style: row
     columns: 5

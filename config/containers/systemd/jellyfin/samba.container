@@ -11,7 +11,7 @@ Network=host
 SecurityLabelDisable=true
 
 Volume=%h/.mnt/10T:/shares/media:ro
-Volume=%h/.mnt/2T/appdata/zurg/smb:/shares/zurg:ro
+Volume=%h/.local/share/zurg/smb:/shares/zurg:ro
 Volume=%h/.mnt/rclone/Zurg:/shares/media/zurg:ro
 
 EnvironmentFile=%h/.secrets

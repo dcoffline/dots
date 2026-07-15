@@ -435,3 +435,49 @@ install-openwispr:
     stow -v -t $HOME/.config config
     cd -
 
+# Backup Nextcloud database, config, and Quadlets (keeps last 4 backups)
+backup-nextcloud:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    # Source secrets if available to get MYSQL_ROOT_PASSWORD
+    if [ -f "$HOME/.secrets" ]; then
+      source "$HOME/.secrets"
+    fi
+
+    TARGET_DIR="$HOME/.mnt/10T/Backups/nextcloud"
+    BACKUP_DIR="$TARGET_DIR/nextcloud_$(date +%Y%m%d_%H%M%S)"
+    
+    echo "Starting Nextcloud backup to $TARGET_DIR..."
+    mkdir -p "$BACKUP_DIR"
+
+    # 1. Dump the database (MariaDB)
+    echo "Dumping MariaDB database..."
+    if [ -n "${MYSQL_ROOT_PASSWORD:-}" ]; then
+      podman exec -i nextcloud-db mariadb-dump -u root -p"$MYSQL_ROOT_PASSWORD" nextcloud > "$BACKUP_DIR/db_dump.sql"
+    elif [ -n "${MYSQL_PASSWORD:-}" ]; then
+      podman exec -i nextcloud-db mariadb-dump -u eric -p"$MYSQL_PASSWORD" nextcloud > "$BACKUP_DIR/db_dump.sql"
+    else
+      echo "Error: No database password found in environment or ~/.secrets" >&2
+      exit 1
+    fi
+
+    # 2. Backup Nextcloud config directory (moved from SSD appdata to ~/.local/share/nextcloud/config)
+    echo "Copying config folder..."
+    if [ -d "$HOME/.local/share/nextcloud/config" ]; then
+      podman unshare tar -cf - -C "$HOME/.local/share/nextcloud" config | tar -xf - -C "$BACKUP_DIR"
+      chmod -R u+rw "$BACKUP_DIR/config"
+    else
+      echo "Warning: Nextcloud config directory not found at ~/.local/share/nextcloud/config" >&2
+    fi
+
+    # 3. Backup your Quadlet definition files (including subdirectories like nextcloud)
+    echo "Copying Quadlet files..."
+    mkdir -p "$BACKUP_DIR/quadlets"
+    cp -r "$HOME/.config/containers/systemd/"* "$BACKUP_DIR/quadlets/" 2>/dev/null || true
+
+    # 4. Retention: Delete backups older than 4 days
+    echo "Cleaning up old backups (keeping last 4 days)..."
+    find "$TARGET_DIR" -maxdepth 1 -type d -name "nextcloud_*" -mtime +3 -exec rm -rf {} \;
+    
+    echo "Backup complete!"

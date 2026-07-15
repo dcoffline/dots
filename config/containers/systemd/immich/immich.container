@@ -11,9 +11,10 @@ ContainerName=immich-server
 Network=homelab.network
 Image=ghcr.io/immich-app/immich-server:release
 AutoUpdate=registry
+PublishPort=2283:2283
 
 # Bulk storage goes to the HDD
-Volume=%h/.mnt/10T/Pictures/Uploads:/usr/src/app/upload
+Volume=%h/.mnt/2T/immich:/usr/src/app/upload:Z
 Volume=%h/.mnt/10T/Pictures/Camera:/mnt/external:ro
 Volume=%h/.mnt/rclone/Timeline:/mnt/timeline:ro
 

@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily Nextcloud Database and Config Backup
+After=local-target.target
+
+[Service]
+Type=oneshot
+# Systemd user services don't load your full bash profile, so we pass the absolute path to just
+ExecStart=/usr/bin/just -f %h/.justfile backup-nextcloud
+
+[Install]
+WantedBy=default.target
