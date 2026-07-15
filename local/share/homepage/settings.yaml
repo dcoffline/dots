@@ -1,0 +1,14 @@
+title: Hemati Homelab
+theme: dark
+color: slate
+headerStyle: boxed
+statusStyle: "dot"
+hideVersion: false
+
+layout:
+  Servers:
+    style: row
+    columns: 6
+  Sites:
+    style: row
+    columns: 5
