@@ -1,20 +1,20 @@
 tap "achannarasappa/tap", "https://github.com/achannarasappa/tap.git", trusted: true
 tap "browsh-org/browsh", trusted: true
 tap "jotta/cli", trusted: true
-tap "lizardbyte/homebrew", "https://github.com/LizardByte/homebrew-homebrew", trusted: true
+tap "lizardbyte/homebrew", trusted: true
 tap "macos-fuse-t/cask", trusted: true
 tap "nikitabobko/tap", trusted: true
 tap "samtay/tui", trusted: true
 tap "ublue-os/tap", trusted: true
 tap "valkyrie00/bbrew", trusted: true
+# All-in-one AI-Powered CLI Chat & Copilot
+brew "aichat"
 # Aquarium animation in ASCII art
 brew "asciiquarium"
 # Core application library for C
 brew "glib"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
-# Service Discovery for Linux using mDNS/DNS-SD
-brew "avahi"
 # JPEG image codec that aids compression and decompression
 brew "jpeg-turbo"
 # Bourne-Again SHell, a UNIX command interpreter
@@ -26,27 +26,45 @@ brew "boost"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
-brew "chafa"
+brew "chafa", link: false
 # Console Matrix
 brew "cmatrix"
 # Load/unload environment variables based on $PWD
 brew "direnv"
-# Generic library support script
-brew "libtool"
+# Like neofetch, but much faster because written mostly in C
+brew "fastfetch"
 # Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
 # Create thumbnails for your video files
 brew "ffmpegthumbnailer"
+# X11 implementation of the Remote Desktop Protocol (RDP)
+brew "freerdp"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# GitHub command-line tool
+brew "gh"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
+# Distributed revision control system
+brew "git"
+# Enable transparent encryption/decryption of files in a git repo
+brew "git-crypt"
 # GNU implementation of which utility
 brew "gnu-which"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# GTK+ documentation tool
+brew "gtk-doc"
 # Improved top (interactive process viewer)
 brew "htop"
+# Generic library support script
+brew "libtool"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Handy way to save and run project-specific commands
+brew "just"
 # Command-line music player
 brew "kew"
 # Lazier way to manage everything docker
@@ -71,10 +89,8 @@ brew "neovim"
 brew "newsboat"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
-# NUMA support for Linux
-brew "numactl"
-# Server and user space API to deal with multimedia pipelines
-brew "pipewire"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
 # Podman Terminal User Interface
 brew "podman-tui"
 # PDF rendering library (based on the xpdf-3.0 code base)
@@ -87,32 +103,52 @@ brew "python@3.12"
 brew "rclone"
 # SVG rendering tool and library
 brew "resvg"
+# Safe, concurrent, practical language
+brew "rust"
 # Display and control your Android device
 brew "scrcpy"
 # 7-Zip is a file archiver with a high compression ratio
 brew "sevenzip"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
-# Performance monitoring tools for Linux
-brew "sysstat"
+# Terminal multiplexer
+brew "tmux"
+# CLI tool that moves files or folder to the trash
+brew "trash"
 # Command-line interface to the freedesktop.org trashcan
 brew "trash-cli"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
 # Ultra fast grep with query UI, fuzzy search, archive search, and more
 brew "ugrep"
 # Sends magic packets to wake up network-devices
 brew "wakeonlan"
+# Internet file retriever
+brew "wget"
 # Port of OpenAI's Whisper model in C/C++
 brew "whisper-cpp"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
+# Terminal stock ticker with live updates and position tracking
+brew "achannarasappa/tap/ticker"
 # The modern, text-based browser
 brew "browsh-org/browsh/browsh", trusted: true
+# Jottacloud CLI
+brew "jotta/cli/jotta-cli"
 # Self-hosted game stream host for Moonlight
 brew "lizardbyte/homebrew/sunshine", trusted: true
+# Tetris in your terminal
+brew "samtay/tui/tetris"
 # Modern TUI for managing Homebrew packages and casks on macOS and Linux
 brew "valkyrie00/bbrew/bbrew"
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "nikitabobko/tap/aerospace"
 # Android SDK component
 cask "android-platform-tools"
+# Window peeking utility app
+cask "dockdoor"
+# Web browser
+cask "firefox"
 cask "font-0xproto-nerd-font"
 cask "font-blex-mono-nerd-font"
 cask "font-caskaydia-mono-nerd-font"
@@ -126,8 +162,16 @@ cask "font-sauce-code-pro-nerd-font"
 cask "font-source-code-pro"
 cask "font-symbols-only-nerd-font"
 cask "font-ubuntu-nerd-font"
-# Discover, download, and run local LLMs
-cask "ublue-os/tap/lm-studio-linux"
+# Kext-less implementation of FUSE
+cask "fuse-t"
+# Bridge helper for fx_cast Firefox extension to enable Chromecast support
+cask "fx-cast-bridge"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Desktop automation application
+cask "hammerspoon"
+# Open-source version of the X.Org X Window System
+cask "xquartz"
 cargo "atuin"
 cargo "bat"
 cargo "cargo-binstall"
@@ -143,82 +187,5 @@ cargo "yazi-build"
 cargo "yazi-cli"
 cargo "yazi-fm"
 cargo "zoxide"
-flatpak "app.zen_browser.zen"
-flatpak "com.bitwarden.desktop"
-flatpak "com.brave.Browser"
-flatpak "com.discordapp.Discord"
-flatpak "com.freerdp.FreeRDP"
-flatpak "com.github.PintaProject.Pinta"
-flatpak "com.github.jeromerobert.pdfarranger"
-flatpak "com.github.marhkb.Pods"
-flatpak "com.github.tchx84.Flatseal"
-flatpak "com.google.Chrome"
-flatpak "com.heroicgameslauncher.hgl"
-flatpak "com.mattjakeman.ExtensionManager"
-flatpak "com.moddb.TotalChaos"
-flatpak "com.obsproject.Studio"
-flatpak "com.q3rally.Q3Rally"
-flatpak "com.ranfdev.DistroShelf"
-flatpak "com.realm667.Wolfenstein_Blade_of_Agony"
-flatpak "com.spotify.Client"
-flatpak "com.stremio.Stremio"
-flatpak "com.vysp3r.ProtonPlus"
-flatpak "de.haeckerfelix.Fragments"
-flatpak "io.github.diegopvlk.Cine"
-flatpak "io.github.fabrialberio.pinapp"
-flatpak "io.github.flattool.Ignition"
-flatpak "io.github.flattool.Warehouse"
-flatpak "io.github.fragglet.sdl_sopwith"
-flatpak "io.github.getnf.embellish"
-flatpak "io.github.kolunmi.Bazaar"
-flatpak "io.github.meehow.Receiver"
-flatpak "io.github.nacho.mecalin"
-flatpak "io.github.nacho.mundi"
-flatpak "io.github.tanaybhomia.Whisp"
-flatpak "io.github.zaedus.spider"
-flatpak "io.gitlab.adhami3310.Impression"
-flatpak "io.missioncenter.MissionCenter"
-flatpak "io.sourceforge.pysolfc.PySolFC"
-flatpak "it.mijorus.gearlever"
-flatpak "net.retrodeck.retrodeck"
-flatpak "org.cockpit_project.CockpitClient"
-flatpak "org.freefilesync.FreeFileSync"
-flatpak "org.gnome.Boxes"
-flatpak "org.gnome.Builder"
-flatpak "org.gnome.Calculator"
-flatpak "org.gnome.Characters"
-flatpak "org.gnome.Decibels"
-flatpak "org.gnome.FileRoller"
-flatpak "org.gnome.Firmware"
-flatpak "org.gnome.Logs"
-flatpak "org.gnome.Loupe"
-flatpak "org.gnome.Mahjongg"
-flatpak "org.gnome.Maps"
-flatpak "org.gnome.NautilusPreviewer"
-flatpak "org.gnome.NetworkDisplays"
-flatpak "org.gnome.Papers"
-flatpak "org.gnome.Snapshot"
-flatpak "org.gnome.SoundRecorder"
-flatpak "org.gnome.TextEditor"
-flatpak "org.gnome.Weather"
-flatpak "org.gnome.baobab"
-flatpak "org.gnome.clocks"
-flatpak "org.gnome.font-viewer"
-flatpak "org.gnome.gitlab.YaLTeR.VideoTrimmer"
-flatpak "org.gnome.gitlab.wwarner.Solitaire"
-flatpak "org.gnome.meld"
-flatpak "org.gnome.seahorse.Application"
-flatpak "org.jellyfin.JellyfinDesktop"
-flatpak "org.mozilla.firefox"
-flatpak "org.mozilla.thunderbird"
-flatpak "org.onlyoffice.desktopeditors"
-flatpak "org.pulseaudio.pavucontrol"
-flatpak "org.quetoo.Quetoo"
-flatpak "org.srb2.SRB2Kart"
-flatpak "org.telegram.desktop"
-flatpak "org.virt_manager.virt-manager"
-flatpak "page.codeberg.libre_menu_editor.LibreMenuEditor"
-flatpak "page.tesk.Refine"
-flatpak "tv.kodi.Kodi"
 npm "@google/gemini-cli"
 npm "pnpm"
