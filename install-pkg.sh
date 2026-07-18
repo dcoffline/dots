@@ -153,6 +153,7 @@ FLATPAK_APPS=(
   io.github.flattool.Ignition
   io.github.fabrialberio.pinapp
   page.tesk.Refine
+  dev.fredol.open-tv
 )
 echo "[ Checking GUI apps... ]"
 

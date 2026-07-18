@@ -172,6 +172,7 @@ cask "ghostty"
 cask "hammerspoon"
 # Open-source version of the X.Org X Window System
 cask "xquartz"
+go "github.com/gokcehan/lf"
 cargo "atuin"
 cargo "bat"
 cargo "cargo-binstall"

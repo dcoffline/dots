@@ -8,7 +8,7 @@ hideVersion: false
 layout:
   Servers:
     style: row
-    columns: 6
+    columns: 4
   Sites:
     style: row
-    columns: 5
+    columns: 4

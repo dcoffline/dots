@@ -89,7 +89,7 @@ update:
       cargo install television atuin || echo "⚠️ Warning: Cargo updates failed."
 
       echo "[ Syncing Host State... ]"
-      distrobox-host-exec sh -c "cd '$DOTS' && /home/linuxbrew/.linuxbrew/bin/brew bundle dump --force"
+      distrobox-host-exec sh -c "cd '$DOTS' && /home/linuxbrew/.linuxbrew/bin/brew bundle dump --force && sed -i '/^flatpak/d' Brewfile"
       if distrobox-host-exec printenv XDG_CURRENT_DESKTOP 2>/dev/null | grep -qi gnome; then
         distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
@@ -111,7 +111,7 @@ update:
 
     elif [ "$ENV_TYPE" = "immutable" ]; then
       echo "[ Syncing Host State... ]"
-      brew bundle dump --force || echo "⚠️ Warning: Homebrew dump failed."
+      brew bundle dump --force && sed -i '/^flatpak/d' Brewfile || echo "⚠️ Warning: Homebrew dump failed."
       if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
@@ -130,7 +130,7 @@ update:
       elif [ "$OS_TYPE" = "linux" ]; then
         CONTAINER_NAME=$(distrobox list --no-color | awk -F '|' 'NR>1 {gsub(/[ \t]+/, "", $2); print $2}' | head -n 1)
         if [ -n "$CONTAINER_NAME" ]; then
-          distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && git add Brewfile '$SHELLINI' && git commit -m 'System snapshot: \$(date +\"%Y-%m-%d\")' || true && git push origin main"
+          distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && git add Brewfile '$SHELLINI' && git commit -m \"System snapshot: $(date +'%Y-%m-%d')\" || true && git push origin main"
         fi
         echo "[ Starting Immutable Host Update... ]"
         ujust update
@@ -156,7 +156,7 @@ update:
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
       fi
-      if command -v brew >/dev/null 2>&1; then brew bundle dump --force; fi
+      if command -v brew >/dev/null 2>&1; then brew bundle dump --force && sed -i '/^flatpak/d' Brewfile; fi
 
       stow -R --ignore=".DS_Store" -t "$HOME" home
       stow -R --ignore=".DS_Store" -t "$HOME/.config" config
