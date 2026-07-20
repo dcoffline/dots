@@ -7,6 +7,7 @@ ContainerName=jellyfin
 Image=docker.io/jellyfin/jellyfin:latest
 AutoUpdate=registry
 Network=homelab.network
+SecurityLabelDisable=true
 
 # AMD Hardware Acceleration (Passes the GPU directly to the container)
 AddDevice=/dev/dri/renderD128:/dev/dri/renderD128

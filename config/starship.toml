@@ -93,7 +93,7 @@ format = "[ $output ]($style)"
 "Music" = " "
 "Pictures" = " "
 "Videos" = "󰎁 " 
-#"dots" = " "
+"Volumes" = " "
 ".config" = " "
 ".local" = "⌘ "
 
