@@ -1,0 +1,24 @@
+[Unit]
+Description=Open WebUI Frontend
+After=network-online.target ollama.service
+
+[Container]
+Image=ghcr.io/open-webui/open-webui:main
+ContainerName=open-webui
+AutoUpdate=registry
+Network=homelab.network
+# Exposes the web interface on port 3000
+#PublishPort=3000:8080
+
+# Persistent storage for your chat history and uploaded docs
+Volume=open-webui_data:/app/backend/data
+
+# Tells the frontend where to find your Ollama engine.
+# host.containers.internal is Podman's way of reaching the host machine.
+Environment=OLLAMA_BASE_URL=http://ollama:11434
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

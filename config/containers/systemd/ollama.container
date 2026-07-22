@@ -1,0 +1,37 @@
+[Unit]
+Description=Ollama ROCm API Service
+After=network-online.target
+
+[Container]
+Image=docker.io/ollama/ollama:rocm
+ContainerName=ollama
+AutoUpdate=registry
+Network=homelab.network
+
+# Expose the API to your local network
+#PublishPort=11434:11434
+
+# Persistent storage for downloaded models
+Volume=ollama_data:/root/.ollama
+
+# Pass the AMD GPU kernel devices into the container
+AddDevice=/dev/kfd
+AddDevice=/dev/dri
+
+# Allow the container to use the host's video/render groups
+GroupAdd=keep-groups
+SecurityLabelDisable=true
+
+# Critical for the 780M: Force Ollama to use the integrated GPU
+Environment=OLLAMA_IGPU_ENABLE=1
+
+# (Optional) If the container fails to use ROCm, uncomment the line below
+# to force compatibility with the RDNA3 architecture:
+# Environment=HSA_OVERRIDE_GFX_VERSION=11.0.2
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

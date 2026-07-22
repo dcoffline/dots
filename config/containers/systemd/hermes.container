@@ -1,0 +1,24 @@
+[Unit]
+Description=NousResearch Hermes Agent
+After=network-online.target ollama.service
+
+[Container]
+Image=docker.io/nousresearch/hermes-agent:latest
+ContainerName=hermes
+AutoUpdate=registry
+EnvironmentFile=%h/.secrets
+# Attach it to your custom network so it can talk to Ollama directly
+Network=homelab.network
+
+# The official image uses /opt/data for persistent state (sessions, config, skills)
+Volume=hermes_data:/opt/data
+
+# Enables the built-in web dashboard supervised alongside the gateway
+Environment=HERMES_DASHBOARD=1
+Exec=gateway run
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

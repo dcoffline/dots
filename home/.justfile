@@ -33,13 +33,30 @@ sync-gdrive:
 
     # Use bisync for bidirectional sync to prevent data loss / overwrite conflicts
     echo "=== Running Bisync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
-    if ! $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --exclude '._*' --exclude '.DS_Store' --drive-skip-dangling-shortcuts -v; then
+    if ! $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v; then
         echo "⚠️ Bisync failed. If this is your first time running bisync, you must run:"
-        echo "  rclone bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync"
+        echo "  just resync-gdrive"
         exit 1
     fi
 
     echo "=== Sync Complete ==="
+
+# Resync GDrive with Nextcloud Documents (recovery / initial setup)
+resync-gdrive:
+    #!/bin/bash
+    
+    RCLONE="rclone"
+    if [ -x /home/linuxbrew/.linuxbrew/bin/rclone ]; then
+        RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
+    elif [ -x /usr/bin/rclone ]; then
+        RCLONE="/usr/bin/rclone"
+    fi
+
+    export RCLONE_DRIVE_SKIP_GDOC=true
+
+    echo "=== Running Bisync --resync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
+    $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync --slow-hash-sync-only --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v
+    echo "=== Resync Complete ==="
 
 # Initiates the Fortress Maintenance Protocol (Updates, Syncs, Backups)
 update:
