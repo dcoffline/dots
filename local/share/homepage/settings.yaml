@@ -6,9 +6,15 @@ statusStyle: "dot"
 hideVersion: false
 
 layout:
-  Servers:
+  Infrastructure:
+    style: row
+    columns: 5
+  Media:
+    style: row
+    columns: 5
+  Streaming:
     style: row
     columns: 4
-  Sites:
+  Bookmarks:
     style: row
     columns: 4

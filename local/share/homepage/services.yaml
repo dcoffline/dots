@@ -1,10 +1,4 @@
-- Servers:
-    - AIOStreams:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
-        href: https://aiostreams.hemati.com
-        description: Stream Aggregator
-        server: podman
-        container: aiostreams
+- Infrastructure:
     - Cloudflare:
         icon: cloudflare
         href: https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/one/networks/connectors/cloudflare-tunnels/cloudflared/f675bd2e-853b-481a-8242-3dab60bfa54e/edit/public-hostname
@@ -16,6 +10,29 @@
         href: https://cockpit.hemati.com
         description: Bazzite Dashboard 
         ping: http://192.168.1.18:9090
+    - Hermes:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/hermes-agent.png
+        href: https://agent.hemati.com
+        description: Local AI Harness
+        server: podman
+        container: hermes
+    - Ollama:
+        icon: ollama
+        href: https://ai.hemati.com
+        description: Local AI Instance
+        server: podman
+        container: ollama
+    - Pi-hole:
+        icon: pi-hole
+        href: https://pi.hemati.com/admin
+        description: DNS & Ad-blocker
+        ping: http://192.168.1.18:8080/admin
+#        widget:
+#          type: pihole
+#          url: http://host.containers.internal:8080
+#          version: 6
+#          key: admin
+- Media:
     - Immich:
         icon: immich
         href: https://photos.hemati.com
@@ -28,45 +45,42 @@
         description: Home Media Server
         server: podman
         container: jellyfin
-    - MediaFlow:
-        icon: https://mediaflowtools.com/mediaflow-logo.svg
-        href: https://mediaflow.hemati.com
-        description: Debrid Cache Proxy
-        server: podman
-        container: mediaflow
     - Nextcloud:
         icon: nextcloud
         href: https://cloud.hemati.com
         description: Private File Storage
         server: podman
         container: nextcloud
-    - Pi-hole:
-        icon: pi-hole
-        href: https://pi.hemati.com/admin
-        description: DNS & Ad-blocker
-        ping: http://192.168.1.18:8080/admin
-#        widget:
-#          type: pihole
-#          url: http://host.containers.internal:8080
-#          version: 6
-#          key: admin
     - Samba:
         icon: samba-server
         href: https://app.plex.tv
         description: Media SMB Share 
         server: podman
         container: samba
+    - Sunshine:
+        icon: sunshine
+        href: https://sunshine.hemati.com
+        description: Game Streaming 
+        ping: http://localhost:47990
+- Streaming:
+    - AIOStreams:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
+        href: https://aiostreams.hemati.com
+        description: Stream Aggregator
+        server: podman
+        container: aiostreams
+    - MediaFlow:
+        icon: https://mediaflowtools.com/mediaflow-logo.svg
+        href: https://mediaflow.hemati.com
+        description: Debrid Cache Proxy
+        server: podman
+        container: mediaflow
     - Stremio:
         icon: stremio
         href: https://app.strem.io/shell-v4.4/?streamingServer=https%3A%2F%2Fstremio.hemati.com#/
         description: Freedom to Stream 
         server: podman
         container: stremio-server 
-    - Sunshine:
-        icon: sunshine
-        href: https://sunshine.hemati.com
-        description: Game Streaming 
-        ping: http://localhost:47990
     - Zurg:
         icon: real-debrid
         href: https://zurg.hemati.com

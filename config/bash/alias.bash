@@ -65,6 +65,33 @@ alias d2q='podlet generate container podman run'
 alias podip="podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 alias podclean='podman container prune -f ; podman image prune -f ; podman network prune -f ; podman volume prune -f'
 
+# Exec shortcuts for interactive CLI tools
+alias hermes='podman exec -it hermes hermes'
+alias ollama='podman exec -it ollama ollama'
+alias nc-occ='podman exec -it -u www-data nextcloud php occ'
+alias nc-redis='podman exec -it nextcloud-redis redis-cli'
+alias immich-redis='podman exec -it immich-redis redis-cli'
+
+# Log shortcuts (tails active output)
+alias logs-ollama='podman logs -f --tail 100 ollama'
+alias logs-openwebui='podman logs -f --tail 100 open-webui'
+alias logs-hermes='podman logs -f --tail 100 hermes'
+alias logs-nc='podman logs -f --tail 100 nextcloud'
+alias logs-immich='podman logs -f --tail 100 immich-server'
+alias logs-tunnel='podman logs -f --tail 100 cloudflared'
+
+# Directly launch database shells
+alias nc-sql='podman exec -it nextcloud-db mariadb -u root -p'
+alias immich-sql='podman exec -it immich-db psql -U postgres -d immich'
+
+# Formatted Podman listings
+alias psl='podman ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
+
+# Quick shell access helper
+pshell() {
+  podman exec -it "$1" /bin/bash 2>/dev/null || podman exec -it "$1" /bin/sh
+}
+
 # Editor
 alias vi=$EDITOR
 alias nano=$EDITOR
