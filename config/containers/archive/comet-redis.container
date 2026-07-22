@@ -1,0 +1,12 @@
+[Unit]
+Description=Comet Redis Cache Container
+After=network-online.target
+
+[Container]
+Image=docker.io/library/redis:7-alpine
+ContainerName=comet-redis
+Volume=comet-redis-data:/data
+Network=homelab.network
+
+[Install]
+WantedBy=default.target

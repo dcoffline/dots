@@ -1,0 +1,11 @@
+[Unit]
+Description=MediaFusion Redis Cache
+After=network-online.target
+
+[Container]
+Image=docker.io/library/redis:7-alpine
+ContainerName=mediafusion-redis
+Network=homelab.network
+
+[Install]
+WantedBy=default.target

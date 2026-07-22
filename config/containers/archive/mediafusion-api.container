@@ -1,0 +1,17 @@
+[Unit]
+Description=MediaFusion API Server
+After=network-online.target mediafusion-db.service mediafusion-redis.service
+
+[Container]
+Image=docker.io/mhdzumair/mediafusion:6.0.0-beta.25
+ContainerName=mediafusion-api
+Network=homelab.network
+# Replace these with your actual secure values
+EnvironmentFile=%h/.secrets
+Environment=HOST_URL=https://mediafusion.hemati.com
+# Internal routing using Podman DNS
+Environment=POSTGRES_URI=postgresql://mediafusion:mediafusion@mediafusion-db:5432/mediafusion
+Environment=REDIS_URL=redis://mediafusion-redis:6379/0
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=Prowlarr Indexer Manager
+After=network-online.target
+
+[Container]
+Image=lscr.io/linuxserver/prowlarr:latest
+ContainerName=prowlarr
+Network=homelab.network
+Volume=prowlarr.volume:/config:Z
+Environment=PUID=1000
+Environment=PGID=1000
+Environment=TZ=America/Chicago
+
+[Install]
+WantedBy=default.target

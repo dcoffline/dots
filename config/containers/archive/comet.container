@@ -1,0 +1,16 @@
+[Unit]
+Description=Comet Stremio Scraper Container
+After=network-online.target
+
+[Container]
+Image=docker.io/g0ldyy/comet:latest
+ContainerName=comet
+Environment=DATABASE_TYPE=sqlite
+EnvironmentFile=%h/.secrets
+Network=homelab.network
+Volume=%h/.mnt/2T/appdata/comet:/app/data:Z
+Environment=INDEXER_MANAGER_TYPE=prowlarr
+Environment=PROWLARR_URL=http://prowlarr:9696
+
+[Install]
+WantedBy=default.target
