@@ -8,7 +8,7 @@ hideVersion: false
 layout:
   Infrastructure:
     style: row
-    columns: 5
+    columns: 6
   Media:
     style: row
     columns: 5

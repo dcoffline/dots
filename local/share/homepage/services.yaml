@@ -32,6 +32,12 @@
 #          url: http://host.containers.internal:8080
 #          version: 6
 #          key: admin
+    - Vaultwarden:
+        icon: bitwarden
+        href: https://vault.hemati.com
+        description: Password Manager
+        server: podman
+        container: vaultwarden
 - Media:
     - Immich:
         icon: immich
