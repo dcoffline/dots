@@ -464,7 +464,7 @@ install-openwispr:
 
 # Script to clean up macOS AppleDouble sidecar files (._*) and .DS_Store files
 clean-apple:
-#!/usr/bin/env bash
+    #!/usr/bin/env bash
 
     set -euo pipefail
 
