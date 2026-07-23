@@ -126,8 +126,6 @@ cask "font-sauce-code-pro-nerd-font"
 cask "font-source-code-pro"
 cask "font-symbols-only-nerd-font"
 cask "font-ubuntu-nerd-font"
-# Discover, download, and run local LLMs
-cask "ublue-os/tap/lm-studio-linux"
 go "github.com/gokcehan/lf"
 cargo "atuin"
 cargo "bat"
