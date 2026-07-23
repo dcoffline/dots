@@ -462,6 +462,42 @@ install-openwispr:
     stow -v -t $HOME/.config config
     cd -
 
+# Script to clean up macOS AppleDouble sidecar files (._*) and .DS_Store files
+clean-apple:
+#!/usr/bin/env bash
+
+    set -euo pipefail
+
+    TARGET_DIR="${1:-/var/home/eric/.mnt/10T/Documents/Notes}"
+
+    if [ ! -d "$TARGET_DIR" ]; then
+        echo "Error: Directory '$TARGET_DIR' does not exist."
+        exit 1
+    fi
+
+    echo "Target directory: $TARGET_DIR"
+    echo "Searching for macOS hidden sidecar files (._*)..."
+
+    # Count files to be removed
+    FILE_COUNT=$(find "$TARGET_DIR" -name "._*" | wc -l)
+    echo "Found $FILE_COUNT '._*' files/directories."
+
+    if [ "$FILE_COUNT" -eq 0 ]; then
+        echo "No '._*' files found. Nothing to clean!"
+        exit 0
+    fi
+
+    read -p "Do you want to delete these $FILE_COUNT files/directories? [y/N] " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Deleting..."
+        # Use -print0 and xargs -0 for handling spaces and special characters safely
+        find "$TARGET_DIR" -name "._*" -print0 | xargs -0 rm -rf
+        echo "Done! Cleaned up $FILE_COUNT '._*' files."
+    else
+        echo "Cancelled. No files were deleted."
+    fi
+
 # Backup Nextcloud database, config, and Quadlets (keeps last 4 backups)
 backup-nextcloud:
     #!/usr/bin/env bash
