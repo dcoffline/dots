@@ -9,6 +9,9 @@ AutoUpdate=registry
 Network=homelab.network
 SecurityLabelDisable=true
 
+# Publish port 8096 for local LAN and Tailscale access
+PublishPort=8096:8096
+
 # AMD Hardware Acceleration (Passes the GPU directly to the container)
 AddDevice=/dev/dri/renderD128:/dev/dri/renderD128
 
@@ -18,7 +21,7 @@ Volume=%h/.local/share/jellyfin/cache:/cache:Z
 
 # Bulk Media Storage on the HDD (No :Z flag to protect the filesystem!)
 Volume=%h/.mnt/10T:/media
-Volume=%h/.mnt/rclone/Zurg:/media/zurg
+Volume=%h/.mnt/rclone/Zurg:/media/zurg:ro,rslave
 
 Environment=TZ=America/Chicago
 

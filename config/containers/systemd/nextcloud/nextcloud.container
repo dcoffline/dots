@@ -1,8 +1,9 @@
 [Unit]
 Description=Nextcloud Container
 # Tell it to wait for and require the DB to start
-After=network-online.target nextcloud-db.service nextcloud-redis.service
+After=network-online.target nextcloud-db.service nextcloud-redis.service rclone.service
 Requires=nextcloud-db.service nextcloud-redis.service
+Wants=rclone.service
 
 [Container]
 # Add the name so Cloudflare can find it
@@ -12,21 +13,21 @@ Image=docker.io/library/nextcloud:latest
 AutoUpdate=registry
 SecurityLabelDisable=true
 
-# We removed PublishPort. Cloudflared will access it internally via port 80.
+# Publish port 8088 for local host and Tailscale traffic while Cloudflared accesses internally via homelab.network port 80
+PublishPort=8088:80
 
-# Config on SSD
+# Config on bee
 Volume=%h/.local/share/nextcloud/config:/var/www/html/config:Z
 Volume=%h/.local/share/nextcloud/data:/var/www/html/data:Z
 Volume=%h/.local/share/nextcloud/custom_apps:/var/www/html/custom_apps:Z
 # Data on HDD
 Volume=%h/.mnt/10T:/mnt/10T
-Volume=%h/.mnt/rclone:/mnt/rclone
+Volume=%h/.mnt/rclone:/mnt/rclone:rslave
 
 EnvironmentFile=%h/.secrets
 Environment=MYSQL_HOST=nextcloud-db
 Environment=REDIS_HOST=nextcloud-redis
 Environment=MYSQL_DATABASE=nextcloud
-Environment=NC_overwriteprotocol=https
 Environment=NC_overwrite.cli.url=https://cloud.hemati.com
 Environment=TRUSTED_PROXIES="127.0.0.1 10.89.0.0/24 10.88.0.0/16 169.254.1.2"
 Environment=NC_maintenance_window_start=1

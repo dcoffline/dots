@@ -7,6 +7,9 @@ Image=docker.io/stremio/server:latest
 ContainerName=stremio-server
 AutoUpdate=registry
 
+# Publish port 11470 for local host and Tailscale traffic
+PublishPort=11470:11470
+
 # 1. Persist Stremio server configuration and cache
 Volume=%h/.local/share/stremio-server:/root/.stremio-server:Z
 

@@ -42,23 +42,6 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/var/home/eric/src/dots/config/sunshine/covers/ultra.png",
-            "name": "LG Ultrawide",
-            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
-            "prep-cmd": [
-                {
-                    "do": "monctl 3440x1440 119.945",
-                    "undo": ""
-                }
-            ],
-            "wait-all": true
-        },
-        {
-            "auto-detach": true,
-            "cmd": "",
-            "elevated": false,
-            "exclude-global-prep-cmd": false,
-            "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/macbook.png",
             "name": "Laptop",
             "output": "/var/home/eric/.config/sunshine/app-laptop.log",
@@ -81,6 +64,40 @@
             "prep-cmd": [
                 {
                     "do": "monctl 1280x720 119.858",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "/var/home/eric/src/dots/config/sunshine/covers/ultra.png",
+            "name": "Ultrawide",
+            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
+            "prep-cmd": [
+                {
+                    "do": "monctl 3440x1440 119.945",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "/var/home/eric/.config/sunshine/covers/ipad.png",
+            "name": "iPad",
+            "output": "/var/home/eric/.config/sunshine/app-tablet.log",
+            "prep-cmd": [
+                {
+                    "do": "monctl 1280x800 119.909",
                     "undo": ""
                 }
             ],

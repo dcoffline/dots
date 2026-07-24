@@ -211,10 +211,8 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
     GNOME_EXTENSIONS=(
       "allowlockedremotedesktop@kamens.us"
       "AlphabeticalAppGrid@stuarthayhurst"
-      "appindicatorsupport@rgcjonas.gmail.com"
       "blur-my-shell@aunetx"
       "clipboard-indicator@tudmotu.com"
-      "desktop-cube@schneegans.github.com"
       "dynamic-music-pill@andbal"
       "logomenu-fixed@dcoffline"
       "openwispr-gnome-extension"
@@ -224,6 +222,7 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
       "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
       "tailscale-status@maxgallup.github.com"
       "tilingshell@ferrarodomenico.com"
+      "transparent-window-moving@noobsai.github.com"
       "tweaks-system-menu@extensions.gnome-shell.fifi.org"
       "window-list@gnome-shell-extensions.gcampax.github.com"
     )

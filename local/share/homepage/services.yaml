@@ -83,7 +83,7 @@
         container: mediaflow
     - Stremio:
         icon: stremio
-        href: https://app.strem.io/shell-v4.4/?streamingServer=https%3A%2F%2Fstremio.hemati.com#/
+        href: https://app.strem.io/shell-v4.4/?streamingServer=http%3A%2F%2F100.120.205.70%3A11470#/
         description: Freedom to Stream 
         server: podman
         container: stremio-server 
