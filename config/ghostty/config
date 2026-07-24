@@ -5,11 +5,11 @@ window-width = 100
 window-padding-x = 5
 window-padding-y = 5
 
-font-family = Hack Nerd Font
+#font-family = Hack Nerd Font
 #font-family-bold = Hack Nerd Font
 #font-family-italic = Hack Nerd Font
 #font-family-bold-italic = Hack Nerd Font
-font-size = 11
+#font-size = 16
 
 cursor-style = block
 cursor-style-blink = true
