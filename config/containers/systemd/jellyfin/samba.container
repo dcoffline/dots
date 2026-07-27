@@ -10,7 +10,7 @@ Network=host
 # Drops the SELinux wall so it can read the FUSE mount
 SecurityLabelDisable=true
 
-Volume=%h/.mnt/10T:/shares/media:ro
+Volume=%h/.mnt/10T:/shares/media
 Volume=%h/.local/share/zurg/smb:/shares/zurg:ro
 Volume=%h/.mnt/rclone/Zurg:/shares/media/zurg:ro
 

@@ -1,26 +1,38 @@
 - System:
-    - Cockpit:
-        icon: cockpit-light
-        href: https://cockpit.hemati.com
-        description: Bazzite Dashboard 
-        ping: http://192.168.1.18:9090
     - Pi-hole:
         icon: pi-hole
         href: https://pi.hemati.com/admin
         description: DNS & Ad-blocker
-        server: podman
-        container: pihole
+        ping: https://pi.hemati.com/admin
         widget:
           type: pihole
           url: http://host.containers.internal:8080
           version: 6
           key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
+          fields: ["queries", "blocked", "blocked_percent", "gravity"]
+- Servers:
     - Cloudflare:
         icon: cloudflare
         href: https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/one/networks/connectors/cloudflare-tunnels/cloudflared/f675bd2e-853b-481a-8242-3dab60bfa54e/edit/public-hostname
         description: Reverse-Proxy 
         server: podman
         container: cloudflared
+    - Cockpit:
+        icon: cockpit-light
+        href: https://cockpit.hemati.com
+        description: Bazzite Dashboard 
+        ping: http://192.168.1.18:9090
+    - Samba:
+        icon: samba-server
+        href: https://app.plex.tv
+        description: Media SMB Share 
+        server: podman
+        container: samba
+    - Sunshine:
+        icon: sunshine
+        href: https://sunshine.hemati.com
+        description: Game Streaming 
+        ping: http://localhost:47990
 - Containers:
     - AIOStreams:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
@@ -64,23 +76,12 @@
         description: Local AI Instance
         server: podman
         container: ollama
-    - Samba:
-        icon: samba-server
-        href: https://app.plex.tv
-        description: Media SMB Share 
-        server: podman
-        container: samba
     - Stremio:
         icon: stremio
         href: https://app.strem.io/shell-v4.4/?streamingServer=http%3A%2F%2F100.120.205.70%3A11470#/
         description: Freedom to Stream 
         server: podman
         container: stremio-server 
-    - Sunshine:
-        icon: sunshine
-        href: https://sunshine.hemati.com
-        description: Game Streaming 
-        ping: http://localhost:47990
     - Vaultwarden:
         icon: bitwarden
         href: https://vault.hemati.com
