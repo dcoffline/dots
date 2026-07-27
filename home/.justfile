@@ -305,11 +305,21 @@ mount:
     pkill rclone 2>/dev/null || true
     sleep 2
 
+    # Clean stale mountpoint directories
+    for remote in "${!REMOTES[@]}"; do
+      target="${REMOTES[$remote]}"
+      mountpoint="$BASE_MOUNT/$target"
+      if [ -d "$mountpoint" ] && ! mount | grep -Fq "$mountpoint"; then
+        rmdir "$mountpoint" 2>/dev/null && mkdir -p "$mountpoint" || true
+      else
+        mkdir -p "$mountpoint"
+      fi
+    done
+
     # 4. Mount Loop
     for remote in "${!REMOTES[@]}"; do
       target="${REMOTES[$remote]}"
       mountpoint="$BASE_MOUNT/$target"
-      mkdir -p "$mountpoint"
 
       if [[ "$remote" == "Zurg" ]]; then
         zurg_up=false
@@ -347,9 +357,10 @@ mount:
       echo "Mounting $remote → $mountpoint"
       nohup "$RCLONE" mount "${remote}:" "$mountpoint" "${COMMON_FLAGS[@]}" "${EXTRA_FLAGS[@]}" >/dev/null 2>&1 &
       echo $! >"$PID_DIR/${remote}.pid"
+      sleep 1
     done
 
-    sleep 5
+    sleep 3
     echo -e "\nMount commands issued."
 
 # Unmounts all rclone directories
@@ -369,17 +380,19 @@ unmount:
         pid=$(cat "$pid_file")
         if kill -0 "$pid" 2>/dev/null; then
           echo "Stopping rclone for $mountpoint (PID: $pid)"
-          kill "$pid"
+          kill "$pid" 2>/dev/null || true
         fi
         rm -f "$pid_file"
       fi
 
-      if mountpoint -q "$mountpoint" 2>/dev/null || grep -Fq "$mountpoint" /proc/mounts 2>/dev/null || mount | grep -Fq "$mountpoint"; then
-        if [[ "$(uname -s)" == "Darwin" ]]; then
-          umount "$mountpoint" 2>/dev/null || diskutil unmount force "$mountpoint"
-        else
-          fusermount -uz "$mountpoint" || fusermount -u "$mountpoint" || echo "Mount $mountpoint is stubborn."
-        fi
+      if [[ "$(uname -s)" == "Darwin" ]]; then
+        umount "$mountpoint" 2>/dev/null || umount -f "$mountpoint" 2>/dev/null || diskutil unmount force "$mountpoint" 2>/dev/null || true
+      else
+        fusermount -uz "$mountpoint" 2>/dev/null || fusermount -u "$mountpoint" 2>/dev/null || true
+      fi
+
+      if [ -d "$mountpoint" ] && ! mount | grep -Fq "$mountpoint"; then
+        rmdir "$mountpoint" 2>/dev/null && mkdir -p "$mountpoint" || true
       fi
     done
 
