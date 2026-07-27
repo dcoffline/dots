@@ -6,15 +6,12 @@ statusStyle: "dot"
 hideVersion: false
 
 layout:
-  Monitoring:
-    style: row
-    columns: 3
   Containers:
     style: row
     columns: 4
-  Streaming:
+  System:
     style: row
-    columns: 4
+    columns: 3
   Bookmarks:
     style: row
     columns: 6

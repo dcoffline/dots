@@ -1,4 +1,4 @@
-- Monitoring:
+- System:
     - Cockpit:
         icon: cockpit-light
         href: https://cockpit.hemati.com
@@ -21,7 +21,6 @@
         description: Reverse-Proxy 
         server: podman
         container: cloudflared
-
 - Containers:
     - AIOStreams:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
