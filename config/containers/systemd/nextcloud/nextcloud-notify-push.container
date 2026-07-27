@@ -1,0 +1,21 @@
+[Unit]
+Description=Nextcloud Notify Push Container
+After=network-online.target nextcloud.service nextcloud-redis.service nextcloud-db.service
+Requires=nextcloud.service nextcloud-redis.service nextcloud-db.service
+
+[Container]
+ContainerName=nextcloud-notify-push
+Network=homelab.network
+Image=ghcr.io/nextcloud/notify_push:latest
+AutoUpdate=registry
+SecurityLabelDisable=true
+
+EnvironmentFile=%h/.secrets
+Environment=PORT=7867
+Environment=NEXTCLOUD_URL=http://nextcloud
+Environment=DATABASE_URL=mysql://eric:100204180@nextcloud-db/nextcloud
+Environment=DATABASE_PREFIX=oc_
+Environment=REDIS_URL=redis://nextcloud-redis:6379
+
+[Install]
+WantedBy=default.target

@@ -20,6 +20,7 @@ PublishPort=8088:80
 Volume=%h/.local/share/nextcloud/config:/var/www/html/config:Z
 Volume=%h/.local/share/nextcloud/data:/var/www/html/data:Z
 Volume=%h/.local/share/nextcloud/custom_apps:/var/www/html/custom_apps:Z
+Volume=%h/.local/share/nextcloud/notify_push_apache.conf:/etc/apache2/conf-enabled/notify_push.conf:Z
 # Data on HDD
 Volume=%h/.mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone:rslave
@@ -29,7 +30,7 @@ Environment=MYSQL_HOST=nextcloud-db
 Environment=REDIS_HOST=nextcloud-redis
 Environment=MYSQL_DATABASE=nextcloud
 Environment=NC_overwrite.cli.url=https://cloud.hemati.com
-Environment=TRUSTED_PROXIES="127.0.0.1 10.89.0.0/24 10.88.0.0/16 169.254.1.2"
+Environment=TRUSTED_PROXIES="127.0.0.1 10.89.0.0/16 10.88.0.0/16 169.254.1.2 47.221.126.178"
 Environment=NC_maintenance_window_start=1
 Environment=NC_default_phone_region=US
 

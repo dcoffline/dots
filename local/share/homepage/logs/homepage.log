@@ -1,0 +1,14 @@
+[2026-07-27T02:59:14.314Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 401
+[2026-07-27T03:00:16.235Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 401
+[2026-07-27T03:00:16.903Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 401
+[2026-07-27T03:00:52.503Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 401
+[2026-07-27T03:00:53.039Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 401
+[2026-07-27T03:02:00.266Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
+[2026-07-27T03:02:00.821Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
+[2026-07-27T03:02:44.456Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
+[2026-07-27T03:03:03.838Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
+[2026-07-27T03:03:06.563Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
+[2026-07-27T03:03:10.129Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
+[2026-07-27T03:04:42.953Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
+[2026-07-27T03:04:46.058Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
+[2026-07-27T03:05:03.772Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400

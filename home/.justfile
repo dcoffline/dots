@@ -28,12 +28,16 @@ sync-gdrive:
         exit 1
     fi
 
+    # Ensure host user eric owns all local files so rclone can set timestamps (chtimes).
+    # Nextcloud container (UID 524320) retains access via default ACLs.
+    podman unshare chown -R 0:0 /var/home/eric/.mnt/10T/Documents 2>/dev/null || true
+
     # Set the environment variable to completely hide Google Docs/Sheets
     export RCLONE_DRIVE_SKIP_GDOC=true
 
     # Use bisync for bidirectional sync to prevent data loss / overwrite conflicts
     echo "=== Running Bisync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
-    if ! $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v; then
+    if ! $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --recover --resilient --exclude '**/.trash/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v; then
         echo "⚠️ Bisync failed. If this is your first time running bisync, you must run:"
         echo "  just resync-gdrive"
         exit 1
@@ -52,10 +56,14 @@ resync-gdrive:
         RCLONE="/usr/bin/rclone"
     fi
 
+    # Ensure host user eric owns all local files so rclone can set timestamps (chtimes).
+    # Nextcloud container (UID 524320) retains access via default ACLs.
+    podman unshare chown -R 0:0 /var/home/eric/.mnt/10T/Documents 2>/dev/null || true
+
     export RCLONE_DRIVE_SKIP_GDOC=true
 
     echo "=== Running Bisync --resync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
-    $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync --slow-hash-sync-only --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v
+    $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync --slow-hash-sync-only --exclude '**/.trash/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v
     echo "=== Resync Complete ==="
 
 # Initiates the Fortress Maintenance Protocol (Updates, Syncs, Backups)
@@ -271,6 +279,8 @@ mount:
       --log-level INFO
       --exclude '.DS_Store'
       --exclude '._*'
+      --exclude '.smart-env/**'
+      --exclude '.obsidian/copilot-index*'
       --dir-cache-time 30m
       --poll-interval 1m
       --attr-timeout 10m
@@ -328,7 +338,7 @@ mount:
         if [[ "$remote" == "Zurg" ]]; then
           EXTRA_FLAGS=( --read-only --dir-cache-time 10s --attr-timeout 1s )
         elif [[ "$remote" == "Nextcloud" ]]; then
-          EXTRA_FLAGS=( --dir-cache-time 10s )
+          EXTRA_FLAGS=( --dir-cache-time 10s --attr-timeout 1s )
         else
           EXTRA_FLAGS=( --dir-cache-time 72h )
         fi
