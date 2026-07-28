@@ -232,7 +232,7 @@ mount:
     BASE_MOUNT="$HOME/.mnt/rclone"
     LOGFILE="$HOME/.config/rclone/rclone-mount.log"
     PID_DIR="$HOME/.config/rclone/pid"
-    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Hematicom"]="Hematicom" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
 
     OS_TYPE="$(uname -s)"
 
@@ -367,7 +367,7 @@ mount:
 unmount:
     #!/usr/bin/env bash
     BASE_MOUNT="$HOME/.mnt/rclone"
-    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Hematicom"]="Hematicom" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
 
     # Zurg is now mounted on macOS as well
 
@@ -401,7 +401,7 @@ check-mounts:
     #!/usr/bin/env bash
     set -euo pipefail
     BASE_MOUNT="$HOME/.mnt/rclone"
-    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Hematicom"]="Hematicom" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
 
     OS_TYPE="$(uname -s)"
     if [[ "$OS_TYPE" == "Darwin" ]]; then
