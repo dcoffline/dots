@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Silent SMB mount script for /Volumes/Media
+
+if mount | grep -q "/Volumes/Media"; then
+  echo "/Volumes/Media is already mounted."
+  exit 0
+fi
+
+for i in {1..12}; do
+  if osascript -e 'mount volume "smb://bee/Media"' >/dev/null 2>&1; then
+    echo "Successfully mounted /Volumes/Media"
+    exit 0
+  fi
+  sleep 2
+done
+
+echo "Failed to mount /Volumes/Media after 24s" >&2
+exit 1

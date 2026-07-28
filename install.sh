@@ -54,6 +54,9 @@ mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/share/gno
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
+if [ "$IS_MAC" -eq 1 ]; then
+  stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/Library" Library
+fi
 
 # 3. Run package installer
 if [ -f "$SCRIPT_DIR/install-pkg.sh" ]; then
