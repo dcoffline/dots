@@ -46,7 +46,7 @@ else
   alias deur='distrobox enter ubuntu -e'
 
   # Rclone (Native)
-  alias rmount='rclone-mount.sh'
+  alias rmount='just mount'
   alias rlsmount='mount | grep rclone || echo "No rclone mounts active"'
   alias rumount='just unmount'
   alias rcheck='just check-mounts'
