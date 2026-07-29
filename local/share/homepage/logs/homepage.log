@@ -12,3 +12,284 @@
 [2026-07-27T03:04:42.953Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
 [2026-07-27T03:04:46.058Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
 [2026-07-27T03:05:03.772Z] error: <piholeProxyHandler> Failed to login to Pi-Hole API, status: 400
+[2026-07-29T05:57:08.450Z] error: <configValidationHandler> Configuration validation errors [
+  {
+    name: 'YAMLException',
+    reason: 'duplicated mapping key',
+    mark: {
+      name: null,
+      buffer: 'title: Hemati Homelab\n' +
+        'theme: dark\n' +
+        'color: slate\n' +
+        'headerStyle: boxed\n' +
+        'statusStyle: "dot"\n' +
+        'hideVersion: false\n' +
+        '\n' +
+        'layout:\n' +
+        '  System:\n' +
+        '    header: true\n' +
+        '    style: row\n' +
+        '    columns: 1\n' +
+        '  Servers:\n' +
+        '    header: false\n' +
+        '    style: row\n' +
+        '  Containers:\n' +
+        '    columns: 3\n' +
+        '    header: true\n' +
+        '    style: row\n' +
+        '    columns: 4\n' +
+        '  Bookmarks:\n' +
+        '    header: true\n' +
+        '    style: row\n' +
+        '    columns: 6\n',
+      position: 279,
+      line: 19,
+      column: 4,
+      snippet: ' 17 |     columns: 3\n' +
+        ' 18 |     header: true\n' +
+        ' 19 |     style: row\n' +
+        ' 20 |     columns: 4\n' +
+        '----------^\n' +
+        ' 21 |   Bookmarks:\n' +
+        ' 22 |     header: true'
+    },
+    message: 'duplicated mapping key (20:5)\n' +
+      '\n' +
+      ' 17 |     columns: 3\n' +
+      ' 18 |     header: true\n' +
+      ' 19 |     style: row\n' +
+      ' 20 |     columns: 4\n' +
+      '----------^\n' +
+      ' 21 |   Bookmarks:\n' +
+      ' 22 |     header: true',
+    config: 'settings.yaml'
+  }
+]
+[2026-07-29T05:57:08.453Z] error: Failed to load settings.yaml, please check for errors
+[2026-07-29T05:57:08.454Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+[2026-07-29T05:57:08.469Z] error: Failed to discover services, please check docker.yaml for errors or remove example entries.
+[2026-07-29T05:57:08.469Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+[2026-07-29T05:57:08.470Z] error: Failed to discover services, please check kubernetes.yaml for errors or remove example entries.
+[2026-07-29T05:57:08.470Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+[2026-07-29T05:57:08.482Z] error: Failed to load settings.yaml, please check for errors
+[2026-07-29T05:57:08.483Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+[2026-07-29T05:57:08.583Z] error: <index> YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at storeMappingPair (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1464:7)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2269:9)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2721:3)
+[2026-07-29T05:57:08.854Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at storeMappingPair (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1464:7)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2269:9)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2721:3)
+[2026-07-29T05:57:08.860Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at storeMappingPair (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1464:7)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2269:9)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2721:3)
+[2026-07-29T05:57:08.910Z] error: <configValidationHandler> Configuration validation errors [
+  {
+    name: 'YAMLException',
+    reason: 'duplicated mapping key',
+    mark: {
+      name: null,
+      buffer: 'title: Hemati Homelab\n' +
+        'theme: dark\n' +
+        'color: slate\n' +
+        'headerStyle: boxed\n' +
+        'statusStyle: "dot"\n' +
+        'hideVersion: false\n' +
+        '\n' +
+        'layout:\n' +
+        '  System:\n' +
+        '    header: true\n' +
+        '    style: row\n' +
+        '    columns: 1\n' +
+        '  Servers:\n' +
+        '    header: false\n' +
+        '    style: row\n' +
+        '  Containers:\n' +
+        '    columns: 3\n' +
+        '    header: true\n' +
+        '    style: row\n' +
+        '    columns: 4\n' +
+        '  Bookmarks:\n' +
+        '    header: true\n' +
+        '    style: row\n' +
+        '    columns: 6\n',
+      position: 279,
+      line: 19,
+      column: 4,
+      snippet: ' 17 |     columns: 3\n' +
+        ' 18 |     header: true\n' +
+        ' 19 |     style: row\n' +
+        ' 20 |     columns: 4\n' +
+        '----------^\n' +
+        ' 21 |   Bookmarks:\n' +
+        ' 22 |     header: true'
+    },
+    message: 'duplicated mapping key (20:5)\n' +
+      '\n' +
+      ' 17 |     columns: 3\n' +
+      ' 18 |     header: true\n' +
+      ' 19 |     style: row\n' +
+      ' 20 |     columns: 4\n' +
+      '----------^\n' +
+      ' 21 |   Bookmarks:\n' +
+      ' 22 |     header: true',
+    config: 'settings.yaml'
+  }
+]
+[2026-07-29T05:57:09.018Z] error: Failed to load settings.yaml, please check for errors
+[2026-07-29T05:57:09.018Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+[2026-07-29T05:57:09.019Z] error: Failed to discover services, please check docker.yaml for errors or remove example entries.
+[2026-07-29T05:57:09.019Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+[2026-07-29T05:57:09.020Z] error: Failed to discover services, please check kubernetes.yaml for errors or remove example entries.
+[2026-07-29T05:57:09.020Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+[2026-07-29T05:57:09.022Z] error: Failed to load settings.yaml, please check for errors
+[2026-07-29T05:57:09.022Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+[2026-07-29T05:57:09.078Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at storeMappingPair (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1464:7)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2269:9)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2721:3)
+[2026-07-29T05:57:09.083Z] error: YAMLException: duplicated mapping key (20:5)
+
+ 17 |     columns: 3
+ 18 |     header: true
+ 19 |     style: row
+ 20 |     columns: 4
+----------^
+ 21 |   Bookmarks:
+ 22 |     header: true
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at storeMappingPair (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1464:7)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2269:9)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2721:3)

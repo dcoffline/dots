@@ -13,11 +13,11 @@ layout:
   Servers:
     header: false
     style: row
-    columns: 4
+    columns: 3
   Containers:
     header: true
     style: row
-    columns: 5
+    columns: 4
   Bookmarks:
     header: true
     style: row

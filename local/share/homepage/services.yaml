@@ -22,18 +22,18 @@
         href: https://cockpit.hemati.com
         description: Bazzite Dashboard 
         ping: http://192.168.1.18:9090
-    - Samba:
-        icon: samba-server
-        href: https://app.plex.tv
-        description: Media SMB Share 
-        server: podman
-        container: samba
     - Sunshine:
         icon: sunshine
         href: https://sunshine.hemati.com
         description: Game Streaming 
         ping: http://localhost:47990
 - Containers:
+    - AIOMetadata:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiometadata.png
+        href: https://aiometadata.hemati.com
+        description: Metadata Provider
+        server: podman
+        container: aiometadata
     - AIOStreams:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
         href: https://aiostreams.hemati.com
@@ -76,6 +76,12 @@
         description: Local AI Instance
         server: podman
         container: ollama
+    - Samba:
+        icon: samba-server
+        href: https://app.plex.tv
+        description: Media SMB Share 
+        server: podman
+        container: samba
     - Stremio:
         icon: stremio
         href: https://app.strem.io/shell-v4.4/?streamingServer=http%3A%2F%2F100.120.205.70%3A11470#/
