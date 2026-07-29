@@ -1,0 +1,27 @@
+[Unit]
+Description=AIOMetadata Stremio Metadata Service
+After=network-online.target aiometadata-redis.service
+Requires=aiometadata-redis.service
+
+[Container]
+ContainerName=aiometadata
+Image=ghcr.io/cedya77/aiometadata:latest
+AutoUpdate=registry
+Network=homelab.network
+EnvironmentFile=%h/.secrets
+Environment=BASE_URL=https://aiometadata.hemati.com
+Environment=HOST_NAME=https://aiometadata.hemati.com
+Environment=POSTER_PROXY_PREFIX_URL=https://aiometadata.hemati.com
+Environment=DATABASE_URI=sqlite://addon/data/db.sqlite
+Environment=REDIS_HOST=aiometadata-redis
+Environment=REDIS_PORT=6379
+Environment=REDIS_URL=redis://aiometadata-redis:6379
+
+# Persistent storage for cache and metadata
+Volume=%h/.local/share/aiometadata:/app/addon/data:Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

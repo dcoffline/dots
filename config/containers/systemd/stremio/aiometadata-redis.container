@@ -1,0 +1,12 @@
+[Unit]
+Description=AIOMetadata Redis Cache Container
+After=network-online.target
+
+[Container]
+Image=docker.io/library/redis:alpine
+ContainerName=aiometadata-redis
+AutoUpdate=registry
+Network=homelab.network
+
+[Install]
+WantedBy=default.target

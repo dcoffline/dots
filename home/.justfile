@@ -37,7 +37,7 @@ sync-gdrive:
 
     # Use bisync for bidirectional sync to prevent data loss / overwrite conflicts
     echo "=== Running Bisync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
-    if ! $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --recover --resilient --exclude '**/.trash/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v; then
+    if ! $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --recover --resilient --exclude '**/.trash/**' --exclude '**/.Trash*/**' --exclude '**/.Trash-1000/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v; then
         echo "⚠️ Bisync failed. If this is your first time running bisync, you must run:"
         echo "  just resync-gdrive"
         exit 1
@@ -63,7 +63,7 @@ resync-gdrive:
     export RCLONE_DRIVE_SKIP_GDOC=true
 
     echo "=== Running Bisync --resync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
-    $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync --slow-hash-sync-only --exclude '**/.trash/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v
+    $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync --slow-hash-sync-only --exclude '**/.trash/**' --exclude '**/.Trash*/**' --exclude '**/.Trash-1000/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v
     echo "=== Resync Complete ==="
 
 # Initiates the Fortress Maintenance Protocol (Updates, Syncs, Backups)
@@ -279,6 +279,8 @@ mount:
       --log-level INFO
       --exclude '.DS_Store'
       --exclude '._*'
+      --exclude '.Trash*'
+      --exclude '.Trash-1000/**'
       --exclude '.smart-env/**'
       --exclude '.obsidian/copilot-index*'
       --dir-cache-time 30m
