@@ -84,7 +84,8 @@
         container: samba
     - Stremio:
         icon: stremio
-        href: https://app.strem.io/shell-v4.4/?streamingServer=http%3A%2F%2F100.120.205.70%3A11470#/
+        #href: https://app.strem.io/shell-v4.4/?streamingServer=http%3A%2F%2F100.120.205.70%3A11470#
+        href: https://stremio.hemati.com
         description: Freedom to Stream 
         server: podman
         container: stremio-server 

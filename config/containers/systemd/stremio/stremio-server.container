@@ -1,0 +1,32 @@
+[Unit]
+Description=Stremio Streaming Server
+After=network-online.target
+
+[Container]
+Image=docker.io/stremio/server:latest
+ContainerName=stremio-server
+AutoUpdate=registry
+
+# Allow Cross-Origin Resource Sharing from Stremio Web UI
+Environment=NO_CORS=1
+
+# Publish port 11470 for local host and Tailscale traffic
+PublishPort=11470:11470
+
+# 1. Persist Stremio server configuration and cache
+Volume=%h/.local/share/stremio-server:/root/.stremio-server:Z
+
+# 2. Network loop
+Network=homelab.network
+
+# 3. Health Check: Restarts the container automatically if the server hangs
+HealthCmd=curl -f http://localhost:11470/settings || exit 1
+HealthInterval=30s
+HealthTimeout=10s
+HealthRetries=3
+
+# Pass hardware video rendering nodes through the container boundary
+AddDevice=/dev/dri:/dev/dri
+
+[Install]
+WantedBy=default.target

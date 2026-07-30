@@ -1,29 +1,19 @@
 [Unit]
-Description=Stremio Streaming Server
-After=network-online.target
+Description=Stremio Web UI Application
+After=network-online.target stremio-server.service
+Requires=stremio-server.service
 
 [Container]
-Image=docker.io/stremio/server:latest
-ContainerName=stremio-server
+Image=docker.io/sognen/stremio-web:latest
+ContainerName=stremio
 AutoUpdate=registry
-
-# Publish port 11470 for local host and Tailscale traffic
-PublishPort=11470:11470
-
-# 1. Persist Stremio server configuration and cache
-Volume=%h/.local/share/stremio-server:/root/.stremio-server:Z
-
-# 2. Network loop
 Network=homelab.network
 
-# 3. Health Check: Restarts the container automatically if the server hangs
-HealthCmd=curl -f http://localhost:11470/settings || exit 1
-HealthInterval=30s
-HealthTimeout=10s
-HealthRetries=3
+# Publish port for web interface access on host (using 8085 to avoid host 8080 conflict)
+PublishPort=8085:8080
 
-# Pass hardware video rendering nodes through the container boundary
-AddDevice=/dev/dri:/dev/dri
+[Service]
+Restart=always
 
 [Install]
 WantedBy=default.target
