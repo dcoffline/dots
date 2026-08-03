@@ -1,0 +1,26 @@
+[Unit]
+Description=SeerrBridge Debrid Media Manager Automation
+After=network-online.target seerr.service zurg.service
+
+[Container]
+ContainerName=seerrbridge
+Image=ghcr.io/woahai321/seerrbridge:latest
+AutoUpdate=registry
+Network=homelab.network
+SecurityLabelDisable=true
+
+# Publish port 3777 for SeerrBridge Dashboard
+PublishPort=3777:3777
+
+Volume=%h/.local/share/seerrbridge/data:/app/data:Z
+Volume=%h/.local/share/seerrbridge/logs:/app/logs:Z
+Volume=%h/.local/share/seerrbridge/mysql:/var/lib/mysql:Z
+
+Environment=TZ=America/Chicago
+
+[Service]
+Restart=always
+ExecStartPost=-/usr/bin/podman exec seerrbridge /app/data/container-startup.sh
+
+[Install]
+WantedBy=default.target

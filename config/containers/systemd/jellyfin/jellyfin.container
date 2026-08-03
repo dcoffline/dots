@@ -21,7 +21,7 @@ Volume=%h/.local/share/jellyfin/cache:/cache:Z
 
 # Bulk Media Storage on the HDD (Mounted read-only to prevent writing .nfo/thumbnails in media folders)
 Volume=%h/.mnt/10T:/media:ro
-Volume=%h/.mnt/rclone/Zurg:/media/zurg:ro,rslave
+Volume=%h/.mnt/rclone/Zurg:/media/zurg:ro,rshared
 
 Environment=TZ=America/Chicago
 

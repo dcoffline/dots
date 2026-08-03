@@ -1,0 +1,24 @@
+[Unit]
+Description=Seerr Media Request System
+After=network-online.target
+
+[Container]
+ContainerName=seerr
+Image=ghcr.io/seerr-team/seerr:latest
+AutoUpdate=registry
+Network=homelab.network
+SecurityLabelDisable=true
+UserNS=keep-id
+
+# Publish port 5055 for Seerr UI
+PublishPort=5055:5055
+
+Volume=%h/.local/share/seerr/config:/app/config:Z
+
+Environment=TZ=America/Chicago
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

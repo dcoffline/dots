@@ -4,18 +4,25 @@ color: slate
 headerStyle: boxed
 statusStyle: "dot"
 hideVersion: false
+useEqualHeights: true
 
 layout:
   System:
-    header: true
-    style: row
-    columns: 1
+    header: false
+  Security:
+    header: false
   Servers:
     header: false
-    style: row
-    columns: 3
   Containers:
     header: true
+    style: row
+    columns: 4
+  Jellyfin:
+    header: false
+    style: row
+    columns: 5
+  Stremio:
+    header: false
     style: row
     columns: 4
   Bookmarks:

@@ -293,3 +293,473 @@
     at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2260:11)
     at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2537:12)
     at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2721:3)
+[2026-08-03T21:00:48.389Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:00:48.391Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:00:48.487Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:00:58.420Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:00:58.422Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:00:58.520Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:08.452Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:13.451Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:13.552Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:38.481Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:39.458Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:39.475Z] error: <configValidationHandler> Configuration validation errors [
+  {
+    name: 'YAMLException',
+    reason: 'end of the stream or a document separator is expected',
+    mark: {
+      name: null,
+      buffer: '- System:\n' +
+        '    - Cockpit:\n' +
+        '        icon: cockpit-light\n' +
+        '        href: https://cockpit.hemati.com\n' +
+        '        description: Bazzite Dashboard\n' +
+        '        ping: http://192.168.1.18:9090\n' +
+        '    - Cloudflare:\n' +
+        '        icon: cloudflare\n' +
+        '        href: https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/one/networks/connectors/cloudflare-tunnels/cloudflared/f675bd2e-853b-481a-8242-3dab60bfa54e/edit/public-hostname\n' +
+        '        description: Reverse-Proxy\n' +
+        '        server: podman\n' +
+        '        container: cloudflared\n' +
+        '- Servers:\n' +
+        '    - Sunshine:\n' +
+        '        icon: sunshine\n' +
+        '        href: https://sunshine.hemati.com\n' +
+        '        description: Remote Desktop\n' +
+        '        ping: http://localhost:47990\n' +
+        '    - Vaultwarden:\n' +
+        '        icon: bitwarden\n' +
+        '        href: https://vault.hemati.com\n' +
+        '        description: Password Manager\n' +
+        '        server: podman\n' +
+        '        container: vaultwarden\n' +
+        '- Security:\n' +
+        '    - Pi-hole:\n' +
+        '        icon: pi-hole\n' +
+        '        href: https://pi.hemati.com/admin\n' +
+        '        description: DNS & Ad-blocker\n' +
+        '        ping: https://pi.hemati.com/admin\n' +
+        '        widget:\n' +
+        '          type: pihole\n' +
+        '          url: http://host.containers.internal:8080\n' +
+        '          version: 6\n' +
+        '          key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"\n' +
+        '          fields: ["queries", "blocked", "blocked_percent", "gravity"]\n' +
+        '- Containers:\n' +
+        '    - Nextcloud:\n' +
+        '        icon: nextcloud\n' +
+        '        href: https://cloud.hemati.com\n' +
+        '        description: Private File Storage\n' +
+        '        server: podman\n' +
+        '        container: nextcloud\n' +
+        '    - Immich:\n' +
+        '        icon: immich\n' +
+        '        href: https://photos.hemati.com\n' +
+        '        description: Photo & Video Backup\n' +
+        '        server: podman\n' +
+        '        container: immich-server\n' +
+        '    - Samba:\n' +
+        '        icon: samba-server\n' +
+        '        href: https://app.plex.tv\n' +
+        '        description: Media SMB Share\n' +
+        '        server: podman\n' +
+        '        container: samba\n' +
+        'Stremio:\n' +
+        '    - Stremio:\n' +
+        '        icon: stremio\n' +
+        '        #href: https://app.strem.io/shell-v4.4/?streamingServer=http%3A%2F%2F100.120.205.70%3A11470#\n' +
+        '        href: https://stremio.hemati.com\n' +
+        '        description: Freedom to Stream \n' +
+        '        server: podman\n' +
+        '        container: stremio-server\n' +
+        '    - AIOStreams:\n' +
+        '        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png\n' +
+        '        href: https://aiostreams.hemati.com\n' +
+        '        description: Stream Aggregator\n' +
+        '        server: podman\n' +
+        '        container: aiostreams\n' +
+        '    - AIOMetadata:\n' +
+        '        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiometadata.png\n' +
+        '        href: https://aiometadata.hemati.com\n' +
+        '        description: Metadata Provider\n' +
+        '        server: podman\n' +
+        '        container: aiometadata\n' +
+        '    - MediaFlow:\n' +
+        '        icon: https://mediaflowtools.com/mediaflow-logo.svg\n' +
+        '        href: https://mediaflow.hemati.com\n' +
+        '        description: Debrid Cache Proxy\n' +
+        '        server: podman\n' +
+        '        container: mediaflow\n' +
+        'Jellyfin:\n' +
+        '    - Jellyfin:\n' +
+        '        icon: jellyfin\n' +
+        '        href: https://media.hemati.com\n' +
+        '        description: Home Media Server\n' +
+        '        server: podman\n' +
+        '        container: jellyfin\n' +
+        '    - Seerr:\n' +
+        '        icon: seerr\n' +
+        '        href: https://seerr.hemati.com\n' +
+        '        description: Media Discovery Engine\n' +
+        '        server: podman\n' +
+        '        container: seerr\n' +
+        '    - SeerrBridge:\n' +
+        '        icon: https://avatars.githubusercontent.com/u/130290673?s=400&v=4\n' +
+        '        href: https://seerrbridge.hemati.com\n' +
+        '        description: Bridge Seerr to Jellyfin\n' +
+        '        server: podman\n' +
+        '        container: seerrbridge\n' +
+        '    - Zurg:\n' +
+        '        icon: real-debrid\n' +
+        '        href: https://zurg.hemati.com\n' +
+        '        description: Organize Media \n' +
+        '        server: podman\n' +
+        '        container: zurg\n' +
+        'AI:\n' +
+        '    - Ollama:\n' +
+        '        icon: ollama\n' +
+        '        href: https://ai.hemati.com\n' +
+        '        description: Local AI Instance\n' +
+        '        server: podman\n' +
+        '        container: ollama\n' +
+        '    - Hermes:\n' +
+        '        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/hermes-agent.png\n' +
+        '        href: https://agent.hemati.com\n' +
+        '        description: Local AI Harness\n' +
+        '        server: podman\n' +
+        '        container: hermes\n' +
+        '\n' +
+        '\n' +
+        '\n' +
+        '\n',
+      position: 1750,
+      line: 55,
+      column: 0,
+      snippet: ' 53 |         description: Media SMB  ...\n' +
+        ' 54 |         server: podman\n' +
+        ' 55 |         container: samba\n' +
+        ' 56 | Stremio:\n' +
+        '------^\n' +
+        ' 57 |     - Stremio:\n' +
+        ' 58 |         icon: stremio'
+    },
+    message: 'end of the stream or a document separator is expected (56:1)\n' +
+      '\n' +
+      ' 53 |         description: Media SMB  ...\n' +
+      ' 54 |         server: podman\n' +
+      ' 55 |         container: samba\n' +
+      ' 56 | Stremio:\n' +
+      '------^\n' +
+      ' 57 |     - Stremio:\n' +
+      ' 58 |         icon: stremio',
+    config: 'services.yaml'
+  }
+]
+[2026-08-03T21:01:39.486Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:39.490Z] error: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:39.526Z] error: <servicesProxy> YAMLException: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1289:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:1293:9)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2741:5)
+    at loadDocuments (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2784:5)
+    at Object.load$1 [as load] (file:///app/node_modules/.pnpm/js-yaml@4.1.1/node_modules/js-yaml/dist/js-yaml.mjs:2810:19)
+    at s (/app/.next/server/chunks/9003.js:1:9152)
+    at async w (/app/.next/server/chunks/9003.js:1:11702)
+    at async x (/app/.next/server/chunks/9003.js:1:11981)
+    at async l (/app/.next/server/pages/api/services/proxy.js:18:30644)
+    at async tM (/app/node_modules/.pnpm/next@16.2.6_react-dom@19.2.5_react@19.2.5__react@19.2.5/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:102454)
+[2026-08-03T21:01:39.610Z] error: Failed to load services.yaml, please check for errors
+[2026-08-03T21:01:39.610Z] error: YAMLException: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:39.677Z] error: Failed to load services.yaml, please check for errors
+[2026-08-03T21:01:39.677Z] error: YAMLException: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
+[2026-08-03T21:01:39.945Z] error: <configValidationHandler> Configuration validation errors [
+  {
+    name: 'YAMLException',
+    reason: 'end of the stream or a document separator is expected',
+    mark: {
+      name: null,
+      buffer: '- System:\n' +
+        '    - Cockpit:\n' +
+        '        icon: cockpit-light\n' +
+        '        href: https://cockpit.hemati.com\n' +
+        '        description: Bazzite Dashboard\n' +
+        '        ping: http://192.168.1.18:9090\n' +
+        '    - Cloudflare:\n' +
+        '        icon: cloudflare\n' +
+        '        href: https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/one/networks/connectors/cloudflare-tunnels/cloudflared/f675bd2e-853b-481a-8242-3dab60bfa54e/edit/public-hostname\n' +
+        '        description: Reverse-Proxy\n' +
+        '        server: podman\n' +
+        '        container: cloudflared\n' +
+        '- Servers:\n' +
+        '    - Sunshine:\n' +
+        '        icon: sunshine\n' +
+        '        href: https://sunshine.hemati.com\n' +
+        '        description: Remote Desktop\n' +
+        '        ping: http://localhost:47990\n' +
+        '    - Vaultwarden:\n' +
+        '        icon: bitwarden\n' +
+        '        href: https://vault.hemati.com\n' +
+        '        description: Password Manager\n' +
+        '        server: podman\n' +
+        '        container: vaultwarden\n' +
+        '- Security:\n' +
+        '    - Pi-hole:\n' +
+        '        icon: pi-hole\n' +
+        '        href: https://pi.hemati.com/admin\n' +
+        '        description: DNS & Ad-blocker\n' +
+        '        ping: https://pi.hemati.com/admin\n' +
+        '        widget:\n' +
+        '          type: pihole\n' +
+        '          url: http://host.containers.internal:8080\n' +
+        '          version: 6\n' +
+        '          key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"\n' +
+        '          fields: ["queries", "blocked", "blocked_percent", "gravity"]\n' +
+        '- Containers:\n' +
+        '    - Nextcloud:\n' +
+        '        icon: nextcloud\n' +
+        '        href: https://cloud.hemati.com\n' +
+        '        description: Private File Storage\n' +
+        '        server: podman\n' +
+        '        container: nextcloud\n' +
+        '    - Immich:\n' +
+        '        icon: immich\n' +
+        '        href: https://photos.hemati.com\n' +
+        '        description: Photo & Video Backup\n' +
+        '        server: podman\n' +
+        '        container: immich-server\n' +
+        '    - Samba:\n' +
+        '        icon: samba-server\n' +
+        '        href: https://app.plex.tv\n' +
+        '        description: Media SMB Share\n' +
+        '        server: podman\n' +
+        '        container: samba\n' +
+        'Stremio:\n' +
+        '    - Stremio:\n' +
+        '        icon: stremio\n' +
+        '        #href: https://app.strem.io/shell-v4.4/?streamingServer=http%3A%2F%2F100.120.205.70%3A11470#\n' +
+        '        href: https://stremio.hemati.com\n' +
+        '        description: Freedom to Stream \n' +
+        '        server: podman\n' +
+        '        container: stremio-server\n' +
+        '    - AIOStreams:\n' +
+        '        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png\n' +
+        '        href: https://aiostreams.hemati.com\n' +
+        '        description: Stream Aggregator\n' +
+        '        server: podman\n' +
+        '        container: aiostreams\n' +
+        '    - AIOMetadata:\n' +
+        '        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiometadata.png\n' +
+        '        href: https://aiometadata.hemati.com\n' +
+        '        description: Metadata Provider\n' +
+        '        server: podman\n' +
+        '        container: aiometadata\n' +
+        '    - MediaFlow:\n' +
+        '        icon: https://mediaflowtools.com/mediaflow-logo.svg\n' +
+        '        href: https://mediaflow.hemati.com\n' +
+        '        description: Debrid Cache Proxy\n' +
+        '        server: podman\n' +
+        '        container: mediaflow\n' +
+        'Jellyfin:\n' +
+        '    - Jellyfin:\n' +
+        '        icon: jellyfin\n' +
+        '        href: https://media.hemati.com\n' +
+        '        description: Home Media Server\n' +
+        '        server: podman\n' +
+        '        container: jellyfin\n' +
+        '    - Seerr:\n' +
+        '        icon: seerr\n' +
+        '        href: https://seerr.hemati.com\n' +
+        '        description: Media Discovery Engine\n' +
+        '        server: podman\n' +
+        '        container: seerr\n' +
+        '    - SeerrBridge:\n' +
+        '        icon: https://avatars.githubusercontent.com/u/130290673?s=400&v=4\n' +
+        '        href: https://seerrbridge.hemati.com\n' +
+        '        description: Bridge Seerr to Jellyfin\n' +
+        '        server: podman\n' +
+        '        container: seerrbridge\n' +
+        '    - Zurg:\n' +
+        '        icon: real-debrid\n' +
+        '        href: https://zurg.hemati.com\n' +
+        '        description: Organize Media \n' +
+        '        server: podman\n' +
+        '        container: zurg\n' +
+        'AI:\n' +
+        '    - Ollama:\n' +
+        '        icon: ollama\n' +
+        '        href: https://ai.hemati.com\n' +
+        '        description: Local AI Instance\n' +
+        '        server: podman\n' +
+        '        container: ollama\n' +
+        '    - Hermes:\n' +
+        '        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/hermes-agent.png\n' +
+        '        href: https://agent.hemati.com\n' +
+        '        description: Local AI Harness\n' +
+        '        server: podman\n' +
+        '        container: hermes\n' +
+        '\n' +
+        '\n' +
+        '\n' +
+        '\n',
+      position: 1750,
+      line: 55,
+      column: 0,
+      snippet: ' 53 |         description: Media SMB  ...\n' +
+        ' 54 |         server: podman\n' +
+        ' 55 |         container: samba\n' +
+        ' 56 | Stremio:\n' +
+        '------^\n' +
+        ' 57 |     - Stremio:\n' +
+        ' 58 |         icon: stremio'
+    },
+    message: 'end of the stream or a document separator is expected (56:1)\n' +
+      '\n' +
+      ' 53 |         description: Media SMB  ...\n' +
+      ' 54 |         server: podman\n' +
+      ' 55 |         container: samba\n' +
+      ' 56 | Stremio:\n' +
+      '------^\n' +
+      ' 57 |     - Stremio:\n' +
+      ' 58 |         icon: stremio',
+    config: 'services.yaml'
+  }
+]
+[2026-08-03T21:01:40.116Z] error: Failed to load services.yaml, please check for errors
+[2026-08-03T21:01:40.116Z] error: YAMLException: end of the stream or a document separator is expected (56:1)
+
+ 53 |         description: Media SMB  ...
+ 54 |         server: podman
+ 55 |         container: samba
+ 56 | Stremio:
+------^
+ 57 |     - Stremio:
+ 58 |         icon: stremio
