@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
+
+exec >/tmp/wave-gui.log 2>&1
+set -x
+
 export DESKTOPINTEGRATION=1
 export DISPLAY=:0
-export XAUTHORITY=$(find /run/user/1000/ -name '*Xwaylandauth*' | head -n 1)
+
+# Use direct globbing instead of find — instantaneous and cannot recurse
+for f in /run/user/1000/*Xwaylandauth*; do
+    if [ -e "$f" ]; then
+        export XAUTHORITY="$f"
+        break
+    fi
+done
 
 exec /var/home/eric/Applications/wave.appimage --ozone-platform=x11 --enable-transparent-visuals --ignore-gpu-blocklist
-

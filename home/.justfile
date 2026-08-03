@@ -230,7 +230,7 @@ mount:
     #!/usr/bin/env bash
     set -euo pipefail
     BASE_MOUNT="$HOME/.mnt/rclone"
-    LOGFILE="$HOME/.config/rclone/rclone-mount.log"
+    LOGFILE="/tmp/rclone-mount.log"
     PID_DIR="$HOME/.config/rclone/pid"
     declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Hematicom"]="Hematicom" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
 
