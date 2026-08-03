@@ -33,6 +33,7 @@ Environment=NC_overwrite.cli.url=https://cloud.hemati.com
 Environment=TRUSTED_PROXIES="127.0.0.1 10.89.0.0/16 10.88.0.0/16 169.254.1.2 47.221.126.178"
 Environment=NC_maintenance_window_start=1
 Environment=NC_default_phone_region=US
+Environment=NEXTCLOUD_UMASK=0002
 
 [Install]
 WantedBy=default.target
