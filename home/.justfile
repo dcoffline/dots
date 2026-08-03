@@ -529,8 +529,11 @@ clean-apple:
     else
         echo "Cancelled. No files were deleted."
     fi
+    
+# =============================================================================
+# BACKUP NEXTCLOUD DATABASE, CONFIG AND QUADLETS (KEEPS LAST 4 BACKUPS)
+# =============================================================================
 
-# Backup Nextcloud database, config, and Quadlets (keeps last 4 backups)
 backup-nextcloud:
     #!/usr/bin/env bash
     set -euo pipefail

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+export DESKTOPINTEGRATION=1
+export DISPLAY=:0
+export XAUTHORITY=$(find /run/user/1000/ -name '*Xwaylandauth*' | head -n 1)
+
+exec /var/home/eric/Applications/wave.appimage --ozone-platform=x11 --enable-transparent-visuals --ignore-gpu-blocklist
+

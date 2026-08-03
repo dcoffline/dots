@@ -57,7 +57,7 @@ fi
 
 # Fix for Ptyxis/VTE terminal color query leaks
 [[ $TERM == "xterm-256color" ]] && export TERM="vte-256color"
-alias wave="/var/home/eric/Applications/wave.appimage --ozone-platform=x11 --enable-transparent-visuals --ignore-gpu-blocklist"
+#alias wave="/var/home/eric/Applications/wave.appimage --ozone-platform=x11 --enable-transparent-visuals --ignore-gpu-blocklist"
 
 # List recently installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
