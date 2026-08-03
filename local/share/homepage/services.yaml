@@ -92,24 +92,18 @@
         description: Home Media Server
         server: podman
         container: jellyfin
+    - Riven:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/riven.svg
+        href: https://riven.hemati.com
+        description: Media Discovery Engine
+        server: podman
+        container: riven
     - Samba:
         icon: samba-server
         href: https://app.plex.tv
         description: Media SMB Share
         server: podman
         container: samba
-    - Seerr:
-        icon: seerr
-        href: https://seerr.hemati.com
-        description: Media Discovery Engine
-        server: podman
-        container: seerr
-    - SeerrBridge:
-        icon: https://avatars.githubusercontent.com/u/130290673?s=400&v=4
-        href: https://seerrbridge.hemati.com
-        description: Bridge Seerr to Jellyfin
-        server: podman
-        container: seerrbridge
     - Zurg:
         icon: real-debrid
         href: https://zurg.hemati.com

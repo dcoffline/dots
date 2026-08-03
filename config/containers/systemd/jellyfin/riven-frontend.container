@@ -1,0 +1,21 @@
+[Unit]
+Description=Riven Debrid Media Manager Frontend UI
+After=network-online.target riven.service
+
+[Container]
+ContainerName=riven-frontend
+Image=docker.io/spoked/riven-frontend:latest
+AutoUpdate=registry
+Network=homelab.network
+
+PublishPort=3777:3000
+
+Environment=TZ=America/Chicago
+Environment=BACKEND_URL=http://riven:8080
+Environment=ORIGIN=https://riven.hemati.com
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
