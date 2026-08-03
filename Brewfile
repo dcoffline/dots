@@ -13,6 +13,8 @@ brew "asciiquarium"
 brew "glib"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
+# System and service manager
+brew "systemd"
 # Service Discovery for Linux using mDNS/DNS-SD
 brew "avahi"
 # JPEG image codec that aids compression and decompression
@@ -59,6 +61,8 @@ brew "libsm"
 brew "micro"
 # UPnP IGD client library and daemon
 brew "miniupnpc"
+# Server and user space API to deal with multimedia pipelines
+brew "pipewire"
 # Feature-rich command-line audio/video downloader
 brew "yt-dlp"
 # Media player based on MPlayer and mplayer2
@@ -73,8 +77,8 @@ brew "newsboat"
 brew "node"
 # NUMA support for Linux
 brew "numactl"
-# Server and user space API to deal with multimedia pipelines
-brew "pipewire"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
 # Podman Terminal User Interface
 brew "podman-tui"
 # PDF rendering library (based on the xpdf-3.0 code base)
@@ -138,6 +142,7 @@ cargo "ripgrep"
 cargo "starship"
 cargo "tealdeer"
 cargo "television"
+cargo "vm-curator"
 cargo "yazi-build"
 cargo "yazi-cli"
 cargo "yazi-fm"
