@@ -7,9 +7,9 @@ hideVersion: false
 useEqualHeights: true
 
 layout:
-  System:
-    header: false
   Security:
+    header: false
+  System:
     header: false
   Servers:
     header: false
@@ -28,4 +28,4 @@ layout:
   Bookmarks:
     header: true
     style: row
-    columns: 6
+    columns: 5
