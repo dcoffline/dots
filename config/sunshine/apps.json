@@ -30,7 +30,7 @@
             "output": "/var/home/eric/.config/sunshine/app-desktop.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 2560x1440 119.877",
+                    "do": "monctl 1920x1080 119.930",
                     "undo": ""
                 }
             ],
