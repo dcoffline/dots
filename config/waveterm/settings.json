@@ -1,7 +1,7 @@
 {
   "autoupdate:channel": "latest",
   "web:defaulturl": "https://google.com/",
-  "term:fontsize": 15,
+  "term:fontsize": 14,
   "ai:preset": "ai@global",
   "ai:model": "gemini-2.5-pro",
   "ai:maxtokens": 4000,
