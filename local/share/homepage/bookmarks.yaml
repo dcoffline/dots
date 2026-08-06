@@ -2,7 +2,7 @@
   - ACRM:
     - abbr: AC
       href: https://app.agent-crm.com/v2/location/L1EHjj6ASYM2Y1CPgw8e/dashboard
-  - 'Agent #s':
+  - Agent:
     - abbr: AN
       href: https://docs.google.com/spreadsheets/d/16KxgJnVDcuxo986PgcHy_zUh_DBP6DzEYIWjXq3EcUI/edit?gid=150432301#gid=150432301
   - Amazon:
@@ -38,6 +38,9 @@
   - GMail:
     - abbr: GM
       href: https://mail.google.com/mail/u/0/#inbox
+  - GPlay:
+    - abbr: PS
+      href: https://play.google.com
   - iCloud:
     - abbr: IC
       href: https://www.icloud.com
@@ -86,9 +89,6 @@
   - Photos:
     - abbr: GP
       href: https://photos.google.com
-  - Play Store:
-    - abbr: PS
-      href: https://play.google.com
   - Reddit:
     - abbr: RD
       href: https://www.reddit.com
