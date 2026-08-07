@@ -52,7 +52,7 @@ format = '[$all_status$ahead_behind ]($style)'
 
 [container]
 symbol = ""
-format = '[ $symbol ]($style)'
+format = '[ $symbol $name ]($style)'
 style = 'bg:#06969A'
 disabled = false
 
