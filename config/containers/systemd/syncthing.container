@@ -1,0 +1,33 @@
+[Unit]
+Description=Syncthing File Synchronization Server
+After=network-online.target
+
+[Container]
+ContainerName=syncthing
+Image=docker.io/syncthing/syncthing:latest
+AutoUpdate=registry
+
+# Network=host enables seamless local network discovery (mDNS / UPnP)
+Network=host
+
+# Map container UID/GID to host user UID/GID (1000:1000)
+UserNS=keep-id
+
+# Syncthing configuration & state directory
+Volume=%h/.local/share/syncthing:/var/syncthing:Z
+
+# Obsidian Vault mount
+Volume=%h/.mnt/10T/Documents/Notes/Hemati:/var/syncthing/Obsidian/Hemati:Z
+
+Environment=PUID=1000
+Environment=PGID=1000
+
+# Prevent SELinux permission restrictions on host directory mounts
+SecurityLabelDisable=true
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

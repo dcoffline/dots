@@ -11,6 +11,8 @@ layout:
     header: false
   System:
     header: false
+  Sharing:
+    header: false
   Servers:
     header: false
   Containers:
@@ -20,7 +22,7 @@ layout:
   Jellyfin:
     header: false
     style: row
-    columns: 4
+    columns: 3
   Stremio:
     header: false
     style: row

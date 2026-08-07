@@ -1,21 +1,22 @@
 - System:
-    - Cockpit:
-        icon: cockpit-light
-        href: https://cockpit.hemati.com
-        description: Bazzite Dashboard
-        ping: http://192.168.1.18:9090
     - Cloudflare:
         icon: cloudflare
         href: https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/one/networks/connectors/cloudflare-tunnels/cloudflared/f675bd2e-853b-481a-8242-3dab60bfa54e/edit/public-hostname
         description: Reverse-Proxy
         server: podman
         container: cloudflared
+    - Cockpit:
+        icon: cockpit-light
+        href: https://cockpit.hemati.com
+        description: Bazzite Dashboard
+        ping: http://192.168.1.18:9090
 - Servers:
-    - Sunshine:
-        icon: sunshine
-        href: https://sunshine.hemati.com
-        description: Remote Desktop
-        ping: http://localhost:47990
+    - Syncthing:
+        icon: syncthing
+        href: https://sync.hemati.com
+        description: File Management
+        server: podman
+        container: syncthing
     - Vaultwarden:
         icon: bitwarden
         href: https://vault.hemati.com
@@ -34,6 +35,18 @@
           version: 6
           key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
           fields: ["queries", "blocked", "blocked_percent", "gravity"]
+- Sharing:
+    - Samba:
+        icon: samba-server
+        href: https://app.plex.tv
+        description: Media SMB Share
+        server: podman
+        container: samba
+    - Sunshine:
+        icon: sunshine
+        href: https://sunshine.hemati.com
+        description: Remote Desktop
+        ping: http://localhost:47990
 - Containers:
     - Nextcloud:
         icon: nextcloud
@@ -98,12 +111,6 @@
         description: Media Discovery Engine
         server: podman
         container: riven
-    - Samba:
-        icon: samba-server
-        href: https://app.plex.tv
-        description: Media SMB Share
-        server: podman
-        container: samba
     - Zurg:
         icon: real-debrid
         href: https://zurg.hemati.com
