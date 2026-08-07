@@ -40,7 +40,7 @@ else
   # Distrobox
   alias def='distrobox enter fedora'
   alias defr='distrobox enter fedora -e'
-  alias dea='distrobox enter athena && cd'
+  alias dea='distrobox enter athena && cd /var/home/athena'
   alias dear='distrobox enter athena -e'
 
   # Rclone (Native)
