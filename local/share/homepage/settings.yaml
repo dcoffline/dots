@@ -7,9 +7,9 @@ hideVersion: false
 useEqualHeights: true
 
 layout:
-  Security:
-    header: false
   System:
+    header: false
+  Security:
     header: false
   Sharing:
     header: false
