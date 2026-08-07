@@ -10,19 +10,19 @@
         href: https://cockpit.hemati.com
         description: Bazzite Dashboard
         ping: http://192.168.1.18:9090
-- Servers:
-    - Syncthing:
-        icon: syncthing
-        href: https://sync.hemati.com
-        description: File Management
+- AI:
+    - Ollama:
+        icon: ollama
+        href: https://ai.hemati.com
+        description: Local AI Instance
         server: podman
-        container: syncthing
-    - Vaultwarden:
-        icon: bitwarden
-        href: https://vault.hemati.com
-        description: Password Manager
+        container: ollama
+    - Hermes:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/hermes-agent.png
+        href: https://agent.hemati.com
+        description: Local AI Harness
         server: podman
-        container: vaultwarden
+        container: hermes
 - Security:
     - Pi-hole:
         icon: pi-hole
@@ -36,17 +36,17 @@
           key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
           fields: ["queries", "blocked", "blocked_percent", "gravity"]
 - Sharing:
-    - Samba:
-        icon: samba-server
-        href: https://app.plex.tv
-        description: Media SMB Share
-        server: podman
-        container: samba
     - Sunshine:
         icon: sunshine
         href: https://sunshine.hemati.com
         description: Remote Desktop
         ping: http://localhost:47990
+    - Vaultwarden:
+        icon: bitwarden
+        href: https://vault.hemati.com
+        description: Password Manager
+        server: podman
+        container: vaultwarden
 - Containers:
     - Nextcloud:
         icon: nextcloud
@@ -60,18 +60,18 @@
         description: Photo & Video Backup
         server: podman
         container: immich-server
-    - Ollama:
-        icon: ollama
-        href: https://ai.hemati.com
-        description: Local AI Instance
+    - PKA Dashboard:
+        icon: https://hemati.com/wp-content/uploads/2026/07/imageedit_4_9275255851.png
+        href: https://pka.hemati.com
+        description: Knowledge-base
         server: podman
-        container: ollama
-    - Hermes:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/hermes-agent.png
-        href: https://agent.hemati.com
-        description: Local AI Harness
+        container: pka-web
+    - Syncthing:
+        icon: syncthing
+        href: https://sync.hemati.com
+        description: File Management
         server: podman
-        container: hermes
+        container: syncthing
 - Stremio:
     - Stremio:
         icon: stremio
@@ -111,6 +111,12 @@
         description: Media Discovery Engine
         server: podman
         container: riven
+    - Samba:
+        icon: samba-server
+        href: https://app.plex.tv
+        description: Media SMB Share
+        server: podman
+        container: samba
     - Zurg:
         icon: real-debrid
         href: https://zurg.hemati.com
