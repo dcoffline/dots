@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+exec distrobox enter athena -- bash -c 'cd ~ && exec agy -c "$@"' -- "$@"
+
