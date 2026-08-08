@@ -763,3 +763,505 @@
 ------^
  57 |     - Stremio:
  58 |         icon: stremio
+[2026-08-08T01:09:37.799Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.824Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.831Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.844Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.846Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.855Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:09:37.858Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.860Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.862Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.866Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.868Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.870Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.873Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.876Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.878Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.880Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:09:37.883Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:23.364Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:11:33.316Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.326Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:11:33.326Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.330Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.334Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.351Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.354Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.355Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.357Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.376Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.382Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.382Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.383Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.392Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.393Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.396Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:11:33.397Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.288Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.288Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.292Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.293Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.300Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.302Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.305Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.309Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.315Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.317Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.324Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.326Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.328Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.333Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.335Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.338Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:27.383Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:22:33.758Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.758Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.762Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.766Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.768Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.771Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.774Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.776Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.778Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.783Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.803Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.807Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.812Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.816Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.819Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.829Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:33.842Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:22:39.145Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.146Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.199Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.199Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.200Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.200Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.200Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.200Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.201Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.201Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.201Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.201Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.201Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.201Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.202Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.202Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:22:39.213Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:23:51.556Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.557Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.561Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.563Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.565Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.567Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.570Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.572Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.577Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.581Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.584Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.587Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.590Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.597Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.600Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:51.613Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:23:51.613Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.607Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.618Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.618Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.618Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.618Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.619Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.647Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.648Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.648Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.648Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.649Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.649Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.649Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.649Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.649Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.657Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:23:56.671Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:24:02.184Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.244Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.244Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.245Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.245Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.245Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.245Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.246Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.246Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.246Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.246Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.246Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.247Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.247Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.247Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.263Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:24:02.269Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:25:18.891Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.895Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.897Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.900Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.902Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.907Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.909Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.912Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.914Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.917Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.919Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.922Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.925Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.934Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.940Z] error: <service-helpers> Error getting services from Docker server 'podman': Error: connect ECONNREFUSED /var/run/docker.sock
+    at ignore-listed frames {
+  errno: -111,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2026-08-08T01:25:18.942Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T01:25:18.946Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
+    at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)

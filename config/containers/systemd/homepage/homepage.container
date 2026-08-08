@@ -1,6 +1,7 @@
 [Unit]
 Description=Homepage Container
-After=network-online.target
+After=network-online.target podman.socket
+Wants=podman.socket
 
 [Container]
 ContainerName=homepage
