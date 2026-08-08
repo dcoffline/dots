@@ -18,7 +18,7 @@
         server: podman
         container: ollama
     - Hermes:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/hermes-agent.png
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
         href: https://agent.hemati.com
         description: Local AI Harness
         server: podman
