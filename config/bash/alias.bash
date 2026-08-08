@@ -66,6 +66,7 @@ alias podip="podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}
 alias podclean='podman container prune -f ; podman image prune -f ; podman network prune -f ; podman volume prune -f'
 
 # Exec shortcuts for interactive CLI tools
+alias athena='podman exec -it hermes /opt/hermes/bin/hermes chat'
 alias hermes='podman exec -it hermes hermes'
 alias ollama='podman exec -it ollama ollama'
 alias nc-occ='podman exec -it -u www-data nextcloud php occ'

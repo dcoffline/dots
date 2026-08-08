@@ -1265,3 +1265,13 @@
 [2026-08-08T01:25:18.946Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
     at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1637:16)
     at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-08-08T07:18:35.652Z] error: <httpProxy> Error calling https://api.open-meteo.com/v1/forecast...
+[2026-08-08T07:18:35.658Z] error: <httpProxy> [
+  500,
+  Error: read ECONNRESET
+      at ignore-listed frames {
+    errno: -104,
+    code: 'ECONNRESET',
+    syscall: 'read'
+  }
+]
