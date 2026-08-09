@@ -13,7 +13,7 @@
 - AI:
     - Athena:
         icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
-        href: https://agent.hemati.com
+        href: https://athena.hemati.com
         description: Hermes AI Harness
         server: podman
         container: hermes

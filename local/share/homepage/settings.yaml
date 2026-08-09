@@ -7,13 +7,13 @@ hideVersion: false
 useEqualHeights: true
 
 layout:
+  AI:
+    header: false
   System:
     header: false
   Security:
     header: false
   Sharing:
-    header: false
-  AI:
     header: false
   Containers:
     header: true
