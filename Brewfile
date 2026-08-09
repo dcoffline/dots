@@ -1,7 +1,7 @@
 tap "achannarasappa/tap", "https://github.com/achannarasappa/tap.git", trusted: true
 tap "browsh-org/browsh", trusted: true
 tap "jotta/cli", trusted: true
-tap "lizardbyte/homebrew", "https://github.com/LizardByte/homebrew-homebrew", trusted: true
+tap "lizardbyte/homebrew", trusted: true
 tap "macos-fuse-t/cask", trusted: true
 tap "nikitabobko/tap", trusted: true
 tap "samtay/tui", trusted: true
@@ -25,6 +25,8 @@ brew "bash"
 brew "bash-preexec"
 # Collection of portable C++ source libraries
 brew "boost"
+# GNU compiler collection
+brew "gcc"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
@@ -39,6 +41,8 @@ brew "libtool"
 brew "ffmpeg"
 # Create thumbnails for your video files
 brew "ffmpegthumbnailer"
+# Tool to install, manage and use Progressive Web Apps in Mozilla Firefox
+brew "firefoxpwa"
 # GNU implementation of which utility
 brew "gnu-which"
 # Open source programming language to build simple/reliable/efficient software
@@ -88,7 +92,7 @@ brew "portaudio"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
 # Rsync for cloud storage
-brew "rclone"
+brew "rclone", link: false
 # SVG rendering tool and library
 brew "resvg"
 # Display and control your Android device
@@ -142,7 +146,6 @@ cargo "ripgrep"
 cargo "starship"
 cargo "tealdeer"
 cargo "television"
-cargo "vm-curator"
 cargo "yazi-build"
 cargo "yazi-cli"
 cargo "yazi-fm"
