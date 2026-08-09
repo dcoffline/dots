@@ -11,18 +11,18 @@
         description: Bazzite Dashboard
         ping: http://192.168.1.18:9090
 - AI:
+    - Athena:
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
+        href: https://agent.hemati.com
+        description: Hermes AI Harness
+        server: podman
+        container: hermes
     - Ollama:
         icon: ollama
         href: https://ai.hemati.com
         description: Local AI Instance
         server: podman
         container: ollama
-    - Hermes:
-        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
-        href: https://agent.hemati.com
-        description: Local AI Harness
-        server: podman
-        container: hermes
 - Security:
     - Pi-hole:
         icon: pi-hole

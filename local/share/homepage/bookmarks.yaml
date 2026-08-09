@@ -83,6 +83,9 @@
   - OneDrive:
     - abbr: OD
       href: https://onedrive.live.com/?id=root&cid=9FB84147040DA7BF
+  - OpenRouter:
+    - abbr: OR
+      href: https://openrouter.ai/workspaces/default
   - Perplexity:
     - abbr: PP
       href: https://www.perplexity.ai
