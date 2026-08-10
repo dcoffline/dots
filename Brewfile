@@ -39,10 +39,6 @@ brew "libtool"
 brew "ffmpeg"
 # Create thumbnails for your video files
 brew "ffmpegthumbnailer"
-# Tool to install, manage and use Progressive Web Apps in Mozilla Firefox
-brew "firefoxpwa"
-# Enable transparent encryption/decryption of files in a git repo
-brew "git-crypt"
 # GNU implementation of which utility
 brew "gnu-which"
 # Open source programming language to build simple/reliable/efficient software
