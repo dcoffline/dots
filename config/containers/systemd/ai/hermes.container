@@ -11,7 +11,7 @@ EnvironmentFile=%h/.secrets
 Network=homelab.network
 
 # The official image uses /opt/data for persistent state (sessions, config, skills)
-Volume=hermes_data:/opt/data
+Volume=hermes_data:/opt/data:z
 # Mount Antigravity / Gemini personas, rules, and global config
 Volume=%h/.gemini/config:/opt/data/gemini-config:z
 # Mount Antigravity skills and builtin skills
