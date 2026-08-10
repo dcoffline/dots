@@ -10,62 +10,6 @@ default:
 # SYSTEM MAINTENANCE
 # =============================================================================
 
-# Keep GDrive synced with Nextcloud Documents
-sync-gdrive:
-    #!/bin/bash
-    
-    # Define RCLONE for various systems
-    RCLONE="rclone"
-    if [ -x /home/linuxbrew/.linuxbrew/bin/rclone ]; then
-        RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
-    elif [ -x /usr/bin/rclone ]; then
-        RCLONE="/usr/bin/rclone"
-    fi
-
-    # Exit if a sync is already running to avoid overlaps
-    if pidof -x $(basename $0) -o %PPID >/dev/null; then
-        echo "Sync already running. Exiting."
-        exit 1
-    fi
-
-    # Ensure host user eric owns all local files so rclone can set timestamps (chtimes).
-    # Nextcloud container (UID 524320) retains access via default ACLs.
-    podman unshare chown -R 0:0 /var/home/eric/.mnt/10T/Documents 2>/dev/null || true
-
-    # Set the environment variable to completely hide Google Docs/Sheets
-    export RCLONE_DRIVE_SKIP_GDOC=true
-
-    # Use bisync for bidirectional sync to prevent data loss / overwrite conflicts
-    echo "=== Running Bisync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
-    if ! $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --recover --resilient --exclude '**/.trash/**' --exclude '**/.Trash*/**' --exclude '**/.Trash-1000/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v; then
-        echo "⚠️ Bisync failed. If this is your first time running bisync, you must run:"
-        echo "  just resync-gdrive"
-        exit 1
-    fi
-
-    echo "=== Sync Complete ==="
-
-# Resync GDrive with Nextcloud Documents (recovery / initial setup)
-resync-gdrive:
-    #!/bin/bash
-    
-    RCLONE="rclone"
-    if [ -x /home/linuxbrew/.linuxbrew/bin/rclone ]; then
-        RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
-    elif [ -x /usr/bin/rclone ]; then
-        RCLONE="/usr/bin/rclone"
-    fi
-
-    # Ensure host user eric owns all local files so rclone can set timestamps (chtimes).
-    # Nextcloud container (UID 524320) retains access via default ACLs.
-    podman unshare chown -R 0:0 /var/home/eric/.mnt/10T/Documents 2>/dev/null || true
-
-    export RCLONE_DRIVE_SKIP_GDOC=true
-
-    echo "=== Running Bisync --resync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
-    $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync --slow-hash-sync-only --exclude '**/.trash/**' --exclude '**/.Trash*/**' --exclude '**/.Trash-1000/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v
-    echo "=== Resync Complete ==="
-
 # Initiates the Fortress Maintenance Protocol (Updates, Syncs, Backups)
 update:
     #!/usr/bin/env bash
@@ -88,11 +32,12 @@ update:
     fi
 
     cd "$DOTS" || exit 1
-    source ./config/environment.d/envvars.conf
+    [ -f ./config/environment.d/envvars.conf ] && source ./config/environment.d/envvars.conf
+    [ -f ./config/bash/function.bash ] && source ./config/bash/function.bash
     [ -f ./config/bash/os.bash ] && source ./config/bash/os.bash
 
     echo "[ Syncing with GitHub... ]"
-    git pull --rebase origin main || echo "⚠️ Warning: Git pull failed. Continuing..."
+    gitup "update $NOW" || echo "⚠️ Warning: Git pull failed. Continuing..."
 
     echo "[ Initiating Fortress Maintenance Protocol... ]"
 
@@ -192,6 +137,62 @@ update:
       git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
     fi
     echo "[ Fortress Maintenance Complete ]"
+
+# Keep GDrive synced with Nextcloud Documents
+sync-gdrive:
+    #!/bin/bash
+    
+    # Define RCLONE for various systems
+    RCLONE="rclone"
+    if [ -x /home/linuxbrew/.linuxbrew/bin/rclone ]; then
+        RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
+    elif [ -x /usr/bin/rclone ]; then
+        RCLONE="/usr/bin/rclone"
+    fi
+
+    # Exit if a sync is already running to avoid overlaps
+    if pidof -x $(basename $0) -o %PPID >/dev/null; then
+        echo "Sync already running. Exiting."
+        exit 1
+    fi
+
+    # Ensure host user eric owns all local files so rclone can set timestamps (chtimes).
+    # Nextcloud container (UID 524320) retains access via default ACLs.
+    podman unshare chown -R 0:0 /var/home/eric/.mnt/10T/Documents 2>/dev/null || true
+
+    # Set the environment variable to completely hide Google Docs/Sheets
+    export RCLONE_DRIVE_SKIP_GDOC=true
+
+    # Use bisync for bidirectional sync to prevent data loss / overwrite conflicts
+    echo "=== Running Bisync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
+    if ! $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --recover --resilient --exclude '**/.trash/**' --exclude '**/.Trash*/**' --exclude '**/.Trash-1000/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v; then
+        echo "⚠️ Bisync failed. If this is your first time running bisync, you must run:"
+        echo "  just resync-gdrive"
+        exit 1
+    fi
+
+    echo "=== Sync Complete ==="
+
+# Resync GDrive with Nextcloud Documents (recovery / initial setup)
+resync-gdrive:
+    #!/bin/bash
+    
+    RCLONE="rclone"
+    if [ -x /home/linuxbrew/.linuxbrew/bin/rclone ]; then
+        RCLONE="/home/linuxbrew/.linuxbrew/bin/rclone"
+    elif [ -x /usr/bin/rclone ]; then
+        RCLONE="/usr/bin/rclone"
+    fi
+
+    # Ensure host user eric owns all local files so rclone can set timestamps (chtimes).
+    # Nextcloud container (UID 524320) retains access via default ACLs.
+    podman unshare chown -R 0:0 /var/home/eric/.mnt/10T/Documents 2>/dev/null || true
+
+    export RCLONE_DRIVE_SKIP_GDOC=true
+
+    echo "=== Running Bisync --resync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
+    $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync --slow-hash-sync-only --exclude '**/.trash/**' --exclude '**/.Trash*/**' --exclude '**/.Trash-1000/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v
+    echo "=== Resync Complete ==="
 
 # Rebuild the gnome-rounded-blur library (run after Mutter/GNOME updates)
 rounded-blur:
