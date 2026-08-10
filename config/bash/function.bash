@@ -28,30 +28,20 @@ witsec() {
 
 # Update Git Repository
 gitup() {
-  # Check if a commit message was actually provided
-  if [ -z "$1" ]; then
-    echo "Error: Please provide a commit message."
-    echo "Usage: gitup \"Your commit message here\""
-    return 1
-  fi
+  export NOW=$(date +"%Y-%m-%d_%H%M%S")
+  local msg="${*:-$NOW}"
   git add -A
-  # Use "$*" to capture all arguments as a single string
-  git commit -m "$*"
+  git commit -m "$msg"
   git push
 }
 
 # Update DOTS Repository
 dotup() {
-  # Check if a commit message was actually provided
-  if [ -z "$1" ]; then
-    echo "Error: Please provide a commit message."
-    echo "Usage: dotup \"Your commit message here\""
-    return 1
-  fi
+  export NOW=$(date +"%Y-%m-%d_%H%M%S")
+  local msg="${*:-$NOW}"
   cd "$DOTS"
   git add -A
-  # Use "$*" to capture all arguments as a single string
-  git commit -m "$*"
+  git commit -m "$msg"
   git push
   cd -
 }
