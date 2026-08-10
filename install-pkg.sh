@@ -104,11 +104,20 @@ fi
 
 # RUST & CARGO TOOLCHAINS
 echo "[ Checking for Rust toolchain... ]"
-if ! command -v cargo >/dev/null 2>&1; then
-  echo "[ Cargo not found. Installing Rustup... ]"
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  if [ -f "$HOME/.local/share/cargo/env" ]; then
-    source "$HOME/.local/share/cargo/env"
+CARGO_BIN_DIR="${CARGO_HOME:-$HOME/.cargo}/bin"
+export PATH="$CARGO_BIN_DIR:$PATH"
+
+if ! cargo --version >/dev/null 2>&1; then
+  if command -v rustup >/dev/null 2>&1; then
+    echo "[ Initializing Rustup toolchain... ]"
+    rustup default stable
+  else
+    echo "[ Cargo not found. Installing Rustup... ]"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  fi
+
+  if [ -f "${CARGO_HOME:-$HOME/.cargo}/env" ]; then
+    source "${CARGO_HOME:-$HOME/.cargo}/env"
   elif [ -f "$HOME/.cargo/env" ]; then
     source "$HOME/.cargo/env"
   fi
@@ -116,7 +125,7 @@ fi
 
 # RUST BINARIES
 echo "[ Installing Rust binaries... ]"
-if command -v cargo >/dev/null 2>&1; then
+if cargo --version >/dev/null 2>&1; then
   # Install cargo-binstall for lightning-fast, pre-compiled deployments
   if ! command -v cargo-binstall >/dev/null 2>&1; then
     echo "[ Installing cargo-binstall... ]"
