@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily Athena Workspace, Quadlets, and Config Backup
+After=local-target.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/just -f %h/.justfile backup-athena
+
+[Install]
+WantedBy=default.target

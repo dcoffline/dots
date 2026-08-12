@@ -11,7 +11,7 @@ Network=homelab.network
 #PublishPort=3000:8080
 
 # Persistent storage for your chat history and uploaded docs
-Volume=open-webui_data:/app/backend/data
+Volume=%h/.local/share/open-webui:/app/backend/data:Z
 
 # Tells the frontend where to find your Ollama engine.
 # host.containers.internal is Podman's way of reaching the host machine.

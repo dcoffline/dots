@@ -11,7 +11,7 @@ EnvironmentFile=%h/.secrets
 Network=homelab.network
 
 # The official image uses /opt/data for persistent state (sessions, config, skills)
-Volume=hermes_data:/opt/data:z
+Volume=%h/.local/share/hermes:/opt/data:z
 # Mount Antigravity / Gemini personas, rules, and global config
 Volume=%h/.gemini/config:/opt/data/gemini-config:z
 # Mount Antigravity skills and builtin skills
@@ -19,8 +19,8 @@ Volume=%h/.gemini/antigravity/skills:/opt/data/gemini-skills:ro,z
 Volume=%h/.gemini/antigravity-cli/builtin/skills:/opt/data/gemini-builtin-skills:ro,z
 # Mount full .gemini directory for complete context access
 Volume=%h/.gemini:/opt/data/gemini-context:ro,z
-# Mount PKA_Hemati project and database
-Volume=%h/src/projects/PKA_Hemati:/opt/data/projects/PKA_Hemati:z
+# Mount Athena project and database
+Volume=%h/src/projects/Athena:/opt/data/projects/Athena:z
 # Mount Obsidian Notes Vault (Hemati)
 Volume=%h/Documents/Notes/Hemati:/opt/data/obsidian:z
 
@@ -30,6 +30,7 @@ Exec=gateway run
 
 [Service]
 Restart=always
+CPUWeight=20
 
 [Install]
 WantedBy=default.target

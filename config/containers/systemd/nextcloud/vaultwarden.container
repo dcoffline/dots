@@ -6,7 +6,7 @@ Image=docker.io/vaultwarden/server:latest
 ContainerName=vaultwarden
 Environment=DOMAIN=https://vault.hemati.com
 Environment=SIGNUPS_ALLOWED=false
-Volume=vaultwarden-data:/data:Z
+Volume=%h/.local/share/vaultwarden:/data:Z
 Network=homelab.network
 
 # Generate /admin password hash with the following command:

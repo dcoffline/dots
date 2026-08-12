@@ -35,5 +35,8 @@ Environment=NC_maintenance_window_start=1
 Environment=NC_default_phone_region=US
 Environment=NEXTCLOUD_UMASK=0002
 
+[Service]
+CPUWeight=20
+
 [Install]
 WantedBy=default.target

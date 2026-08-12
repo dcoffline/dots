@@ -233,7 +233,7 @@ mount:
     BASE_MOUNT="$HOME/.mnt/rclone"
     LOGFILE="/tmp/rclone-mount.log"
     PID_DIR="$HOME/.config/rclone/pid"
-    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Hematicom"]="Hematicom" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
 
     OS_TYPE="$(uname -s)"
 
@@ -370,7 +370,7 @@ mount:
 unmount:
     #!/usr/bin/env bash
     BASE_MOUNT="$HOME/.mnt/rclone"
-    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Hematicom"]="Hematicom" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
 
     # Zurg is now mounted on macOS as well
 
@@ -404,7 +404,7 @@ check-mounts:
     #!/usr/bin/env bash
     set -euo pipefail
     BASE_MOUNT="$HOME/.mnt/rclone"
-    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Hematicom"]="Hematicom" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
 
     OS_TYPE="$(uname -s)"
     if [[ "$OS_TYPE" == "Darwin" ]]; then
@@ -580,3 +580,21 @@ backup-nextcloud:
     find "$TARGET_DIR" -maxdepth 1 -type d -name "nextcloud_*" -mtime +3 -exec rm -rf {} \;
     
     echo "Backup complete!"
+
+# =============================================================================
+# BACKUP ATHENA ASSETS, QUADLETS, AND CONFIG (KEEPS 3 MOST RECENT BACKUPS)
+# =============================================================================
+
+backup-athena:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    if [ -x "$HOME/src/projects/Athena/scripts/backup_athena.sh" ]; then
+      "$HOME/src/projects/Athena/scripts/backup_athena.sh"
+    elif [ -x "/var/home/eric/src/projects/Athena/scripts/backup_athena.sh" ]; then
+      "/var/home/eric/src/projects/Athena/scripts/backup_athena.sh"
+    else
+      echo "Error: Backup script backup_athena.sh not found." >&2
+      exit 1
+    fi
+

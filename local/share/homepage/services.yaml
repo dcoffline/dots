@@ -10,19 +10,6 @@
         href: https://cockpit.hemati.com
         description: Bazzite Dashboard
         ping: http://192.168.1.18:9090
-- AI:
-    - Athena:
-        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
-        href: https://athena.hemati.com
-        description: Hermes AI Harness
-        server: podman
-        container: hermes
-    - Ollama:
-        icon: ollama
-        href: https://ai.hemati.com
-        description: Local AI Instance
-        server: podman
-        container: ollama
 - Security:
     - Pi-hole:
         icon: pi-hole
@@ -35,12 +22,13 @@
           version: 6
           key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
           fields: ["queries", "blocked", "blocked_percent", "gravity"]
-- Sharing:
-    - Sunshine:
-        icon: sunshine
-        href: https://sunshine.hemati.com
-        description: Remote Desktop
-        ping: http://localhost:47990
+- Utilities:
+    - Syncthing:
+        icon: syncthing
+        href: https://sync.hemati.com
+        description: File Management
+        server: podman
+        container: syncthing
     - Vaultwarden:
         icon: bitwarden
         href: https://vault.hemati.com
@@ -48,69 +36,54 @@
         server: podman
         container: vaultwarden
 - Containers:
-    - Nextcloud:
-        icon: nextcloud
-        href: https://cloud.hemati.com
-        description: Private File Storage
+    - Athena:
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
+        href: https://athena.hemati.com
+        description: Hermes AI Harness
         server: podman
-        container: nextcloud
-    - Immich:
-        icon: immich
-        href: https://photos.hemati.com
-        description: Photo & Video Backup
-        server: podman
-        container: immich-server
-    - PKA Dashboard:
-        icon: https://hemati.com/wp-content/uploads/2026/07/imageedit_4_9275255851.png
-        href: https://pka.hemati.com
-        description: Knowledge-base
-        server: podman
-        container: pka-web
-    - Syncthing:
-        icon: syncthing
-        href: https://sync.hemati.com
-        description: File Management
-        server: podman
-        container: syncthing
-- Stremio:
-    - Stremio:
-        icon: stremio
-        #href: https://app.strem.io/shell-v4.4/?streamingServer=http%3A%2F%2F100.120.205.70%3A11470#
-        href: https://stremio.hemati.com
-        description: Freedom to Stream 
-        server: podman
-        container: stremio-server
+        container: hermes
     - AIOStreams:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
         href: https://aiostreams.hemati.com
         description: Stream Aggregator
         server: podman
         container: aiostreams
-    - AIOMetadata:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiometadata.png
-        href: https://aiometadata.hemati.com
-        description: Metadata Provider
+    - Immich:
+        icon: immich
+        href: https://photos.hemati.com
+        description: Photos & Videos
         server: podman
-        container: aiometadata
-    - MediaFlow:
-        icon: https://mediaflowtools.com/mediaflow-logo.svg
-        href: https://mediaflow.hemati.com
-        description: Debrid Cache Proxy
-        server: podman
-        container: mediaflow
-- Jellyfin:
+        container: immich-server
     - Jellyfin:
         icon: jellyfin
         href: https://media.hemati.com
         description: Home Media Server
         server: podman
         container: jellyfin
-    - Riven:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/riven.svg
-        href: https://riven.hemati.com
-        description: Media Discovery Engine
+    - MediaFlow:
+        icon: https://mediaflowtools.com/mediaflow-logo.svg
+        href: https://mediaflow.hemati.com
+        description: Debrid Cache Proxy
         server: podman
-        container: riven
+        container: mediaflow
+    - Nextcloud:
+        icon: nextcloud
+        href: https://cloud.hemati.com
+        description: Private File Storage
+        server: podman
+        container: nextcloud
+    - Ollama:
+        icon: ollama
+        href: https://ai.hemati.com
+        description: Local AI Instance
+        server: podman
+        container: ollama
+    - PKA Portal:
+        icon: https://hemati.com/wp-content/uploads/2026/07/imageedit_4_9275255851.png
+        href: https://pka.hemati.com
+        description: Knowledge-base
+        server: podman
+        container: pka-web
     - Samba:
         icon: samba-server
         href: https://app.plex.tv

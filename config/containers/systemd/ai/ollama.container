@@ -12,7 +12,7 @@ Network=homelab.network
 #PublishPort=11434:11434
 
 # Persistent storage for downloaded models
-Volume=ollama_data:/root/.ollama
+Volume=%h/.local/share/ollama:/root/.ollama:Z
 
 # Pass the AMD GPU kernel devices into the container
 AddDevice=/dev/kfd
