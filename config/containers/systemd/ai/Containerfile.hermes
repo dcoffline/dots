@@ -1,0 +1,15 @@
+FROM docker.io/nousresearch/hermes-agent:latest
+
+# Install Chromium and dependencies
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-sandbox \
+    fonts-liberation \
+    libasound2t64 \
+    libnspr4 \
+    libnss3 \
+    xdg-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Playwright into hermes virtualenv
+RUN /usr/local/bin/uv pip install --python /opt/hermes/.venv/bin/python playwright || true

@@ -27,3 +27,9 @@ elif [ -f /run/ostree-booted ] || [ "$OS_TYPE" = "mac" ]; then
 else
   export ENV_TYPE="mutable"
 fi
+
+# Drains unread terminal query responses (OSC 11 / CPR) from stdin in interactive shells
+if [[ $- == *i* ]]; then
+  read -t 0.05 -n 10000 _ 2>/dev/null || true
+fi
+

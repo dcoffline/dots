@@ -3,7 +3,7 @@ Description=NousResearch Hermes Agent
 After=network-online.target ollama.service
 
 [Container]
-Image=docker.io/nousresearch/hermes-agent:latest
+Image=localhost/hermes-agent:custom
 ContainerName=hermes
 AutoUpdate=registry
 EnvironmentFile=%h/.secrets

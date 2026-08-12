@@ -30,7 +30,24 @@
             "output": "/var/home/eric/.config/sunshine/app-desktop.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1920x1080 119.930",
+                    "do": "monctl 2560x1440 59.961",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "/var/home/eric/src/dots/config/sunshine/covers/ultra.png",
+            "name": "LG Ultra",
+            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
+            "prep-cmd": [
+                {
+                    "do": "monctl 3440x1440 119.945",
                     "undo": ""
                 }
             ],
@@ -64,23 +81,6 @@
             "prep-cmd": [
                 {
                     "do": "monctl 1280x720 119.858",
-                    "undo": ""
-                }
-            ],
-            "wait-all": true
-        },
-        {
-            "auto-detach": true,
-            "cmd": "",
-            "elevated": false,
-            "exclude-global-prep-cmd": false,
-            "exit-timeout": 5,
-            "image-path": "/var/home/eric/src/dots/config/sunshine/covers/ultra.png",
-            "name": "Ultrawide",
-            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
-            "prep-cmd": [
-                {
-                    "do": "monctl 3440x1440 119.945",
                     "undo": ""
                 }
             ],

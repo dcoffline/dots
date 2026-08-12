@@ -1,0 +1,17 @@
+[Unit]
+Description=Honcho Redis Cache
+After=network-online.target
+
+[Container]
+ContainerName=honcho-redis
+Image=docker.io/library/redis:alpine
+AutoUpdate=registry
+Network=homelab.network
+
+Volume=%h/.local/share/honcho/redis:/data:Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

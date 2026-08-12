@@ -1,0 +1,39 @@
+[Unit]
+Description=Plastic Labs Honcho AI Memory Server
+Requires=honcho-db.service honcho-redis.service
+After=network-online.target honcho-db.service honcho-redis.service
+
+[Container]
+ContainerName=honcho
+Image=ghcr.io/plastic-labs/honcho:latest
+AutoUpdate=registry
+Network=homelab.network
+PublishPort=8000:8000
+Exec=sh docker/entrypoint.sh
+
+Volume=%h/.local/share/honcho/data:/app/data:Z
+EnvironmentFile=%h/.secrets
+
+# Database & Cache
+Environment=DB_CONNECTION_URI=postgresql+psycopg://postgres:postgres@honcho-db:5432/honcho
+Environment=CACHE_URL=redis://honcho-redis:6379/0?suppress=true
+Environment=CACHE_ENABLED=true
+Environment=AUTH_USE_AUTH=false
+
+# LLM Deriver via OpenRouter (Gemini 2.5 Flash -> DeepSeek V3 fallback)
+Environment=LLM_OPENAI_API_KEY=${OPENROUTER_API_KEY}
+Environment=DERIVER_MODEL_CONFIG__TRANSPORT=openai
+Environment=DERIVER_MODEL_CONFIG__MODEL=google/gemini-2.5-flash
+Environment=DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL=https://openrouter.ai/api/v1
+
+# Vector Embedding via Local Ollama (Instant & 100% Private)
+Environment=EMBEDDING_MODEL_CONFIG__TRANSPORT=openai
+Environment=EMBEDDING_MODEL_CONFIG__MODEL=nomic-embed-text
+Environment=EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL=http://ollama:11434/v1
+
+[Service]
+TimeoutStartSec=300
+Restart=always
+
+[Install]
+WantedBy=default.target

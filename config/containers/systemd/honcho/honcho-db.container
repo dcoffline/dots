@@ -1,0 +1,21 @@
+[Unit]
+Description=Honcho PostgreSQL Vector Database
+After=network-online.target
+
+[Container]
+ContainerName=honcho-db
+Image=docker.io/pgvector/pgvector:pg16
+AutoUpdate=registry
+Network=homelab.network
+
+Volume=%h/.local/share/honcho/db:/var/lib/postgresql/data:Z
+
+Environment=POSTGRES_USER=postgres
+Environment=POSTGRES_PASSWORD=postgres
+Environment=POSTGRES_DB=honcho
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
