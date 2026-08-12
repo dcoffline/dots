@@ -38,12 +38,15 @@ if [ "$ENV_TYPE" != "immutable" ]; then
     echo "[ Fedora-based system detected. Using DNF... ]"
     if [ ! -f /etc/yum.repos.d/jotta-cli.repo ] && [ ! -f /etc/yum.repos.d/JottaCLI.repo ]; then
       echo "[ Configuring Jottacloud CLI repository... ]"
+      sudo mkdir -p /etc/pki/rpm-gpg
+      sudo sh -c 'curl -s https://repo.jotta.cloud/jotta.gpg | gpg --no-default-keyring --keyring /tmp/jotta_temp.gpg --import && gpg --no-default-keyring --keyring /tmp/jotta_temp.gpg --export --armor > /etc/pki/rpm-gpg/RPM-GPG-KEY-jotta && rm -f /tmp/jotta_temp.gpg' 2>/dev/null || true
+      sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-jotta 2>/dev/null || true
       sudo tee /etc/yum.repos.d/jotta-cli.repo >/dev/null <<'EOF'
 [jotta-cli]
 name=Jottacloud CLI
 baseurl=https://repo.jotta.cloud/redhat
 gpgcheck=1
-gpgkey=https://repo.jotta.cloud/public.gpg
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jotta https://repo.jotta.cloud/public.gpg
 EOF
     fi
     DNF_PACKAGES=(
