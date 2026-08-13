@@ -38,10 +38,10 @@ else
   export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
 
   # Distrobox
-  alias def='distrobox enter athena'
-  alias defr='distrobox enter athena -e'
-  alias dea='distrobox enter athena'
-  alias dear='distrobox enter athena -e'
+  alias def='distrobox enter fedora'
+  alias defr='distrobox enter fedora -e'
+  alias dea='distrobox enter arch'
+  alias dear='distrobox enter arch -e'
 
   # Rclone (Native)
   alias rmount='just mount'

@@ -208,11 +208,11 @@ rounded-blur:
         echo -e "/usr/local/lib64\n/usr/local/lib" | sudo tee /etc/ld.so.conf.d/usr-local-x86_64.conf > /dev/null
     fi
 
-    echo "🔄 Updating build dependencies in Athena distrobox..."
-    distrobox-enter -n athena -- sudo dnf upgrade -y --refresh glib2-devel mutter-devel gobject-introspection-devel gobject-introspection meson gcc gcc-c++ make git
+    echo "🔄 Updating build dependencies in Fedora distrobox..."
+    distrobox-enter -n fedora -- sudo dnf upgrade -y --refresh glib2-devel mutter-devel gobject-introspection-devel gobject-introspection meson gcc gcc-c++ make git
     
-    echo "🏗️  Rebuilding gnome-rounded-blur inside Athena distrobox..."
-    distrobox-enter -n athena -- bash -c "curl -sL https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -i"
+    echo "🏗️  Rebuilding gnome-rounded-blur inside Fedora distrobox..."
+    distrobox-enter -n fedora -- bash -c "curl -sL https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -i"
     
     echo "📦 Copying files to host /usr/local/..."
     sudo cp -r /tmp/gnome-rounded-blur/build/binary/usr/local/* /usr/local/
