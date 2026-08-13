@@ -108,6 +108,7 @@ alias yey=paru
 alias bb=busybox
 alias j=jotta-cli
 alias ff=fastfetch
+alias ios=blueferry-tui
 alias sc='systemctl'
 alias susc='sudo systemctl'
 alias scu='systemctl --user'
