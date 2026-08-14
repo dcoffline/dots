@@ -10,6 +10,12 @@ EnvironmentFile=%h/.secrets
 # Attach it to your custom network so it can talk to Ollama directly
 Network=homelab.network
 
+# Map container hermes user (UID/GID 10000) directly to host user (1000:1000)
+UserNS=keep-id:uid=10000,gid=10000
+# Disable SELinux labeling separation so container shares host files seamlessly with Syncthing, Nextcloud, and host user
+SecurityLabelDisable=true
+
+
 # The official image uses /opt/data for persistent state (sessions, config, skills)
 Volume=%h/.local/share/hermes:/opt/data:z
 # Mount Antigravity / Gemini personas, rules, and global config
