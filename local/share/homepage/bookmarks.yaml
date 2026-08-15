@@ -107,6 +107,9 @@
   - Spotify:
     - abbr: SP
       href: https://open.spotify.com
+  - Stremio:
+    - abbr: ST
+      href: https://web.stremio.com
   - Sunshine:
     - abbr: SS
       href: https://sunshine.hemati.com
