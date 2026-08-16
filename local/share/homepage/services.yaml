@@ -72,8 +72,8 @@
         description: Private File Storage
         server: podman
         container: nextcloud
-    - Ollama:
-        icon: ollama
+    - Open-WebUI:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/open-webui.svg
         href: https://ai.hemati.com
         description: Local AI Instance
         server: podman

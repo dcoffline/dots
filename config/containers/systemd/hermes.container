@@ -5,7 +5,7 @@ After=network-online.target ollama.service
 [Container]
 Image=localhost/hermes-agent:custom
 ContainerName=hermes
-AutoUpdate=registry
+AutoUpdate=local
 EnvironmentFile=%h/.secrets
 # Attach it to your custom network so it can talk to Ollama directly
 Network=homelab.network

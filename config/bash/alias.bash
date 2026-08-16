@@ -42,6 +42,8 @@ else
   alias defr='distrobox enter fedora -e'
   alias dea='distrobox enter arch'
   alias dear='distrobox enter arch -e'
+  alias deu='distrobox enter ubuntu'
+  alias deur='distrobox enter ubuntu -e'
 
   # Rclone (Native)
   alias rmount='just mount'
