@@ -1,0 +1,34 @@
+[Unit]
+Description=Paperclip AI Agent Orchestration Control Plane
+Requires=honcho-db.service
+After=network-online.target honcho-db.service podman.socket
+Wants=podman.socket
+
+[Container]
+ContainerName=paperclip
+Image=ghcr.io/paperclipai/paperclip:latest
+AutoUpdate=registry
+Network=homelab.network
+PublishPort=3100:3100
+EnvironmentFile=%h/.secrets
+SecurityLabelDisable=true
+UserNS=keep-id:uid=1000,gid=1000
+
+# Persistent data directory
+Volume=%h/.local/share/paperclip/data:/paperclip:Z
+# Hermes CLI bridge and Podman socket
+Volume=%h/.local/share/paperclip/bin:/usr/local/bin/hermes-bin:ro,Z
+Volume=%t/podman/podman.sock:/var/run/docker.sock:ro
+
+Environment=PATH=/usr/local/bin/hermes-bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=PORT=3100
+Environment=HOST=0.0.0.0
+Environment=PAPERCLIP_HOME=/paperclip
+Environment=PAPERCLIP_PUBLIC_URL=https://paperclip.hemati.com
+Environment=PAPERCLIP_ALLOWED_HOSTNAMES=paperclip.hemati.com,localhost,127.0.0.1
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

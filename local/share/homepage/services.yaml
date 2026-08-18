@@ -78,12 +78,12 @@
         description: Local AI Instance
         server: podman
         container: ollama
-    - PKA Portal:
-        icon: https://hemati.com/wp-content/uploads/2026/07/imageedit_4_9275255851.png
-        href: https://pka.hemati.com
-        description: Knowledge-base
+    - Paperclip:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/paperclip-ai-light.svg
+        href: https://paperclip.hemati.com
+        description: AI Agent Control Plane
         server: podman
-        container: pka-web
+        container: paperclip
     - Samba:
         icon: samba-server
         href: https://app.plex.tv
