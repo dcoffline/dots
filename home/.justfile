@@ -41,6 +41,14 @@ update:
 
     echo "[ Initiating Fortress Maintenance Protocol... ]"
 
+    sedi() {
+      if [[ "$OSTYPE" == darwin* ]] || [ "${IS_MAC:-0}" -eq 1 ]; then
+        sed -i '' "$@"
+      else
+        sed -i "$@"
+      fi
+    }
+
     if [ "$ENV_TYPE" = "container" ]; then
       echo "[ Updating Container binaries... ]"
       if command -v dnf >/dev/null 2>&1; then
@@ -81,10 +89,10 @@ update:
 
     elif [ "$ENV_TYPE" = "immutable" ]; then
       echo "[ Syncing Host State... ]"
-      brew bundle dump --force && sed -i '/^flatpak/d' Brewfile || echo "⚠️ Warning: Homebrew dump failed."
+      brew bundle dump --force && sedi '/^flatpak/d' Brewfile || echo "⚠️ Warning: Homebrew dump failed."
       if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
-        sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
+        sedi -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
       fi
 
       echo "[ Applying Dotfile Updates... ]"
@@ -124,9 +132,9 @@ update:
       echo "[ Syncing Host State & Dotfiles... ]"
       if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
-        sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
+        sedi -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
       fi
-      if command -v brew >/dev/null 2>&1; then brew bundle dump --force && sed -i '/^flatpak/d' Brewfile; fi
+      if command -v brew >/dev/null 2>&1; then brew bundle dump --force && sedi '/^flatpak/d' Brewfile; fi
 
       stow -R --ignore=".DS_Store" -t "$HOME" home
       stow -R --ignore=".DS_Store" -t "$HOME/.config" config

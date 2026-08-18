@@ -1,5 +1,14 @@
 # ────── SHELL FUNCTIONS ──────
 
+# Portable in-place sed (handles differences between BSD/macOS and GNU/Linux)
+sedi() {
+  if [[ "$OSTYPE" == darwin* ]] || [ "${IS_MAC:-0}" -eq 1 ]; then
+    sed -i '' "$@"
+  else
+    sed -i "$@"
+  fi
+}
+
 # Remove duplicates from PATH, keeping the first occurrence
 cleanpath() {
   local new_path=""
