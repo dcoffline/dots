@@ -1,0 +1,33 @@
+[Unit]
+Description=Activepieces Workflow Automation
+After=network-online.target activepieces-redis.service
+Wants=activepieces-redis.service
+
+[Container]
+ContainerName=activepieces
+Image=docker.io/activepieces/activepieces:latest
+Network=homelab.network
+AutoUpdate=registry
+
+# Internal port 80. Published on host port 8081 for local web UI access.
+PublishPort=127.0.0.1:8081:80
+
+Volume=%h/.local/share/activepieces/data:/root/.activepieces:Z
+
+EnvironmentFile=%h/.secrets
+
+Environment=AP_REDIS_HOST=activepieces-redis
+Environment=AP_REDIS_PORT=6379
+Environment=AP_DB_TYPE=SQLITE3
+Environment=AP_EXECUTION_MODE=UNSANDBOXED
+Environment=AP_FRONTEND_URL=https://zap.hemati.com
+Environment=AP_DATA_DIR=/root/.activepieces
+Environment=AP_ENVIRONMENT=prod
+Environment=AP_TELEMETRY_ENABLED=false
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

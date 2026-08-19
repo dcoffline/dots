@@ -7,32 +7,21 @@ Image=localhost/hermes-agent:custom
 ContainerName=hermes
 AutoUpdate=local
 EnvironmentFile=%h/.secrets
-# Attach it to your custom network so it can talk to Ollama directly
 Network=homelab.network
-
-# Map container hermes user (UID/GID 10000) directly to host user (1000:1000)
 UserNS=keep-id:uid=10000,gid=10000
-# Disable SELinux labeling separation so container shares host files seamlessly with Syncthing, Nextcloud, and host user
 SecurityLabelDisable=true
-
+Environment=HERMES_DASHBOARD=1
+Exec=gateway run
 
 # The official image uses /opt/data for persistent state (sessions, config, skills)
 Volume=%h/.local/share/hermes:/opt/data:z
-# Mount Antigravity / Gemini personas, rules, and global config
-Volume=%h/.gemini/config:/opt/data/gemini-config:z
-# Mount Antigravity skills and builtin skills
-Volume=%h/.gemini/antigravity/skills:/opt/data/gemini-skills:ro,z
-Volume=%h/.gemini/antigravity-cli/builtin/skills:/opt/data/gemini-builtin-skills:ro,z
-# Mount full .gemini directory for complete context access
-Volume=%h/.gemini:/opt/data/gemini-context:ro,z
-# Mount Athena project and database
-Volume=%h/src/projects/Athena:/opt/data/projects/Athena:z
-# Mount Obsidian Notes Vault (Hemati)
-Volume=%h/Documents/Notes/Hemati:/opt/data/obsidian:z
 
-# Enables the built-in web dashboard supervised alongside the gateway
-Environment=HERMES_DASHBOARD=1
-Exec=gateway run
+# Mount Antigravity / Gemini personas, rules, skills & config
+Volume=%h/.gemini:/opt/data/profiles/gemini:ro,z
+
+# Mount Athena project and Obsidian Notes Vault (Hemati)
+Volume=%h/src/projects:/opt/data/projects:z
+Volume=%h/Documents/Notes/Hemati:/opt/data/obsidian:z
 
 [Service]
 Restart=always

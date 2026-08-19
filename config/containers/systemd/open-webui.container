@@ -1,6 +1,6 @@
 [Unit]
 Description=Open WebUI Frontend
-After=network-online.target ollama.service
+After=network-online.target ollama.service searxng.service
 
 [Container]
 Image=ghcr.io/open-webui/open-webui:main
@@ -16,6 +16,11 @@ Volume=%h/.local/share/open-webui:/app/backend/data:Z
 # Tells the frontend where to find your Ollama engine.
 # host.containers.internal is Podman's way of reaching the host machine.
 Environment=OLLAMA_BASE_URL=http://ollama:11434
+
+# SearXNG Web Search integration for RAG
+Environment=ENABLE_RAG_WEB_SEARCH=True
+Environment=RAG_WEB_SEARCH_ENGINE=searxng
+Environment=SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>&format=json
 
 [Service]
 Restart=always

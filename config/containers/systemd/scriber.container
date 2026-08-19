@@ -1,0 +1,33 @@
+[Unit]
+Description=Scriber Local Audio Transcription Engine (Whisper ASR)
+After=network-online.target
+
+[Container]
+ContainerName=scriber
+Image=docker.io/onerahmet/openai-whisper-asr-webservice:latest
+Network=homelab.network
+AutoUpdate=registry
+
+# Expose Whisper REST API and Swagger UI on port 9000
+PublishPort=127.0.0.1:9000:9000
+
+# Persistent cache for downloaded Whisper model weights
+Volume=%h/.local/share/scriber/models:/root/.cache:Z
+
+# Configuration: faster_whisper engine with INT8 quantization optimized for AVX-512 CPU execution
+Environment=ASR_MODEL=base
+Environment=ASR_ENGINE=faster_whisper
+Environment=ASR_QUANTIZATION=int8
+
+# Pass AMD GPU devices for hardware acceleration support
+AddDevice=/dev/kfd
+AddDevice=/dev/dri
+GroupAdd=keep-groups
+SecurityLabelDisable=true
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

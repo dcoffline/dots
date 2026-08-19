@@ -1,18 +1,19 @@
 [Unit]
 Description=Vaultwarden Server
+After=network-online.target
 
 [Container]
 Image=docker.io/vaultwarden/server:latest
 ContainerName=vaultwarden
 Environment=DOMAIN=https://vault.hemati.com
 Environment=SIGNUPS_ALLOWED=false
+Environment=DATABASE_URL=/data/db.sqlite3
 Volume=%h/.local/share/vaultwarden:/data:Z
 Network=homelab.network
+EnvironmentFile=%h/.secrets
 
-# Generate /admin password hash with the following command:
-# podman run --rm -it docker.io/vaultwarden/server:latest /vaultwarden hash
-# original was $argon2id$v=19$m=65540,t=3,p=4$thjIE3D3tfc5u5hFDyt2sjPdZRmvxWE/D0OLDJSHGpc$i8rsvlXfg9x4hIsZpd/cmXP5s/qeKlxsjEEHXvt/lUA
-Environment=ADMIN_TOKEN='$argon2id$v=19$m=65540,t=3,p=4$AMJp889NJ27sjeXLYZ6vuo5pYHozTtlkEuIv7YO1iUo$2gWV/0pJDTRcM4TsmzLAAU7TCBmFjG9PmJISVnAKcb4'
+[Service]
+Restart=always
 
 [Install]
 WantedBy=default.target

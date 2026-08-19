@@ -1,0 +1,17 @@
+[Unit]
+Description=Activepieces Redis Cache
+After=network-online.target
+
+[Container]
+ContainerName=activepieces-redis
+Image=docker.io/library/redis:alpine
+AutoUpdate=registry
+Network=homelab.network
+
+Volume=%h/.local/share/activepieces/redis:/data:Z
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

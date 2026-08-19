@@ -1,0 +1,26 @@
+[Unit]
+Description=SearXNG Private Meta-Search Engine
+After=network-online.target
+
+[Container]
+ContainerName=searxng
+Image=docker.io/searxng/searxng:latest
+Network=homelab.network
+AutoUpdate=registry
+
+# Internal port 8080. Open WebUI and Cloudflared access it directly via container DNS http://searxng:8080.
+# Host port 8082 is published for direct local host access (port 8080 on host is used by Pi-hole).
+PublishPort=127.0.0.1:8082:8080
+
+Volume=%h/.config/searxng/settings.yml:/etc/searxng/settings.yml:Z,ro
+Volume=%h/.config/searxng/limiter.toml:/etc/searxng/limiter.toml:Z,ro
+
+EnvironmentFile=%h/.secrets
+Environment=SEARXNG_BASE_URL=http://localhost:8082/
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
