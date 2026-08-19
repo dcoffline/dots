@@ -22,13 +22,8 @@ AddDevice=/dev/dri
 GroupAdd=keep-groups
 SecurityLabelDisable=true
 
-# Critical for the 780M: Force Ollama to use the integrated GPU
-Environment=OLLAMA_IGPU_ENABLE=1
-Environment=OLLAMA_NUM_CTX=65536
-
-# (Optional) If the container fails to use ROCm, uncomment the line below
-# to force compatibility with the RDNA3 architecture:
-# Environment=HSA_OVERRIDE_GFX_VERSION=11.0.2
+# High-performance Zen 4 AVX-512 inference (rock-solid, no GPU hangs)
+Environment=OLLAMA_NUM_CTX=4096
 
 [Service]
 Restart=always
