@@ -15,8 +15,7 @@ PublishPort=2283:2283
 
 # Bulk storage goes to the HDD
 Volume=%h/.mnt/2T/immich:/usr/src/app/upload:Z
-Volume=%h/.mnt/10T/Pictures/Camera:/mnt/external:ro
-Volume=%h/.mnt/rclone/Timeline:/mnt/timeline:ro
+Volume=%h/.mnt/10T/Pictures/Camera:/mnt/external
 
 # Give it the "keys" to the database
 EnvironmentFile=%h/.secrets

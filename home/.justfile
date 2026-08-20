@@ -590,19 +590,331 @@ backup-nextcloud:
     echo "Backup complete!"
 
 # =============================================================================
-# BACKUP ATHENA ASSETS, QUADLETS, AND CONFIG (KEEPS 3 MOST RECENT BACKUPS)
+# BACKUP ATHENA ECOSYSTEM, PROJECTS BASE, AND CONFIGS (KEEPS 7 BACKUPS)
 # =============================================================================
 
-backup-athena:
+# Backs up all dev projects, Hermes state, Quadlets, Systemd units, Gemini & Secrets
+backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
     #!/usr/bin/env bash
     set -euo pipefail
 
-    if [ -x "$HOME/src/projects/Athena/scripts/backup_athena.sh" ]; then
-      "$HOME/src/projects/Athena/scripts/backup_athena.sh"
-    elif [ -x "/var/home/eric/src/projects/Athena/scripts/backup_athena.sh" ]; then
-      "/var/home/eric/src/projects/Athena/scripts/backup_athena.sh"
-    else
-      echo "Error: Backup script backup_athena.sh not found." >&2
+    TARGET_DIR="{{target_dir}}"
+    TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+    BACKUP_DIR="$TARGET_DIR/athena_$TIMESTAMP"
+    LATEST_LINK="$TARGET_DIR/latest"
+    RETENTION_COUNT=7
+    START_TIME=$(date +%s)
+
+    echo "================================================================"
+    echo " Starting Athena & Project Base Backup Protocol"
+    echo " Destination: $BACKUP_DIR"
+    echo " Timestamp:   $TIMESTAMP"
+    echo "================================================================"
+
+    if [ ! -d "$TARGET_DIR" ]; then
+      mkdir -p "$TARGET_DIR" 2>/dev/null || {
+        echo "❌ Error: Target directory '$TARGET_DIR' is not accessible." >&2
+        exit 1
+      }
+    fi
+
+    if [ ! -w "$TARGET_DIR" ]; then
+      echo "❌ Error: Target directory '$TARGET_DIR' is not writable." >&2
       exit 1
     fi
+
+    mkdir -p "$BACKUP_DIR"
+
+    # 1. Back up All Development Projects (~/src/projects/)
+    echo "[ 1/7 ] Backing up development projects (~/src/projects/)..."
+    mkdir -p "$BACKUP_DIR/projects"
+    if [ -d "$HOME/src/projects" ]; then
+      rsync -a \
+        --exclude='node_modules' \
+        --exclude='__pycache__' \
+        --exclude='*.pyc' \
+        --exclude='.venv' \
+        --exclude='venv' \
+        --exclude='.pytest_cache' \
+        --exclude='.ruff_cache' \
+        --exclude='target/' \
+        "$HOME/src/projects/" "$BACKUP_DIR/projects/"
+      echo "  ✓ Projects backed up: $(ls -1 "$HOME/src/projects" | tr '\n' ' ')"
+    else
+      echo "  ⚠️ Warning: $HOME/src/projects not found, skipping."
+    fi
+
+    # 2. Back up Hermes / Athena Agent Runtime State (~/.local/share/hermes/)
+    echo "[ 2/7 ] Backing up Hermes / Athena agent state (~/.local/share/hermes/)..."
+    mkdir -p "$BACKUP_DIR/hermes"
+    if [ -d "$HOME/.local/share/hermes" ]; then
+      rsync -a \
+        --exclude='.cache' \
+        --exclude='.npm' \
+        --exclude='.google-venv' \
+        --exclude='lazy-packages' \
+        --exclude='usr' \
+        --exclude='bin' \
+        --exclude='home' \
+        --exclude='audio_cache' \
+        --exclude='image_cache' \
+        --exclude='tmp' \
+        --exclude='logs' \
+        --exclude='transcripts' \
+        --exclude='*.sock' \
+        --exclude='*.pid' \
+        --exclude='*.lock' \
+        "$HOME/.local/share/hermes/" "$BACKUP_DIR/hermes/"
+      echo "  ✓ Hermes runtime state backed up."
+    else
+      echo "  ⚠️ Warning: $HOME/.local/share/hermes not found, skipping."
+    fi
+
+    # 3. Back up Homelab Quadlet Definitions (~/.config/containers/systemd/)
+    echo "[ 3/7 ] Backing up Homelab Quadlets (~/.config/containers/systemd/)..."
+    mkdir -p "$BACKUP_DIR/quadlets"
+    if [ -d "$HOME/.config/containers/systemd" ]; then
+      rsync -a "$HOME/.config/containers/systemd/" "$BACKUP_DIR/quadlets/"
+      echo "  ✓ Quadlets backed up ($(find "$BACKUP_DIR/quadlets" -type f | wc -l) files)."
+    else
+      echo "  ⚠️ Warning: Quadlets directory not found, skipping."
+    fi
+
+    # 4. Back up Systemd User Units & Timers (~/.config/systemd/user/)
+    echo "[ 4/7 ] Backing up Systemd User Units (~/.config/systemd/user/)..."
+    mkdir -p "$BACKUP_DIR/systemd_user"
+    if [ -d "$HOME/.config/systemd/user" ]; then
+      rsync -a "$HOME/.config/systemd/user/" "$BACKUP_DIR/systemd_user/"
+      echo "  ✓ Systemd user units backed up ($(find "$BACKUP_DIR/systemd_user" -type f | wc -l) files)."
+    else
+      echo "  ⚠️ Warning: Systemd user directory not found, skipping."
+    fi
+
+    # 5. Back up Gemini & Antigravity Config (~/.gemini/)
+    echo "[ 5/7 ] Backing up Gemini / Antigravity config (~/.gemini/)..."
+    mkdir -p "$BACKUP_DIR/gemini"
+    if [ -d "$HOME/.gemini" ]; then
+      rsync -a \
+        --exclude='brain' \
+        --exclude='bin' \
+        --exclude='tmp' \
+        --exclude='*.log' \
+        --exclude='cache' \
+        --exclude='crashes' \
+        --exclude='conversations' \
+        "$HOME/.gemini/" "$BACKUP_DIR/gemini/"
+      echo "  ✓ Gemini / Antigravity configs backed up."
+    else
+      echo "  ⚠️ Warning: $HOME/.gemini not found, skipping."
+    fi
+
+    # 6. Back up Secrets and Environment Configurations
+    echo "[ 6/7 ] Backing up Secrets & Environment configs..."
+    mkdir -p "$BACKUP_DIR/secrets"
+    if [ -f "$HOME/.secrets" ]; then
+      cp -p "$HOME/.secrets" "$BACKUP_DIR/secrets/.secrets"
+    fi
+    if [ -d "$HOME/.config/environment.d" ]; then
+      mkdir -p "$BACKUP_DIR/secrets/environment.d"
+      cp -rp "$HOME/.config/environment.d/"* "$BACKUP_DIR/secrets/environment.d/" 2>/dev/null || true
+    fi
+    if [ -f "$HOME/.config/rclone/rclone.conf" ]; then
+      cp -p "$HOME/.config/rclone/rclone.conf" "$BACKUP_DIR/secrets/rclone.conf"
+    fi
+    find "$BACKUP_DIR/secrets" -type d -exec chmod 700 {} + 2>/dev/null || true
+    find "$BACKUP_DIR/secrets" -type f -exec chmod 600 {} + 2>/dev/null || true
+    echo "  ✓ Secrets & environment configs backed up (chmod 600)."
+
+    # 7. Back up Athena Gem Obsidian Project Notes
+    echo "[ 7/7 ] Backing up Athena Gem Notes..."
+    mkdir -p "$BACKUP_DIR/notes_athena"
+    NOTES_SRC="$HOME/Documents/Notes/Hemati/projects/Athena_Gem"
+    if [ -d "$NOTES_SRC" ]; then
+      rsync -a "$NOTES_SRC/" "$BACKUP_DIR/notes_athena/"
+      echo "  ✓ Athena Gem notes backed up."
+    else
+      echo "  ℹ️ Notes directory $NOTES_SRC not found, skipping."
+    fi
+
+    # Manifest
+    END_TIME=$(date +%s)
+    DURATION=$((END_TIME - START_TIME))
+    TOTAL_SIZE=$(du -sh "$BACKUP_DIR" | awk '{print $1}')
+
+    cat <<EOF > "$BACKUP_DIR/manifest.json"
+    {
+      "timestamp": "$TIMESTAMP",
+      "created_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+      "hostname": "$(hostname)",
+      "user": "$(whoami)",
+      "total_size": "$TOTAL_SIZE",
+      "duration_seconds": $DURATION,
+      "components": {
+        "projects": $(if [ -d "$BACKUP_DIR/projects" ]; then echo "true"; else echo "false"; fi),
+        "hermes": $(if [ -d "$BACKUP_DIR/hermes" ]; then echo "true"; else echo "false"; fi),
+        "quadlets": $(if [ -d "$BACKUP_DIR/quadlets" ]; then echo "true"; else echo "false"; fi),
+        "systemd_user": $(if [ -d "$BACKUP_DIR/systemd_user" ]; then echo "true"; else echo "false"; fi),
+        "gemini": $(if [ -d "$BACKUP_DIR/gemini" ]; then echo "true"; else echo "false"; fi),
+        "secrets": $(if [ -d "$BACKUP_DIR/secrets" ]; then echo "true"; else echo "false"; fi),
+        "notes_athena": $(if [ -d "$BACKUP_DIR/notes_athena" ]; then echo "true"; else echo "false"; fi)
+      }
+    }
+    EOF
+
+    # Symlink to latest
+    ln -sfn "athena_$TIMESTAMP" "$LATEST_LINK"
+
+    # Retention
+    echo "================================================================"
+    echo " Managing backup retention (keeping $RETENTION_COUNT most recent)..."
+    PRUNED_COUNT=0
+    for old_dir in $(ls -1dt "$TARGET_DIR"/athena_* 2>/dev/null | tail -n +$((RETENTION_COUNT + 1))); do
+      rm -rf "$old_dir"
+      PRUNED_COUNT=$((PRUNED_COUNT + 1))
+    done
+    if [ "$PRUNED_COUNT" -gt 0 ]; then
+      echo "  ✓ Pruned $PRUNED_COUNT old backup(s)."
+    else
+      echo "  ✓ No old backups required pruning."
+    fi
+
+    echo "================================================================"
+    echo " ✅ Athena & Project Base Backup COMPLETED successfully!"
+    echo " Snapshot:  $BACKUP_DIR"
+    echo " Latest:    $LATEST_LINK"
+    echo " Size:      $TOTAL_SIZE"
+    echo " Elapsed:   ${DURATION}s"
+    echo "================================================================"
+
+# Restores all dev projects, Hermes state, Quadlets, Systemd units, Gemini & Secrets
+restore-athena backup_path="":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    BACKUP_BASE="$HOME/.mnt/10T/Backups/Athena"
+    SOURCE_DIR="{{backup_path}}"
+
+    if [ -z "$SOURCE_DIR" ]; then
+      if [ -L "$BACKUP_BASE/latest" ] && [ -d "$BACKUP_BASE/latest" ]; then
+        SOURCE_DIR="$(cd "$BACKUP_BASE/latest" && pwd -P)"
+      else
+        NEWEST_DIR="$(ls -1dt "$BACKUP_BASE"/athena_* 2>/dev/null | head -n 1 || true)"
+        if [ -n "$NEWEST_DIR" ] && [ -d "$NEWEST_DIR" ]; then
+          SOURCE_DIR="$(cd "$NEWEST_DIR" && pwd)"
+        else
+          echo "❌ Error: No backups found in '$BACKUP_BASE'." >&2
+          exit 1
+        fi
+      fi
+    fi
+
+    if [ ! -d "$SOURCE_DIR" ]; then
+      echo "❌ Error: Backup source directory '$SOURCE_DIR' does not exist." >&2
+      exit 1
+    fi
+
+    echo "================================================================"
+    echo " Starting Athena & Project Base Restoration Protocol"
+    echo " Source Snapshot: $SOURCE_DIR"
+    echo " Target Host:     $HOME ($(whoami)@$(hostname))"
+    echo "================================================================"
+
+    if [ -f "$SOURCE_DIR/manifest.json" ]; then
+      echo "Snapshot Manifest:"
+      grep -E '"(timestamp|created_at|total_size)"' "$SOURCE_DIR/manifest.json" || true
+    fi
+
+    read -p "⚠️  Are you sure you want to restore from this snapshot? (y/N) " -n 1 -r
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      echo "Restoration cancelled by user."
+      exit 0
+    fi
+
+    START_TIME=$(date +%s)
+
+    # 1. Restore Development Projects
+    if [ -d "$SOURCE_DIR/projects" ]; then
+      echo "[ 1/7 ] Restoring development projects (~/src/projects/)..."
+      mkdir -p "$HOME/src/projects"
+      rsync -a "$SOURCE_DIR/projects/" "$HOME/src/projects/"
+      if [ -d "$HOME/src/projects/pka-web" ] && [ ! -e "$HOME/src/projects/Athena" ]; then
+        ln -s pka-web "$HOME/src/projects/Athena"
+      fi
+      echo "  ✓ Projects restored."
+    fi
+
+    # 2. Restore Hermes Agent Runtime State
+    if [ -d "$SOURCE_DIR/hermes" ]; then
+      echo "[ 2/7 ] Restoring Hermes / Athena runtime state (~/.local/share/hermes/)..."
+      mkdir -p "$HOME/.local/share/hermes"
+      rsync -a "$SOURCE_DIR/hermes/" "$HOME/.local/share/hermes/"
+      echo "  ✓ Hermes runtime state restored."
+    fi
+
+    # 3. Restore Homelab Quadlets
+    if [ -d "$SOURCE_DIR/quadlets" ]; then
+      echo "[ 3/7 ] Restoring Homelab Quadlets (~/.config/containers/systemd/)..."
+      mkdir -p "$HOME/.config/containers/systemd"
+      rsync -a "$SOURCE_DIR/quadlets/" "$HOME/.config/containers/systemd/"
+      echo "  ✓ Quadlet definitions restored."
+    fi
+
+    # 4. Restore Systemd User Units
+    if [ -d "$SOURCE_DIR/systemd_user" ]; then
+      echo "[ 4/7 ] Restoring Systemd User Units (~/.config/systemd/user/)..."
+      mkdir -p "$HOME/.config/systemd/user"
+      rsync -a "$SOURCE_DIR/systemd_user/" "$HOME/.config/systemd/user/"
+      echo "  ✓ Systemd user units restored."
+    fi
+
+    # 5. Restore Gemini & Antigravity Config
+    if [ -d "$SOURCE_DIR/gemini" ]; then
+      echo "[ 5/7 ] Restoring Gemini & Antigravity config (~/.gemini/)..."
+      mkdir -p "$HOME/.gemini"
+      rsync -a "$SOURCE_DIR/gemini/" "$HOME/.gemini/"
+      echo "  ✓ Gemini / Antigravity config restored."
+    fi
+
+    # 6. Restore Secrets & Environment
+    if [ -d "$SOURCE_DIR/secrets" ]; then
+      echo "[ 6/7 ] Restoring Secrets & Environment configs..."
+      if [ -f "$SOURCE_DIR/secrets/.secrets" ]; then
+        cp -p "$SOURCE_DIR/secrets/.secrets" "$HOME/.secrets"
+        chmod 600 "$HOME/.secrets"
+      fi
+      if [ -d "$SOURCE_DIR/secrets/environment.d" ]; then
+        mkdir -p "$HOME/.config/environment.d"
+        cp -rp "$SOURCE_DIR/secrets/environment.d/"* "$HOME/.config/environment.d/" 2>/dev/null || true
+      fi
+      if [ -f "$SOURCE_DIR/secrets/rclone.conf" ]; then
+        mkdir -p "$HOME/.config/rclone"
+        cp -p "$SOURCE_DIR/secrets/rclone.conf" "$HOME/.config/rclone/rclone.conf"
+        chmod 600 "$HOME/.config/rclone/rclone.conf"
+      fi
+      echo "  ✓ Secrets & environment configs restored (chmod 600)."
+    fi
+
+    # 7. Restore Athena Gem Obsidian Notes
+    if [ -d "$SOURCE_DIR/notes_athena" ]; then
+      echo "[ 7/7 ] Restoring Athena Gem Notes..."
+      mkdir -p "$HOME/Documents/Notes/Hemati/projects/Athena_Gem"
+      rsync -a "$SOURCE_DIR/notes_athena/" "$HOME/Documents/Notes/Hemati/projects/Athena_Gem/"
+      echo "  ✓ Athena Gem notes restored."
+    fi
+
+    # Post-restore
+    echo "================================================================"
+    echo " Reloading systemd user daemon..."
+    systemctl --user daemon-reload 2>/dev/null || true
+
+    END_TIME=$(date +%s)
+    DURATION=$((END_TIME - START_TIME))
+
+    echo "================================================================"
+    echo " ✅ Athena & Project Base Restoration COMPLETED successfully!"
+    echo " Source:    $SOURCE_DIR"
+    echo " Elapsed:   ${DURATION}s"
+    echo "================================================================"
+
 

@@ -90,6 +90,12 @@
         description: Local AI Instance
         server: podman
         container: ollama
+    - Open-Terminal:
+        icon: nexterm
+        href: https://terminal.hemati.com/docs
+        description: Sandboxed Agent Terminal
+        server: podman
+        container: open-terminal
     - Paperclip:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/paperclip-ai-light.svg
         href: https://paperclip.hemati.com

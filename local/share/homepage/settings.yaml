@@ -7,11 +7,11 @@ hideVersion: false
 useEqualHeights: true
 
 layout:
-  Security:
-    header: false
   System:
     header: false
   Utilities:
+    header: false
+  Security:
     header: false
   Containers:
     header: true
@@ -20,4 +20,4 @@ layout:
   Bookmarks:
     header: true
     style: row
-    columns: 5
+    columns: 4
