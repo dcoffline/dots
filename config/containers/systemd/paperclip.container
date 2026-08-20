@@ -25,7 +25,7 @@ Environment=PORT=3100
 Environment=HOST=0.0.0.0
 Environment=PAPERCLIP_HOME=/paperclip
 Environment=PAPERCLIP_PUBLIC_URL=https://paperclip.hemati.com
-Environment=PAPERCLIP_ALLOWED_HOSTNAMES=paperclip.hemati.com,localhost,127.0.0.1
+Environment=PAPERCLIP_ALLOWED_HOSTNAMES=paperclip.hemati.com,localhost,127.0.0.1,paperclip,paperclip:3100,localhost:3100,127.0.0.1:3100,0.0.0.0,0.0.0.0:3100
 
 [Service]
 Restart=always

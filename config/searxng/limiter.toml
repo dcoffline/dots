@@ -1,0 +1,3 @@
+# SearXNG limiter configuration
+[botdetection.ip_limit]
+# Limiter is disabled in settings.yml
