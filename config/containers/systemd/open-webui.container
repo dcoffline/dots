@@ -17,7 +17,9 @@ Volume=%h/.local/share/open-webui:/app/backend/data:Z
 # host.containers.internal is Podman's way of reaching the host machine.
 Environment=OLLAMA_BASE_URL=http://ollama:11434
 
-# SearXNG Web Search integration for RAG
+# SearXNG Web Search integration
+Environment=ENABLE_WEB_SEARCH=True
+Environment=WEB_SEARCH_ENGINE=searxng
 Environment=ENABLE_RAG_WEB_SEARCH=True
 Environment=RAG_WEB_SEARCH_ENGINE=searxng
 Environment=SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>&format=json

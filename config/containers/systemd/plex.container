@@ -1,0 +1,36 @@
+[Unit]
+Description=Plex Media Server
+After=network-online.target
+
+[Container]
+ContainerName=plex
+Image=docker.io/plexinc/pms-docker:latest
+AutoUpdate=registry
+Network=homelab.network
+SecurityLabelDisable=true
+
+# Main web interface and streaming port
+PublishPort=32400:32400
+
+# AMD Hardware Acceleration (Radeon 780M / VA-API)
+AddDevice=/dev/dri/renderD128:/dev/dri/renderD128
+GroupAdd=keep-groups
+
+# Fast SSD storage for metadata database and transcode buffer
+Volume=%h/.local/share/plex/config:/config:Z
+Volume=%h/.local/share/plex/transcode:/transcode:Z
+
+# Read-only media shares matching Jellyfin
+Volume=%h/.mnt/10T:/media:ro
+Volume=%h/.mnt/rclone/Zurg:/media/zurg:ro,rshared
+
+EnvironmentFile=%h/.secrets
+Environment=TZ=America/Chicago
+Environment=PLEX_UID=1000
+Environment=PLEX_GID=1000
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

@@ -16,8 +16,8 @@ layout:
   Containers:
     header: true
     style: row
-    columns: 5
+    columns: 4
   Bookmarks:
     header: true
     style: row
-    columns: 6
+    columns: 5

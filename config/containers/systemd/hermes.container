@@ -11,17 +11,16 @@ Network=homelab.network
 UserNS=keep-id:uid=10000,gid=10000
 SecurityLabelDisable=true
 Environment=HERMES_DASHBOARD=1
+Environment=PYTHONPATH=/opt/data/google-chat-deps
 Exec=gateway run
 
 # The official image uses /opt/data for persistent state (sessions, config, skills)
 Volume=%h/.local/share/hermes:/opt/data:z
 
-# Mount Antigravity / Gemini personas, rules, skills & config
-Volume=%h/.gemini:/opt/data/profiles/gemini:ro,z
-
 # Mount Athena project and Obsidian Notes Vault (Hemati)
 Volume=%h/src/projects:/opt/data/projects:z
 Volume=%h/Documents/Notes/Hemati:/opt/data/obsidian:z
+Volume=%h/src/dots/config/containers/systemd:/opt/data/host-quadlets
 
 [Service]
 Restart=always

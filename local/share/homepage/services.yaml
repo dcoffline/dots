@@ -36,18 +36,30 @@
         server: podman
         container: vaultwarden
 - Containers:
-    - Athena:
-        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
-        href: https://athena.hemati.com
-        description: Hermes AI Harness
+    - Activepieces:
+        icon: activepieces
+        href: https://zip.hemati.com
+        description: Middleware
         server: podman
-        container: hermes
+        container: activepieces
     - AIOStreams:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
         href: https://aiostreams.hemati.com
         description: Stream Aggregator
         server: podman
         container: aiostreams
+    - Hermes:
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
+        href: https://athena.hemati.com
+        description: Hermes AI Harness
+        server: podman
+        container: hermes
+    - Honcho:
+        icon: https://hemati.com/wp-content/uploads/2026/08/Honcho-removebg-preview.png
+        href: https://honcho.hemati.com/docs
+        description: AI Memory
+        server: podman
+        container: honcho
     - Immich:
         icon: immich
         href: https://photos.hemati.com
@@ -84,12 +96,30 @@
         description: AI Agent Control Plane
         server: podman
         container: paperclip
+    - PKA Vault:
+        icon: https://hemati.com/wp-content/uploads/2026/08/Hemati_favicon-removebg-preview-Edited.png
+        href: https://pka.hemati.com
+        description: Personal Knowledgebase
+        server: podman
+        container: pka-web
     - Samba:
         icon: samba-server
-        href: https://app.plex.tv
+        href: https://plex.hemati.com
         description: Media SMB Share
         server: podman
         container: samba
+    - Scriber:
+        icon: scriberr
+        href: https://scriber.hemati.com
+        description: Speech Recognition
+        server: podman
+        container: scriber
+    - SearXNG:
+        icon: searxng
+        href: https://searxng.hemati.com
+        description: Speech Recognition
+        server: podman
+        container: searxng
     - Zurg:
         icon: real-debrid
         href: https://zurg.hemati.com
