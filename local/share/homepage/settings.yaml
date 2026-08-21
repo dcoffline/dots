@@ -13,7 +13,11 @@ layout:
     header: false
   Security:
     header: false
-  Containers:
+  "AI Stack":
+    header: true
+    style: row
+    columns: 4
+  Media:
     header: true
     style: row
     columns: 4

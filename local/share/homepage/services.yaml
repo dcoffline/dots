@@ -35,19 +35,13 @@
         description: Password Manager
         server: podman
         container: vaultwarden
-- Containers:
+- "AI Stack":
     - Activepieces:
         icon: activepieces
         href: https://zip.hemati.com
         description: Middleware
         server: podman
         container: activepieces
-    - AIOStreams:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
-        href: https://aiostreams.hemati.com
-        description: Stream Aggregator
-        server: podman
-        container: aiostreams
     - Hermes:
         icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
         href: https://athena.hemati.com
@@ -60,6 +54,43 @@
         description: AI Memory
         server: podman
         container: honcho
+    - Open-WebUI:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/open-webui.svg
+        href: https://chat.hemati.com
+        description: Local AI Instance
+        server: podman
+        container: ollama
+    - Open-Terminal:
+        icon: nexterm
+        href: https://terminal.hemati.com/docs
+        description: Sandboxed Agent Terminal
+        server: podman
+        container: open-terminal
+    - Paperclip:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/paperclip-ai-light.svg
+        href: https://paperclip.hemati.com
+        description: AI Agent Control Plane
+        server: podman
+        container: paperclip
+    - Scriber:
+        icon: scriberr
+        href: https://scriber.hemati.com
+        description: Speech Recognition
+        server: podman
+        container: scriber
+    - SearXNG:
+        icon: searxng
+        href: https://searxng.hemati.com
+        description: Speech Recognition
+        server: podman
+        container: searxng
+- Media:
+    - AIOStreams:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
+        href: https://aiostreams.hemati.com
+        description: Stream Aggregator
+        server: podman
+        container: aiostreams
     - Immich:
         icon: immich
         href: https://photos.hemati.com
@@ -84,24 +115,6 @@
         description: Private File Storage
         server: podman
         container: nextcloud
-    - Open-WebUI:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/open-webui.svg
-        href: https://ai.hemati.com
-        description: Local AI Instance
-        server: podman
-        container: ollama
-    - Open-Terminal:
-        icon: nexterm
-        href: https://terminal.hemati.com/docs
-        description: Sandboxed Agent Terminal
-        server: podman
-        container: open-terminal
-    - Paperclip:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/paperclip-ai-light.svg
-        href: https://paperclip.hemati.com
-        description: AI Agent Control Plane
-        server: podman
-        container: paperclip
     - PKA Vault:
         icon: https://hemati.com/wp-content/uploads/2026/08/Hemati_favicon-removebg-preview-Edited.png
         href: https://pka.hemati.com
@@ -114,18 +127,6 @@
         description: Media SMB Share
         server: podman
         container: samba
-    - Scriber:
-        icon: scriberr
-        href: https://scriber.hemati.com
-        description: Speech Recognition
-        server: podman
-        container: scriber
-    - SearXNG:
-        icon: searxng
-        href: https://searxng.hemati.com
-        description: Speech Recognition
-        server: podman
-        container: searxng
     - Zurg:
         icon: real-debrid
         href: https://zurg.hemati.com
