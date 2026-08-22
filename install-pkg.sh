@@ -54,7 +54,9 @@ EOF
       neovim nodejs npm pipx ShellCheck sops stress-ng trash-cli weston which yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
-    EXPORT_BINS=(busybox cava gh git git-crypt glab jotta-cli shellcheck sops stress-ng weston)
+    EXPORT_BINS=(
+      busybox cava gh git git-crypt glab jotta-cli shellcheck sops stress-ng weston
+    )
 
     # Ubuntu-based systems
   elif command -v apt-get >/dev/null 2>&1; then
