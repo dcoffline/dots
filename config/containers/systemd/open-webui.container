@@ -12,6 +12,8 @@ Network=homelab.network
 
 # Persistent storage for your chat history and uploaded docs
 Volume=%h/.local/share/open-webui:/app/backend/data:Z
+# Mount the curated Open WebUI knowledge pack into the container
+Volume=%h/Documents/Notes/Hemati/openwebui:/app/backend/data/openwebui:Z
 
 # Tells the frontend where to find your Ollama engine.
 # host.containers.internal is Podman's way of reaching the host machine.
