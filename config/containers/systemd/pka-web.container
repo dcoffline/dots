@@ -11,6 +11,7 @@ EnvironmentFile=%h/.secrets
 Environment=PYTHONPATH=/app
 Volume=%h/src/projects/pka-web:/app
 Volume=%h/Documents/Notes/Hemati:/vault:ro
+Volume=%h/.local/share/hermes/.env:/opt/data/.env:ro
 WorkingDir=/app
 Exec=python3 /app/server.py
 SecurityLabelDisable=true
