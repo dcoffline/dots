@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Bazaar
-X-XDP-Autostart=io.github.kolunmi.Bazaar
-Exec=flatpak run --command=bazaar-daemon io.github.kolunmi.Bazaar --no-window
-X-Flatpak=io.github.kolunmi.Bazaar
