@@ -1,0 +1,21 @@
+[Unit]
+Description=ZCC GHL Webhook Listener
+After=network-online.target hermes.service
+
+[Container]
+ContainerName=zcc-webhook
+Image=localhost/hermes-agent:custom
+AutoUpdate=local
+Network=homelab.network
+EnvironmentFile=%h/.secrets
+UserNS=keep-id:uid=10000,gid=10000
+Volume=%h/.local/share/hermes:/opt/data:z
+Exec=python3 /opt/data/scripts/zcc_webhook_trigger.py
+PublishPort=127.0.0.1:8991:8991
+
+[Service]
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target 

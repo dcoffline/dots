@@ -5,6 +5,7 @@ After=network-online.target
 [Container]
 Image=docker.io/vaultwarden/server:latest
 ContainerName=vaultwarden
+AutoUpdate=registry
 Environment=DOMAIN=https://vault.hemati.com
 Environment=SIGNUPS_ALLOWED=false
 Environment=DATABASE_URL=/data/db.sqlite3

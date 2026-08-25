@@ -5,7 +5,7 @@ Wants=activepieces-redis.service
 
 [Container]
 ContainerName=activepieces
-Image=docker.io/activepieces/activepieces:latest
+Image=docker.io/activepieces/activepieces:0.88.3
 Network=homelab.network
 AutoUpdate=registry
 
@@ -18,7 +18,7 @@ EnvironmentFile=%h/.secrets
 
 Environment=AP_REDIS_HOST=activepieces-redis
 Environment=AP_REDIS_PORT=6379
-Environment=AP_DB_TYPE=SQLITE3
+Environment=AP_DB_TYPE=PGLITE
 Environment=AP_EXECUTION_MODE=UNSANDBOXED
 Environment=AP_FRONTEND_URL=https://zap.hemati.com
 Environment=AP_DATA_DIR=/root/.activepieces

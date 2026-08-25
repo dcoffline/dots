@@ -4,7 +4,8 @@ After=network-online.target
 
 [Container]
 ContainerName=pka-web
-Image=pka-web:latest
+Image=localhost/pka-web:latest
+AutoUpdate=local
 Network=homelab.network
 PublishPort=8888:8888
 EnvironmentFile=%h/.secrets
