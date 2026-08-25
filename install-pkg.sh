@@ -76,19 +76,15 @@ EOF
 
     # Arch-based systems
   elif command -v pacman >/dev/null 2>&1; then
-    echo "[ ARCH-based system detected. Using PACMAN/yay... ]"
+    echo "[ ARCH-based system detected. Using PACMAN... ]"
     ARCH_PACKAGES=(
-      busybox chafa direnv fastfetch github-cli glab gcc jotta-cli make npm
-      neovim nodejs python-pipx shellcheck sops stress-ng trash-cli which yq
+      busybox cava chafa direnv fastfetch github-cli git-crypt glab gcc make npm
+      neovim nodejs python-pipx shellcheck sops stress-ng trash-cli weston which yq
     )
-    if command -v yay >/dev/null 2>&1 && yay --version >/dev/null 2>&1; then
-      yay -S --noconfirm "${ARCH_PACKAGES[@]}"
-    else
-      echo "[ yay is not available or broken. Falling back to pacman package-by-package... ]"
-      for pkg in "${ARCH_PACKAGES[@]}"; do
-        sudo pacman -S --noconfirm --needed "$pkg" || echo "[ Warning: Failed to install $pkg via pacman ]"
-      done
-    fi
+    sudo pacman -S --noconfirm --needed "${ARCH_PACKAGES[@]}"
+    EXPORT_BINS=(
+      busybox cava gh github-cli git git-crypt glab shellcheck sops stress-ng weston
+    )
   fi
 
   # DISTROBOX EXPORTS

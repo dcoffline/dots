@@ -56,7 +56,7 @@ update:
       elif command -v apt-get >/dev/null 2>&1; then
         sudo apt-get update && sudo apt-get upgrade -y
       elif command -v pacman >/dev/null 2>&1; then
-        if command -v yay >/dev/null 2>&1; then yay -Syu; else sudo pacman -Syu; fi
+        sudo pacman -Syu --noconfirm
       fi
 
       echo "[ Updating Cargo packages... ]"
@@ -119,7 +119,7 @@ update:
       if command -v brew >/dev/null 2>&1; then brew update && brew upgrade; fi
       if command -v dnf >/dev/null 2>&1; then sudo dnf upgrade -y --skip-unavailable; fi
       if command -v apt-get >/dev/null 2>&1; then sudo apt-get update && sudo apt-get upgrade -y; fi
-      if command -v pacman >/dev/null 2>&1; then command -v yay >/dev/null 2>&1 && yay -Syu || sudo pacman -Syu; fi
+      if command -v pacman >/dev/null 2>&1; then sudo pacman -Syu; fi
       if command -v npm >/dev/null 2>&1; then sudo npm update -g; fi
       if command -v cargo >/dev/null 2>&1; then
         if command -v rustup >/dev/null 2>&1; then

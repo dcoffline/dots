@@ -2,7 +2,7 @@
 ## All data file paths default to being relative to this directory.
 ## linux/mac: ~/.local/share/atuin (or XDG_DATA_HOME/atuin)
 ## windows: %USERPROFILE%/.local/share/atuin
-data_dir = "$XDG_DATA_HOME/atuin"
+# data_dir = "~/.local/share/atuin"
 
 ## where to store your database, default is your system data directory
 ## linux/mac: ~/.local/share/atuin/history.db
@@ -12,12 +12,12 @@ data_dir = "$XDG_DATA_HOME/atuin"
 ## where to store your encryption key, default is your system data directory
 ## linux/mac: ~/.local/share/atuin/key
 ## windows: %USERPROFILE%/.local/share/atuin/key
-key_path = "$XDG_DATA_HOME/atuin/key"
+# key_path = "~/.key"
 
 ## where to store your auth session token, default is your system data directory
 ## linux/mac: ~/.local/share/atuin/session
 ## windows: %USERPROFILE%/.local/share/atuin/session
-session_path = "$XDG_DATA_HOME/atuin/session"
+# session_path = "~/.session"
 
 ## date format used, either "us" or "uk"
 dialect = "us"
@@ -198,7 +198,7 @@ enter_accept = true
 # prefers_reduced_motion = false
 
 [logs]
-dir = "$XDG_DATA_HOME/atuin/logs"
+# dir = "~/.local/share/atuin/logs"
 
 [stats]
 ## Set commands where we should consider the subcommand for statistics. Eg, kubectl get vs just kubectl
