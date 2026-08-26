@@ -85,7 +85,7 @@ update:
       git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
       
       echo "[ Starting Immutable Host Update... ]"
-      distrobox-host-exec ujust update
+      distrobox-host-exec sudo ujust update
 
     elif [ "$ENV_TYPE" = "immutable" ]; then
       echo "[ Syncing Host State... ]"
@@ -111,7 +111,7 @@ update:
           distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && git add Brewfile '$SHELLINI' && git commit -m \"System snapshot: $(date +'%Y-%m-%d')\" || true && git push origin main"
         fi
         echo "[ Starting Immutable Host Update... ]"
-        ujust update
+        sudo ujust update
       fi
 
     else

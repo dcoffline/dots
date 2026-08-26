@@ -13,7 +13,7 @@ SecurityLabelDisable=true
 PublishPort=32400:32400
 
 # AMD Hardware Acceleration (Radeon 780M / VA-API)
-AddDevice=/dev/dri/renderD128:/dev/dri/renderD128
+AddDevice=/dev/dri
 GroupAdd=keep-groups
 
 # Fast SSD storage for metadata database and transcode buffer
