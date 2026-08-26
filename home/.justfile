@@ -494,20 +494,24 @@ install-voxtype:
             exit 1
         fi
         echo "[ 🍺 Installing Voxtype via Homebrew... ]"
-        brew install --cask voxtype
+        brew tap peteonrails/voxtype 2>/dev/null || true
+        brew install --cask peteonrails/voxtype/voxtype
 
-        mkdir -p "$HOME/.config/voxtype"
+        mkdir -p "$HOME/.config/voxtype" "$HOME/Library/Application Support/voxtype"
         if [ -f "$DOTS/config/voxtype/config.toml" ]; then
             echo "[ ⚙️ Deploying Voxtype config from dotfiles... ]"
+            cp "$DOTS/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
             cp "$DOTS/config/voxtype/config.toml" "$HOME/.config/voxtype/config.toml"
         fi
 
         echo "[ 📥 Setting up model (large-v3-turbo)... ]"
         voxtype setup --model large-v3-turbo --download || true
 
-        echo "[ 🚀 Starting Voxtype background service... ]"
-        brew services start voxtype || true
-        echo "✅ Voxtype installed and configured on macOS! (Ensure Microphone and Accessibility permissions are granted in System Settings)"
+        echo "[ 🚀 Setting up Voxtype.app bundle and Login Item... ]"
+        voxtype setup app-bundle
+
+        echo "✅ Voxtype installed and configured on macOS!"
+        echo "👉 Ensure Microphone, Accessibility, and Input Monitoring permissions are granted to Voxtype.app in System Settings."
 
     elif [ "$OS" = "Linux" ]; then
         TMP="$(mktemp -d)"

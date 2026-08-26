@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+"""
+voxtype-clean: Intelligent voice dictation post-processor for Voxtype.
+Pipes speech-to-text output through Ollama (e.g. https://ollama.hemati.com)
+to remove filler words, resolve self-corrections, fix grammar/punctuation,
+and apply contextual formatting.
+"""
+
+import sys
+import os
+import json
+import argparse
+import urllib.request
+import urllib.error
+
+SYSTEM_PROMPTS = {
+    "default": (
+        "You are an expert voice-to-text cleanup assistant. Clean up the user's raw spoken text:\n"
+        "- Fix grammar, capitalization, and punctuation.\n"
+        "- Remove filler words (um, uh, you know, like, etc.) and speech disfluencies/stutters.\n"
+        "- Seamlessly resolve self-corrections (e.g. 'tomorrow at 5 actually make that 6' -> 'tomorrow at 6').\n"
+        "- Format as bullet points or numbered lists ONLY if explicitly dictated as a list.\n"
+        "- Preserve the speaker's tone, phrasing, and intended meaning.\n"
+        "- Output ONLY the polished text with NO introductory remarks, quotes, or explanations."
+    ),
+    "formal": (
+        "You are a professional writing assistant. Rewrite the following dictation into polished, "
+        "professional, and grammatically correct English suitable for business emails or formal documents. "
+        "Remove filler words, fix phrasing, and output ONLY the final text without quotes or preamble."
+    ),
+    "casual": (
+        "You are a messaging assistant. Clean up the dictation for casual chat (Slack/Discord/Messages). "
+        "Fix obvious typos, stutters, and filler words, but keep the tone natural and conversational. "
+        "Output ONLY the cleaned text without quotes or preamble."
+    ),
+    "bullet": (
+        "Convert the following dictated thoughts into a clean, concise bulleted list. "
+        "Output ONLY the bulleted points without introductory text or surrounding quotes."
+    ),
+    "code": (
+        "You are a coding assistant. Format the following dictation as clean code comments or documentation. "
+        "Output ONLY the formatted comment/text without conversational explanation."
+    ),
+}
+
+def clean_text(raw_text: str, endpoint: str, model: str, style: str, timeout: float) -> str:
+    system_prompt = SYSTEM_PROMPTS.get(style, SYSTEM_PROMPTS["default"])
+    
+    messages = [{"role": "system", "content": system_prompt}]
+    
+    # Check if Voxtype passed prior context
+    prior_context = os.environ.get("VOXTYPE_CONTEXT", "").strip()
+    if prior_context:
+        messages.append({
+            "role": "user",
+            "content": f"[Context from prior dictation: {prior_context}]"
+        })
+        messages.append({
+            "role": "assistant",
+            "content": "Understood. I will use this context for continuity."
+        })
+        
+    messages.append({"role": "user", "content": raw_text.strip()})
+    
+    url = f"{endpoint.rstrip('/')}/api/chat"
+    payload = {
+        "model": model,
+        "messages": messages,
+        "stream": False,
+        "options": {
+            "temperature": 0.1
+        }
+    }
+    
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(
+        url,
+        data=data,
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Voxtype/1.0"
+        }
+    )
+    
+    with urllib.request.urlopen(req, timeout=timeout) as response:
+        res_json = json.loads(response.read().decode("utf-8"))
+        result = res_json.get("message", {}).get("content", "").strip()
+        # Remove surrounding markdown quotes or backticks if LLM mistakenly added them
+        if (result.startswith('"') and result.endswith('"')) or (result.startswith("'") and result.endswith("'")):
+            result = result[1:-1].strip()
+        return result
+
+def main():
+    parser = argparse.ArgumentParser(description="Voxtype Ollama Post-Processor")
+    parser.add_argument("--url", default=os.environ.get("OLLAMA_URL", "https://ollama.hemati.com"), help="Ollama endpoint URL")
+    parser.add_argument("--model", default=os.environ.get("OLLAMA_MODEL", "qwen2.5:3b"), help="Ollama model name")
+    parser.add_argument("--style", default="default", choices=list(SYSTEM_PROMPTS.keys()), help="Formatting style")
+    parser.add_argument("--timeout", type=float, default=6.0, help="Request timeout in seconds")
+    args = parser.parse_args()
+
+    raw_input = sys.stdin.read()
+    if not raw_input or not raw_input.strip():
+        sys.exit(0)
+
+    try:
+        cleaned = clean_text(
+            raw_text=raw_input,
+            endpoint=args.url,
+            model=args.model,
+            style=args.style,
+            timeout=args.timeout
+        )
+        if cleaned:
+            print(cleaned, end="")
+        else:
+            print(raw_input, end="")
+    except Exception:
+        # Fall back completely to raw transcription on any network or parsing error
+        print(raw_input, end="")
+
+if __name__ == "__main__":
+    main()
