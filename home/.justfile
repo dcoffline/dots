@@ -64,7 +64,7 @@ update:
         echo "[ Updating Rust toolchain... ]"
         rustup update stable
       fi
-      cargo install television atuin || echo "⚠️ Warning: Cargo updates failed."
+      cargo binstall -y television atuin || cargo install television atuin || echo "⚠️ Warning: Cargo updates failed."
 
       echo "[ Syncing Host State... ]"
       distrobox-host-exec sh -c "cd '$DOTS' && /home/linuxbrew/.linuxbrew/bin/brew bundle dump --force && sed -i '/^flatpak/d' Brewfile"
@@ -126,7 +126,7 @@ update:
           echo "[ Updating Rust toolchain... ]"
           rustup update stable
         fi
-        cargo install television atuin || echo "⚠️ Warning: Cargo failed."
+        cargo binstall -y television atuin || cargo install television atuin || echo "⚠️ Warning: Cargo failed."
       fi
 
       echo "[ Syncing Host State & Dotfiles... ]"

@@ -51,7 +51,7 @@ EOF
     fi
     DNF_PACKAGES=(
       busybox cava chafa direnv fastfetch gh git-crypt glab gcc jotta-cli make
-      neovim nodejs npm pipx ShellCheck sops stress-ng trash-cli weston which yq
+      neovim nodejs npm openssl-devel pipx ShellCheck sops stress-ng trash-cli weston which yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
     EXPORT_BINS=(
@@ -69,7 +69,7 @@ EOF
     fi
     sudo apt-get update
     APT_PACKAGES=(
-      busybox cava chafa direnv fastfetch gh git-crypt glab gcc jotta-cli make
+      busybox cava chafa direnv fastfetch gh git-crypt glab gcc jotta-cli libssl-dev make
       neovim nodejs npm pipx shellcheck sops stress-ng trash-cli weston which yq
     )
     sudo apt-get install -y "${APT_PACKAGES[@]}"
