@@ -74,7 +74,7 @@ update:
       fi
 
       echo "[ Applying Dotfile Updates... ]"
-      mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/share/gnome-shell/extensions"
+      mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/scripts" "$HOME/.local/share/gnome-shell/extensions"
       stow -R --ignore=".DS_Store" -t "$HOME" home
       stow -R --ignore=".DS_Store" -t "$HOME/.config" config
       stow -R --ignore=".DS_Store" -t "$HOME/.local" local
@@ -716,13 +716,23 @@ backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
       exit 1
     fi
 
+    safe_rsync() {
+      rsync "$@" || {
+        local ec=$?
+        if [ "$ec" -eq 24 ]; then
+          return 0
+        fi
+        return "$ec"
+      }
+    }
+
     mkdir -p "$BACKUP_DIR"
 
     # 1. Back up All Development Projects (~/src/projects/)
     echo "[ 1/7 ] Backing up development projects (~/src/projects/)..."
     mkdir -p "$BACKUP_DIR/projects"
     if [ -d "$HOME/src/projects" ]; then
-      rsync -a \
+      safe_rsync -a \
         --exclude='node_modules' \
         --exclude='__pycache__' \
         --exclude='*.pyc' \
@@ -741,7 +751,7 @@ backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
     echo "[ 2/7 ] Backing up Hermes / Athena agent state (~/.local/share/hermes/)..."
     mkdir -p "$BACKUP_DIR/hermes"
     if [ -d "$HOME/.local/share/hermes" ]; then
-      rsync -a \
+      safe_rsync -a \
         --exclude='.cache' \
         --exclude='.npm' \
         --exclude='.google-venv' \
@@ -757,6 +767,7 @@ backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
         --exclude='*.sock' \
         --exclude='*.pid' \
         --exclude='*.lock' \
+        --exclude='*.db-shm' \
         "$HOME/.local/share/hermes/" "$BACKUP_DIR/hermes/"
       echo "  ✓ Hermes runtime state backed up."
     else
@@ -767,7 +778,7 @@ backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
     echo "[ 3/7 ] Backing up Homelab Quadlets (~/.config/containers/systemd/)..."
     mkdir -p "$BACKUP_DIR/quadlets"
     if [ -d "$HOME/.config/containers/systemd" ]; then
-      rsync -a "$HOME/.config/containers/systemd/" "$BACKUP_DIR/quadlets/"
+      safe_rsync -a "$HOME/.config/containers/systemd/" "$BACKUP_DIR/quadlets/"
       echo "  ✓ Quadlets backed up ($(find "$BACKUP_DIR/quadlets" -type f | wc -l) files)."
     else
       echo "  ⚠️ Warning: Quadlets directory not found, skipping."
@@ -777,7 +788,7 @@ backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
     echo "[ 4/7 ] Backing up Systemd User Units (~/.config/systemd/user/)..."
     mkdir -p "$BACKUP_DIR/systemd_user"
     if [ -d "$HOME/.config/systemd/user" ]; then
-      rsync -a "$HOME/.config/systemd/user/" "$BACKUP_DIR/systemd_user/"
+      safe_rsync -a "$HOME/.config/systemd/user/" "$BACKUP_DIR/systemd_user/"
       echo "  ✓ Systemd user units backed up ($(find "$BACKUP_DIR/systemd_user" -type f | wc -l) files)."
     else
       echo "  ⚠️ Warning: Systemd user directory not found, skipping."
@@ -787,7 +798,7 @@ backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
     echo "[ 5/7 ] Backing up Gemini / Antigravity config (~/.gemini/)..."
     mkdir -p "$BACKUP_DIR/gemini"
     if [ -d "$HOME/.gemini" ]; then
-      rsync -a \
+      safe_rsync -a \
         --exclude='brain' \
         --exclude='bin' \
         --exclude='tmp' \
@@ -823,7 +834,7 @@ backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
     mkdir -p "$BACKUP_DIR/notes_athena"
     NOTES_SRC="$HOME/Documents/Notes/Hemati/projects/Athena_Gem"
     if [ -d "$NOTES_SRC" ]; then
-      rsync -a "$NOTES_SRC/" "$BACKUP_DIR/notes_athena/"
+      safe_rsync -a "$NOTES_SRC/" "$BACKUP_DIR/notes_athena/"
       echo "  ✓ Athena Gem notes backed up."
     else
       echo "  ℹ️ Notes directory $NOTES_SRC not found, skipping."
