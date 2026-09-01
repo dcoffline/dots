@@ -1,0 +1,23 @@
+[Unit]
+Description=Homarr Dashboard Container
+After=network-online.target podman.socket
+Wants=podman.socket
+
+[Container]
+ContainerName=homarr
+Image=ghcr.io/homarr-labs/homarr:latest
+AutoUpdate=registry
+Network=homelab.network
+PublishPort=7575:7575
+Volume=%h/.local/share/homarr:/appdata:Z
+Volume=%t/podman/podman.sock:/var/run/docker.sock:ro
+SecurityLabelDisable=true
+AddHost=host.containers.internal:host-gateway
+Environment=SECRET_ENCRYPTION_KEY=ef7fd47e8b4afffb7258a7f4eed306ab6fe38a9b2bd880471551864040cceed8
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

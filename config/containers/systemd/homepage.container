@@ -11,7 +11,7 @@ Volume=%h/.local/share/homepage:/app/config:Z
 Volume=%t/podman/podman.sock:/var/run/docker.sock:ro
 SecurityLabelDisable=true
 EnvironmentFile=%h/.secrets
-Environment=HOMEPAGE_ALLOWED_HOSTS=localhost:8080,home.hemati.com
+Environment=HOMEPAGE_ALLOWED_HOSTS=localhost:8080,home.hemati.com,homepage.hemati.com,localhost:3000,127.0.0.1:3000
 AutoUpdate=registry
 AddHost=host.containers.internal:host-gateway
 

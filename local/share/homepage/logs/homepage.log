@@ -1604,3 +1604,5 @@
 [2026-08-18T14:48:45.906Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
     at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
     at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-09-01T14:52:19.048Z] error: Host validation failed for: homepage.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-09-01T14:52:30.255Z] error: Host validation failed for: homepage.hemati.com. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
