@@ -105,6 +105,7 @@ alias svi='sudo $EDITOR'
 alias ted='flatpak run org.gnome.TextEditor'
 
 # System Utils (Native)
+alias status='just status'
 alias gd=gdctl
 alias yey=paru
 alias bb=busybox

@@ -10,6 +10,86 @@ default:
 # SYSTEM MAINTENANCE
 # =============================================================================
 
+# Checks the status of system and user systemd services and reports any failures
+status:
+    #!/usr/bin/env bash
+    set -uo pipefail
+
+    SC="systemctl"
+    if [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+      SC="distrobox-host-exec systemctl"
+    fi
+
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+      echo "⚠️ Systemd is not available on macOS."
+      exit 0
+    fi
+
+    BOLD="\033[1m"
+    GREEN="\033[32m"
+    YELLOW="\033[33m"
+    RED="\033[31m"
+    CYAN="\033[36m"
+    DIM="\033[2m"
+    RESET="\033[0m"
+
+    echo -e "${BOLD}${CYAN}================================================================${RESET}"
+    echo -e "${BOLD}${CYAN}                 SYSTEMD STATUS OVERVIEW                        ${RESET}"
+    echo -e "${BOLD}${CYAN}================================================================${RESET}\n"
+
+    # 1. System-level Status
+    sys_state=$($SC is-system-running 2>/dev/null || $SC is-system-running 2>&1 || echo "unknown")
+    sys_failed_count=$($SC list-units --state=failed --no-legend --no-pager 2>/dev/null | grep -v "^$" | wc -l)
+    sys_running_srv=$($SC list-units --type=service --state=running --no-legend --no-pager 2>/dev/null | grep -v "^$" | wc -l)
+    sys_active_units=$($SC list-units --state=active --no-legend --no-pager 2>/dev/null | grep -v "^$" | wc -l)
+
+    echo -e "${BOLD}⚙️  SYSTEM (Host)${RESET}"
+    if [ "$sys_state" = "running" ] && [ "$sys_failed_count" -eq 0 ]; then
+      echo -e "   Status: ${GREEN}● running${RESET} | Running Services: ${BOLD}${sys_running_srv}${RESET} | Active Units: ${BOLD}${sys_active_units}${RESET} | Failed: ${GREEN}0${RESET}"
+    else
+      echo -e "   Status: ${RED}● ${sys_state}${RESET} | Running Services: ${BOLD}${sys_running_srv}${RESET} | Active Units: ${BOLD}${sys_active_units}${RESET} | Failed: ${RED}${sys_failed_count}${RESET}"
+    fi
+
+    # 2. User-level Status
+    user_state=$($SC --user is-system-running 2>/dev/null || $SC --user is-system-running 2>&1 || echo "unknown")
+    user_failed_count=$($SC --user list-units --state=failed --no-legend --no-pager 2>/dev/null | grep -v "^$" | wc -l)
+    user_running_srv=$($SC --user list-units --type=service --state=running --no-legend --no-pager 2>/dev/null | grep -v "^$" | wc -l)
+    user_active_units=$($SC --user list-units --state=active --no-legend --no-pager 2>/dev/null | grep -v "^$" | wc -l)
+
+    echo -e "\n${BOLD}👤 USER ($(whoami))${RESET}"
+    if [ "$user_state" = "running" ] && [ "$user_failed_count" -eq 0 ]; then
+      echo -e "   Status: ${GREEN}● running${RESET} | Running Services: ${BOLD}${user_running_srv}${RESET} | Active Units: ${BOLD}${user_active_units}${RESET} | Failed: ${GREEN}0${RESET}"
+    else
+      echo -e "   Status: ${RED}● ${user_state}${RESET} | Running Services: ${BOLD}${user_running_srv}${RESET} | Active Units: ${BOLD}${user_active_units}${RESET} | Failed: ${RED}${user_failed_count}${RESET}"
+    fi
+
+    echo ""
+
+    # 3. Detailed Failure Reports if needed
+    has_failure=false
+
+    if [ "$sys_failed_count" -gt 0 ] || ([ "$sys_state" != "running" ] && [ "$sys_state" != "unknown" ]); then
+      has_failure=true
+      echo -e "${RED}${BOLD}❌ System-Level Failed Units (${sys_failed_count}):${RESET}"
+      $SC --failed --no-pager
+      echo ""
+    fi
+
+    if [ "$user_failed_count" -gt 0 ] || ([ "$user_state" != "running" ] && [ "$user_state" != "unknown" ]); then
+      has_failure=true
+      echo -e "${RED}${BOLD}❌ User-Level Failed Units (${user_failed_count}):${RESET}"
+      $SC --user --failed --no-pager
+      echo ""
+    fi
+
+    if [ "$has_failure" = false ]; then
+      echo -e "${GREEN}${BOLD}✅ All systemd units and services are healthy!${RESET}\n"
+    else
+      echo -e "${YELLOW}${BOLD}💡 Tip:${RESET} To inspect a failed service, run:"
+      echo -e "   ${DIM}systemctl status <unit>${RESET} or ${DIM}systemctl --user status <unit>${RESET}"
+      echo -e "   ${DIM}journalctl -xeu <unit>${RESET} or ${DIM}journalctl --user -xeu <unit>${RESET}\n"
+    fi
+
 # Initiates the Fortress Maintenance Protocol (Updates, Syncs, Backups)
 update:
     #!/usr/bin/env bash
