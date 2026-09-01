@@ -151,23 +151,28 @@ flash_attention = true
 # remote_timeout_secs = 30
 
 [output]
-# Primary output mode: "type" or "clipboard"
-# - type: Simulates keyboard input at cursor position (requires ydotool)
-# - clipboard: Copies text to clipboard (requires wl-copy)
-mode = "type"
+# Primary output mode: "paste" or "type" or "clipboard"
+# - paste: Fast insertion via clipboard + Cmd+V / Ctrl+V
+# - type: Simulates keyboard input at cursor position
+# - clipboard: Copies text to clipboard without pasting
+mode = "paste"
 
-# Fall back to clipboard if typing fails
+# Restore clipboard content after paste mode (default: false)
+# Saves clipboard before transcription, restores it after paste keystroke
+# Only applies to mode = "paste". Preserves your existing clipboard content across dictation.
+restore_clipboard = true
+
+# Delay after paste before restoring clipboard (milliseconds)
+# Allows time for the paste operation to complete (default: 200)
+restore_clipboard_delay_ms = 200
+
+# Fall back to clipboard if typing or pasting fails
 fallback_to_clipboard = true
 
 # Custom driver order for type mode (optional)
 # Default order: wtype -> dotool -> ydotool -> clipboard
-# Customize to prefer a specific driver or change the fallback order.
-# Available drivers: wtype, dotool, ydotool, clipboard
-# Example: prefer ydotool over dotool:
-#   driver_order = ["wtype", "ydotool", "dotool", "clipboard"]
-# Example: use only ydotool, no fallback:
-#   driver_order = ["ydotool"]
-driver_order = ["ydotool", "clipboard"]
+# Leave commented out so macOS uses native driver and Linux auto-detects compositor drivers
+# driver_order = ["ydotool", "clipboard"]
 
 # Delay between typed characters in milliseconds
 # 0 = fastest possible, increase if characters are dropped
@@ -186,16 +191,6 @@ type_delay_ms = 0
 # Workaround for apps (e.g., Discord) that drop the first CJK character
 # wtype_shift_prefix = false
 
-# Restore clipboard content after paste mode (default: false)
-# Saves clipboard before transcription, restores it after paste keystroke
-# Only applies to mode = "paste". Useful when you want to preserve your
-# existing clipboard content across dictation operations.
-# restore_clipboard = false
-
-# Delay after paste before restoring clipboard (milliseconds)
-# Allows time for the paste operation to complete (default: 200)
-# restore_clipboard_delay_ms = 200
-
 # Pre/post output hooks (optional)
 # Commands to run before and after typing output. Useful for compositor integration.
 # Example: Block modifier keys during typing with Hyprland submap:
@@ -209,8 +204,8 @@ type_delay_ms = 0
 # Useful for LLM-based text cleanup, grammar correction, filler word removal.
 # On any failure (timeout, error), falls back to original transcription.
 [output.post_process]
-command = "voxtype-clean"
-timeout_ms = 6000
+command = "sh -c '~/.local/scripts/voxtype-clean'"
+timeout_ms = 8000
 trim = true
 fallback_on_empty = true
 
@@ -282,13 +277,13 @@ filter_filler_words = true
 # stopped = ""
 
 [profiles.casual]
-post_process_command = "voxtype-clean --style casual"
+post_process_command = "sh -c '~/.local/scripts/voxtype-clean --style casual'"
 
 [profiles.formal]
-post_process_command = "voxtype-clean --style formal"
+post_process_command = "sh -c '~/.local/scripts/voxtype-clean --style formal'"
 
 [profiles.bullet]
-post_process_command = "voxtype-clean --style bullet"
+post_process_command = "sh -c '~/.local/scripts/voxtype-clean --style bullet'"
 
 [profiles.code]
-post_process_command = "voxtype-clean --style code"
+post_process_command = "sh -c '~/.local/scripts/voxtype-clean --style code'"
