@@ -13,3 +13,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install Playwright into hermes virtualenv
 RUN /usr/local/bin/uv pip install --python /opt/hermes/.venv/bin/python playwright || true
+
+# Patch discord adapter to resolve forum threads defensively if channel is a forum parent
+COPY patch_adapter.py /tmp/patch_adapter.py
+RUN python3 /tmp/patch_adapter.py && rm /tmp/patch_adapter.py
