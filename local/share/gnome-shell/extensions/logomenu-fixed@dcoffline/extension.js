@@ -235,12 +235,22 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         Util.trySpawnCommandLine('/usr/bin/warehouse-helper');
     }
 
+    _gpuLaunch(cmd) {
+        if (GLib.find_program_in_path('cardwire')) {
+            Util.spawn(['cardwire', 'launch', ...cmd]);
+        } else if (GLib.find_program_in_path('switcherooctl')) {
+            Util.spawn(['switcherooctl', 'launch', ...cmd]);
+        } else {
+            Util.spawn(cmd);
+        }
+    }
+
     _openSteam() {
-        Util.spawn(['switcherooctl', 'launch', 'bazzite-steam']);
+        this._gpuLaunch(['bazzite-steam']);
     }
 
     _openLutris() {
-        Util.spawn(['switcherooctl', 'launch', 'lutris']);
+        this._gpuLaunch(['lutris']);
     }
 
     _openSystemMonitor() {
