@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Mount config file if present (mount file, not the whole directory, so internal profile writes are not blocked)
+MOUNT_ARGS=()
+if [[ -f "$HOME/.config/browsh/config.toml" ]]; then
+  MOUNT_ARGS=(-v "$HOME/.config/browsh/config.toml:/app/.config/browsh/config.toml:ro,Z")
+fi
+
+exec podman run --rm -it "${MOUNT_ARGS[@]}" docker.io/browsh/browsh "$@"
