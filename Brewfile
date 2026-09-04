@@ -113,8 +113,6 @@ brew "whisper-cpp"
 brew "yq"
 # A retro terminal music player inspired by Winamp 2.x
 brew "bjarneo/cliamp/cliamp", trusted: true
-# The modern, text-based browser
-brew "browsh-org/browsh/browsh", trusted: true
 # Self-hosted game stream host for Moonlight
 brew "lizardbyte/homebrew/sunshine", trusted: true
 # Modern TUI for managing Homebrew packages and casks on macOS and Linux
