@@ -5,3 +5,36 @@
 *._*
 local/share/homepage/log/
 dotfiles.key
+
+# --- hardened secret hygiene (2026-09-06) ---
+# --- hardened secret hygiene (2026-09-06) ---
+# .secrets + rclone.conf are ALREADY git-crypt encrypted; these protect FUTURE accidents
+# Generic secret-shaped files (gitignore-level): keep out of the tree entirely
+*.key
+*.pem
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.jks
+credentials
+credentials.json
+.env
+.env.*
+!.env.example
+*.secret
+secrets.*
+*.sqlite
+*.db
+*_key.pem
+git-crypt.key
+
+# OAuth / service account blobs
+*service-account*.json
+*client_secret*.json
+oauth*.token
+*.token
+
+# dotfiles that commonly hold creds (in addition to .secrets which is encrypted)
+config/environment.d/envvars.conf.local
+local/bin/uv
