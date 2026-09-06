@@ -105,6 +105,6 @@
         }
     ],
     "env": {
-        "PATH": "$(PATH):$(HOME)/.local/scripts:$(HOME)/.local/bin"
+        "PATH": "$(PATH):$(HOME)/.local/bin"
     }
 }

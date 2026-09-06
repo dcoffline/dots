@@ -134,6 +134,6 @@ just clean-apple [target_dir]        # Scans and deletes macOS sidecar files (._
 | :--- | :--- | :--- | :--- |
 | **Home Package** | `home/` | `~` | Shell entrypoints (`.bashrc`, `.bash_profile`), `.justfile` |
 | **Config Package** | `config/` | `~/.config/` | Shell modules (`bash/`), Quadlets (`containers/systemd/`), systemd units (`systemd/user/`), app configs |
-| **Local Package** | `local/` | `~/.local/` | Custom binaries & scripts (`scripts/`), extension assets (`share/`) |
+| **Local Package** | `local/` | `~/.local/` | Custom binaries & scripts (`bin/`), extension assets (`share/`) |
 | **macOS Library** | `Library/` | `~/Library/` | macOS LaunchAgents (`LaunchAgents/com.eric.*.plist`) |
 | **Secrets** | Local only | `~/.secrets`, `~/.config/rclone/rclone.conf` | Sensitive credentials (chmod 600, excluded from Git) |

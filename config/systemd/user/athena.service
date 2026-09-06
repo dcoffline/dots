@@ -1,0 +1,19 @@
+[Unit]
+Description=Athena Agent (Hermes in Ubuntu Distrobox)
+After=network-online.target ollama.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=HERMES_DASHBOARD=1
+Environment=PYTHONPATH=/opt/data/google-chat-deps
+EnvironmentFile=%h/.secrets
+WorkingDirectory=%h
+ExecStart=/usr/bin/distrobox enter athena -- /opt/data/scripts/athena-runner.sh
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target
+Alias=hermes.service

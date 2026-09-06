@@ -3,5 +3,5 @@ Hidden=false
 Name=DP-1 Enable
 Comment=Make DP-1 Display Primary
 Terminal=false
-Exec=/var/home/eric/.local/scripts/dpon
+Exec=/var/home/eric/.local/bin/dpon
 Type=Application

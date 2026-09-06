@@ -1,14 +1,14 @@
 [Unit]
-Description=ZCC GHL Webhook Listener
-After=network-online.target hermes.service
+Description=ZCC GHL & Linear Webhook Listener
+After=network-online.target athena.service
 
 [Container]
 ContainerName=zcc-webhook
-Image=localhost/hermes-agent:custom
-AutoUpdate=local
+Image=localhost/zcc-webhook-base:latest
 Network=homelab.network
 EnvironmentFile=%h/.secrets
 UserNS=keep-id:uid=10000,gid=10000
+Volume=%h/.local/share/hermes/app:/opt/hermes:ro
 Volume=%h/.local/share/hermes:/opt/data:z
 Entrypoint=/opt/hermes/.venv/bin/python3
 Exec=/opt/data/scripts/zcc_webhook_trigger.py
@@ -19,4 +19,4 @@ Restart=always
 RestartSec=3
 
 [Install]
-WantedBy=default.target 
+WantedBy=default.target

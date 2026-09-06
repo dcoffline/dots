@@ -10,6 +10,8 @@ if [ "$ENV_TYPE" = "container" ]; then
   # Distrobox
   alias dex='distrobox-export --app'
   alias deb='distrobox-export --export-path $HOME/.local/bin --bin'
+  alias dea='dhe distrobox enter athena'
+  alias dear='dhe distrobox enter athena -e'
 
   # Rclone (Punching out to the host)
   alias dhe='distrobox-host-exec'
@@ -40,8 +42,8 @@ else
   # Distrobox
   alias def='distrobox enter fedora'
   alias defr='distrobox enter fedora -e'
-  alias dea='distrobox enter arch'
-  alias dear='distrobox enter arch -e'
+  alias dea='distrobox enter athena'
+  alias dear='distrobox enter athena -e'
   alias deu='distrobox enter ubuntu'
   alias deur='distrobox enter ubuntu -e'
 
@@ -66,22 +68,17 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias d2q='podlet generate container podman run'
 alias podip="podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 alias podclean='podman container prune -f ; podman image prune -f ; podman network prune -f ; podman volume prune -f'
-
-# Open Athena chat session
-alias athena='podman exec -it hermes /opt/hermes/bin/hermes chat'
-alias thena='podman exec hermes /opt/hermes/bin/hermes chat -z'
-
 # Exec shortcuts for interactive CLI tools
-alias hermes='podman exec -it hermes hermes'
 alias ollama='podman exec -it ollama ollama'
 alias nc-occ='podman exec -it -u www-data nextcloud php occ'
 alias nc-redis='podman exec -it nextcloud-redis redis-cli'
 alias immich-redis='podman exec -it immich-redis redis-cli'
 
 # Log shortcuts (tails active output)
+alias logs-athena='journalctl --user -fu athena.service'
+alias logs-hermes='journalctl --user -fu athena.service'
 alias logs-ollama='podman logs -f --tail 100 ollama'
 alias logs-openwebui='podman logs -f --tail 100 open-webui'
-alias logs-hermes='podman logs -f --tail 100 hermes'
 alias logs-nc='podman logs -f --tail 100 nextcloud'
 alias logs-immich='podman logs -f --tail 100 immich-server'
 alias logs-tunnel='podman logs -f --tail 100 cloudflared'

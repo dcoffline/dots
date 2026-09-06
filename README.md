@@ -42,7 +42,7 @@ An XDG-compliant, modular Bash environment and containerized homelab architectur
 │   ├── atuin/, btop/, ghostty/, nvim/, searxng/, sunshine/, voxtype/, waveterm/, yazi/, starship.toml
 │
 ├── local/                      # Symlinked to ~/.local/
-│   ├── scripts/                # Utility scripts (rmount, monctl, voxtype-clean, dpon/dpoff, gdmreset)
+│   ├── bin/                    # Custom executables & scripts (rmount, monctl, voxtype-clean, dpon/dpoff, gdmreset)
 │   └── share/                  # App data (Homepage, GNOME shell extensions, bash-preexec)
 │
 └── Library/                    # Symlinked to ~/Library/ (macOS only)
