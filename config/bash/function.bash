@@ -48,11 +48,11 @@ gitup() {
 dotup() {
   export NOW=$(date +"%Y-%m-%d_%H%M%S")
   local msg="${*:-$NOW}"
-  \cd "$DOTS"
+  \cd "$DOTS" >/dev/null
   git add -A
   git commit -m "$msg"
   git push
-  \cd -
+  \cd - >/dev/null
 }
 
 # Edit, source and update BASH configs
