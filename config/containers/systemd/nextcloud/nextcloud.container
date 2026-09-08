@@ -21,9 +21,11 @@ Volume=%h/.local/share/nextcloud/config:/var/www/html/config:Z
 Volume=%h/.local/share/nextcloud/data:/var/www/html/data:Z
 Volume=%h/.local/share/nextcloud/custom_apps:/var/www/html/custom_apps:Z
 Volume=%h/.local/share/nextcloud/notify_push_apache.conf:/etc/apache2/conf-enabled/notify_push.conf:Z
+Volume=%h/.local/share/nextcloud/php-config/zz-uploadtmp.ini:/usr/local/etc/php/conf.d/zz-uploadtmp.ini:Z
 # Data on HDD
 Volume=%h/.mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone:rslave
+Volume=%h/src/projects:/mnt/projects
 
 EnvironmentFile=%h/.secrets
 Environment=MYSQL_HOST=nextcloud-db
@@ -34,6 +36,8 @@ Environment=TRUSTED_PROXIES="127.0.0.1 10.89.0.0/16 10.88.0.0/16 169.254.1.2 47.
 Environment=NC_maintenance_window_start=1
 Environment=NC_default_phone_region=US
 Environment=NEXTCLOUD_UMASK=0002
+# Fix PHP upload temp dir (official image's TMPDIR points to a non-existent dir)
+Environment=TMPDIR=/tmp
 
 [Service]
 CPUWeight=20
