@@ -13,9 +13,9 @@ window-padding-y = 5
 #font-family-italic = CaskaydiaMono NFM Italic
 #font-family-bold-italic = CaskaydiaMono NFM Bold Italic
 
-font-family = Hack Nerd Font Mono
-font-family-bold = Hack Nerd Font Mono Bold
-font-family-italic = Hack Nerd Font Mono Italic
+font-family = Hack Nerd Font
+font-family-bold = Hack Nerd Font Bold
+font-family-italic = Hack Nerd Font Italic
 font-family-bold-italic = Hack Nerd Font Bold Italic
 
 font-size = 11

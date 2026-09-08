@@ -68,6 +68,7 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias d2q='podlet generate container podman run'
 alias podip="podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 alias podclean='podman container prune -f ; podman image prune -f ; podman network prune -f ; podman volume prune -f'
+
 # Exec shortcuts for interactive CLI tools
 alias ollama='podman exec -it ollama ollama'
 alias nc-occ='podman exec -it -u www-data nextcloud php occ'
@@ -166,3 +167,5 @@ fi
 if [ ! -f "$HOME/.local/share/cargo/bin/linutil" ]; then
   alias linutil='curl -fsSL https://christitus.com/linux | sh'
 fi
+
+alias panda='cd ~/src/projects/pandadoc_export && ./status.sh'
