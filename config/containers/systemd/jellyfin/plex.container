@@ -28,6 +28,7 @@ EnvironmentFile=%h/.secrets
 Environment=TZ=America/Chicago
 Environment=PLEX_UID=1000
 Environment=PLEX_GID=1000
+Environment=TMPDIR=/tmp
 
 [Service]
 Restart=always
