@@ -25,7 +25,7 @@ Volume=%h/.local/share/nextcloud/php-config/zz-uploadtmp.ini:/usr/local/etc/php/
 # Data on HDD
 Volume=%h/.mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone:rslave
-Volume=%h/src/projects:/mnt/projects
+Volume=%h/src:/mnt/src
 
 EnvironmentFile=%h/.secrets
 Environment=MYSQL_HOST=nextcloud-db
