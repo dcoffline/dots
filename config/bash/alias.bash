@@ -168,4 +168,4 @@ if [ ! -f "$HOME/.local/share/cargo/bin/linutil" ]; then
   alias linutil='curl -fsSL https://christitus.com/linux | sh'
 fi
 
-alias panda='cd ~/src/projects/pandadoc_export && ./status.sh && cd -'
+alias panda='cd ~/src/projects/pandadoc_export >/dev/null && ./status.sh && cd - >/dev/null'
