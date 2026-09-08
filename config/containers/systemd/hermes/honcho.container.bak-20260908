@@ -30,7 +30,6 @@ Environment=DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL=https://openrouter.ai/api/
 Environment=EMBEDDING_MODEL_CONFIG__TRANSPORT=openai
 Environment=EMBEDDING_MODEL_CONFIG__MODEL=nomic-embed-text
 Environment=EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL=http://ollama:11434/v1
-Environment=EMBEDDING_MODEL_CONFIG__OVERRIDES__API_KEY=ollama
 
 [Service]
 TimeoutStartSec=300
