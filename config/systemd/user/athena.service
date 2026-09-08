@@ -9,7 +9,7 @@ Environment=HERMES_DASHBOARD=1
 Environment=PYTHONPATH=/opt/data/google-chat-deps
 EnvironmentFile=%h/.secrets
 WorkingDirectory=%h
-ExecStart=/usr/bin/distrobox enter athena -- /opt/data/scripts/athena-runner.sh
+ExecStart=/usr/bin/distrobox enter athena -- /var/home/eric/.local/share/hermes/scripts/athena-runner.sh
 Restart=always
 RestartSec=5
 TimeoutStopSec=30
