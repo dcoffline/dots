@@ -28,7 +28,7 @@ cursor-style-blink = true
 keybind = ctrl+up=scroll_page_up
 keybind = ctrl+down=scroll_page_down
 
-background-opacity = 0.85
+background-opacity = 0.8
 #gtk-titlebar = false
 confirm-close-surface = false
 shell-integration-features = no-cursor
