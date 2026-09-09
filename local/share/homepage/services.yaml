@@ -35,19 +35,13 @@
         description: Password Manager
         server: podman
         container: vaultwarden
-- "AI Stack":
-    - Activepieces:
-        icon: activepieces
-        href: https://zip.hemati.com
-        description: Middleware
-        server: podman
-        container: activepieces
+- AI Stack:
     - Hermes:
         icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
         href: https://athena.hemati.com
         description: Hermes AI Harness
         server: podman
-        container: hermes
+        container: athena
     - Honcho:
         icon: https://hemati.com/wp-content/uploads/2026/08/Honcho-removebg-preview.png
         href: https://honcho.hemati.com/docs
@@ -66,70 +60,70 @@
         description: Sandboxed Agent Terminal
         server: podman
         container: open-terminal
-    - Paperclip:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/paperclip-ai-light.svg
-        href: https://paperclip.hemati.com
-        description: AI Agent Control Plane
-        server: podman
-        container: paperclip
-    - Scriber:
-        icon: scriberr
-        href: https://scriber.hemati.com
-        description: Speech Recognition
-        server: podman
-        container: scriber
     - SearXNG:
         icon: searxng
         href: https://searxng.hemati.com
         description: Speech Recognition
         server: podman
         container: searxng
-- Media:
-    - AIOStreams:
-        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
-        href: https://aiostreams.hemati.com
-        description: Stream Aggregator
-        server: podman
-        container: aiostreams
-    - Immich:
-        icon: immich
-        href: https://photos.hemati.com
-        description: Photos & Videos
-        server: podman
-        container: immich-server
-    - Jellyfin:
-        icon: jellyfin
-        href: https://media.hemati.com
-        description: Home Media Server
-        server: podman
-        container: jellyfin
-    - MediaFlow:
-        icon: https://mediaflowtools.com/mediaflow-logo.svg
-        href: https://mediaflow.hemati.com
-        description: Debrid Cache Proxy
-        server: podman
-        container: mediaflow
+- Servers:
     - Nextcloud:
         icon: nextcloud
         href: https://cloud.hemati.com
         description: Private File Storage
         server: podman
         container: nextcloud
+    - ONLYOFFICE:
+        icon: onlyoffice
+        href: https://office.hemati.com
+        description: Document & Spreadsheet Editor
+        server: podman
+        container: onlyoffice
+    - Immich:
+        icon: immich
+        href: https://photos.hemati.com
+        description: Photos & Videos
+        server: podman
+        container: immich-server
+    - God's Eye View:
+        icon: https://cdn-icons-png.flaticon.com/512/1791/1791989.png
+        href: https://maps.hemati.com
+        description: Maps and Movement
+        ping: https://maps.hemati.com
     - PKA Vault:
         icon: https://hemati.com/wp-content/uploads/2026/08/Hemati_favicon-removebg-preview-Edited.png
         href: https://pka.hemati.com
         description: Personal Knowledgebase
         server: podman
         container: pka-web
-    - Samba:
-        icon: samba-server
-        href: https://plex.hemati.com
-        description: Media SMB Share
+- Media:
+    - Jellyfin:
+        icon: jellyfin
+        href: https://media.hemati.com
+        description: Home Media Server
         server: podman
-        container: samba
+        container: jellyfin
     - Zurg:
         icon: real-debrid
         href: https://zurg.hemati.com
         description: Organize Media 
         server: podman
         container: zurg
+    - Samba:
+        icon: samba-server
+        href: https://plex.hemati.com
+        description: Media SMB Share
+        server: podman
+        container: samba
+    - AIOStreams:
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
+        href: https://aiostreams.hemati.com
+        description: Stream Aggregator
+        server: podman
+        container: aiostreams
+    - MediaFlow:
+        icon: https://mediaflowtools.com/mediaflow-logo.svg
+        href: https://mediaflow.hemati.com
+        description: Debrid Cache Proxy
+        server: podman
+        container: mediaflow

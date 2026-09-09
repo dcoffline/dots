@@ -1,0 +1,37 @@
+[Unit]
+Description=ONLYOFFICE Document Server
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=onlyoffice
+Image=docker.io/onlyoffice/documentserver:latest
+Network=homelab.network
+AutoUpdate=registry
+SecurityLabelDisable=true
+
+# Expose internal port 80 to host port 8089 for direct/local access
+PublishPort=8089:80
+
+# Persistent storage
+Volume=%h/.local/share/onlyoffice/data:/var/www/onlyoffice/Data:Z
+Volume=%h/.local/share/onlyoffice/logs:/var/log/onlyoffice:Z
+Volume=%h/.local/share/onlyoffice/lib:/var/lib/onlyoffice:Z
+Volume=%h/.local/share/onlyoffice/local-production-linux.json:/etc/onlyoffice/documentserver/local-production-linux.json:Z
+
+# Environment and JWT authentication
+EnvironmentFile=%h/.secrets
+Environment=JWT_ENABLED=true
+Environment=JWT_SECRET=c9bdfeef26900833d1a7b20e3500c0cb05d9af3cbf3112b70149a3547710810b
+Environment=JWT_HEADER=Authorization
+Environment=JWT_IN_BODY=true
+Environment=USE_UNAUTHORIZED_STORAGE=true
+Environment=SECURE_LINK_SECRET=bO8wjVjWRQ1bl24R2ihD
+
+[Service]
+Restart=always
+RestartSec=10
+CPUWeight=20
+
+[Install]
+WantedBy=default.target
