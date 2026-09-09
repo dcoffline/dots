@@ -1,0 +1,26 @@
+[Unit]
+Description=Comet Debrid Search (Stremio addon)
+After=network-online.target comet-db.service
+Requires=comet-db.service
+StartLimitIntervalSec=0
+
+[Container]
+ContainerName=comet
+Network=homelab.network
+Image=docker.io/g0ldyy/comet:latest
+AutoUpdate=registry
+
+# Web UI + addon manifest on 8010 (LAN/Tailscale access; cloudflared can proxy internally)
+# NOTE: 8000 is held by honcho; Comet gets 8010
+PublishPort=8010:8000
+
+# Persistent data + runtime env on the SSD
+Volume=%h/.local/share/comet/data:/app/data:Z
+EnvironmentFile=%h/.local/share/comet/comet.env
+
+[Service]
+TimeoutStartSec=300
+Restart=always
+
+[Install]
+WantedBy=default.target

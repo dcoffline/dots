@@ -1,0 +1,20 @@
+[Unit]
+Description=Comet Postgres Database
+After=network-online.target
+
+[Container]
+Network=homelab.network
+ContainerName=comet-db
+Image=docker.io/library/postgres:18-alpine
+AutoUpdate=registry
+
+# DB on the SSD (postgres 18+ single-mount layout)
+Volume=%h/.local/share/comet/postgres:/var/lib/postgresql:Z
+EnvironmentFile=%h/.local/share/comet/comet.env
+
+[Service]
+TimeoutStartSec=300
+Restart=always
+
+[Install]
+WantedBy=default.target
