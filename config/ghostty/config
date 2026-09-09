@@ -1,6 +1,6 @@
 #theme = Nord
 #window-theme = ghostty
-window-height = 33
+window-height = 32
 window-width = 100
 window-padding-x = 5
 window-padding-y = 5
@@ -8,17 +8,17 @@ window-padding-y = 5
 # You can generate the list of valid values using the CLI:
 # ghostty +list-fonts
 
-#font-family = CaskaydiaMono Nerd Font Mono
-#font-family-bold = CaskaydiaMono NFM Bold
-#font-family-italic = CaskaydiaMono NFM Italic
-#font-family-bold-italic = CaskaydiaMono NFM Bold Italic
+font-family = CaskaydiaMono Nerd Font
+font-family-bold = CaskaydiaMono NF Bold
+font-family-italic = CaskaydiaMono NF Italic
+font-family-bold-italic = CaskaydiaMono NF Bold Italic
 
-font-family = Hack Nerd Font
-font-family-bold = Hack Nerd Font Bold
-font-family-italic = Hack Nerd Font Italic
-font-family-bold-italic = Hack Nerd Font Bold Italic
+#font-family = Hack Nerd Font
+#font-family-bold = Hack Nerd Font Bold
+#font-family-italic = Hack Nerd Font Italic
+#font-family-bold-italic = Hack Nerd Font Bold Italic
 
-font-size = 11
+font-size = 14
 
 cursor-style = block
 cursor-style-blink = true
