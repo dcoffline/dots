@@ -76,7 +76,7 @@
     - ONLYOFFICE:
         icon: onlyoffice
         href: https://office.hemati.com
-        description: Document & Spreadsheet Editor
+        description: Docs & Sheets Editor
         server: podman
         container: onlyoffice
     - Immich:
