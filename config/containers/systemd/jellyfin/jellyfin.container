@@ -4,8 +4,11 @@ After=network-online.target
 
 [Container]
 ContainerName=jellyfin
+# DB was migrated to 12.0 schema (ExtraIds/Permission columns dropped).
+# 10.11.11 binary + 12.0 DB = broken auth + Gelato SQLite errors.
+# Back on latest (12.x) so the server matches the DB. Gelato is 10.11-only;
+# Remux (ghcr.io/lostb1t/remux) is the replacement for Gelato search/streaming.
 Image=docker.io/jellyfin/jellyfin:latest
-AutoUpdate=registry
 Network=homelab.network
 SecurityLabelDisable=true
 

@@ -1,0 +1,38 @@
+[Unit]
+Description=Remux Media Server (Jellyfin-compatible, Stremio/AIOStreams)
+After=network-online.target
+
+[Container]
+ContainerName=remux
+# Remux: Jellyfin-compatible media server replacing Gelato search/streaming.
+# v0.30.0+ supports Jellyfin 12 clients; imports existing Jellyfin users.
+Image=ghcr.io/lostb1t/remux:latest
+Network=homelab.network
+SecurityLabelDisable=true
+
+# Publish port 3001 -> 3000 (3000 internal is aiostreams/homepage)
+PublishPort=3001:3000
+
+# Data dir (SQLite DB, torrents, logs)
+Volume=%h/.local/share/remux:/data:Z
+
+# Bulk media (read-only) — same mounts as jellyfin
+Volume=%h/.mnt/10T:/media:ro
+Volume=%h/.mnt/rclone/Zurg:/media/zurg:ro,rshared
+
+# AMD Hardware Acceleration (Radeon 780M / VA-API)
+AddDevice=/dev/dri
+GroupAdd=keep-groups
+
+Environment=TZ=America/Chicago
+Environment=PORT=3000
+Environment=DATA_DIR=/data
+Environment=DATABASE_URL=sqlite:///data/db.sqlite?mode=rwc
+Environment=LOG_FILE=/data/logs/remux.jsonl
+Environment=TORRENT_DATA_DIR=/data/torrents
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
