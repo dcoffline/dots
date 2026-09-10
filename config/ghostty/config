@@ -1,6 +1,6 @@
 #theme = Nord
 #window-theme = ghostty
-window-height = 32
+window-height = 33
 window-width = 100
 window-padding-x = 5
 window-padding-y = 5
@@ -18,7 +18,7 @@ font-family-bold-italic = CaskaydiaMono NF Bold Italic
 #font-family-italic = Hack Nerd Font Italic
 #font-family-bold-italic = Hack Nerd Font Bold Italic
 
-font-size = 14
+font-size = 11
 
 cursor-style = block
 cursor-style-blink = true
@@ -29,6 +29,6 @@ keybind = ctrl+up=scroll_page_up
 keybind = ctrl+down=scroll_page_down
 
 background-opacity = 0.85
-gtk-titlebar = false
+#gtk-titlebar = false
 confirm-close-surface = false
 shell-integration-features = no-cursor
