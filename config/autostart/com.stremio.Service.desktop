@@ -4,3 +4,6 @@ Name=Stremio Service
 X-XDP-Autostart=com.stremio.Service
 Exec=flatpak run com.stremio.Service
 X-Flatpak=com.stremio.Service
+Hidden=false
+Comment=No comment set.
+Terminal=false
