@@ -32,6 +32,11 @@ Environment=EMBEDDING_MODEL_CONFIG__MODEL=nomic-embed-text
 Environment=EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL=http://ollama:11434/v1
 Environment=EMBEDDING_MODEL_CONFIG__OVERRIDES__API_KEY=ollama
 
+Label=homepage.name=Honcho
+Label="homepage.group=AI Stack"
+Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/08/Honcho-removebg-preview.png
+Label=homepage.href=https://honcho.hemati.com/docs
+Label="homepage.description=AI Memory"
 [Service]
 TimeoutStartSec=300
 Restart=always

@@ -12,6 +12,11 @@ UserNS=keep-id:uid=1000,gid=1000
 Volume=%h/.local/share/open-terminal:/home/user:Z
 PublishPort=127.0.0.1:8085:8000
 
+Label=homepage.name=Open-Terminal
+Label="homepage.group=AI Stack"
+Label=homepage.icon=nexterm
+Label=homepage.href=https://terminal.hemati.com/docs
+Label="homepage.description=Sandboxed Agent Terminal"
 [Service]
 Restart=always
 RestartSec=5

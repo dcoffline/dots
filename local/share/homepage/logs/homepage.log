@@ -2189,3 +2189,19 @@
 [2026-09-07T03:18:45.784Z] error: <dockerStatusService> Error: connect ECONNREFUSED /var/run/docker.sock
     at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1638:16)
     at PipeConnectWrap.callbackTrampoline (node:internal/async_hooks:130:17)
+[2026-09-10T21:08:44.602Z] error: Host validation failed for: 10.89.0.85:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-09-10T21:08:44.616Z] error: Host validation failed for: 10.89.0.85:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-09-10T21:08:44.626Z] error: Host validation failed for: 10.89.0.85:3000. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-09-11T03:18:38.929Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T03:18:38.930Z] error: TypeError: Cannot read properties of null (reading 'forEach')
+[2026-09-11T03:18:39.350Z] error: <dockerStatuses> TypeError: Cannot read properties of null (reading 'forEach')
+    at /app/.next/server/chunks/7572.js:1:10780
+    at Array.map (<anonymous>)
+    at a (/app/.next/server/chunks/7572.js:1:10726)
+    at s (/app/.next/server/chunks/7572.js:1:11083)
+    at async t (/app/.next/server/chunks/7572.js:1:11225)
+    at async Promise.all (index 2)
+    at async l (/app/.next/server/pages/api/docker/statuses.js:2:2302)
+    at async h (/app/.next/server/pages/api/docker/statuses.js:2:5809)
+    at async tO (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:107982)
+    at async tA.render (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:108697)

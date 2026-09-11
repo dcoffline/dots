@@ -18,6 +18,11 @@ Volume=%h/.config/searxng/limiter.toml:/etc/searxng/limiter.toml:Z,ro
 EnvironmentFile=%h/.secrets
 Environment=SEARXNG_BASE_URL=http://localhost:8082/
 
+Label=homepage.name=SearXNG
+Label="homepage.group=AI Stack"
+Label=homepage.icon=searxng
+Label=homepage.href=https://searxng.hemati.com
+Label="homepage.description=Speech Recognition"
 [Service]
 Restart=always
 RestartSec=5

@@ -12,6 +12,11 @@ EnvironmentFile=%h/.secrets
 Network=homelab.network
 
 # Gives the container a tiny grace period to initialize network sockets
+Label=homepage.name=MediaFlow
+Label=homepage.group=Media
+Label=homepage.icon=https://mediaflowtools.com/mediaflow-logo.svg
+Label=homepage.href=https://mediaflow.hemati.com
+Label="homepage.description=Debrid Cache Proxy"
 [Service]
 Restart=always
 RestartSec=5s

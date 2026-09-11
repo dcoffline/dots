@@ -25,6 +25,11 @@ Environment=PGID=1000
 # Prevent SELinux permission restrictions on host directory mounts
 SecurityLabelDisable=true
 
+Label=homepage.name=Syncthing
+Label=homepage.group=Utilities
+Label=homepage.icon=syncthing
+Label=homepage.href=https://sync.hemati.com
+Label="homepage.description=File Management"
 [Service]
 Restart=always
 RestartSec=5

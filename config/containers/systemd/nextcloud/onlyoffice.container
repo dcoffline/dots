@@ -28,6 +28,11 @@ Environment=JWT_IN_BODY=true
 Environment=USE_UNAUTHORIZED_STORAGE=true
 Environment=SECURE_LINK_SECRET=bO8wjVjWRQ1bl24R2ihD
 
+Label=homepage.name=ONLYOFFICE
+Label=homepage.group=Servers
+Label=homepage.icon=onlyoffice
+Label=homepage.href=https://office.hemati.com
+Label="homepage.description=Docs & Sheets Editor"
 [Service]
 Restart=always
 RestartSec=10

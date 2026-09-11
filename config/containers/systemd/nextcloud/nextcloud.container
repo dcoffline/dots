@@ -39,6 +39,11 @@ Environment=NEXTCLOUD_UMASK=0002
 # Fix PHP upload temp dir (official image's TMPDIR points to a non-existent dir)
 Environment=TMPDIR=/tmp
 
+Label=homepage.name=Nextcloud
+Label=homepage.group=Servers
+Label=homepage.icon=nextcloud
+Label=homepage.href=https://cloud.hemati.com
+Label="homepage.description=Private File Storage"
 [Service]
 CPUWeight=20
 

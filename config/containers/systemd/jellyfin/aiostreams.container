@@ -13,6 +13,11 @@ Environment=BASE_URL=https://aiostreams.hemati.com
 # Persistent storage for local instance databases/sessions
 Volume=%h/.local/share/aiostreams:/app/data:Z
 
+Label=homepage.name=AIOStreams
+Label=homepage.group=Media
+Label=homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
+Label=homepage.href=https://aiostreams.hemati.com
+Label="homepage.description=Stream Aggregator"
 [Service]
 Restart=always
 

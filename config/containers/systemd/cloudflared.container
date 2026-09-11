@@ -13,6 +13,11 @@ AutoUpdate=registry
 #DNS=8.8.8.8
 AddHost=host.containers.internal:host-gateway
 
+Label=homepage.name=Cloudflare
+Label=homepage.group=System
+Label=homepage.icon=cloudflare
+Label=homepage.href=https://dash.cloudflare.com/67304fcb508ed8114c9625fb9a98aff1/one/networks/connectors/cloudflare-tunnels/cloudflared/f675bd2e-853b-481a-8242-3dab60bfa54e/edit/public-hostname
+Label=homepage.description=Reverse-Proxy
 [Service]
 Restart=always
 RestartSec=5

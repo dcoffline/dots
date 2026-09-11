@@ -15,6 +15,11 @@ PublishPort=9999:9999
 Volume=%h/.local/share/zurg/config.yml:/app/config.yml:Z
 Volume=%h/.local/share/zurg/data:/app/data:Z
 
+Label=homepage.name=Zurg
+Label=homepage.group=Media
+Label=homepage.icon=real-debrid
+Label=homepage.href=https://zurg.hemati.com
+Label="homepage.description=Organize Media"
 [Service]
 Restart=always
 # Gives Zurg enough time to cleanly shut down its internal database

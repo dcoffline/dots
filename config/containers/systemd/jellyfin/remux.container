@@ -31,6 +31,11 @@ Environment=DATABASE_URL=sqlite:///data/db.sqlite?mode=rwc
 Environment=LOG_FILE=/data/logs/remux.jsonl
 Environment=TORRENT_DATA_DIR=/data/torrents
 
+Label=homepage.name=Jellyfin
+Label=homepage.group=Media
+Label=homepage.icon=jellyfin
+Label=homepage.href=https://media.hemati.com
+Label="homepage.description=Home Media Server"
 [Service]
 Restart=always
 
