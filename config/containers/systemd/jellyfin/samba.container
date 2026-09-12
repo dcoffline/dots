@@ -26,6 +26,11 @@ Environment="SAMBA_CONFIG_GLOBAL=server min protocol = NT1; ntlm auth = yes; gue
 # Share 1: Physical Media
 Environment="SAMBA_VOLUME_CONFIG_media=[Media]; path=/shares/media; valid users = eric; read only = yes; guest ok = no"
 
+Label=homepage.name=Samba
+Label=homepage.group=Servers
+Label=homepage.icon=samba-server
+Label=homepage.href=smb://10.89.0.100
+Label="homepage.description=Media SMB Share"
 [Service]
 Restart=always
 

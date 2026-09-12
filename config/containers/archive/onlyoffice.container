@@ -22,7 +22,7 @@ Volume=%h/.local/share/onlyoffice/local-production-linux.json:/etc/onlyoffice/do
 # Environment and JWT authentication
 EnvironmentFile=%h/.secrets
 Environment=JWT_ENABLED=true
-Environment=JWT_SECRET=c9bdfeef26900833d1a7b20e3500c0cb05d9af3cbf3112b70149a3547710810b
+# Environment=JWT_SECRET=<removed 2026-09-11 — rotated>
 Environment=JWT_HEADER=Authorization
 Environment=JWT_IN_BODY=true
 Environment=USE_UNAUTHORIZED_STORAGE=true

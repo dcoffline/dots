@@ -13,9 +13,14 @@ EnvironmentFile=%h/.secrets
 Environment=username=admin
 Environment=password=e21190d96726df842a86ee03092c20ec569354d8c1d55af7
 Environment=extra_params=--o:ssl.enable=false --o:ssl.termination=true
-Environment=aliasgroup1=https://cloud.hemati.com
-Environment=server_name=collabora.hemati.com
+Environment=aliasgroup1=https://collabora.hemati.com
+Environment=server_name=cloud.hemati.com
 
+Label=homepage.name=Collabora
+Label=homepage.group=Servers
+Label=homepage.icon=collabora
+Label=homepage.href=https://collabora.hemati.com
+Label="homepage.description=LibreOffice Online Editor"
 [Service]
 Restart=always
 RestartSec=5

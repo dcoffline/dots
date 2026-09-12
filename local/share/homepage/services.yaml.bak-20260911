@@ -16,15 +16,24 @@
           version: 6
           key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
           fields: ["queries", "blocked", "blocked_percent", "gravity"]
-- Servers:
-    - God's Eye View:
-        icon: https://cdn-icons-png.flaticon.com/512/1791/1791989.png
-        href: https://maps.hemati.com
-        description: Maps and Movement
-        ping: https://maps.hemati.com
+- Utilities:
+- AI Stack:
     - Hermes:
         icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
         href: https://athena.hemati.com
         description: Hermes AI Harness
         server: podman
         container: athena
+- Servers:
+    - God's Eye View:
+        icon: https://cdn-icons-png.flaticon.com/512/1791/1791989.png
+        href: https://maps.hemati.com
+        description: Maps and Movement
+        ping: https://maps.hemati.com
+- Media:
+    - Samba:
+        icon: samba-server
+        href: https://plex.hemati.com
+        description: Media SMB Share
+        server: podman
+        container: samba

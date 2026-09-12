@@ -28,3 +28,9 @@
         description: Hermes AI Harness
         server: podman
         container: athena
+    - Samba:
+        icon: samba-server
+        href: https://plex.hemati.com
+        description: Media SMB Share
+        server: podman
+        container: samba

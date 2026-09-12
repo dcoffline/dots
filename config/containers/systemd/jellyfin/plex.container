@@ -30,6 +30,11 @@ Environment=PLEX_UID=1000
 Environment=PLEX_GID=1000
 Environment=TMPDIR=/tmp
 
+Label=homepage.name=Plex
+Label=homepage.group=Servers
+Label=homepage.icon=plex
+Label=homepage.href=https://plex.hemati.com
+Label="homepage.description=Plex Media Server"
 [Service]
 Restart=always
 

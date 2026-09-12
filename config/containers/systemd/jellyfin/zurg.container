@@ -16,7 +16,7 @@ Volume=%h/.local/share/zurg/config.yml:/app/config.yml:Z
 Volume=%h/.local/share/zurg/data:/app/data:Z
 
 Label=homepage.name=Zurg
-Label=homepage.group=Media
+Label=homepage.group=Servers
 Label=homepage.icon=real-debrid
 Label=homepage.href=https://zurg.hemati.com
 Label="homepage.description=Organize Media"

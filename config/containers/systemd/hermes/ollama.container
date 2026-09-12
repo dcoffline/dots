@@ -25,11 +25,11 @@ SecurityLabelDisable=true
 # High-performance Zen 4 AVX-512 inference (rock-solid, no GPU hangs)
 Environment=OLLAMA_NUM_CTX=4096
 
-Label=homepage.name=Open-WebUI
-Label="homepage.group=AI Stack"
-Label=homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/svg/open-webui.svg
-Label=homepage.href=https://chat.hemati.com
-Label="homepage.description=Local AI Instance"
+Label=homepage.name=Ollama
+Label=homepage.group=Servers
+Label=homepage.icon=ollama
+Label=homepage.href=http://10.89.0.100:11434
+Label="homepage.description=Local LLM Inference Engine"
 [Service]
 Restart=always
 TimeoutStartSec=900

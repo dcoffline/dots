@@ -2205,3 +2205,101 @@
     at async h (/app/.next/server/pages/api/docker/statuses.js:2:5809)
     at async tO (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:107982)
     at async tA.render (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:108697)
+[2026-09-11T14:49:06.180Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T14:49:06.180Z] error: TypeError: Cannot read properties of null (reading 'forEach')
+[2026-09-11T14:50:19.973Z] error: <dockerStatuses> TypeError: Cannot read properties of null (reading 'forEach')
+    at /app/.next/server/chunks/7572.js:1:10780
+    at Array.map (<anonymous>)
+    at a (/app/.next/server/chunks/7572.js:1:10726)
+    at s (/app/.next/server/chunks/7572.js:1:11083)
+    at async t (/app/.next/server/chunks/7572.js:1:11225)
+    at async Promise.all (index 2)
+    at async l (/app/.next/server/pages/api/docker/statuses.js:2:2302)
+    at async h (/app/.next/server/pages/api/docker/statuses.js:2:5809)
+    at async tO (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:107982)
+    at async tA.render (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:108697)
+[2026-09-11T14:50:19.995Z] error: undefined
+[2026-09-11T14:50:20.009Z] error: <servicesProxy> TypeError: Cannot read properties of null (reading 'forEach')
+    at /app/.next/server/chunks/7572.js:1:10780
+    at Array.map (<anonymous>)
+    at a (/app/.next/server/chunks/7572.js:1:10726)
+    at s (/app/.next/server/chunks/7572.js:1:11083)
+    at async z (/app/.next/server/chunks/7572.js:1:13683)
+    at async A (/app/.next/server/chunks/7572.js:1:13962)
+    at async l (/app/.next/server/chunks/865.js:82:16800)
+    at async tO (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:107982)
+    at async tA.render (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:108697)
+    at async Module.n (/app/.next/server/pages/api/services/proxy.js:1:2426)
+[2026-09-11T14:50:20.029Z] error: undefined
+[2026-09-11T14:50:20.044Z] error: undefined
+[2026-09-11T14:50:20.156Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T14:50:20.156Z] error: TypeError: Cannot read properties of null (reading 'forEach')
+[2026-09-11T14:50:20.187Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T14:50:20.187Z] error: TypeError: Cannot read properties of null (reading 'forEach')
+[2026-09-11T14:50:20.621Z] error: <dockerStatuses> TypeError: Cannot read properties of null (reading 'forEach')
+    at /app/.next/server/chunks/7572.js:1:10780
+    at Array.map (<anonymous>)
+    at a (/app/.next/server/chunks/7572.js:1:10726)
+    at s (/app/.next/server/chunks/7572.js:1:11083)
+    at async t (/app/.next/server/chunks/7572.js:1:11225)
+    at async Promise.all (index 2)
+    at async l (/app/.next/server/pages/api/docker/statuses.js:2:2302)
+    at async h (/app/.next/server/pages/api/docker/statuses.js:2:5809)
+    at async tO (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:107982)
+    at async tA.render (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:108697)
+[2026-09-11T14:50:20.666Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T14:50:20.666Z] error: TypeError: Cannot read properties of null (reading 'forEach')
+[2026-09-11T14:56:27.976Z] error: <dockerStatuses> TypeError: Cannot read properties of null (reading 'forEach')
+    at /app/.next/server/chunks/7572.js:1:10780
+    at Array.map (<anonymous>)
+    at a (/app/.next/server/chunks/7572.js:1:10726)
+    at s (/app/.next/server/chunks/7572.js:1:11083)
+    at async t (/app/.next/server/chunks/7572.js:1:11225)
+    at async Promise.all (index 2)
+    at async l (/app/.next/server/pages/api/docker/statuses.js:2:2302)
+    at async h (/app/.next/server/pages/api/docker/statuses.js:2:5809)
+    at async tO (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:107982)
+    at async tA.render (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:108697)
+[2026-09-11T14:56:28.133Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T14:56:28.133Z] error: TypeError: Cannot read properties of null (reading 'forEach')
+[2026-09-11T14:56:48.473Z] error: <dockerStatuses> TypeError: Cannot read properties of null (reading 'forEach')
+    at /app/.next/server/chunks/7572.js:1:10780
+    at Array.map (<anonymous>)
+    at a (/app/.next/server/chunks/7572.js:1:10726)
+    at s (/app/.next/server/chunks/7572.js:1:11083)
+    at async t (/app/.next/server/chunks/7572.js:1:11225)
+    at async Promise.all (index 2)
+    at async l (/app/.next/server/pages/api/docker/statuses.js:2:2302)
+    at async h (/app/.next/server/pages/api/docker/statuses.js:2:5809)
+    at async tO (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:107982)
+    at async tA.render (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:108697)
+[2026-09-11T14:56:48.536Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T14:56:48.537Z] error: TypeError: Cannot read properties of null (reading 'forEach')
+[2026-09-11T14:57:45.044Z] error: <dockerStatuses> TypeError: Cannot read properties of null (reading 'forEach')
+    at /app/.next/server/chunks/7572.js:1:10780
+    at Array.map (<anonymous>)
+    at a (/app/.next/server/chunks/7572.js:1:10726)
+    at s (/app/.next/server/chunks/7572.js:1:11083)
+    at async t (/app/.next/server/chunks/7572.js:1:11225)
+    at async Promise.all (index 2)
+    at async l (/app/.next/server/pages/api/docker/statuses.js:2:2302)
+    at async h (/app/.next/server/pages/api/docker/statuses.js:2:5809)
+    at async tO (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:107982)
+    at async tA.render (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:108697)
+[2026-09-11T14:57:45.123Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T14:57:45.123Z] error: TypeError: Cannot read properties of null (reading 'forEach')
+[2026-09-11T14:59:13.443Z] error: <dockerStatuses> TypeError: Cannot read properties of null (reading 'forEach')
+    at /app/.next/server/chunks/7572.js:1:10780
+    at Array.map (<anonymous>)
+    at a (/app/.next/server/chunks/7572.js:1:10726)
+    at s (/app/.next/server/chunks/7572.js:1:11083)
+    at async t (/app/.next/server/chunks/7572.js:1:11225)
+    at async Promise.all (index 2)
+    at async l (/app/.next/server/pages/api/docker/statuses.js:2:2302)
+    at async h (/app/.next/server/pages/api/docker/statuses.js:2:5809)
+    at async tO (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:107982)
+    at async tA.render (/app/node_modules/.pnpm/next@16.3.3_@babel+core@7.29.7_supports-color@7.2.0__@types+node@26.2.0_react-dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next/dist/compiled/next-server/pages-api.runtime.prod.js:1:108697)
+[2026-09-11T14:59:14.008Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T14:59:14.008Z] error: TypeError: Cannot read properties of null (reading 'forEach')
+[2026-09-11T15:08:38.610Z] error: Failed to load services.yaml, please check for errors
+[2026-09-11T15:08:38.611Z] error: TypeError: Cannot read properties of null (reading 'forEach')
