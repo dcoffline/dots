@@ -12,7 +12,7 @@
             "output": "/var/home/eric/.config/sunshine/app-bigpic.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1920x1080 59.963",
+                    "do": "monctl 1920x1080 119.930",
                     "undo": ""
                 }
             ],
@@ -65,22 +65,6 @@
             "prep-cmd": [
                 {
                     "do": "monctl 1680x1050 119.891",
-                    "undo": ""
-                }
-            ],
-            "wait-all": true
-        },
-        {
-            "auto-detach": true,
-            "cmd": "",
-            "exclude-global-prep-cmd": false,
-            "exit-timeout": 5,
-            "image-path": "/var/home/eric/.config/sunshine/covers/iphone.png",
-            "name": "Phone",
-            "output": "/var/home/eric/.config/sunshine/app-phone.log",
-            "prep-cmd": [
-                {
-                    "do": "monctl 1280x720 119.858",
                     "undo": ""
                 }
             ],

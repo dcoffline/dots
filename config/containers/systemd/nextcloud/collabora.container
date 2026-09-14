@@ -18,7 +18,7 @@ Environment=server_name=cloud.hemati.com
 
 Label=homepage.name=Collabora
 Label=homepage.group=Servers
-Label=homepage.icon=collabora
+Label=homepage.icon=https://cdn.simpleicons.org/collaboraonline/5C2983
 Label=homepage.href=https://collabora.hemati.com
 Label="homepage.description=LibreOffice Online Editor"
 [Service]
