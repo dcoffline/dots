@@ -21,7 +21,7 @@ Label="homepage.name=PKA Vault"
 Label=homepage.group=Servers
 Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/08/Hemati_favicon-removebg-preview-Edited.png
 Label=homepage.href=https://pka.hemati.com
-Label="homepage.description=Personal Knowledgebase"
+Label="homepage.description=Knowledgebase"
 [Service]
 Restart=always
 RestartSec=5

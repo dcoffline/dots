@@ -29,7 +29,7 @@ Label=homepage.name=Ollama
 Label=homepage.group=Servers
 Label=homepage.icon=ollama
 Label=homepage.href=http://10.89.0.100:11434
-Label="homepage.description=Local LLM Inference Engine"
+Label="homepage.description=LLM Inference"
 [Service]
 Restart=always
 TimeoutStartSec=900

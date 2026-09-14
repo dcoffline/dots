@@ -20,7 +20,7 @@ Label=homepage.name=Collabora
 Label=homepage.group=Servers
 Label=homepage.icon=https://cdn.simpleicons.org/collaboraonline/5C2983
 Label=homepage.href=https://collabora.hemati.com
-Label="homepage.description=LibreOffice Online Editor"
+Label="homepage.description=LibreOffice Online"
 [Service]
 Restart=always
 RestartSec=5
