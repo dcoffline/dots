@@ -108,7 +108,7 @@ brew "ugrep"
 # Sends magic packets to wake up network-devices
 brew "wakeonlan"
 # Port of OpenAI's Whisper model in C/C++
-brew "whisper-cpp"
+brew "whisper.cpp"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
 # A retro terminal music player inspired by Winamp 2.x
