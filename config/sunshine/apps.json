@@ -43,7 +43,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/src/dots/config/sunshine/covers/ultra.png",
-            "name": "LG Ultra",
+            "name": "LG Ultrawide",
             "output": "/var/home/eric/.config/sunshine/app-ultra.log",
             "prep-cmd": [
                 {
@@ -60,7 +60,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/macbook.png",
-            "name": "Laptop",
+            "name": "Macbook",
             "output": "/var/home/eric/.config/sunshine/app-laptop.log",
             "prep-cmd": [
                 {
@@ -77,7 +77,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/ipad.png",
-            "name": "iPad",
+            "name": "Tablet",
             "output": "/var/home/eric/.config/sunshine/app-tablet.log",
             "prep-cmd": [
                 {
