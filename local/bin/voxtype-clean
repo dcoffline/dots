@@ -72,23 +72,30 @@ def clean_text(raw_text: str, endpoint: str, model: str, style: str, timeout: fl
         }
     }
     
-    data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(
-        url,
-        data=data,
-        headers={
-            "Content-Type": "application/json",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Voxtype/1.0"
-        }
-    )
-    
-    with urllib.request.urlopen(req, timeout=timeout) as response:
-        res_json = json.loads(response.read().decode("utf-8"))
-        result = res_json.get("message", {}).get("content", "").strip()
-        # Remove surrounding markdown quotes or backticks if LLM mistakenly added them
-        if (result.startswith('"') and result.endswith('"')) or (result.startswith("'") and result.endswith("'")):
-            result = result[1:-1].strip()
-        return result
+    def _execute(target_model: str, req_timeout: float) -> str:
+        payload["model"] = target_model
+        data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(
+            url,
+            data=data,
+            headers={
+                "Content-Type": "application/json",
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Voxtype/1.0"
+            }
+        )
+        with urllib.request.urlopen(req, timeout=req_timeout) as response:
+            res_json = json.loads(response.read().decode("utf-8"))
+            result = res_json.get("message", {}).get("content", "").strip()
+            if (result.startswith('"') and result.endswith('"')) or (result.startswith("'") and result.endswith("'")):
+                result = result[1:-1].strip()
+            return result
+
+    try:
+        return _execute(model, timeout)
+    except urllib.error.HTTPError as e:
+        if e.code == 404 and model != "qwen2.5:7b":
+            return _execute("qwen2.5:7b", timeout)
+        raise
 
 def main():
     parser = argparse.ArgumentParser(description="Voxtype Ollama Post-Processor")

@@ -15,10 +15,13 @@ tablet() {
 # Toggle Tablet control for S11
 tablet() {
   export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
-  if pgrep -f "scrcpy.*R52YA06N8FA" >/dev/null; then
-    pkill -f "scrcpy.*R52YA06N8FA"
+  if pgrep -f "scrcpy.*R52YA06N8FA" >/dev/null 2>&1; then
+    echo "Disconnecting tablet..."
+    pkill -9 -f "scrcpy.*R52YA06N8FA"
   else
-    scrcpy --otg -s R52YA06N8FA &
+    echo "Connecting tablet..."
+    scrcpy --otg -s R52YA06N8FA >/dev/null 2>&1 &
+    disown
   fi
 }
 

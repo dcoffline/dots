@@ -132,6 +132,8 @@ stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" 
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
 if [ "${IS_MAC:-0}" -eq 1 ]; then
   stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/Library" Library
+  mkdir -p "$HOME/Library/Application Support/voxtype"
+  ln -sfn "$SCRIPT_DIR/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
 fi
 
 # =========================================================

@@ -155,11 +155,11 @@ flash_attention = true
 # - paste: Fast insertion via clipboard + Cmd+V / Ctrl+V
 # - type: Simulates keyboard input at cursor position
 # - clipboard: Copies text to clipboard without pasting
-mode = "paste"
+mode = "type"
 
 # Restore clipboard content after paste mode (default: false)
 # Saves clipboard before transcription, restores it after paste keystroke
-# Only applies to mode = "paste". Preserves your existing clipboard content across dictation.
+# Only applies to mode = "type". Preserves your existing clipboard content across dictation.
 restore_clipboard = true
 
 # Delay after paste before restoring clipboard (milliseconds)

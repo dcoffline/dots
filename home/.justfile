@@ -580,8 +580,8 @@ install-voxtype:
         mkdir -p "$HOME/.config/voxtype" "$HOME/Library/Application Support/voxtype"
         if [ -f "$DOTS/config/voxtype/config.toml" ]; then
             echo "[ ⚙️ Deploying Voxtype config from dotfiles... ]"
-            cp "$DOTS/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
-            cp "$DOTS/config/voxtype/config.toml" "$HOME/.config/voxtype/config.toml"
+            ln -sfn "$DOTS/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
+            ln -sfn "$DOTS/config/voxtype/config.toml" "$HOME/.config/voxtype/config.toml"
         fi
 
         echo "[ 📥 Setting up model (large-v3-turbo)... ]"
@@ -628,7 +628,7 @@ install-voxtype:
         # Deploy voxtype config
         if [ -f "$DOTS/config/voxtype/config.toml" ]; then
             echo "[ ⚙️ Deploying Voxtype config from dotfiles... ]"
-            cp "$DOTS/config/voxtype/config.toml" "$HOME/.config/voxtype/config.toml"
+            ln -sfn "$DOTS/config/voxtype/config.toml" "$HOME/.config/voxtype/config.toml"
         fi
 
         # Download model if not present
