@@ -1,6 +1,9 @@
 #!/bin/bash
-MAIN="DP-1"
+MAIN="HDMI-1"
 DUMMY="DP-6"
+RES="1280x720"
+REFRESH="60"
+SCALE="1"
 
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
 RUN=()
@@ -12,24 +15,33 @@ echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>"$HOME/.config/suns
 
 case "$XDG_CURRENT_DESKTOP" in
 "KDE")
-  "${RUN[@]}" kscreen-doctor output."$MAIN".enable output."$MAIN".mode.3440x1440@160 output."$MAIN".scale.1
+  "${RUN[@]}" kscreen-doctor output."$MAIN".enable output."$MAIN".mode."${RES}"@"${REFRESH}" output."$MAIN".scale."${SCALE}"
   sleep 1
   "${RUN[@]}" kscreen-doctor output."$DUMMY".disable
   ;;
 "COSMIC")
+  WIDTH=$(echo "$RES" | cut -d'x' -f1)
+  HEIGHT=$(echo "$RES" | cut -d'x' -f2)
   "${RUN[@]}" cosmic-randr enable "$MAIN"
-  "${RUN[@]}" cosmic-randr mode --refresh 160 "$MAIN" 3440 1440
-  "${RUN[@]}" cosmic-randr mode --scale 1 "$MAIN" 3440 1440
+  "${RUN[@]}" cosmic-randr mode --refresh "$REFRESH" "$MAIN" "$WIDTH" "$HEIGHT"
+  "${RUN[@]}" cosmic-randr mode --scale "$SCALE" "$MAIN" "$WIDTH" "$HEIGHT"
   sleep 1
   "${RUN[@]}" cosmic-randr disable "$DUMMY"
   ;;
 "GNOME" | *"GNOME"*)
   GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
+  GNOME_MAIN=$(echo "$MAIN" | sed 's/-A-/-/g')
 
   # Force the script to talk to the active user's GNOME session
   export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 
-  timeout 2 "${RUN[@]}" gdctl set -L -p -M "$MAIN"
+  # Format refresh rate: gdctl requires exact 3-decimal format (e.g. 60.000) if an integer is provided
+  GNOME_REFRESH="$REFRESH"
+  if [[ "$GNOME_REFRESH" =~ ^[0-9]+$ ]]; then
+    GNOME_REFRESH="${GNOME_REFRESH}.000"
+  fi
+
+  timeout 2 "${RUN[@]}" gdctl set -P -L -p -s "$SCALE" -M "$GNOME_MAIN" -m "${RES}@${GNOME_REFRESH}"
   timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
   timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
   ;;

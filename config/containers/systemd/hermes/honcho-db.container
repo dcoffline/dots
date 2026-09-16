@@ -14,6 +14,14 @@ Environment=POSTGRES_USER=postgres
 Environment=POSTGRES_PASSWORD=postgres
 Environment=POSTGRES_DB=honcho
 
+# Healthcheck to ensure Postgres is ready before dependent services start
+HealthCmd=pg_isready -U postgres -d honcho
+HealthInterval=2s
+HealthRetries=15
+HealthTimeout=3s
+HealthStartPeriod=2s
+Notify=healthy
+
 [Service]
 Restart=always
 

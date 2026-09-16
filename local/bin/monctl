@@ -1,5 +1,5 @@
 #!/bin/bash
-MAIN="DP-1"
+MAIN="HDMI-A-1"
 DUMMY="DP-6"
 
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
@@ -27,6 +27,9 @@ case "$XDG_CURRENT_DESKTOP" in
   ;;
 "GNOME" | *"GNOME"*)
   GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
+
+  # Force the script to talk to the active user's GNOME session
+  export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 
   # Remember to verify $RES, $REFRESH, and $SCALE are actually supported
   "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m "${RES}@${REFRESH}" -s "$SCALE"
