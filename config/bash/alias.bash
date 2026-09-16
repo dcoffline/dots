@@ -96,9 +96,6 @@ pshell() {
   podman exec -it "$1" /bin/bash 2>/dev/null || podman exec -it "$1" /bin/sh
 }
 
-# Control S11 with scrcpy
-alias tablet="scrcpy --otg -s R52YA06N8FA"
-
 # Editor
 alias vi=$EDITOR
 alias nano=$EDITOR

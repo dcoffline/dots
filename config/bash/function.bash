@@ -1,5 +1,17 @@
 # ────── SHELL FUNCTIONS ──────
 
+# Toggle Tablet control for S11
+tablet() {
+  export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+  # If scrcpy is already running for this device, terminate it (toggle off)
+  if pgrep -f "scrcpy.*R52YA06N8FA" >/dev/null; then
+    pkill -f "scrcpy.*R52YA06N8FA"
+  else
+    scrcpy --otg -s R52YA06N8FA &
+  fi
+}
+
 # Portable in-place sed (handles differences between BSD/macOS and GNU/Linux)
 sedi() {
   if [[ "$OSTYPE" == darwin* ]] || [ "${IS_MAC:-0}" -eq 1 ]; then
