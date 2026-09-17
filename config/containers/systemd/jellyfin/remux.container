@@ -18,7 +18,6 @@ Volume=%h/.local/share/remux:/data:Z
 
 # Bulk media (read-only) — same mounts as jellyfin
 Volume=%h/.mnt/10T:/media:ro
-Volume=%h/.mnt/rclone/Zurg:/media/zurg:ro,rshared
 
 # AMD Hardware Acceleration (Radeon 780M / VA-API)
 AddDevice=/dev/dri
@@ -36,6 +35,7 @@ Label=homepage.group=Servers
 Label=homepage.icon=jellyfin
 Label=homepage.href=https://media.hemati.com
 Label="homepage.description=Home Media Server"
+
 [Service]
 Restart=always
 

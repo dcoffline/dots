@@ -321,7 +321,7 @@ mount:
     BASE_MOUNT="$HOME/.mnt/rclone"
     LOGFILE="/tmp/rclone-mount.log"
     PID_DIR="$HOME/.config/rclone/pid"
-    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" )
 
     OS_TYPE="$(uname -s)"
 
@@ -412,33 +412,15 @@ mount:
       target="${REMOTES[$remote]}"
       mountpoint="$BASE_MOUNT/$target"
 
-      if [[ "$remote" == "Zurg" ]]; then
-        zurg_up=false
-        for attempt in {1..10}; do
-          if curl -s --connect-timeout 2 http://127.0.0.1:9999/ >/dev/null 2>&1 || curl -s --connect-timeout 2 https://zurg.hemati.com/ >/dev/null 2>&1; then
-            zurg_up=true
-            break
-          fi
-          echo "Waiting for Zurg WebDAV server to be ready (attempt $attempt/10)..."
-          sleep 2
-        done
-        if [ "$zurg_up" = false ]; then
-          echo "⚠️ Zurg WebDAV server is not responding after 20s. Skipping mount."
-          continue
-        fi
-      fi
-
       EXTRA_FLAGS=()
       if [[ "$OS_TYPE" == "Darwin" ]]; then
         EXTRA_FLAGS+=( --volname "$remote" )
-        if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid" || "$remote" == "Zurg" ]]; then
+        if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid"  ]]; then
           EXTRA_FLAGS+=( --read-only )
         fi
       else
         # Linux
-        if [[ "$remote" == "Zurg" ]]; then
-          EXTRA_FLAGS=( --read-only --dir-cache-time 10s --attr-timeout 1s )
-        elif [[ "$remote" == "Nextcloud" ]]; then
+        if [[ "$remote" == "Nextcloud" ]]; then
           EXTRA_FLAGS=( --dir-cache-time 10s --attr-timeout 1s )
         else
           EXTRA_FLAGS=( --dir-cache-time 72h )
@@ -458,9 +440,8 @@ mount:
 unmount:
     #!/usr/bin/env bash
     BASE_MOUNT="$HOME/.mnt/rclone"
-    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" )
 
-    # Zurg is now mounted on macOS as well
 
     for remote in "${!REMOTES[@]}"; do
       target="${REMOTES[$remote]}"
@@ -492,7 +473,7 @@ check-mounts:
     #!/usr/bin/env bash
     set -euo pipefail
     BASE_MOUNT="$HOME/.mnt/rclone"
-    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" ["Zurg"]="Zurg" )
+    declare -A REMOTES=( ["Archive"]="Archive" ["Backup"]="Backup" ["GDrive"]="GDrive" ["Nextcloud"]="Nextcloud" ["OneDrive"]="OneDrive" ["Timeline"]="Timeline" )
 
     OS_TYPE="$(uname -s)"
     if [[ "$OS_TYPE" == "Darwin" ]]; then
@@ -512,14 +493,6 @@ check-mounts:
     for remote in "${!REMOTES[@]}"; do
       target="${REMOTES[$remote]}"
       mountpoint="$BASE_MOUNT/$target"
-
-      # Skip checking Zurg if it is offline
-      if [[ "$remote" == "Zurg" ]]; then
-        if ! curl -s --connect-timeout 3 http://127.0.0.1:9999/ >/dev/null 2>&1 && ! curl -s --connect-timeout 3 https://zurg.hemati.com/ >/dev/null 2>&1; then
-          echo "⚠️ Zurg WebDAV is offline. Skipping watchdog check."
-          continue
-        fi
-      fi
 
       echo "Checking mountpoint: $mountpoint"
 
