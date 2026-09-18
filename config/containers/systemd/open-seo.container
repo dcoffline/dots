@@ -38,9 +38,9 @@ Environment=BETTER_AUTH_URL=http://open-seo:3001
 # Homepage dashboard labels (per convention: every NEW container gets these)
 Label=homepage.name=OpenSEO
 Label=homepage.group=Servers
-Label=homepage.icon=seo
-Label=homepage.href=http://open-seo:3001
-Label="homepage.description=SEO Platform (Semrush alternative)"
+Label=homepage.icon=https://assets.microsaasexamples.com/products/openseo/logo.png
+Label=homepage.href=https://seo.hemati.com
+Label="homepage.description=Semrush alternative"
 
 [Service]
 Restart=always
