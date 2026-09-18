@@ -1,0 +1,49 @@
+[Unit]
+Description=OpenSEO - Open Source SEO Platform (Semrush/Ahrefs alternative)
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=open-seo
+Image=ghcr.io/every-app/open-seo:latest
+Network=homelab.network
+AutoUpdate=registry
+
+# OpenSEO Docker self-hosting mode requires unauthenticated access
+# (AUTH_MODE=local_noauth). Only expose via private/internal network —
+# do NOT publish to a public interface. Access via container DNS on
+# homelab.network (http://open-seo:3001) or the Cloudflare tunnel.
+# NOTE: no PublishPort — rootless host port-forwarding is unreliable here;
+# host reaches it directly at the container's homelab IP (10.89.0.x:3001),
+# and Homepage/other containers use container DNS http://open-seo:3001.
+# (Remux already owns host 3001/3002 would collide anyway.)
+
+# Persistent data (SQLite/state lives under /app/.wrangler)
+Volume=%h/.local/share/open-seo:/app/.wrangler:Z
+
+# OpenSEO reads config from /app/.env (documented Docker self-host path).
+# The .env is generated from ~/.secrets (DATAFOREOSEO_API_KEY) + this file.
+Volume=%h/.local/share/open-seo/.env:/app/.env:Z,ro
+
+# Env-file also loads container env (diagnostics + some overrides); the
+# canonical app config is /app/.env. Telemetry disabled per preference.
+EnvironmentFile=%h/.secrets
+Environment=PORT=3001
+Environment=AUTH_MODE=local_noauth
+Environment=OPENSEO_TELEMETRY_DISABLED=1
+Environment=DO_NOT_TRACK=1
+
+# Homepage dashboard labels (per convention: every NEW container gets these)
+Label=homepage.name=OpenSEO
+Label=homepage.group=Servers
+Label=homepage.icon=seo
+Label=homepage.href=http://open-seo:3001
+Label="homepage.description=SEO Platform (Semrush alternative)"
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target
