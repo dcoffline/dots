@@ -32,6 +32,8 @@ Environment=PORT=3001
 Environment=AUTH_MODE=local_noauth
 Environment=OPENSEO_TELEMETRY_DISABLED=1
 Environment=DO_NOT_TRACK=1
+Environment=ALLOWED_HOST=seo.hemati.com
+Environment=BETTER_AUTH_URL=http://open-seo:3001
 
 # Homepage dashboard labels (per convention: every NEW container gets these)
 Label=homepage.name=OpenSEO
