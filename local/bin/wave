@@ -7,11 +7,11 @@ export DESKTOPINTEGRATION=1
 export DISPLAY=:0
 
 # Use direct globbing instead of find — instantaneous and cannot recurse
-for f in /run/user/1000/*Xwaylandauth*; do
+for f in "/run/user/$(id -u)/"*Xwaylandauth*; do
     if [ -e "$f" ]; then
         export XAUTHORITY="$f"
         break
     fi
 done
 
-exec /var/home/eric/Applications/wave.appimage --ozone-platform=x11 --enable-transparent-visuals --ignore-gpu-blocklist
+exec "${HOME}/Applications/wave.appimage" --ozone-platform=x11 --enable-transparent-visuals --ignore-gpu-blocklist

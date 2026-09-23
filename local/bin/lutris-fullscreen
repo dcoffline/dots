@@ -1,0 +1,19 @@
+#!/bin/bash
+# Lutris / Ubisoft Fullscreen Helper for Steam & Moonlight
+# Continuously monitors for launcher and game windows and forces borderless fullscreen
+
+(
+  # Monitor for up to 2 minutes while game/launcher opens
+  for i in {1..120}; do
+    # Find window IDs matching Ubisoft, Wine, or Lutris game windows
+    WIDS=$(wmctrl -l | grep -E -i "Ubisoft|wine|game" | grep -v -i "Steam" | awk '{print $1}')
+    for WID in $WIDS; do
+      wmctrl -i -r "$WID" -b add,fullscreen 2>/dev/null
+      xdotool windowfullscreen "$WID" 2>/dev/null
+    done
+    sleep 1
+  done
+) &
+
+export LUTRIS_SKIP_INIT=1
+exec lutris "lutris:rungameid/${1:-49}"

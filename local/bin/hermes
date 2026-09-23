@@ -1,0 +1,16 @@
+#!/bin/sh
+# distrobox_binary
+# name: athena
+export HERMES_HOME=/opt/data
+export HERMES_WRITE_SAFE_ROOT=/opt/data
+export HERMES_WEB_DIST=/opt/hermes/hermes_cli/web_dist
+export PLAYWRIGHT_BROWSERS_PATH=/opt/hermes/.playwright
+export PYTHONPATH="${PYTHONPATH:-/opt/data/google-chat-deps}"
+
+if [ -z "${CONTAINER_ID}" ]; then
+	exec "/usr/bin/distrobox-enter"  -n athena  --  '/usr/local/bin/hermes'  "$@"
+elif [ -n "${CONTAINER_ID}" ] && [ "${CONTAINER_ID}" != "athena" ]; then
+	exec distrobox-host-exec "${HOME}/.local/bin/hermes" "$@"
+else
+	exec  '/usr/local/bin/hermes' "$@"
+fi

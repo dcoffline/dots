@@ -1,0 +1,13 @@
+#!/bin/bash
+# Helper script to launch Stremio in fullscreen specifically for Steam / Moonlight
+(
+  for i in {1..10}; do
+    if wmctrl -l | grep -i "Stremio" > /dev/null; then
+      wmctrl -r "Stremio" -b add,fullscreen
+      break
+    fi
+    sleep 0.5
+  done
+) &
+
+exec /usr/bin/flatpak run com.stremio.Stremio "$@"

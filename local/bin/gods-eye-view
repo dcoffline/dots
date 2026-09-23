@@ -1,0 +1,168 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# God's Eye View - Desktop Launcher Script
+# ==============================================================================
+
+# Ensure Homebrew and local user binaries are available in GUI session
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
+fi
+export PATH="/home/linuxbrew/.linuxbrew/bin:$HOME/.local/bin:$PATH"
+
+PORT=4173
+URL="http://localhost:${PORT}"
+REPO_DIR="${HOME}/src/projects/gods-eye-view"
+LOG_DIR="${HOME}/.local/share/gods-eye-view"
+LOG_FILE="${LOG_DIR}/server.log"
+PID_FILE="${LOG_DIR}/server.pid"
+
+mkdir -p "$LOG_DIR"
+
+is_server_running() {
+    systemctl --user is-active --quiet gods-eye-view.service 2>/dev/null
+}
+
+start_server() {
+    if is_server_running; then
+        return 0
+    fi
+
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send "God's Eye View" "Initializing intelligence console server..." -i "gods-eye-view" 2>/dev/null || true
+    fi
+
+    if [ -f "$HOME/.config/systemd/user/gods-eye-view.service" ]; then
+        systemctl --user start gods-eye-view.service
+    else
+        cd "$REPO_DIR" || {
+            echo "Error: Directory $REPO_DIR does not exist." >&2
+            return 1
+        }
+        # Start dev server in background
+        nohup npm run dev >> "$LOG_FILE" 2>&1 &
+        SERVER_PID=$!
+        echo "$SERVER_PID" > "$PID_FILE"
+    fi
+
+    # Wait up to 15s for server to respond
+    for _ in {1..30}; do
+        if curl -s --connect-timeout 1 -o /dev/null -w "%{http_code}" "$URL" 2>/dev/null | grep -qE '^[23]'; then
+            if command -v notify-send >/dev/null 2>&1; then
+                notify-send "God's Eye View" "Online & listening on port ${PORT}" -i "gods-eye-view" 2>/dev/null || true
+            fi
+            return 0
+        fi
+        sleep 0.5
+    done
+
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -u critical "God's Eye View" "Server failed to start within 15 seconds. Check logs." -i "gods-eye-view" 2>/dev/null || true
+    fi
+    return 1
+}
+
+stop_server() {
+    local stopped=0
+
+    # Stop via systemd if service/proxy exists
+    if systemctl --user is-active --quiet gods-eye-view-proxy.service 2>/dev/null; then
+        systemctl --user stop gods-eye-view-proxy.service
+        stopped=1
+    fi
+    if systemctl --user is-active --quiet gods-eye-view.service 2>/dev/null; then
+        systemctl --user stop gods-eye-view.service
+        stopped=1
+    fi
+
+    if [ -f "$PID_FILE" ]; then
+        local pid
+        pid=$(cat "$PID_FILE" 2>/dev/null || true)
+        if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+            kill "$pid" 2>/dev/null || true
+            stopped=1
+        fi
+        rm -f "$PID_FILE"
+    fi
+
+    # Also clean up any lingering process on internal port 4174
+    local port_pids
+    port_pids=$(lsof -ti :4174 2>/dev/null || true)
+    if [ -n "$port_pids" ]; then
+        kill $port_pids 2>/dev/null || true
+        stopped=1
+    fi
+
+    if [ $stopped -eq 1 ]; then
+        if command -v notify-send >/dev/null 2>&1; then
+            notify-send "God's Eye View" "Server stopped." -i "gods-eye-view" 2>/dev/null || true
+        fi
+        echo "God's Eye View server stopped."
+    else
+        if command -v notify-send >/dev/null 2>&1; then
+            notify-send "God's Eye View" "No running server detected." -i "gods-eye-view" 2>/dev/null || true
+        fi
+        echo "No running server detected."
+    fi
+}
+
+
+open_app_window() {
+    # Check if Chrome flatpak is available for app-mode window
+    if flatpak info com.google.Chrome > /dev/null 2>&1; then
+        flatpak run com.google.Chrome --app="$URL" &
+    else
+        xdg-open "$URL" &
+    fi
+}
+
+open_browser_tab() {
+    xdg-open "$URL" &
+}
+
+view_logs() {
+    if command -v ptyxis > /dev/null 2>&1; then
+        ptyxis -- tail -f "$LOG_FILE" &
+    elif command -v ghostty > /dev/null 2>&1; then
+        ghostty -e tail -f "$LOG_FILE" &
+    else
+        xdg-terminal-exec tail -f "$LOG_FILE" &
+    fi
+}
+
+case "$1" in
+    start)
+        start_server
+        ;;
+    stop)
+        stop_server
+        ;;
+    restart)
+        stop_server
+        sleep 1
+        start_server
+        ;;
+    status)
+        if is_server_running; then
+            echo "God's Eye View server is RUNNING (active)"
+            exit 0
+        elif systemctl --user is-active --quiet gods-eye-view.socket 2>/dev/null; then
+            echo "God's Eye View is on STANDBY (socket-activated on $URL)"
+            exit 0
+        else
+            echo "God's Eye View is STOPPED"
+            exit 1
+        fi
+        ;;
+    app)
+        start_server && open_app_window
+        ;;
+    browser)
+        start_server && open_browser_tab
+        ;;
+    logs)
+        view_logs
+        ;;
+    *)
+        start_server && open_app_window
+        ;;
+esac

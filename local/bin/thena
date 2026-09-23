@@ -1,0 +1,3 @@
+#!/bin/sh
+export HERMES_HOME=/opt/data
+exec "${HOME}/.local/bin/hermes" -z "$@"
