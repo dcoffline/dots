@@ -23,7 +23,7 @@
         description: Satellite Maps
         ping: https://maps.hemati.com
     - Hermes:
-        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/hermes-icon.svg
+        icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/hermes-agent.svg
         href: https://athena.hemati.com
         description: Hermes AI Harness
         server: podman
