@@ -1,7 +1,6 @@
 [Unit]
 Description=God's Eye View Geospatial Console
 After=network-online.target
-StopWhenUnneeded=yes
 
 [Service]
 Type=simple
@@ -9,9 +8,10 @@ WorkingDirectory=%h/src/projects/gods-eye-view
 Environment="PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin:%h/.local/bin"
 Environment=NODE_ENV=development
 Environment=HOST=0.0.0.0
-Environment=PORT=4174
+Environment=PORT=4173
 ExecStart=/home/linuxbrew/.linuxbrew/bin/npm run dev
-ExecStartPost=/usr/bin/bash -c 'for _ in {1..60}; do curl -s http://127.0.0.1:4174/ >/dev/null 2>&1 && exit 0; sleep 0.05; done; exit 1'
-SuccessExitStatus=0 143 SIGTERM
-Restart=on-failure
-RestartSec=3
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

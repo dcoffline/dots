@@ -1,0 +1,8 @@
+[Unit]
+Description=zcc-webhook health watchdog (every 5 min)
+After=zcc-webhook.service
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/zcc_webhook_watch.sh
+# Failing = webhook down — surface in journal + any OnFailure hooks

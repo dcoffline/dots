@@ -1,0 +1,10 @@
+[Unit]
+Description=God's Eye View Socket (Port 4173)
+
+[Socket]
+ListenStream=0.0.0.0:4173
+Service=gods-eye-view-proxy.service
+NoDelay=true
+
+[Install]
+WantedBy=sockets.target

@@ -1,0 +1,30 @@
+# GEV Voice Envoy — self-hosted Realtime voice for God's Eye View
+# (OpenAI-Realtime-wire-compatible; Groq STT + OpenRouter LLM + piper TTS).
+#
+# Runs INSIDE the athena distrobox (same convention as hermes.service):
+#   ExecStart = distrobox-host-exec podman exec --user 1000 ... athena ...
+#
+# Root-cause history (2026-09-09):
+#   v1 ExecStart=<venv>/bin/python directly -> 203/EXEC (relative python3.13
+#      symlink not resolvable in systemd exec namespace)
+#   v2 bash wrapper + PYTHONHOME/PYTHONPATH -> encodings/python-prefix mismatch
+#   v3 `distrobox enter athena` -> recursion / missing host distrobox
+#   v4 (this): host user manager (host is where systemctl --user runs),
+#      podman exec into athena as uid 1000, same env as the working manual
+#      process (PYTHONPATH=/opt/data/google-chat-deps where uvicorn lives).
+[Unit]
+Description=GEV Voice Envoy (aiortc WebRTC voice server inside distrobox athena)
+After=network-online.target athena.service
+Wants=athena.service
+
+[Service]
+Type=simple
+Environment=GEV_ENVOY_PORT=8787
+Environment=PYTHONPATH=/opt/data/google-chat-deps
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+ExecStart=/usr/bin/podman exec --user 1000 -e HOME=/var/home/eric -e PYTHONPATH=/opt/data/google-chat-deps -w /var/home/eric/src/projects/gev-voice-envoy athena .venv/bin/python3 -m src
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

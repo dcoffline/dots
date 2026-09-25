@@ -1,0 +1,11 @@
+[Unit]
+Description=God's Eye View Socket Proxy
+Requires=gods-eye-view.service
+After=gods-eye-view.service
+Requires=gods-eye-view.socket
+After=gods-eye-view.socket
+
+[Service]
+Type=notify
+ExecStart=/usr/lib/systemd/systemd-socket-proxyd --exit-idle-time=15min 127.0.0.1:4174
+Restart=no
