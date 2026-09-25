@@ -10,8 +10,6 @@ Network=homelab.network
 PublishPort=9980:9980
 Volume=%h/.local/share/collabora:/opt/collabora:Z
 EnvironmentFile=%h/.secrets
-Environment=username=admin
-Environment=password=e21190d96726df842a86ee03092c20ec569354d8c1d55af7
 Environment=extra_params=--o:ssl.enable=false --o:ssl.termination=true
 Environment=aliasgroup1=https://collabora.hemati.com
 Environment=server_name=cloud.hemati.com

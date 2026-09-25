@@ -13,7 +13,6 @@ SecurityLabelDisable=true
 EnvironmentFile=%h/.secrets
 Environment=PORT=7867
 Environment=NEXTCLOUD_URL=http://nextcloud
-Environment=DATABASE_URL=mysql://eric:100204180@nextcloud-db/nextcloud
 Environment=DATABASE_PREFIX=oc_
 Environment=REDIS_URL=redis://nextcloud-redis:6379
 

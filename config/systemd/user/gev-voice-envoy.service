@@ -21,8 +21,8 @@ Wants=athena.service
 Type=simple
 Environment=GEV_ENVOY_PORT=8787
 Environment=PYTHONPATH=/opt/data/google-chat-deps
-Environment=XDG_RUNTIME_DIR=/run/user/1000
-ExecStart=/usr/bin/podman exec --user 1000 -e HOME=/var/home/eric -e PYTHONPATH=/opt/data/google-chat-deps -w /var/home/eric/src/projects/gev-voice-envoy athena .venv/bin/python3 -m src
+Environment=XDG_RUNTIME_DIR=%t
+ExecStart=/usr/bin/podman exec --user 1000 -e HOME=%h -e PYTHONPATH=/opt/data/google-chat-deps -w %h/src/projects/gev-voice-envoy athena .venv/bin/python3 -m src
 Restart=on-failure
 RestartSec=5
 

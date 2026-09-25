@@ -8,7 +8,7 @@ ContainerName=honcho
 Image=ghcr.io/plastic-labs/honcho:latest
 AutoUpdate=registry
 Network=homelab.network
-PublishPort=8000:8000
+PublishPort=127.0.0.1:8000:8000
 Exec=sh docker/entrypoint.sh
 
 Volume=%h/.local/share/honcho/data:/app/data:Z
