@@ -1,0 +1,24 @@
+#!/bin/bash
+# Wait for GNOME Wayland & Mutter to report a valid logical monitor
+TIMEOUT=30
+ELAPSED=0
+
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
+
+# Ensure Mutter hasn't left headless displays in power save mode
+busctl --user set-property org.gnome.Mutter.DisplayConfig /org/gnome/Mutter/DisplayConfig org.gnome.Mutter.DisplayConfig PowerSaveMode i 0 2>/dev/null
+
+while [ $ELAPSED -lt $TIMEOUT ]; do
+  # 1. Does gdctl report an active logical monitor?
+  # 2. Is there at least one DRM connector reporting 'enabled'?
+  if gdctl show 2>/dev/null | grep -q "Logical monitor" && grep -qs "enabled" /sys/class/drm/card*-*/enabled; then
+    # Settle time for KMS mode lock
+    sleep 1.5
+    exit 0
+  fi
+  sleep 1
+  ELAPSED=$((ELAPSED + 1))
+done
+
+echo "sunshine-wait-display: Timed out waiting for display after ${TIMEOUT}s" >&2
+exit 0
