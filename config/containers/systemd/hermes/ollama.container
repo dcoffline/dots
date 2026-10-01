@@ -8,8 +8,8 @@ ContainerName=ollama
 AutoUpdate=registry
 Network=homelab.network
 
-# Expose the API to your local network
-#PublishPort=11434:11434
+# Expose the API to your local network / host loopback
+PublishPort=127.0.0.1:11434:11434
 
 # Persistent storage for downloaded models
 Volume=%h/.local/share/ollama:/root/.ollama:Z
@@ -24,6 +24,7 @@ SecurityLabelDisable=true
 
 # High-performance Zen 4 AVX-512 inference (rock-solid, no GPU hangs)
 Environment=OLLAMA_NUM_CTX=4096
+Environment=OLLAMA_ORIGINS=*
 
 Label=homepage.name=Ollama
 Label=homepage.group=Servers
