@@ -142,6 +142,7 @@ alias p='ps aux | grep'
 alias mx='chmod a+x'
 alias dots='cd $DOTS'
 alias logs='cd $LOGS'
+alias obs='cd $LOGS'
 alias vich='command -v'
 alias la='eza -la --icons=auto --group-directories-first'
 
