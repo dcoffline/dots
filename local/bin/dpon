@@ -1,8 +1,8 @@
 #!/bin/bash
 MAIN="HDMI-1"
 DUMMY="DP-6"
-RES="1280x720"
-REFRESH="60"
+RES="1600x900"
+REFRESH="59.946"
 SCALE="1"
 
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
