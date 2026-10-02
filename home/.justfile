@@ -310,6 +310,40 @@ rounded-blur:
     
     echo "✅ Success! Please log out and back in to apply the changes."
 
+# Upgrades Sunshine, reapplies KMS/uhid capabilities, fixes Qt plugin links, and restarts the service
+update-sunshine:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    echo "==> Upgrading Sunshine Game Stream Host..."
+    brew unpin sunshine 2>/dev/null || true
+    trap 'brew pin sunshine 2>/dev/null || true' EXIT
+
+    brew upgrade sunshine
+
+    POSTINST="$(brew --prefix sunshine)/bin/postinst"
+    if [ -x "$POSTINST" ]; then
+        echo "==> Running post-install setup (requires sudo for capabilities and udev rules)..."
+        sudo "$POSTINST"
+    else
+        echo "==> Applying KMS capture capabilities..."
+        sudo setcap cap_sys_admin,cap_sys_nice+p "$(readlink -f "$(which sunshine)")"
+    fi
+
+    # Fix potential Homebrew Qt plugin collisions on ostree/Silverblue
+    if brew list qtbase >/dev/null 2>&1; then
+        brew link --overwrite qtbase >/dev/null 2>&1 || true
+    fi
+    if brew list qtsvg >/dev/null 2>&1; then
+        brew link --overwrite qtsvg >/dev/null 2>&1 || true
+    fi
+
+    echo "==> Restarting Sunshine user service..."
+    systemctl --user restart sunshine.service
+
+    echo "==> Sunshine update completed successfully!"
+    systemctl --user status sunshine.service --no-pager
+
 # =============================================================================
 # CLOUD STORAGE
 # =============================================================================
