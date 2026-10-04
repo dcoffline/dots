@@ -13,6 +13,12 @@ fi
 
 echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>"$HOME/.config/sunshine/sunshine_script.log"
 
+enable_dock() {
+  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
+  timeout 2 "${RUN[@]}" gnome-extensions enable dash-to-dock@micxgx.gmail.com
+  timeout 2 "${RUN[@]}" gnome-extensions disable hotedge@jonathan.jdoda.ca
+}
+
 case "$XDG_CURRENT_DESKTOP" in
 "KDE")
   "${RUN[@]}" kscreen-doctor output."$MAIN".enable output."$MAIN".mode."${RES}"@"${REFRESH}" output."$MAIN".scale."${SCALE}"
@@ -35,14 +41,49 @@ case "$XDG_CURRENT_DESKTOP" in
   # Force the script to talk to the active user's GNOME session
   export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 
-  # Format refresh rate: gdctl requires exact 3-decimal format (e.g. 60.000) if an integer is provided
-  GNOME_REFRESH="$REFRESH"
-  if [[ "$GNOME_REFRESH" =~ ^[0-9]+$ ]]; then
-    GNOME_REFRESH="${GNOME_REFRESH}.000"
+  # Resolve closest supported refresh rate for requested resolution
+  MODE=$(python3 -c '
+import subprocess, re, sys
+connector = sys.argv[1]
+target_res = sys.argv[2]
+try:
+    target_ref = float(sys.argv[3])
+except (ValueError, IndexError):
+    target_ref = 60.0
+
+try:
+    out = subprocess.check_output(["gdctl", "show", "-m"], text=True)
+    lines = out.splitlines()
+    in_mon = False
+    modes = []
+    for line in lines:
+        if f"Monitor {connector}" in line:
+            in_mon = True
+        elif in_mon and "Monitor " in line:
+            break
+        elif in_mon:
+            m = re.search(r"(\d+x\d+)@([\d.]+)", line)
+            if m and m.group(1) == target_res:
+                modes.append((float(m.group(2)), f"{m.group(1)}@{m.group(2)}"))
+    if modes:
+        modes.sort(key=lambda x: abs(x[0] - target_ref))
+        print(modes[0][1])
+except Exception:
+    pass
+' "$GNOME_MAIN" "$RES" "$REFRESH" 2>/dev/null)
+
+  # Fallback formatting if python lookup fails
+  if [ -z "$MODE" ]; then
+    GNOME_REFRESH="$REFRESH"
+    if [[ "$GNOME_REFRESH" =~ ^[0-9]+$ ]]; then
+      GNOME_REFRESH="${GNOME_REFRESH}.000"
+    fi
+    MODE="${RES}@${GNOME_REFRESH}"
   fi
 
-  timeout 2 "${RUN[@]}" gdctl set -P -L -p -s "$SCALE" -M "$GNOME_MAIN" -m "${RES}@${GNOME_REFRESH}"
+  timeout 2 "${RUN[@]}" gdctl set -L -p -s "$SCALE" -M "$GNOME_MAIN" -m "$MODE"
   timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
   timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
+  enable_dock
   ;;
 esac

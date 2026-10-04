@@ -1,5 +1,5 @@
 #!/bin/bash
-MAIN="HDMI-A-1"
+MAIN="HDMI-1"
 DUMMY="DP-6"
 
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
@@ -8,7 +8,7 @@ if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
   RUN=(flatpak-spawn --host --env=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" --env=XAUTHORITY="$XAUTHORITY")
 fi
 
-echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>/tmp/sunshine_script.log
+echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>"$HOME/.config/sunshine/sunshine_script.log"
 
 RES=${1:-1280x720}
 REFRESH=${2:-60}
@@ -31,7 +31,38 @@ case "$XDG_CURRENT_DESKTOP" in
   # Force the script to talk to the active user's GNOME session
   export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 
-  # Remember to verify $RES, $REFRESH, and $SCALE are actually supported
-  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m "${RES}@${REFRESH}" -s "$SCALE"
+  # Resolve closest supported refresh rate for requested resolution
+  MODE=$(python3 -c '
+import subprocess, re, sys
+connector = sys.argv[1]
+target_res = sys.argv[2]
+try:
+    target_ref = float(sys.argv[3])
+except (ValueError, IndexError):
+    target_ref = 60.0
+
+try:
+    out = subprocess.check_output(["gdctl", "show", "-m"], text=True)
+    lines = out.splitlines()
+    in_mon = False
+    modes = []
+    for line in lines:
+        if f"Monitor {connector}" in line:
+            in_mon = True
+        elif in_mon and "Monitor " in line:
+            break
+        elif in_mon:
+            m = re.search(r"(\d+x\d+)@([\d.]+)", line)
+            if m and m.group(1) == target_res:
+                modes.append((float(m.group(2)), f"{m.group(1)}@{m.group(2)}"))
+    if modes:
+        modes.sort(key=lambda x: abs(x[0] - target_ref))
+        print(modes[0][1])
+except Exception:
+    pass
+' "$GNOME_DUMMY" "$RES" "$REFRESH" 2>/dev/null)
+
+  TARGET_MODE="${MODE:-${RES}@${REFRESH}}"
+  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m "$TARGET_MODE" -s "$SCALE"
   ;;
 esac

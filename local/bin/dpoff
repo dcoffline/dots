@@ -10,6 +10,12 @@ fi
 
 echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>"$HOME/.config/sunshine/sunshine_script.log"
 
+disable_dock() {
+  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
+  timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
+  timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
+}
+
 case "$XDG_CURRENT_DESKTOP" in
 "KDE")
   "${RUN[@]}" kscreen-doctor output."$DUMMY".enable
@@ -36,6 +42,7 @@ case "$XDG_CURRENT_DESKTOP" in
   # Using short flags to avoid the argparse grouping error
   "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
   "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
+  disable_dock
   ;;
 esac
 monctl

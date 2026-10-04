@@ -83,6 +83,10 @@
                 {
                     "do": "monctl 1280x800 119.909",
                     "undo": ""
+                },
+                {
+                    "do": "tablet-prep",
+                    "undo": "tablet-prep undo"
                 }
             ],
             "wait-all": true
