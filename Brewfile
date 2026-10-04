@@ -15,8 +15,6 @@ brew "asciiquarium"
 brew "glib"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
-# System and service manager
-brew "systemd"
 # Service Discovery for Linux using mDNS/DNS-SD
 brew "avahi"
 # JPEG image codec that aids compression and decompression
