@@ -125,7 +125,6 @@ alias lzd='lazydocker'
 alias cid="echo $CONTAINER_ID"
 alias rlog="tail /tmp/rclone-mount.log"
 alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
-alias natscroll='env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll'
 
 # File Management
 alias cat=bat

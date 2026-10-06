@@ -2,7 +2,7 @@
 MAIN="HDMI-1"
 DUMMY="DP-6"
 
-# Source enable_dock and disable_dock
+# Source 'dock' and 'natscroll' functions from bash
 [ -f {$HOME}/.config/bash/function.bash ] && source {$HOME}/.config/bash/function.bash
 
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
@@ -32,14 +32,12 @@ case "$XDG_CURRENT_DESKTOP" in
 
   # 2. Tell Mutter directly to change Display Power to ON (0)
   "${RUN[@]}" busctl --user set-property org.gnome.Mutter.DisplayConfig /org/gnome/Mutter/DisplayConfig org.gnome.Mutter.DisplayConfig PowerSaveMode i 0
-
-  # Reduced sleep to prevent Moonlight connection timeouts
   sleep 1
-
-  # Using short flags to avoid the argparse grouping error
   "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
-  "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
-  disable_dock
+
+  # 3. Turn off natural scroll and dock
+  natscroll false
+  dock off
   ;;
 esac
 monctl
