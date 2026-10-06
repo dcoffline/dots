@@ -29,7 +29,7 @@ disable_dock() {
 }
 
 # Toggle Tablet control for S11
-tablet() {
+s11() {
   export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
   if pgrep -f "scrcpy.*R52YA06N8FA" >/dev/null 2>&1; then
     echo "Disconnecting tablet..."
