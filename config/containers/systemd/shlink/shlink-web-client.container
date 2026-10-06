@@ -13,7 +13,7 @@ EnvironmentFile=%h/.local/share/shlink/shlink.env
 Label=homepage.name=Shlink UI
 Label=homepage.group=Utilities
 Label=homepage.icon=https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/shlink.svg
-Label=homepage.href=https://links.hemati.com
+Label=homepage.href=https://shlink.hemati.com
 Label="homepage.description=URL Shortener Dashboard"
 
 [Service]
