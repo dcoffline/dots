@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Source enable_dock and disable_dock
+[ -f {$HOME}/.config/bash/function.bash ] && source {$HOME}/.config/bash/function.bash
+
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
@@ -21,15 +24,15 @@ case "$XDG_CURRENT_DESKTOP" in
   export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
 
   if [ "$1" = "undo" ] || [ "$1" = "off" ]; then
-    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
+    timeout 2 disable_dock
     timeout 2 "${RUN[@]}" gnome-extensions disable touchup@mityax
-    timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
-    #timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
+    # Disable OSK
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
   else
-    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
+    timeout 2 enable_dock
     timeout 2 "${RUN[@]}" gnome-extensions enable touchup@mityax
-    timeout 2 "${RUN[@]}" gnome-extensions disable hotedge@jonathan.jdoda.ca
-    #timeout 2 "${RUN[@]}" gnome-extensions enable dash-to-dock@micxgx.gmail.com
+    # Enable OSK
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
   fi
   ;;
 esac
