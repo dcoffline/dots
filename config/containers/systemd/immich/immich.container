@@ -26,7 +26,7 @@ Environment=REDIS_HOSTNAME=immich-redis
 Environment=IMMICH_MACHINE_LEARNING_URL=http://immich-ml:3003
 
 Label=homepage.name=Immich
-Label=homepage.group=Servers
+Label=homepage.group=Containers
 Label=homepage.icon=immich
 Label=homepage.href=https://photos.hemati.com
 Label="homepage.description=Photos & Videos"

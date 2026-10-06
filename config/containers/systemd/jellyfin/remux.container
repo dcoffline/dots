@@ -31,8 +31,8 @@ Environment=LOG_FILE=/data/logs/remux.jsonl
 Environment=TORRENT_DATA_DIR=/data/torrents
 
 Label=homepage.name=Jellyfin
-Label=homepage.group=Servers
 Label=homepage.icon=jellyfin
+Label=homepage.group=Containers
 Label=homepage.href=https://media.hemati.com
 Label="homepage.description=Home Media Server"
 

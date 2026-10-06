@@ -14,7 +14,7 @@ Network=homelab.network
 EnvironmentFile=%h/.secrets
 
 Label=homepage.name=Vaultwarden
-Label=homepage.group=Utilities
+Label=homepage.group=Containers
 Label=homepage.icon=bitwarden
 Label=homepage.href=https://vault.hemati.com
 Label="homepage.description=Password Manager"

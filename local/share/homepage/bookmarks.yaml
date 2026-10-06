@@ -92,7 +92,7 @@
   - Photos:
     - abbr: GP
       href: https://photos.google.com
-  - POP Tool:
+  - POPTool:
     - abbr: PT
       href: https://mypoppro.com/tool
   - Reddit:
@@ -140,6 +140,9 @@
   - VoiceRec:
     - abbr: VR
       href: https://online-voice-recorder.com
+  - YahooFFL:
+    - abbr: FF
+      href: https://football.fantasysports.yahoo.com/f1/706127
   - YouTube:
     - abbr: YT
       href: https://www.youtube.com/feed/subscriptions

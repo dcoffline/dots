@@ -27,7 +27,7 @@ Environment=OLLAMA_NUM_CTX=4096
 Environment=OLLAMA_ORIGINS=*
 
 Label=homepage.name=Ollama
-Label=homepage.group=Servers
+Label=homepage.group=Containers
 Label=homepage.icon=ollama
 Label=homepage.href=http://10.89.0.100:11434
 Label="homepage.description=LLM Inference"

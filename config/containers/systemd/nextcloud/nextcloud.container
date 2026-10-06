@@ -39,7 +39,7 @@ Environment=NEXTCLOUD_UMASK=0002
 Environment=TMPDIR=/tmp
 
 Label=homepage.name=Nextcloud
-Label=homepage.group=Servers
+Label=homepage.group=Containers
 Label=homepage.icon=nextcloud
 Label=homepage.href=https://cloud.hemati.com
 Label="homepage.description=Private File Storage"
