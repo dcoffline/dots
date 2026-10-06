@@ -145,7 +145,9 @@ alias logs='cd $LOGS'
 alias obs='cd $LOGS'
 alias vich='command -v'
 alias la='eza -la --icons=auto --group-directories-first'
-alias ghostty='~/Applications/ghostty.appimage'
+
+# Ghostty Terminal
+[ "$OS_TYPE" = "linux" ] && alias ghostty='~/Applications/ghostty.appimage'
 
 # ls aliases
 if [ "$(command -v eza)" ]; then
