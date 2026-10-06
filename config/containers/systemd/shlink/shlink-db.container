@@ -1,0 +1,19 @@
+[Unit]
+Description=Shlink MariaDB Database
+After=network-online.target
+
+[Container]
+ContainerName=shlink-db
+Image=docker.io/library/mariadb:10.6
+Network=homelab.network
+AutoUpdate=registry
+
+Volume=%h/.local/share/shlink/db:/var/lib/mysql:Z
+EnvironmentFile=%h/.local/share/shlink/shlink.env
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
