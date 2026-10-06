@@ -1,12 +1,12 @@
 # ────── SHELL FUNCTIONS ──────
 
-# Enable / Disble Dash-to-dock
+# Enable / Disable Dash-to-dock
 dock() {
+  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
   RUN=()
   if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
     RUN=(flatpak-spawn --host --env=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" --env=XAUTHORITY="$XAUTHORITY")
   fi
-  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
   if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
     timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
     timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
@@ -16,16 +16,22 @@ dock() {
   fi
 }
 
-enable_dock() {
+# Enable / Disable Tablet Tools
+tablet() {
   export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
-  timeout 2 "${RUN[@]}" gnome-extensions enable dash-to-dock@micxgx.gmail.com
-  timeout 2 "${RUN[@]}" gnome-extensions disable hotedge@jonathan.jdoda.ca
-}
-
-disable_dock() {
-  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
-  timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
-  timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
+  RUN=()
+  if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
+    RUN=(flatpak-spawn --host --env=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" --env=XAUTHORITY="$XAUTHORITY")
+  fi
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    # Disable OSK & Touchbar
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
+    timeout 2 "${RUN[@]}" gnome-extensions disable touchup@mityax
+  else
+    # Enable OSK & Touchbar
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
+    timeout 2 "${RUN[@]}" gnome-extensions enable touchup@mityax
+  fi
 }
 
 # Toggle Tablet control for S11
