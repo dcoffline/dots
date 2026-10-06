@@ -50,6 +50,22 @@ natscroll() {
   fi
 }
 
+# Enable / Disable OSK
+osk() {
+  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
+  RUN=()
+  if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
+    RUN=(flatpak-spawn --host --env=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" --env=XAUTHORITY="$XAUTHORITY")
+  fi
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    # Disable natural-scroll
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
+  else
+    # Enable natural-scroll
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
+  fi
+}
+
 # Toggle Tablet control for S11
 s11() {
   export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
