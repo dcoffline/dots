@@ -1,3 +1,7 @@
 #!/bin/sh
 export HERMES_HOME=/opt/data
-exec "${HOME}/.local/bin/hermes" -z "$@"
+if [ $# -eq 0 ]; then
+  exec "${HOME}/.local/bin/hermes"
+else
+  exec "${HOME}/.local/bin/hermes" -z "$*"
+fi
