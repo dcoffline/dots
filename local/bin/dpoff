@@ -10,12 +10,6 @@ fi
 
 echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>"$HOME/.config/sunshine/sunshine_script.log"
 
-disable_dock() {
-  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
-  timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
-  timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
-}
-
 case "$XDG_CURRENT_DESKTOP" in
 "KDE")
   "${RUN[@]}" kscreen-doctor output."$DUMMY".enable
@@ -28,6 +22,12 @@ case "$XDG_CURRENT_DESKTOP" in
   "${RUN[@]}" cosmic-randr disable "$MAIN"
   ;;
 "GNOME" | *"GNOME"*)
+  disable_dock() {
+    export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
+    timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
+    timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
+  }
+
   GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
 
   # 1. Force the script to talk to the active user's GNOME session

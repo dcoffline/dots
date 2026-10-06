@@ -1,15 +1,16 @@
 # ────── SHELL FUNCTIONS ──────
 
-# Toggle Tablet control for S11
-tablet() {
-  if pgrep -f "scrcpy.*R52YA06N8FA" >/dev/null; then
-    echo "Disconnecting tablet..."
-    pkill -f "scrcpy.*R52YA06N8FA"
-  else
-    echo "Connecting tablet..."
-    scrcpy --otg -s R52YA06N8FA >/dev/null 2>&1 &
-    disown
-  fi
+# Enable / Disble Dash-to-dock
+enable_dock() {
+  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
+  timeout 2 "${RUN[@]}" gnome-extensions enable dash-to-dock@micxgx.gmail.com
+  timeout 2 "${RUN[@]}" gnome-extensions disable hotedge@jonathan.jdoda.ca
+}
+
+disable_dock() {
+  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
+  timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
+  timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
 }
 
 # Toggle Tablet control for S11
