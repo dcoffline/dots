@@ -5,6 +5,9 @@ RES="1280x720"
 REFRESH="60"
 SCALE="1"
 
+# Source enable_dock and disable_dock
+[ -f {$HOME}/.config/bash/function.bash ] && source {$HOME}/.config/bash/function.bash
+
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
@@ -29,12 +32,6 @@ case "$XDG_CURRENT_DESKTOP" in
   "${RUN[@]}" cosmic-randr disable "$DUMMY"
   ;;
 "GNOME" | *"GNOME"*)
-  enable_dock() {
-    export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
-    timeout 2 "${RUN[@]}" gnome-extensions enable dash-to-dock@micxgx.gmail.com
-    timeout 2 "${RUN[@]}" gnome-extensions disable hotedge@jonathan.jdoda.ca
-  }
-
   GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
   GNOME_MAIN=$(echo "$MAIN" | sed 's/-A-/-/g')
 

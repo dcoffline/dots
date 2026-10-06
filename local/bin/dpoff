@@ -2,6 +2,9 @@
 MAIN="HDMI-1"
 DUMMY="DP-6"
 
+# Source enable_dock and disable_dock
+[ -f {$HOME}/.config/bash/function.bash ] && source {$HOME}/.config/bash/function.bash
+
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
@@ -22,12 +25,6 @@ case "$XDG_CURRENT_DESKTOP" in
   "${RUN[@]}" cosmic-randr disable "$MAIN"
   ;;
 "GNOME" | *"GNOME"*)
-  disable_dock() {
-    export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
-    timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
-    timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
-  }
-
   GNOME_DUMMY=$(echo "$DUMMY" | sed 's/-A-/-/g')
 
   # 1. Force the script to talk to the active user's GNOME session
