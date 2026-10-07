@@ -9,8 +9,11 @@ if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
   # Disable OSK & Touchbar
   timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
   timeout 2 "${RUN[@]}" gnome-extensions disable touchup@mityax
+  timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
 else
   # Enable OSK & Touchbar
   timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
+  timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
+  timeout 2 "${RUN[@]}" gnome-extensions disable hotedge@jonathan.jdoda.ca
   timeout 2 "${RUN[@]}" gnome-extensions enable touchup@mityax
 fi
