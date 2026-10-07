@@ -14,6 +14,15 @@ if [[ "$OSTYPE" == darwin* ]]; then
     fi
   fi
 
+  # If BetterDisplay virtual screen exists, connect it and designate it as Main
+  if command -v betterdisplaycli >/dev/null 2>&1; then
+    if betterdisplaycli get -identifiers 2>/dev/null | grep -q "Galaxy Tab"; then
+      betterdisplaycli set -name="Galaxy Tab" -connected=on 2>/dev/null || true
+      sleep 0.5
+      betterdisplaycli set -name="Galaxy Tab" -main=on 2>/dev/null || true
+    fi
+  fi
+
   dock off
   touchup off
   natscroll off

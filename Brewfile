@@ -117,7 +117,8 @@ brew "bjarneo/cliamp/cliamp", trusted: true
 brew "lizardbyte/homebrew/sunshine", trusted: true
 # Modern TUI for managing Homebrew packages and casks on macOS and Linux
 brew "valkyrie00/bbrew/bbrew"
-# Android SDK component
+# Display management tool for virtual screens and custom resolutions
+cask "betterdisplay"
 cask "android-platform-tools"
 cask "font-0xproto-nerd-font"
 cask "font-blex-mono-nerd-font"

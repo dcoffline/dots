@@ -6,6 +6,14 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
 if [[ "$OSTYPE" == darwin* ]]; then
   echo "Running as macOS on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
 
+  # Disconnect BetterDisplay virtual screen and return Main to physical display
+  if command -v betterdisplaycli >/dev/null 2>&1; then
+    if betterdisplaycli get -identifiers 2>/dev/null | grep -q "Galaxy Tab"; then
+      betterdisplaycli set -namelike="Dell" -main=on 2>/dev/null || true
+      betterdisplaycli set -name="Galaxy Tab" -connected=off 2>/dev/null || true
+    fi
+  fi
+
   # Restore saved pre-stream display configuration
   if [ -f "$HOME/.config/sunshine/.prev_displayplacer" ]; then
     eval "$(cat "$HOME/.config/sunshine/.prev_displayplacer")"
