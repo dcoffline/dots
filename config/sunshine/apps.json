@@ -17,8 +17,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet",
-                    "undo": "tablet off"
+                    "do": "touchup",
+                    "undo": "touchup off"
                 }
             ],
             "wait-all": true
@@ -54,8 +54,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet",
-                    "undo": "tablet off"
+                    "do": "touchup",
+                    "undo": "touchup off"
                 }
             ],
             "wait-all": true
@@ -96,8 +96,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet",
-                    "undo": "tablet off"
+                    "do": "touchup",
+                    "undo": "touchup off"
                 }
             ],
             "wait-all": true

@@ -79,7 +79,7 @@ except Exception:
   fi
 
   timeout 2 "${RUN[@]}" gdctl set -L -p -s "$SCALE" -M "$GNOME_MAIN" -m "$MODE"
-  tablet
+  touchup
   natscroll
   ;;
 esac

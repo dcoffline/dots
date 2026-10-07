@@ -37,7 +37,7 @@ case "$XDG_CURRENT_DESKTOP" in
 
   # 3. Turn off dock, natscroll, tablet
   dock off
-  tablet off
+  touchup off
   natscroll off
   ;;
 esac
