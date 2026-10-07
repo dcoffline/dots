@@ -6,19 +6,23 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
 if [[ "$OSTYPE" == darwin* ]]; then
   echo "Running as macOS on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
 
-  # Save pre-stream display configuration to restore on disconnect
+  # Save pre-stream display configuration to restore on disconnect (ignore mirrored configs)
   if command -v displayplacer >/dev/null 2>&1; then
     mkdir -p "$HOME/.config/sunshine"
     if [ ! -f "$HOME/.config/sunshine/.prev_displayplacer" ]; then
-      displayplacer list | grep '^displayplacer ' > "$HOME/.config/sunshine/.prev_displayplacer"
+      PREV=$(displayplacer list 2>/dev/null | grep '^displayplacer ')
+      if [[ -n "$PREV" && "$PREV" != *"+"* ]]; then
+        echo "$PREV" > "$HOME/.config/sunshine/.prev_displayplacer"
+      fi
     fi
   fi
 
-  # If BetterDisplay virtual screen exists, connect it and designate it as Main
+  # If BetterDisplay virtual screen exists, unmirror, connect it and designate it as Main
   if command -v betterdisplaycli >/dev/null 2>&1; then
     if betterdisplaycli get -identifiers 2>/dev/null | grep -qE "(Remote Screen|Galaxy Tab)"; then
+      betterdisplaycli set -nameLike="DELL" -mirror=off 2>/dev/null || true
       betterdisplaycli set -nameLike="Remote Screen" -connected=on 2>/dev/null || true
-      sleep 0.8
+      sleep 0.5
       betterdisplaycli set -nameLike="Remote Screen" -main=on 2>/dev/null || true
     fi
   fi
@@ -29,6 +33,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
   if [ -n "$1" ]; then
     monctl "$@"
+  else
+    monctl
   fi
   exit 0
 fi

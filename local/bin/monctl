@@ -4,15 +4,26 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
 
 # macOS support
 if [[ "$OSTYPE" == darwin* ]]; then
-  echo "monctl: invoked with '$*' on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
-  RES=${1:-2560x1440}
-  REFRESH=${2:-60}
+  echo "monctl: invoked with '$*' (client: ${SUNSHINE_CLIENT_WIDTH}x${SUNSHINE_CLIENT_HEIGHT}@${SUNSHINE_CLIENT_FPS}) on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
+
+  if [ -n "$1" ]; then
+    RES="$1"
+    REFRESH="${2:-60}"
+  elif [ -n "$SUNSHINE_CLIENT_WIDTH" ] && [ -n "$SUNSHINE_CLIENT_HEIGHT" ]; then
+    RES="${SUNSHINE_CLIENT_WIDTH}x${SUNSHINE_CLIENT_HEIGHT}"
+    REFRESH="${SUNSHINE_CLIENT_FPS:-60}"
+  else
+    RES="2560x1440"
+    REFRESH="60"
+  fi
 
   # 1. If BetterDisplay virtual screen is active, set resolution dynamically on it
   if command -v betterdisplaycli >/dev/null 2>&1; then
     if betterdisplaycli get -identifiers 2>/dev/null | grep -qE "(Remote Screen|Galaxy Tab)"; then
       echo "monctl: setting BetterDisplay Remote Screen resolution to $RES" >>"$HOME/.config/sunshine/sunshine_script.log"
+      betterdisplaycli set -nameLike="DELL" -mirror=off 2>/dev/null || true
       betterdisplaycli set -nameLike="Remote Screen" -resolution="$RES" 2>/dev/null || true
+      betterdisplaycli set -nameLike="Remote Screen" -main=on 2>/dev/null || true
       exit 0
     fi
   fi

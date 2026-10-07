@@ -11,9 +11,12 @@ if [[ "$OSTYPE" == darwin* ]]; then
     betterdisplaycli set -deviceType=Display -main=on 2>/dev/null || true
   fi
 
-  # Restore saved pre-stream display configuration
+  # Restore saved pre-stream display configuration (ignoring any mirrored layouts)
   if [ -f "$HOME/.config/sunshine/.prev_displayplacer" ]; then
-    eval "$(cat "$HOME/.config/sunshine/.prev_displayplacer")"
+    CMD=$(cat "$HOME/.config/sunshine/.prev_displayplacer")
+    if [[ -n "$CMD" && "$CMD" != *"+"* ]]; then
+      eval "$CMD"
+    fi
     rm -f "$HOME/.config/sunshine/.prev_displayplacer"
   fi
 
