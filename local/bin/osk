@@ -1,11 +1,13 @@
 #!/bin/bash
 
+export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
+
 # macOS support
 if [[ "$OSTYPE" == darwin* ]]; then
   if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
-    defaults write com.apple.universalaccess virtualKeyboardOnOff -int 0
+    defaults write com.apple.universalaccess virtualKeyboardOnOff -int 0 2>/dev/null || true
   else
-    defaults write com.apple.universalaccess virtualKeyboardOnOff -int 1
+    defaults write com.apple.universalaccess virtualKeyboardOnOff -int 1 2>/dev/null || true
   fi
   exit 0
 fi

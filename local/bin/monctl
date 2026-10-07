@@ -1,10 +1,12 @@
 #!/bin/bash
 
+export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
+
 # macOS support
 if [[ "$OSTYPE" == darwin* ]]; then
-  echo "Running as macOS on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
+  echo "monctl: invoked with '$*' on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
   if ! command -v displayplacer >/dev/null 2>&1; then
-    echo "monctl: displayplacer not found. Install with: brew install displayplacer" >&2
+    echo "monctl: displayplacer not found in PATH ($PATH). Install with: brew install displayplacer" >>"$HOME/.config/sunshine/sunshine_script.log"
     exit 0
   fi
 
@@ -42,19 +44,26 @@ try:
                 print(f"displayplacer \"id:{screen_id} mode:{exact[0][0]}\"")
                 sys.exit(0)
 
-            # 2. Closest resolution match
-            target_aspect = tw / th
-            modes.sort(key=lambda x: (abs((x[1]/x[2]) - target_aspect) > 0.05, abs(x[1]*x[2] - tw*th), abs(x[3] - target_hz)))
-            if modes:
-                print(f"displayplacer \"id:{screen_id} mode:{modes[0][0]}\"")
+            # 2. Closest resolution match (rank by width & height closeness, then refresh rate)
+            def score(m):
+                w_diff = abs(m[1] - tw)
+                h_diff = abs(m[2] - th)
+                hz_diff = abs(m[3] - target_hz)
+                return (w_diff * 2 + h_diff, hz_diff)
+
+            modes_sorted = sorted(modes, key=score)
+            if modes_sorted:
+                print(f"displayplacer \"id:{screen_id} mode:{modes_sorted[0][0]}\"")
                 sys.exit(0)
-except Exception:
+except Exception as e:
     pass
 ' "$RES" "$REFRESH" 2>/dev/null)
 
   if [ -n "$CMD" ]; then
+    echo "monctl: executing $CMD" >>"$HOME/.config/sunshine/sunshine_script.log"
     eval "$CMD"
   else
+    echo "monctl: fallback to displayplacer res:$RES" >>"$HOME/.config/sunshine/sunshine_script.log"
     displayplacer "res:$RES" 2>/dev/null || true
   fi
   exit 0
