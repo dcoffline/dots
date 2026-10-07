@@ -5,7 +5,7 @@ RES="1280x720"
 REFRESH="60"
 SCALE="1"
 
-# Source enable_dock and disable_dock
+# Source functions from bash (dock, osk, tablet, natscroll)
 [ -f {$HOME}/.config/bash/function.bash ] && source {$HOME}/.config/bash/function.bash
 
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
@@ -79,8 +79,8 @@ except Exception:
   fi
 
   timeout 2 "${RUN[@]}" gdctl set -L -p -s "$SCALE" -M "$GNOME_MAIN" -m "$MODE"
-  timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
-  timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
-  enable_dock
+  dock
+  tablet off
+  natscroll
   ;;
 esac

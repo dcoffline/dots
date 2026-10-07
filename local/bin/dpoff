@@ -2,7 +2,7 @@
 MAIN="HDMI-1"
 DUMMY="DP-6"
 
-# Source 'dock' and 'natscroll' functions from bash
+# Source functions from bash (dock, osk, tablet, natscroll)
 [ -f {$HOME}/.config/bash/function.bash ] && source {$HOME}/.config/bash/function.bash
 
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
@@ -35,9 +35,10 @@ case "$XDG_CURRENT_DESKTOP" in
   sleep 1
   "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
 
-  # 3. Turn off natural scroll and dock
-  natscroll false
+  # 3. Turn off dock
   dock off
+  tablet off
+  natscroll
   ;;
 esac
 monctl

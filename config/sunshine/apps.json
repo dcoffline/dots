@@ -1,19 +1,26 @@
 {
+    "env": {
+        "PATH": "$(PATH):$(HOME)/.local/bin"
+    },
     "apps": [
         {
             "auto-detach": true,
             "detached": [
-                "/usr/bin/bazzite-steam-bpm"
+                ""
             ],
             "exclude-global-prep-cmd": false,
             "exit-timeout": 3,
             "image-path": "steam.png",
-            "name": "Big Picture",
+            "name": "Steam",
             "output": "/var/home/eric/.config/sunshine/app-bigpic.log",
             "prep-cmd": [
                 {
                     "do": "monctl 1920x1080 119.930",
                     "undo": ""
+                },
+                {
+                    "do": "tablet",
+                    "undo": "tablet off"
                 }
             ],
             "wait-all": true
@@ -43,7 +50,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/src/dots/config/sunshine/covers/ultra.png",
-            "name": "LG Ultrawide",
+            "name": "Widescreen",
             "output": "/var/home/eric/.config/sunshine/app-ultra.log",
             "prep-cmd": [
                 {
@@ -60,12 +67,37 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/macbook.png",
-            "name": "Macbook",
+            "name": "Laptop",
             "output": "/var/home/eric/.config/sunshine/app-laptop.log",
             "prep-cmd": [
                 {
                     "do": "monctl 1680x1050 119.891",
                     "undo": ""
+                },
+                {
+                    "do": "natscroll off",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "/var/home/eric/.config/sunshine/covers/iphone.png",
+            "name": "Phone",
+            "output": "/var/home/eric/.config/sunshine/app-phone.log",
+            "prep-cmd": [
+                {
+                    "do": "monctl 1280x720 119.858",
+                    "undo": ""
+                },
+                {
+                    "do": "tablet",
+                    "undo": "tablet off"
                 }
             ],
             "wait-all": true
@@ -85,14 +117,11 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet-prep",
-                    "undo": "tablet-prep undo"
+                    "do": "tablet",
+                    "undo": "tablet off"
                 }
             ],
             "wait-all": true
         }
-    ],
-    "env": {
-        "PATH": "$(PATH):$(HOME)/.local/bin"
-    }
+    ]
 }

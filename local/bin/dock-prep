@@ -16,9 +16,9 @@ fi
 case "$XDG_CURRENT_DESKTOP" in
 "GNOME" | *"GNOME"*)
   if [ "$1" = "undo" ] || [ "$1" = "off" ]; then
-    tablet off
+    dock off
   else
-    tablet
+    dock
   fi
   ;;
 esac
