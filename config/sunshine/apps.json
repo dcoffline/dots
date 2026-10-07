@@ -1,11 +1,11 @@
 {
-    "env": {
-        "PATH": "$(PATH):$(HOME)/.local/bin"
-    },
     "apps": [
         {
             "auto-detach": true,
             "cmd": "",
+            "detached": [
+                "/usr/bin/bazzite-steam-bpm"
+            ],
             "exclude-global-prep-cmd": false,
             "exit-timeout": 3,
             "image-path": "steam.png",
@@ -45,13 +45,17 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/var/home/eric/.config/sunshine/covers/ultra.png",
-            "name": "LG Ultrawide",
-            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
+            "image-path": "/var/home/eric/.config/sunshine/covers/ipad.png",
+            "name": "Galaxy Tab",
+            "output": "/var/home/eric/.config/sunshine/app-tablet.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 3440x1440 119.945",
+                    "do": "monctl 1280x800 119.909",
                     "undo": ""
+                },
+                {
+                    "do": "tablet",
+                    "undo": "tablet off"
                 }
             ],
             "wait-all": true
@@ -63,7 +67,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/macbook.png",
-            "name": "Laptop",
+            "name": "MacPro",
             "output": "/var/home/eric/.config/sunshine/app-laptop.log",
             "prep-cmd": [
                 {
@@ -88,7 +92,7 @@
             "output": "/var/home/eric/.config/sunshine/app-phone.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1280x720 119.858",
+                    "do": "monctl 1280x720 119.858 1.33",
                     "undo": ""
                 },
                 {
@@ -104,20 +108,19 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/var/home/eric/.config/sunshine/covers/ipad.png",
-            "name": "Tablet",
-            "output": "/var/home/eric/.config/sunshine/app-tablet.log",
+            "image-path": "/var/home/eric/.config/sunshine/covers/ultra.png",
+            "name": "Ultrawide",
+            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1280x800 119.909",
+                    "do": "monctl 3440x1440 119.945",
                     "undo": ""
-                },
-                {
-                    "do": "tablet",
-                    "undo": "tablet off"
                 }
             ],
             "wait-all": true
         }
-    ]
+    ],
+    "env": {
+        "PATH": "$(PATH):$(HOME)/.local/bin"
+    }
 }
