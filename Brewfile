@@ -33,8 +33,6 @@ brew "chafa"
 brew "cmatrix"
 # Load/unload environment variables based on $PWD
 brew "direnv"
-# macOS multi-display resolution and arrangement CLI
-brew "displayplacer"
 # Generic library support script
 brew "libtool"
 # Play, record, convert, and stream select audio and video codecs
@@ -117,8 +115,7 @@ brew "bjarneo/cliamp/cliamp", trusted: true
 brew "lizardbyte/homebrew/sunshine", trusted: true
 # Modern TUI for managing Homebrew packages and casks on macOS and Linux
 brew "valkyrie00/bbrew/bbrew"
-# Display management tool for virtual screens and custom resolutions
-cask "betterdisplay"
+# Android SDK component
 cask "android-platform-tools"
 cask "font-0xproto-nerd-font"
 cask "font-blex-mono-nerd-font"
