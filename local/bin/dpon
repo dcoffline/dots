@@ -8,10 +8,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
   # Disconnect BetterDisplay virtual screen and return Main to physical display
   if command -v betterdisplaycli >/dev/null 2>&1; then
-    if betterdisplaycli get -identifiers 2>/dev/null | grep -q "Galaxy Tab"; then
-      betterdisplaycli set -namelike="Dell" -main=on 2>/dev/null || true
-      betterdisplaycli set -name="Galaxy Tab" -connected=off 2>/dev/null || true
-    fi
+    betterdisplaycli set -deviceType=Display -main=on 2>/dev/null || true
+    betterdisplaycli set -nameLike="Remote Screen" -connected=off 2>/dev/null || true
   fi
 
   # Restore saved pre-stream display configuration

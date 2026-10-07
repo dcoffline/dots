@@ -5,13 +5,23 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
 # macOS support
 if [[ "$OSTYPE" == darwin* ]]; then
   echo "monctl: invoked with '$*' on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
+  RES=${1:-2560x1440}
+  REFRESH=${2:-60}
+
+  # 1. If BetterDisplay virtual screen is active, set resolution dynamically on it
+  if command -v betterdisplaycli >/dev/null 2>&1; then
+    if betterdisplaycli get -identifiers 2>/dev/null | grep -qE "(Remote Screen|Galaxy Tab)"; then
+      echo "monctl: setting BetterDisplay Remote Screen resolution to $RES" >>"$HOME/.config/sunshine/sunshine_script.log"
+      betterdisplaycli set -nameLike="Remote Screen" -resolution="$RES" 2>/dev/null || true
+      exit 0
+    fi
+  fi
+
+  # 2. Fallback to displayplacer on physical display
   if ! command -v displayplacer >/dev/null 2>&1; then
     echo "monctl: displayplacer not found in PATH ($PATH). Install with: brew install displayplacer" >>"$HOME/.config/sunshine/sunshine_script.log"
     exit 0
   fi
-
-  RES=${1:-2560x1440}
-  REFRESH=${2:-60}
 
   CMD=$(python3 -c '
 import subprocess, re, sys

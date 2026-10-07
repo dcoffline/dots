@@ -16,10 +16,10 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
   # If BetterDisplay virtual screen exists, connect it and designate it as Main
   if command -v betterdisplaycli >/dev/null 2>&1; then
-    if betterdisplaycli get -identifiers 2>/dev/null | grep -q "Galaxy Tab"; then
-      betterdisplaycli set -name="Galaxy Tab" -connected=on 2>/dev/null || true
-      sleep 0.5
-      betterdisplaycli set -name="Galaxy Tab" -main=on 2>/dev/null || true
+    if betterdisplaycli get -identifiers 2>/dev/null | grep -qE "(Remote Screen|Galaxy Tab)"; then
+      betterdisplaycli set -nameLike="Remote Screen" -connected=on 2>/dev/null || true
+      sleep 0.8
+      betterdisplaycli set -nameLike="Remote Screen" -main=on 2>/dev/null || true
     fi
   fi
 
