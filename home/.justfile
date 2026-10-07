@@ -216,9 +216,14 @@ update:
       fi
       if command -v brew >/dev/null 2>&1; then brew bundle dump --force && sedi '/^flatpak/d' Brewfile; fi
 
-      stow -R --ignore=".DS_Store" -t "$HOME" home
-      stow -R --ignore=".DS_Store" -t "$HOME/.config" config
-      stow -R --ignore=".DS_Store" -t "$HOME/.local" local
+      stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
+      stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
+      stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
+      if [ "${IS_MAC:-0}" -eq 1 ]; then
+        stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/Library" Library
+        mkdir -p "$HOME/Library/Application Support/voxtype"
+        ln -sfn "$DOTS/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
+      fi
 
       git add "$SHELLINI" Brewfile
       git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
