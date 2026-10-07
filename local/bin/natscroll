@@ -11,3 +11,4 @@ if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
 else
   # Enable natural-scroll
   timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
+fi

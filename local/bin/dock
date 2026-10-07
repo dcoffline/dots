@@ -10,3 +10,4 @@ if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
 else
   timeout 2 "${RUN[@]}" gnome-extensions enable dash-to-dock@micxgx.gmail.com
   timeout 2 "${RUN[@]}" gnome-extensions disable hotedge@jonathan.jdoda.ca
+fi

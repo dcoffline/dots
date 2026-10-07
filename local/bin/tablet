@@ -13,3 +13,4 @@ else
   # Enable OSK & Touchbar
   timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
   timeout 2 "${RUN[@]}" gnome-extensions enable touchup@mityax
+fi

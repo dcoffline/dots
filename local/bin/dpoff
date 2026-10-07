@@ -35,10 +35,10 @@ case "$XDG_CURRENT_DESKTOP" in
   sleep 1
   "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
 
-  # 3. Turn off dock
+  # 3. Turn off dock, natscroll, tablet
   dock off
   tablet off
-  natscroll
+  natscroll off
   ;;
 esac
 monctl
