@@ -9,7 +9,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 3,
             "image-path": "steam.png",
-            "name": "Steam",
+            "name": "Big Picture",
             "output": "/var/home/eric/.config/sunshine/app-bigpic.log",
             "prep-cmd": [
                 {
@@ -17,8 +17,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet",
-                    "undo": "tablet off"
+                    "do": "tablet-prep",
+                    "undo": "tablet-prep off"
                 }
             ],
             "wait-all": true
@@ -46,7 +46,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
             "image-path": "/var/home/eric/.config/sunshine/covers/ultra.png",
-            "name": "Widescreen",
+            "name": "LG Ultrawide",
             "output": "/var/home/eric/.config/sunshine/app-ultra.log",
             "prep-cmd": [
                 {
@@ -71,7 +71,7 @@
                     "undo": ""
                 },
                 {
-                    "do": "natscroll off",
+                    "do": "natscroll-prep off",
                     "undo": ""
                 }
             ],
@@ -92,8 +92,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet",
-                    "undo": "tablet off"
+                    "do": "tablet-prep",
+                    "undo": "tablet-prep off"
                 }
             ],
             "wait-all": true
@@ -113,8 +113,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet",
-                    "undo": "tablet off"
+                    "do": "tablet-prep",
+                    "undo": "tablet-prep off"
                 }
             ],
             "wait-all": true
