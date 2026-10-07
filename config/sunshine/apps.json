@@ -17,8 +17,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet-prep",
-                    "undo": "tablet-prep off"
+                    "do": "tablet",
+                    "undo": "tablet off"
                 }
             ],
             "wait-all": true
@@ -71,7 +71,7 @@
                     "undo": ""
                 },
                 {
-                    "do": "natscroll-prep off",
+                    "do": "natscroll off",
                     "undo": ""
                 }
             ],
@@ -92,8 +92,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet-prep",
-                    "undo": "tablet-prep off"
+                    "do": "tablet",
+                    "undo": "tablet off"
                 }
             ],
             "wait-all": true
@@ -113,8 +113,8 @@
                     "undo": ""
                 },
                 {
-                    "do": "tablet-prep",
-                    "undo": "tablet-prep off"
+                    "do": "tablet",
+                    "undo": "tablet off"
                 }
             ],
             "wait-all": true
