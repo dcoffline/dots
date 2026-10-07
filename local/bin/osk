@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# macOS support
+if [[ "$OSTYPE" == darwin* ]]; then
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    defaults write com.apple.universalaccess virtualKeyboardOnOff -int 0
+  else
+    defaults write com.apple.universalaccess virtualKeyboardOnOff -int 1
+  fi
+  exit 0
+fi
+
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then

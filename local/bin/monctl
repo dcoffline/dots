@@ -1,4 +1,65 @@
 #!/bin/bash
+
+# macOS support
+if [[ "$OSTYPE" == darwin* ]]; then
+  echo "Running as macOS on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
+  if ! command -v displayplacer >/dev/null 2>&1; then
+    echo "monctl: displayplacer not found. Install with: brew install displayplacer" >&2
+    exit 0
+  fi
+
+  RES=${1:-2560x1440}
+  REFRESH=${2:-60}
+
+  CMD=$(python3 -c '
+import subprocess, re, sys
+
+target_res = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] else "2560x1440"
+try:
+    target_hz = float(sys.argv[2])
+except (IndexError, ValueError):
+    target_hz = 60.0
+
+try:
+    out = subprocess.check_output(["displayplacer", "list"], text=True)
+    screens = out.split("Persistent screen id: ")
+    for screen in screens[1:]:
+        lines = screen.splitlines()
+        screen_id = lines[0].strip()
+        is_main = any("main display" in l for l in lines)
+        if is_main:
+            modes = []
+            tw, th = map(int, target_res.split("x"))
+            for line in lines:
+                m = re.search(r"mode (\d+):\s+res:(\d+)x(\d+)\s+hz:(\d+)", line)
+                if m:
+                    modes.append((m.group(1), int(m.group(2)), int(m.group(3)), float(m.group(4))))
+
+            # 1. Exact resolution match
+            exact = [m for m in modes if m[1] == tw and m[2] == th]
+            if exact:
+                exact.sort(key=lambda x: abs(x[3] - target_hz))
+                print(f"displayplacer \"id:{screen_id} mode:{exact[0][0]}\"")
+                sys.exit(0)
+
+            # 2. Closest resolution match
+            target_aspect = tw / th
+            modes.sort(key=lambda x: (abs((x[1]/x[2]) - target_aspect) > 0.05, abs(x[1]*x[2] - tw*th), abs(x[3] - target_hz)))
+            if modes:
+                print(f"displayplacer \"id:{screen_id} mode:{modes[0][0]}\"")
+                sys.exit(0)
+except Exception:
+    pass
+' "$RES" "$REFRESH" 2>/dev/null)
+
+  if [ -n "$CMD" ]; then
+    eval "$CMD"
+  else
+    displayplacer "res:$RES" 2>/dev/null || true
+  fi
+  exit 0
+fi
+
 MAIN="HDMI-1"
 DUMMY="DP-6"
 

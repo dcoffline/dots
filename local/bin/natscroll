@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# macOS support
+if [[ "$OSTYPE" == darwin* ]]; then
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    defaults write -g com.apple.swipescrolldirection -bool false
+  else
+    defaults write -g com.apple.swipescrolldirection -bool true
+  fi
+  exit 0
+fi
+
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then

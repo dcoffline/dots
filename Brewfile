@@ -33,6 +33,8 @@ brew "chafa"
 brew "cmatrix"
 # Load/unload environment variables based on $PWD
 brew "direnv"
+# macOS multi-display resolution and arrangement CLI
+brew "displayplacer"
 # Generic library support script
 brew "libtool"
 # Play, record, convert, and stream select audio and video codecs

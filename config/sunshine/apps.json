@@ -13,7 +13,7 @@
             "exit-timeout": 3,
             "image-path": "steam.png",
             "name": "Big Picture",
-            "output": "/var/home/eric/.config/sunshine/app-bigpic.log",
+            "output": "$(HOME)/.config/sunshine/app-bigpic.log",
             "prep-cmd": [
                 {
                     "do": "monctl 1920x1080 119.930",
@@ -33,7 +33,7 @@
             "exit-timeout": 5,
             "image-path": "desktop.png",
             "name": "Desktop",
-            "output": "/var/home/eric/.config/sunshine/app-desktop.log",
+            "output": "$(HOME)/.config/sunshine/app-desktop.log",
             "prep-cmd": [
                 {
                     "do": "monctl 2560x1440 119.877",
@@ -48,9 +48,9 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/var/home/eric/.config/sunshine/covers/ipad.png",
+            "image-path": "$(HOME)/.config/sunshine/covers/ipad.png",
             "name": "Galaxy Tab",
-            "output": "/var/home/eric/.config/sunshine/app-tablet.log",
+            "output": "$(HOME)/.config/sunshine/app-tablet.log",
             "prep-cmd": [
                 {
                     "do": "monctl 1280x800 119.909",
@@ -69,9 +69,9 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/var/home/eric/.config/sunshine/covers/macbook.png",
+            "image-path": "$(HOME)/.config/sunshine/covers/macbook.png",
             "name": "MacPro",
-            "output": "/var/home/eric/.config/sunshine/app-laptop.log",
+            "output": "$(HOME)/.config/sunshine/app-laptop.log",
             "prep-cmd": [
                 {
                     "do": "monctl 1680x1050 119.891",
@@ -90,9 +90,9 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/var/home/eric/.config/sunshine/covers/iphone.png",
+            "image-path": "$(HOME)/.config/sunshine/covers/iphone.png",
             "name": "Phone",
-            "output": "/var/home/eric/.config/sunshine/app-phone.log",
+            "output": "$(HOME)/.config/sunshine/app-phone.log",
             "prep-cmd": [
                 {
                     "do": "monctl 1280x720 119.858 1.33",
@@ -111,9 +111,9 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "/var/home/eric/.config/sunshine/covers/ultra.png",
+            "image-path": "$(HOME)/.config/sunshine/covers/ultra.png",
             "name": "Ultrawide",
-            "output": "/var/home/eric/.config/sunshine/app-ultra.log",
+            "output": "$(HOME)/.config/sunshine/app-ultra.log",
             "prep-cmd": [
                 {
                     "do": "monctl 3440x1440 119.945",

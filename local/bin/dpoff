@@ -1,4 +1,27 @@
 #!/bin/bash
+
+# macOS support
+if [[ "$OSTYPE" == darwin* ]]; then
+  echo "Running as macOS on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
+
+  # Save pre-stream display configuration to restore on disconnect
+  if command -v displayplacer >/dev/null 2>&1; then
+    mkdir -p "$HOME/.config/sunshine"
+    if [ ! -f "$HOME/.config/sunshine/.prev_displayplacer" ]; then
+      displayplacer list | grep '^displayplacer ' > "$HOME/.config/sunshine/.prev_displayplacer"
+    fi
+  fi
+
+  dock off
+  touchup off
+  natscroll off
+
+  if [ -n "$1" ]; then
+    monctl "$@"
+  fi
+  exit 0
+fi
+
 MAIN="HDMI-1"
 DUMMY="DP-6"
 

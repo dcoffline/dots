@@ -1,4 +1,21 @@
 #!/bin/bash
+
+# macOS support
+if [[ "$OSTYPE" == darwin* ]]; then
+  echo "Running as macOS on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
+
+  # Restore saved pre-stream display configuration
+  if [ -f "$HOME/.config/sunshine/.prev_displayplacer" ]; then
+    eval "$(cat "$HOME/.config/sunshine/.prev_displayplacer")"
+    rm -f "$HOME/.config/sunshine/.prev_displayplacer"
+  fi
+
+  dock on
+  touchup on
+  natscroll on
+  exit 0
+fi
+
 MAIN="HDMI-1"
 DUMMY="DP-6"
 RES="1280x720"
