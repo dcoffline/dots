@@ -16,7 +16,7 @@
             "output": "$(HOME)/.config/sunshine/app-bigpic.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1920x1080 119.930",
+                    "do": "monctl 1920x1080 59.963",
                     "undo": ""
                 },
                 {
@@ -36,7 +36,7 @@
             "output": "$(HOME)/.config/sunshine/app-desktop.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 2560x1440 119.877",
+                    "do": "monctl 2560x1440 59.961",
                     "undo": ""
                 }
             ],
