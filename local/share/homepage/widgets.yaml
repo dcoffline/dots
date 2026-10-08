@@ -8,5 +8,6 @@
     units: imperial
     label: Leander
 - search:
-    provider: google
+    provider: custom
+    url: https://vane.hemati.com/?q=
     target: _blank

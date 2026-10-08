@@ -1,0 +1,31 @@
+[Unit]
+Description=FreeLLMAPI - Free-tier LLM Router (OpenAI-compatible gateway)
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=freellmapi
+Image=ghcr.io/tashfeenahmed/freellmapi:latest
+AutoUpdate=registry
+Network=homelab.network
+# No PublishPort: fleet convention is Cloudflare tunnel + container-DNS access.
+# Client endpoint: http://freellmapi:3001/v1 (unified key from the dashboard)
+Environment=NODE_ENV=production
+Environment=PORT=3001
+# ENCRYPTION_KEY lives here (chmod 600, outside public dots repo)
+EnvironmentFile=%h/.local/share/freellmapi/.env
+Volume=%h/.local/share/freellmapi/data:/app/server/data:Z
+
+Label=homepage.name=FreeLLMAPI
+Label=homepage.group=Containers
+Label=homepage.icon=https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/llmapi-color.svg
+Label=homepage.href=https://freellm.hemati.com
+Label="homepage.description=Free LLM gateway"
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

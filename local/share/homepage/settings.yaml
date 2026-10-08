@@ -11,7 +11,7 @@ layout:
     header: true
   Security:
     header: true
-  AI:
+  Utilities:
     header: true
   Containers:
     header: true

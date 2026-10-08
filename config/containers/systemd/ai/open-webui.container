@@ -27,7 +27,7 @@ Environment=RAG_WEB_SEARCH_ENGINE=searxng
 Environment=SEARXNG_QUERY_URL=http://searxng:8080/search?q=<query>&format=json
 
 Label=homepage.name=Open-WebUI
-Label=homepage.group=AI
+Label=homepage.group=Containers
 Label=homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/svg/open-webui.svg
 Label=homepage.href=https://chat.hemati.com
 Label="homepage.description=Local AI Chat"

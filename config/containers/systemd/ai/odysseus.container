@@ -1,0 +1,41 @@
+[Unit]
+Description=Odysseus - Self-hosted AI workspace
+After=network-online.target chromadb.service searxng.service
+Wants=network-online.target
+
+[Container]
+ContainerName=odysseus
+Image=ghcr.io/odysseus-dev/odysseus:latest
+AutoUpdate=registry
+Network=homelab.network
+# Compose-equivalent env; auth ON (workspace has powerful local tools).
+# First admin password is printed to `podman logs odysseus` on first boot.
+Environment=SEARXNG_INSTANCE=http://searxng:8080
+Environment=CHROMADB_HOST=chromadb
+Environment=CHROMADB_PORT=8000
+Environment=AUTH_ENABLED=true
+Environment=LOCALHOST_BYPASS=false
+Environment=ODYSSEUS_ADMIN_USER=admin
+Environment=PUID=1000
+Environment=PGID=1000
+# App listens on 7000 inside the container (compose maps 7011 externally;
+# we skip host publishing entirely - tunnel + container DNS per convention).
+Volume=%h/.local/share/odysseus/data:/app/data:Z
+Volume=%h/.local/share/odysseus/logs:/app/logs:Z
+Volume=%h/.local/share/odysseus/data/ssh:/app/.ssh:Z
+Volume=%h/.local/share/odysseus/data/huggingface:/app/.cache/huggingface:Z
+Volume=%h/.local/share/odysseus/data/local:/app/.local:Z
+
+Label=homepage.name=Odysseus
+Label=homepage.group=Containers
+Label=homepage.icon=https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/odysseus.svg
+Label=homepage.href=https://odysseus.hemati.com
+Label="homepage.description=Self-hosted AI workspace"
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

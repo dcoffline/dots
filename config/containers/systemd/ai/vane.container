@@ -1,0 +1,28 @@
+[Unit]
+Description=Vane - AI-powered answering engine (slim image, external SearXNG)
+After=network-online.target searxng.service
+Wants=network-online.target
+
+[Container]
+ContainerName=vane
+Image=docker.io/itzcrazykns1337/vane:slim-latest
+AutoUpdate=registry
+Network=homelab.network
+# Slim image: no bundled SearXNG. Points at the existing searxng container
+# (JSON format already enabled in ~/.config/searxng/settings.yml).
+Environment=SEARXNG_API_URL=http://searxng:8080
+Volume=%h/.local/share/vane:/home/vane/data:Z
+
+Label=homepage.name=Vane
+Label=homepage.group=Containers
+Label=homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/svg/perplexity-ai.svg
+Label=homepage.href=https://vane.hemati.com
+Label="homepage.description=AI answer engine"
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

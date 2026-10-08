@@ -1,0 +1,21 @@
+[Unit]
+Description=ChromaDB vector store (Odysseus sidecar)
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+ContainerName=chromadb
+Image=docker.io/chromadb/chroma:latest
+AutoUpdate=registry
+Network=homelab.network
+# Helper/sidecar container: no homepage labels per house rule.
+Environment=ANONYMIZED_TELEMETRY=FALSE
+Volume=%h/.local/share/odysseus-chromadb:/chroma/chroma:Z
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

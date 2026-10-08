@@ -26,3 +26,8 @@ ui:
   default_theme: simple
   theme_args:
     simple_style: auto
+
+# Enable Wolfram Alpha engine (Vane requirement, added 2026-10-08)
+engines:
+  - name: wolframalpha
+    disabled: false

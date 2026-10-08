@@ -16,14 +16,13 @@
           version: 6
           key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
           fields: ["queries", "blocked", "blocked_percent", "gravity"]
-- AI:
-    - Athena:
+- Containers:
+    - Hermes:
         icon: https://cdn.jsdelivr.net/gh/selfhst/icons/svg/hermes-agent.svg
         href: https://athena.hemati.com
-        description: Hermes AI Harness
+        description: Nous-Research Harness
         server: podman
         container: athena
-- Containers:
     - God's Eye View:
         icon: https://cdn-icons-png.flaticon.com/512/1791/1791989.png
         href: https://maps.hemati.com
