@@ -36,7 +36,7 @@
             "output": "$(HOME)/.config/sunshine/app-desktop.log",
             "prep-cmd": [
                 {
-                    "do": "monctl",
+                    "do": "monctl 2560x1440 119.877",
                     "undo": ""
                 }
             ],
