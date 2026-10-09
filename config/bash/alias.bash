@@ -46,7 +46,6 @@ else
   alias dear='distrobox enter athena -e'
   alias deu='distrobox enter ubuntu'
   alias deur='distrobox enter ubuntu -e'
-  alias update-all='update && def && update && exit && dea && update && exit'
 
   # Rclone (Native)
   alias rmount='just mount'
@@ -120,7 +119,6 @@ alias jc='journalctl'
 alias jcu="journalctl --user -xeu"
 alias follow='journalctl --user -fu'
 alias gsettings='/usr/bin/gsettings'
-alias update='just update'
 alias openports='ss -tulanp'
 alias lzd='lazydocker'
 alias cid="echo $CONTAINER_ID"

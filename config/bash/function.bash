@@ -278,3 +278,57 @@ monitor-streams() {
   tmux split-window -h -t streamlogs 'podman logs -f --tail 50 aiostreams'
   tmux attach-session -t streamlogs
 }
+
+# Intelligent Multi-Environment Updater (Host & Distroboxes)
+update() {
+  local target="${1:-}"
+
+  # ── Container Context ──────────────────────────────────────────
+  if [ -f /run/.containerenv ]; then
+    if [ "$target" = "all" ]; then
+      echo "🌐 Inside container. Delegating 'update all' to host..."
+      distrobox-host-exec bash -ic "update all"
+      return $?
+    fi
+
+    echo "📦 Updating current container (${CONTAINER_ID:-distrobox})..."
+    if command -v dnf >/dev/null 2>&1; then
+      sudo dnf upgrade -y --skip-unavailable
+    elif command -v apt-get >/dev/null 2>&1; then
+      sudo apt-get update && sudo apt-get upgrade -y
+    elif command -v pacman >/dev/null 2>&1; then
+      sudo pacman -Syu --noconfirm
+    fi
+    return
+  fi
+
+  # ── Host Context (Bazzite / Silverblue) ─────────────────────────
+  case "$target" in
+    all)
+      echo "🛡️  [1/2] Updating Host (Brew, Flatpaks, ujust, dotfiles)..."
+      just update
+
+      echo -e "\n📦 [2/2] Updating all Distroboxes (fedora, athena)..."
+      distrobox-upgrade --all
+
+      echo -e "\n✅ Host and all Distroboxes updated successfully!"
+      ;;
+    fedora)
+      echo "📦 Updating 'fedora' Distrobox..."
+      distrobox enter fedora -- sudo dnf upgrade -y --skip-unavailable
+      ;;
+    athena)
+      echo "📦 Updating 'athena' Distrobox..."
+      distrobox enter athena -- sh -c "sudo apt-get update && sudo apt-get upgrade -y"
+      ;;
+    host|"")
+      echo "🛡️  Updating Host..."
+      just update
+      ;;
+    *)
+      echo "Usage: update [all | host | fedora | athena]"
+      return 1
+      ;;
+  esac
+}
+
