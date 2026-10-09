@@ -46,6 +46,7 @@ else
   alias dear='distrobox enter athena -e'
   alias deu='distrobox enter ubuntu'
   alias deur='distrobox enter ubuntu -e'
+  alias update-all='update && def && update && exit && dea && update && exit'
 
   # Rclone (Native)
   alias rmount='just mount'
