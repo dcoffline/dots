@@ -73,7 +73,11 @@ case "$XDG_CURRENT_DESKTOP" in
   # 2. Tell Mutter directly to change Display Power to ON (0)
   "${RUN[@]}" busctl --user set-property org.gnome.Mutter.DisplayConfig /org/gnome/Mutter/DisplayConfig org.gnome.Mutter.DisplayConfig PowerSaveMode i 0
   sleep 1
-  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY"
+  # Retry fallbacks: an unsupported client resolution must never abort
+  # the launch (Sunshine treats prep-cmd failure as fatal).
+  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" \
+    || "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m 2560x1440@119.877 \
+    || "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m 1920x1080@119.877
 
   # 3. Turn off dock, natscroll, tablet
   dock off

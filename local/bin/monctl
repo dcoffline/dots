@@ -162,6 +162,13 @@ except Exception:
 ' "$GNOME_DUMMY" "$RES" "$REFRESH" 2>/dev/null)
 
   TARGET_MODE="${MODE:-${RES}@${REFRESH}}"
-  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m "$TARGET_MODE" -s "$SCALE"
+
+  # Retry fallbacks so an unsupported client resolution never kills a
+  # stream: exact -> bare (auto) -> 1440p -> 1080p. gdctl exits 1 with
+  # "No mode ... available" when the client's requested mode is missing.
+  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m "$TARGET_MODE" -s "$SCALE" \
+    || "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" \
+    || "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m 2560x1440@119.877 \
+    || "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m 1920x1080@119.877
   ;;
 esac
