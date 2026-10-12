@@ -22,6 +22,7 @@ Label=homepage.href=https://zurg.hemati.com
 Label="homepage.description=Organize Media"
 [Service]
 Restart=always
+TimeoutStartSec=300
 # Gives Zurg enough time to cleanly shut down its internal database
 TimeoutStopSec=30
 

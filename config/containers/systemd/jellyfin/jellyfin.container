@@ -1,6 +1,7 @@
 [Unit]
 Description=Jellyfin Media Server
-After=network-online.target
+After=network-online.target zurg.service
+Wants=zurg.service
 
 [Container]
 ContainerName=jellyfin
@@ -29,8 +30,15 @@ Volume=%h/.mnt/rclone/Zurg:/media/zurg:ro,rshared
 
 Environment=TZ=America/Chicago
 
+Label=homepage.name=Jellyfin
+Label=homepage.icon=jellyfin
+Label=homepage.group=Containers
+Label=homepage.href=https://media.hemati.com
+Label="homepage.description=Home Media Server"
+
 [Service]
 Restart=always
+TimeoutStartSec=300
 
 [Install]
 WantedBy=default.target

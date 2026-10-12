@@ -1,7 +1,4 @@
 {
-    "env": {
-        "PATH": "$(PATH):$(HOME)/.local/bin:/opt/homebrew/bin:/usr/local/bin"
-    },
     "apps": [
         {
             "auto-detach": true,
@@ -78,7 +75,7 @@
                     "undo": ""
                 },
                 {
-                    "do": "natscroll off",
+                    "do": "natscroll",
                     "undo": ""
                 }
             ],
@@ -122,5 +119,8 @@
             ],
             "wait-all": true
         }
-    ]
+    ],
+    "env": {
+        "PATH": "$(PATH):$(HOME)/.local/bin:/opt/homebrew/bin:/usr/local/bin"
+    }
 }
