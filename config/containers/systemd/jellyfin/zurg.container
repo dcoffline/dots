@@ -16,8 +16,8 @@ Volume=%h/.local/share/zurg/config.yml:/app/config.yml:Z
 Volume=%h/.local/share/zurg/data:/app/data:Z
 
 Label=homepage.name=Zurg
-Label=homepage.group=Servers
-Label=homepage.icon=real-debrid
+Label=homepage.group=Containers
+Label=homepage.icon=https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d3421b05-2407-48f6-86e9-c2a49dcb115c/dhj5e62-a35c9d06-a959-4d4d-a5de-cab399d644d4.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9kMzQyMWIwNS0yNDA3LTQ4ZjYtODZlOS1jMmE0OWRjYjExNWMvZGhqNWU2Mi1hMzVjOWQwNi1hOTU5LTRkNGQtYTVkZS1jYWIzOTlkNjQ0ZDQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.xNvX8cKGgIh2rQCJAkV5nFdXWSSIRMw3_HSkj-rOD7I
 Label=homepage.href=https://zurg.hemati.com
 Label="homepage.description=Organize Media"
 [Service]

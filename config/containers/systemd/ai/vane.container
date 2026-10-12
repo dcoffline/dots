@@ -15,7 +15,7 @@ Volume=%h/.local/share/vane:/home/vane/data:Z
 
 Label=homepage.name=Vane
 Label=homepage.group=Containers
-Label=homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/svg/perplexity-ai.svg
+Label=homepage.icon=https://dashboardicons.com/pb/api/files/community_gallery/73wcrn4o5f1qpyr/vane_icon_n5oknycfr9.png
 Label=homepage.href=https://vane.hemati.com
 Label="homepage.description=AI answer engine"
 
