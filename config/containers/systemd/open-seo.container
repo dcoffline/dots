@@ -7,13 +7,16 @@ Wants=network-online.target
 ContainerName=open-seo
 Image=ghcr.io/every-app/open-seo:latest
 Network=homelab.network
+PublishPort=127.0.0.1:8010:3001
 AutoUpdate=registry
 
 # OpenSEO Docker self-hosting mode requires unauthenticated access
 # (AUTH_MODE=local_noauth). Only expose via private/internal network —
 # do NOT publish to a public interface. Access via container DNS on
 # homelab.network (http://open-seo:3001) or the Cloudflare tunnel.
-# NOTE: no PublishPort — rootless host port-forwarding is unreliable here;
+# 2026-10-13: host netns cannot route the homelab bridge (userns podman1);
+# loopback publish added for athena's MCP client (http://127.0.0.1:8010/mcp).
+# Container consumers keep http://open-seo:3001; CF tunnel keeps seo.hemati.com.
 # host reaches it directly at the container's homelab IP (10.89.0.x:3001),
 # and Homepage/other containers use container DNS http://open-seo:3001.
 # (Remux already owns host 3001/3002 would collide anyway.)

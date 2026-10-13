@@ -1140,3 +1140,47 @@ restore-athena backup_path="":
     echo "================================================================"
 
 
+# =============================================================================
+# HOMELAB SERVICES
+# =============================================================================
+
+# Bulk "Create Mapping" writes one shared placeholder into x-mapping for every
+# channel, so Threadfin's XMLTV export gets zero programmes.
+# Repairs Threadfin EPG mappings, restarts the service, verifies the export.
+threadfin-fix-epg:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    SCRIPT="/var/home/eric/.local/share/hermes/scripts/threadfin_fix_xmapping.py"
+
+    # Inside a distrobox the PATH systemctl shim can't reach the host USER bus;
+    # the host binary path does (verified seam). Outside, plain systemctl --user.
+    # Script path is $HOME-visible from both host and container (home bind-mount).
+    if [ -f /run/.containerenv ]; then
+      SC="/usr/bin/systemctl --user"
+    else
+      SC="systemctl --user"
+    fi
+    RUN="python3"
+
+    if [ ! -f "$SCRIPT" ]; then
+      echo "❌ Fix script not found at $SCRIPT (restore the Athena backup first)" >&2
+      exit 1
+    fi
+
+    echo "[ 1/4 ] Stopping threadfin.service ..."
+    $SC stop threadfin.service
+
+    echo "[ 2/4 ] Repairing x-mapping entries ..."
+    $RUN "$SCRIPT"
+
+    echo "[ 3/4 ] Starting threadfin.service ..."
+    $SC start threadfin.service
+
+    echo "[ 4/4 ] Waiting for EPG export rebuild ..."
+    sleep 20
+    EXPORT="$HOME/.local/share/threadfin/conf/data/threadfin.xml"
+    PROGS=$(grep -c '<programme ' "$EXPORT" 2>/dev/null || true)
+    PROGS=${PROGS:-0}
+    echo "✅ Done. Export programmes: $PROGS"
+    echo "   Previous mapping DB backed up alongside it (xepg.json.bak-*)"

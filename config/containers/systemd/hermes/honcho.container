@@ -21,16 +21,53 @@ Environment=CACHE_ENABLED=true
 Environment=AUTH_USE_AUTH=false
 
 # LLM Deriver via OpenRouter (Gemini 2.5 Flash -> DeepSeek V3 fallback)
-Environment=LLM_OPENAI_API_KEY=${OPENROUTER_API_KEY}
+# LLM deriver/dialectic/summary/dream all route through freellmapi (model
+# 'auto' = the gateway's own rotation). Key via dedicated env file - quadlet
+# Environment= does NOT interpolate ${VAR} against EnvironmentFile.
+EnvironmentFile=%h/.local/share/honcho/honcho-llm.env
 Environment=DERIVER_MODEL_CONFIG__TRANSPORT=openai
-Environment=DERIVER_MODEL_CONFIG__MODEL=google/gemini-2.5-flash
-Environment=DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL=https://openrouter.ai/api/v1
+Environment=DERIVER_MODEL_CONFIG__MODEL=auto
+Environment=DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
+# Insurance: if the 'auto' rotation hands the deriver a model that botches
+# tool-calling, fall back to a proven cheap tool-user.
+Environment=DERIVER_MODEL_CONFIG__FALLBACK__TRANSPORT=openai
+Environment=DERIVER_MODEL_CONFIG__FALLBACK__MODEL=gemini-2.5-flash
+Environment=DERIVER_MODEL_CONFIG__FALLBACK__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
 
 # Vector Embedding via Local Ollama (Instant & 100% Private)
 Environment=EMBEDDING_MODEL_CONFIG__TRANSPORT=openai
 Environment=EMBEDDING_MODEL_CONFIG__MODEL=nomic-embed-text
 Environment=EMBEDDING_MODEL_CONFIG__OVERRIDES__BASE_URL=http://ollama:11434/v1
 Environment=EMBEDDING_MODEL_CONFIG__OVERRIDES__API_KEY=ollama
+Environment=EMBEDDING_VECTOR_DIMENSIONS=768
+
+# All LLM features route through freellmapi; 'auto' = gateway rotation
+# (Eric 2026-10-13: no pinned model, premium-agnostic, tool-calling
+# variance handled by the gateway's own fallback/retry).
+Environment=SUMMARY_MODEL_CONFIG__TRANSPORT=openai
+Environment=SUMMARY_MODEL_CONFIG__MODEL=auto
+Environment=SUMMARY_MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
+Environment=DIALECTIC_LEVELS__minimal__MODEL_CONFIG__TRANSPORT=openai
+Environment=DIALECTIC_LEVELS__minimal__MODEL_CONFIG__MODEL=auto
+Environment=DIALECTIC_LEVELS__minimal__MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
+Environment=DIALECTIC_LEVELS__low__MODEL_CONFIG__TRANSPORT=openai
+Environment=DIALECTIC_LEVELS__low__MODEL_CONFIG__MODEL=auto
+Environment=DIALECTIC_LEVELS__low__MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
+Environment=DIALECTIC_LEVELS__medium__MODEL_CONFIG__TRANSPORT=openai
+Environment=DIALECTIC_LEVELS__medium__MODEL_CONFIG__MODEL=auto
+Environment=DIALECTIC_LEVELS__medium__MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
+Environment=DIALECTIC_LEVELS__high__MODEL_CONFIG__TRANSPORT=openai
+Environment=DIALECTIC_LEVELS__high__MODEL_CONFIG__MODEL=auto
+Environment=DIALECTIC_LEVELS__high__MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
+Environment=DIALECTIC_LEVELS__max__MODEL_CONFIG__TRANSPORT=openai
+Environment=DIALECTIC_LEVELS__max__MODEL_CONFIG__MODEL=auto
+Environment=DIALECTIC_LEVELS__max__MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
+Environment=DREAM_INDUCTION_MODEL_CONFIG__TRANSPORT=openai
+Environment=DREAM_INDUCTION_MODEL_CONFIG__MODEL=auto
+Environment=DREAM_INDUCTION_MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
+Environment=DREAM_DEDUCTION_MODEL_CONFIG__TRANSPORT=openai
+Environment=DREAM_DEDUCTION_MODEL_CONFIG__MODEL=auto
+Environment=DREAM_DEDUCTION_MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
 
 #Label=homepage.name=Honcho
 #Label=homepage.group=AI

@@ -8,6 +8,7 @@ Image=ghcr.io/open-webui/open-terminal:latest
 AutoUpdate=registry
 Network=homelab.network
 EnvironmentFile=%h/.secrets
+EnvironmentFile=%h/.local/share/open-terminal/.env
 UserNS=keep-id:uid=1000,gid=1000
 Volume=%h/.local/share/open-terminal:/home/user:Z
 PublishPort=127.0.0.1:8085:8000

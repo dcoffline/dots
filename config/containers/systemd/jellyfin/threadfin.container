@@ -1,0 +1,34 @@
+[Unit]
+Description=Threadfin - IPTV/M3U Proxy for Jellyfin Live TV
+# Force systemd to wait until the Quadlet network unit is actually active
+After=homelab-network.service
+Requires=homelab-network.service
+
+[Container]
+Image=docker.io/fyb3roptik/threadfin:latest
+ContainerName=threadfin
+AutoUpdate=registry
+Network=homelab.network
+Environment=TZ=America/Chicago
+
+# Jellyfin reaches Threadfin via container DNS (http://threadfin:34400).
+# LAN/Tailscale browsers use the published host port.
+PublishPort=34400:34400
+
+# Persistent config (sources/filters/mapping) + temp/cache
+Volume=%h/.local/share/threadfin/conf:/home/threadfin/conf:Z
+Volume=%h/.local/share/threadfin/temp:/tmp/threadfin:Z
+
+Label=homepage.name=Threadfin
+Label=homepage.group=Content
+Label=homepage.icon=threadfin
+Label=homepage.href=http://192.168.1.18:34400
+Label="homepage.description=IPTV Proxy for Jellyfin Live TV"
+
+[Service]
+Restart=always
+RestartSec=5s
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target
