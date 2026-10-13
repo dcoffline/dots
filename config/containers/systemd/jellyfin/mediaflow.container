@@ -9,6 +9,10 @@ Image=ghcr.io/mhdzumair/mediaflow-proxy-light:latest
 ContainerName=mediaflow
 AutoUpdate=registry
 EnvironmentFile=%h/.secrets
+
+# Cap logging at warn: the INFO access logger embeds api_password and
+# destination URLs (RD/DMM keys) into journald. Warn+ still captured.
+Environment=RUST_LOG=warn
 Network=homelab.network
 
 Label=homepage.name=MediaFlow
