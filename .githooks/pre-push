@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Pre-push secret scan (installed 2026-10-13 after the homepage.href leak).
+# Blocks pushes containing credential-bearing URLs (api_password, debrid keys,
+# Jellyfin picker blobs, JWTs). Fail-open if the scanner is missing, so pushes
+# never break on machines without /opt/data — the scanner itself is versioned
+# guidance only; local install is what enforces.
+if [ -x "/opt/data/scripts/dots_secret_scan.py" ]; then
+  python3 "/opt/data/scripts/dots_secret_scan.py" --staged || {
+    echo "PUSH BLOCKED: secret scan found credential-bearing content."
+    echo "Fix the flagged lines (or mask them) and try again."
+    exit 1
+  }
+else
+  echo "WARN: secret scanner not found at /opt/data/scripts/dots_secret_scan.py; push not scanned." >&2
+fi
+exit 0
