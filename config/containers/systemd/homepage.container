@@ -16,10 +16,11 @@ AutoUpdate=registry
 AddHost=host.containers.internal:host-gateway
 
 Label=homepage.name=Homepage
-Label=homepage.group=Containers
+Label=homepage.group=Content
 Label=homepage.icon=homepage
 Label=homepage.href=https://home.hemati.com
 Label="homepage.description=Server Dashboard"
+
 [Service]
 Restart=always
 RestartSec=5

@@ -1,9 +1,9 @@
-- Bookmarks:
+- Sites:
   - ACRM:
     - abbr: AC
       href: https://app.agent-crm.com/v2/location/L1EHjj6ASYM2Y1CPgw8e/dashboard
-  - Agent:
-    - abbr: AN
+  - "Agent#":
+    - abbr: "A#"
       href: https://docs.google.com/spreadsheets/d/16KxgJnVDcuxo986PgcHy_zUh_DBP6DzEYIWjXq3EcUI/edit?gid=150432301#gid=150432301
   - Amazon:
     - abbr: AZ
@@ -11,6 +11,12 @@
   - Cloze:
     - abbr: CL
       href: https://www.cloze.com/in
+  - Console:
+    - abbr: CO
+      href: https://console.cloud.google.com/welcome?project=hermes-504906
+  - DashboardIcons:
+    - abbr: DI
+      href: https://dashboardicons.com/
   - DCBG:
     - abbr: DB
       href: https://dcbg-crm.vercel.app
@@ -131,6 +137,9 @@
   - TVGuide:
     - abbr: TV
       href: https://titantv.com
+  - TwinMind:
+    - abbr: TM
+      href: https://app.twinmind.com/digest
   - Voice:
     - abbr: GV
       href: https://voice.google.com/u/0/messages?itemId=t.%2B15124238639

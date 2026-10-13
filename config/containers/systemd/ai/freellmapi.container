@@ -17,10 +17,10 @@ EnvironmentFile=%h/.local/share/freellmapi/.env
 Volume=%h/.local/share/freellmapi/data:/app/server/data:Z
 
 Label=homepage.name=FreeLLMAPI
-Label=homepage.group=Containers
+Label=homepage.group=AI
 Label=homepage.icon=https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@latest/icons/llmapi-color.svg
 Label=homepage.href=https://freellm.hemati.com
-Label="homepage.description=Free LLM gateway"
+Label="homepage.description=LLM gateway"
 
 [Service]
 Restart=always

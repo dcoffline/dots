@@ -14,9 +14,9 @@ Environment=BASE_URL=https://aiostreams.hemati.com
 Volume=%h/.local/share/aiostreams:/app/data:Z
 
 Label=homepage.name=AIOStreams
-Label=homepage.group=Containers
+Label=homepage.group=Content
 Label=homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
-Label=homepage.href=https://aiostreams.hemati.com
+Label=homepage.href=https://aiostreams.hemati.com/jellyfin/b2678f59-8f35-4507-a057-506bd7b6f39b/eyJpIjoienhiU2lEbXltMVpnM0FGTUErV0xIQT09IiwiZSI6ImdzUGNXdDZMcU11K2VwSWI2ZnZNS3lYeC9IOFJ6bnozUUQ2WHlTZzJFcms9IiwidCI6ImEifQ/web
 Label="homepage.description=Stream Aggregator"
 [Service]
 Restart=always

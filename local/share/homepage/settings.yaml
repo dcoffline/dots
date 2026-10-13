@@ -11,13 +11,19 @@ layout:
     header: true
   Security:
     header: true
-  Utilities:
+  Routing:
     header: true
-  Containers:
+  Discovery:
+    header: true
+  AI:
     header: true
     style: row
-    columns: 4
-  Bookmarks:
+    columns: 6
+  Content:
     header: true
     style: row
     columns: 5
+  Sites:
+    header: true
+    style: row
+    columns: 4

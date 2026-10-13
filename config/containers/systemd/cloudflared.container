@@ -16,7 +16,7 @@ AddHost=athena:host-gateway
 AddHost=hermes:host-gateway
 
 Label=homepage.name=Cloudflare
-Label=homepage.group=System
+Label=homepage.group=Routing
 Label=homepage.icon=cloudflare
 Label=homepage.href=https://dash.cloudflare.com
 Label=homepage.description=Reverse-Proxy

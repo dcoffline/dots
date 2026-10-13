@@ -11,12 +11,13 @@ AutoUpdate=registry
 EnvironmentFile=%h/.secrets
 Network=homelab.network
 
-# Gives the container a tiny grace period to initialize network sockets
 Label=homepage.name=MediaFlow
-Label=homepage.group=Containers
+Label=homepage.group=Content
 Label=homepage.icon=https://mediaflowtools.com/mediaflow-logo.svg
 Label=homepage.href=https://mediaflow.hemati.com
 Label="homepage.description=Debrid Cache Proxy"
+
+# Gives the container a tiny grace period to initialize network sockets
 [Service]
 Restart=always
 RestartSec=5s

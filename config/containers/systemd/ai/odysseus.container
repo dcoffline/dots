@@ -27,10 +27,10 @@ Volume=%h/.local/share/odysseus/data/huggingface:/app/.cache/huggingface:Z
 Volume=%h/.local/share/odysseus/data/local:/app/.local:Z
 
 Label=homepage.name=Odysseus
-Label=homepage.group=Containers
+Label=homepage.group=AI
 Label=homepage.icon=https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/odysseus.svg
 Label=homepage.href=https://odysseus.hemati.com
-Label="homepage.description=Self-hosted AI workspace"
+Label="homepage.description=AI Workspace"
 
 [Service]
 Restart=always

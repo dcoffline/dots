@@ -33,7 +33,7 @@
             "output": "$(HOME)/.config/sunshine/app-desktop.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 2560x1440 59.961",
+                    "do": "monctl 2560x1440 120",
                     "undo": ""
                 }
             ],
@@ -72,10 +72,6 @@
             "prep-cmd": [
                 {
                     "do": "monctl 1680x1050 119.891",
-                    "undo": ""
-                },
-                {
-                    "do": "natscroll",
                     "undo": ""
                 }
             ],

@@ -32,7 +32,7 @@ Environment=TZ=America/Chicago
 
 Label=homepage.name=Jellyfin
 Label=homepage.icon=jellyfin
-Label=homepage.group=Containers
+Label=homepage.group=Content
 Label=homepage.href=https://media.hemati.com
 Label="homepage.description=Home Media Server"
 

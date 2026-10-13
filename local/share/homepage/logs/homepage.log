@@ -2861,3 +2861,418 @@
 [2026-10-05T20:46:07.293Z] error: Host validation failed for: home.hemati.com:8443. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
 [2026-10-05T20:46:07.579Z] error: Host validation failed for: home.hemati.com:8443. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
 [2026-10-05T20:46:07.828Z] error: Host validation failed for: home.hemati.com:8443. Hint: Set the HOMEPAGE_ALLOWED_HOSTS environment variable to allow requests from this host / port.
+[2026-10-12T21:35:26.398Z] error: <configValidationHandler> Configuration validation errors [
+  {
+    reason: 'bad indentation of a sequence entry',
+    mark: {
+      name: '',
+      buffer: '- Sites:\n' +
+        '  - ACRM:\n' +
+        '    - abbr: AC\n' +
+        '      href: https://app.agent-crm.com/v2/location/L1EHjj6ASYM2Y1CPgw8e/dashboard\n' +
+        '  - "Agent#":\n' +
+        '    - abbr: "A#"\n' +
+        '      href: https://docs.google.com/spreadsheets/d/16KxgJnVDcuxo986PgcHy_zUh_DBP6DzEYIWjXq3EcUI/edit?gid=150432301#gid=150432301\n' +
+        '  - AIOStreams\n' +
+        '    - abbr: AO\n' +
+        '      href: https://aiostreams.hemati.com/jellyfin/b2678f59-8f35-4507-a057-506bd7b6f39b/eyJpIjoienhiU2lEbXltMVpnM0FGTUErV0xIQT09IiwiZSI6ImdzUGNXdDZMcU11K2VwSWI2ZnZNS3lYeC9IOFJ6bnozUUQ2WHlTZzJFcms9IiwidCI6ImEifQ/web\n' +
+        '  - Amazon:\n' +
+        '    - abbr: AZ\n' +
+        '      href: https://www.amazon.com\n' +
+        '  - Cloze:\n' +
+        '    - abbr: CL\n' +
+        '      href: https://www.cloze.com/in\n' +
+        '  - Console:\n' +
+        '    - abbr: CO\n' +
+        '      href: https://console.cloud.google.com/welcome?project=hermes-504906\n' +
+        '  - DashboardIcons:\n' +
+        '    - abbr: DI\n' +
+        '      href: https://dashboardicons.com/\n' +
+        '  - DCBG:\n' +
+        '    - abbr: DB\n' +
+        '      href: https://dcbg-crm.vercel.app\n' +
+        '  - Discord:\n' +
+        '    - abbr: DI\n' +
+        '      href: https://discord.com/channels/@me\n' +
+        '  - Facebook:\n' +
+        '    - abbr: FA\n' +
+        '      href: https://www.facebook.com/?_rdr\n' +
+        '  - Flipboard:\n' +
+        '    - abbr: FL\n' +
+        '      href: https://flipboard.com\n' +
+        '  - Gateway:\n' +
+        '    - abbr: GA\n' +
+        '      href: https://ww3.familyfirstlife.com/dashboard\n' +
+        '  - GDrive:\n' +
+        '    - abbr: GD\n' +
+        '      href: https://drive.google.com/drive/u/0/my-drive\n' +
+        '  - Gemini:\n' +
+        '    - abbr: GE\n' +
+        '      href: https://gemini.google.com\n' +
+        '  - Github:\n' +
+        '    - abbr: GH\n' +
+        '      href: https://github.com/dcoffline\n' +
+        '  - GMail:\n' +
+        '    - abbr: GM\n' +
+        '      href: https://mail.google.com/mail/u/0/#inbox\n' +
+        '  - GPlay:\n' +
+        '    - abbr: PS\n' +
+        '      href: https://play.google.com\n' +
+        '  - iCloud:\n' +
+        '    - abbr: IC\n' +
+        '      href: https://www.icloud.com\n' +
+        '  - Integrity:\n' +
+        '    - abbr: IN\n' +
+        '      href: https://clients.integrity.com\n' +
+        '  - Instagram:\n' +
+        '    - abbr: IG\n' +
+        '      href: https://www.instagram.com\n' +
+        '  - Jottacloud:\n' +
+        '    - abbr: JO\n' +
+        '      href: https://www.jottacloud.com/web/secure\n' +
+        '  - LinkedIn:\n' +
+        '    - abbr: LI\n' +
+        '      href: https://www.linkedin.com/feed\n' +
+        '  - Location:\n' +
+        '    - abbr: 20\n' +
+        '      href: https://mylocation.org\n' +
+        '  - Maps:\n' +
+        '    - abbr: MP\n' +
+        '      href: https://www.google.com/maps\n' +
+        '  - Marblism:\n' +
+        '    - abbr: MA\n' +
+        '      href: https://ai.marblism.com/organizations/5f9218b9-826d-4e63-95bf-325c742389ab/chat/1b7c33b5-cdfb-4767-9c8b-800f3d3d7c55\n' +
+        '  - Meet:\n' +
+        '    - abbr: GM\n' +
+        '      href: https://meet.google.com\n' +
+        '  - Music:\n' +
+        '    - abbr: YM\n' +
+        '      href: https://music.youtube.com\n' +
+        '  - MyChart:\n' +
+        '    - abbr: MY\n' +
+        '      href: https://mychart.austinregionalclinic.com/MyChart/Authentication/Login?action=logout\n' +
+        '  - Namecheap:\n' +
+        '    - abbr: NA\n' +
+        '      href: https://www.namecheap.com\n' +
+        '  - News:\n' +
+        '    - abbr: GN\n' +
+        '      href: https://news.google.com\n' +
+        '  - OneDrive:\n' +
+        '    - abbr: OD\n' +
+        '      href: https://onedrive.live.com/?id=root&cid=9FB84147040DA7BF\n' +
+        '  - OpenRouter:\n' +
+        '    - abbr: OR\n' +
+        '      href: https://openrouter.ai/workspaces/default/keys/ec351f132a81f30623552ff8a820b291949ecdaceee5a21581cf4836324a9f5c\n' +
+        '  - Perplexity:\n' +
+        '    - abbr: PP\n' +
+        '      href: https://www.perplexity.ai\n' +
+        '  - Photos:\n' +
+        '    - abbr: GP\n' +
+        '      href: https://photos.google.com\n' +
+        '  - POPTool:\n' +
+        '    - abbr: PT\n' +
+        '      href: https://mypoppro.com/tool\n' +
+        '  - Reddit:\n' +
+        '    - abbr: RD\n' +
+        '      href: https://www.reddit.com\n' +
+        '  - ReStream:\n' +
+        '    - abbr: RS\n' +
+        '      href: https://studio.restream.io/eqq-rtre-kay\n' +
+        '  - Salesflare:\n' +
+        '    - abbr: SF\n' +
+        '      href: https://app.salesflare.com\n' +
+        '  - Sendgrid:\n' +
+        '    - abbr: SG\n' +
+        '      href: https://sendgrid.com/en-us\n' +
+        '  - Spotify:\n' +
+        '    - abbr: SP\n' +
+        '      href: https://open.spotify.com\n' +
+        '  - Stremio:\n' +
+        '    - abbr: ST\n' +
+        '      href: https://web.stremio.com\n' +
+        '  - Sunshine:\n' +
+        '    - abbr: SS\n' +
+        '      href: https://sunshine.hemati.com\n' +
+        '  - Tasks:\n' +
+        '    - abbr: GT\n' +
+        '      href: https://tasks.google.com/tasks\n' +
+        '  - Telegram:\n' +
+        '    - abbr: TG\n' +
+        '      href: https://web.telegram.org/k\n' +
+        '  - Translate:\n' +
+        '    - abbr: TR\n' +
+        '      href: https://translate.google.com\n' +
+        '  - Truthfinder:\n' +
+        '    - abbr: TF\n' +
+        '      href: https://www.truthfinder.com/dashboard\n' +
+        '  - TVGuide:\n' +
+        '    - abbr: TV\n' +
+        '      href: https://titantv.com\n' +
+        '  - TwinMind:\n' +
+        '    - abbr: TM\n' +
+        '      href: https://app.twinmind.com/digest\n' +
+        '  - Voice:\n' +
+        '    - abbr: GV\n' +
+        '      href: https://voice.google.com/u/0/messages?itemId=t.%2B15124238639\n' +
+        '  - X.com:\n' +
+        '    - abbr: XC\n' +
+        '      href: https://x.com\n' +
+        '  - VoiceRec:\n' +
+        '    - abbr: VR\n' +
+        '      href: https://online-voice-recorder.com\n' +
+        '  - YahooFFL:\n' +
+        '    - abbr: FF\n' +
+        '      href: https://football.fantasysports.yahoo.com/f1/706127\n' +
+        '  - YouTube:\n' +
+        '    - abbr: YT\n' +
+        '      href: https://www.youtube.com/feed/subscriptions\n',
+      position: 300,
+      line: 8,
+      column: 10,
+      snippet: '  6 |     - abbr: "A#"\n' +
+        '  7 |       href: https://docs.google.com/sprea ...\n' +
+        '  8 |   - AIOStreams\n' +
+        '  9 |     - abbr: AO\n' +
+        '----------------^\n' +
+        ' 10 |       href: https://aiostreams.hemati.com ...\n' +
+        ' 11 |   - Amazon:'
+    },
+    name: 'YAMLException',
+    message: 'bad indentation of a sequence entry (9:11)\n' +
+      '\n' +
+      '  6 |     - abbr: "A#"\n' +
+      '  7 |       href: https://docs.google.com/sprea ...\n' +
+      '  8 |   - AIOStreams\n' +
+      '  9 |     - abbr: AO\n' +
+      '----------------^\n' +
+      ' 10 |       href: https://aiostreams.hemati.com ...\n' +
+      ' 11 |   - Amazon:',
+    config: 'bookmarks.yaml'
+  }
+]
+[2026-10-12T21:35:26.411Z] error: bad indentation of a sequence entry (9:11)
+
+  6 |     - abbr: "A#"
+  7 |       href: https://docs.google.com/sprea ...
+  8 |   - AIOStreams
+  9 |     - abbr: AO
+----------------^
+ 10 |       href: https://aiostreams.hemati.com ...
+ 11 |   - Amazon:
+[2026-10-12T21:35:26.566Z] error: <configValidationHandler> Configuration validation errors [
+  {
+    reason: 'bad indentation of a sequence entry',
+    mark: {
+      name: '',
+      buffer: '- Sites:\n' +
+        '  - ACRM:\n' +
+        '    - abbr: AC\n' +
+        '      href: https://app.agent-crm.com/v2/location/L1EHjj6ASYM2Y1CPgw8e/dashboard\n' +
+        '  - "Agent#":\n' +
+        '    - abbr: "A#"\n' +
+        '      href: https://docs.google.com/spreadsheets/d/16KxgJnVDcuxo986PgcHy_zUh_DBP6DzEYIWjXq3EcUI/edit?gid=150432301#gid=150432301\n' +
+        '  - AIOStreams\n' +
+        '    - abbr: AO\n' +
+        '      href: https://aiostreams.hemati.com/jellyfin/b2678f59-8f35-4507-a057-506bd7b6f39b/eyJpIjoienhiU2lEbXltMVpnM0FGTUErV0xIQT09IiwiZSI6ImdzUGNXdDZMcU11K2VwSWI2ZnZNS3lYeC9IOFJ6bnozUUQ2WHlTZzJFcms9IiwidCI6ImEifQ/web\n' +
+        '  - Amazon:\n' +
+        '    - abbr: AZ\n' +
+        '      href: https://www.amazon.com\n' +
+        '  - Cloze:\n' +
+        '    - abbr: CL\n' +
+        '      href: https://www.cloze.com/in\n' +
+        '  - Console:\n' +
+        '    - abbr: CO\n' +
+        '      href: https://console.cloud.google.com/welcome?project=hermes-504906\n' +
+        '  - DashboardIcons:\n' +
+        '    - abbr: DI\n' +
+        '      href: https://dashboardicons.com/\n' +
+        '  - DCBG:\n' +
+        '    - abbr: DB\n' +
+        '      href: https://dcbg-crm.vercel.app\n' +
+        '  - Discord:\n' +
+        '    - abbr: DI\n' +
+        '      href: https://discord.com/channels/@me\n' +
+        '  - Facebook:\n' +
+        '    - abbr: FA\n' +
+        '      href: https://www.facebook.com/?_rdr\n' +
+        '  - Flipboard:\n' +
+        '    - abbr: FL\n' +
+        '      href: https://flipboard.com\n' +
+        '  - Gateway:\n' +
+        '    - abbr: GA\n' +
+        '      href: https://ww3.familyfirstlife.com/dashboard\n' +
+        '  - GDrive:\n' +
+        '    - abbr: GD\n' +
+        '      href: https://drive.google.com/drive/u/0/my-drive\n' +
+        '  - Gemini:\n' +
+        '    - abbr: GE\n' +
+        '      href: https://gemini.google.com\n' +
+        '  - Github:\n' +
+        '    - abbr: GH\n' +
+        '      href: https://github.com/dcoffline\n' +
+        '  - GMail:\n' +
+        '    - abbr: GM\n' +
+        '      href: https://mail.google.com/mail/u/0/#inbox\n' +
+        '  - GPlay:\n' +
+        '    - abbr: PS\n' +
+        '      href: https://play.google.com\n' +
+        '  - iCloud:\n' +
+        '    - abbr: IC\n' +
+        '      href: https://www.icloud.com\n' +
+        '  - Integrity:\n' +
+        '    - abbr: IN\n' +
+        '      href: https://clients.integrity.com\n' +
+        '  - Instagram:\n' +
+        '    - abbr: IG\n' +
+        '      href: https://www.instagram.com\n' +
+        '  - Jottacloud:\n' +
+        '    - abbr: JO\n' +
+        '      href: https://www.jottacloud.com/web/secure\n' +
+        '  - LinkedIn:\n' +
+        '    - abbr: LI\n' +
+        '      href: https://www.linkedin.com/feed\n' +
+        '  - Location:\n' +
+        '    - abbr: 20\n' +
+        '      href: https://mylocation.org\n' +
+        '  - Maps:\n' +
+        '    - abbr: MP\n' +
+        '      href: https://www.google.com/maps\n' +
+        '  - Marblism:\n' +
+        '    - abbr: MA\n' +
+        '      href: https://ai.marblism.com/organizations/5f9218b9-826d-4e63-95bf-325c742389ab/chat/1b7c33b5-cdfb-4767-9c8b-800f3d3d7c55\n' +
+        '  - Meet:\n' +
+        '    - abbr: GM\n' +
+        '      href: https://meet.google.com\n' +
+        '  - Music:\n' +
+        '    - abbr: YM\n' +
+        '      href: https://music.youtube.com\n' +
+        '  - MyChart:\n' +
+        '    - abbr: MY\n' +
+        '      href: https://mychart.austinregionalclinic.com/MyChart/Authentication/Login?action=logout\n' +
+        '  - Namecheap:\n' +
+        '    - abbr: NA\n' +
+        '      href: https://www.namecheap.com\n' +
+        '  - News:\n' +
+        '    - abbr: GN\n' +
+        '      href: https://news.google.com\n' +
+        '  - OneDrive:\n' +
+        '    - abbr: OD\n' +
+        '      href: https://onedrive.live.com/?id=root&cid=9FB84147040DA7BF\n' +
+        '  - OpenRouter:\n' +
+        '    - abbr: OR\n' +
+        '      href: https://openrouter.ai/workspaces/default/keys/ec351f132a81f30623552ff8a820b291949ecdaceee5a21581cf4836324a9f5c\n' +
+        '  - Perplexity:\n' +
+        '    - abbr: PP\n' +
+        '      href: https://www.perplexity.ai\n' +
+        '  - Photos:\n' +
+        '    - abbr: GP\n' +
+        '      href: https://photos.google.com\n' +
+        '  - POPTool:\n' +
+        '    - abbr: PT\n' +
+        '      href: https://mypoppro.com/tool\n' +
+        '  - Reddit:\n' +
+        '    - abbr: RD\n' +
+        '      href: https://www.reddit.com\n' +
+        '  - ReStream:\n' +
+        '    - abbr: RS\n' +
+        '      href: https://studio.restream.io/eqq-rtre-kay\n' +
+        '  - Salesflare:\n' +
+        '    - abbr: SF\n' +
+        '      href: https://app.salesflare.com\n' +
+        '  - Sendgrid:\n' +
+        '    - abbr: SG\n' +
+        '      href: https://sendgrid.com/en-us\n' +
+        '  - Spotify:\n' +
+        '    - abbr: SP\n' +
+        '      href: https://open.spotify.com\n' +
+        '  - Stremio:\n' +
+        '    - abbr: ST\n' +
+        '      href: https://web.stremio.com\n' +
+        '  - Sunshine:\n' +
+        '    - abbr: SS\n' +
+        '      href: https://sunshine.hemati.com\n' +
+        '  - Tasks:\n' +
+        '    - abbr: GT\n' +
+        '      href: https://tasks.google.com/tasks\n' +
+        '  - Telegram:\n' +
+        '    - abbr: TG\n' +
+        '      href: https://web.telegram.org/k\n' +
+        '  - Translate:\n' +
+        '    - abbr: TR\n' +
+        '      href: https://translate.google.com\n' +
+        '  - Truthfinder:\n' +
+        '    - abbr: TF\n' +
+        '      href: https://www.truthfinder.com/dashboard\n' +
+        '  - TVGuide:\n' +
+        '    - abbr: TV\n' +
+        '      href: https://titantv.com\n' +
+        '  - TwinMind:\n' +
+        '    - abbr: TM\n' +
+        '      href: https://app.twinmind.com/digest\n' +
+        '  - Voice:\n' +
+        '    - abbr: GV\n' +
+        '      href: https://voice.google.com/u/0/messages?itemId=t.%2B15124238639\n' +
+        '  - X.com:\n' +
+        '    - abbr: XC\n' +
+        '      href: https://x.com\n' +
+        '  - VoiceRec:\n' +
+        '    - abbr: VR\n' +
+        '      href: https://online-voice-recorder.com\n' +
+        '  - YahooFFL:\n' +
+        '    - abbr: FF\n' +
+        '      href: https://football.fantasysports.yahoo.com/f1/706127\n' +
+        '  - YouTube:\n' +
+        '    - abbr: YT\n' +
+        '      href: https://www.youtube.com/feed/subscriptions\n',
+      position: 300,
+      line: 8,
+      column: 10,
+      snippet: '  6 |     - abbr: "A#"\n' +
+        '  7 |       href: https://docs.google.com/sprea ...\n' +
+        '  8 |   - AIOStreams\n' +
+        '  9 |     - abbr: AO\n' +
+        '----------------^\n' +
+        ' 10 |       href: https://aiostreams.hemati.com ...\n' +
+        ' 11 |   - Amazon:'
+    },
+    name: 'YAMLException',
+    message: 'bad indentation of a sequence entry (9:11)\n' +
+      '\n' +
+      '  6 |     - abbr: "A#"\n' +
+      '  7 |       href: https://docs.google.com/sprea ...\n' +
+      '  8 |   - AIOStreams\n' +
+      '  9 |     - abbr: AO\n' +
+      '----------------^\n' +
+      ' 10 |       href: https://aiostreams.hemati.com ...\n' +
+      ' 11 |   - Amazon:',
+    config: 'bookmarks.yaml'
+  }
+]
+[2026-10-12T21:35:26.628Z] error: bad indentation of a sequence entry (9:11)
+
+  6 |     - abbr: "A#"
+  7 |       href: https://docs.google.com/sprea ...
+  8 |   - AIOStreams
+  9 |     - abbr: AO
+----------------^
+ 10 |       href: https://aiostreams.hemati.com ...
+ 11 |   - Amazon:
+[2026-10-12T21:35:26.652Z] error: <index> YAMLException: bad indentation of a sequence entry (9:11)
+
+  6 |     - abbr: "A#"
+  7 |       href: https://docs.google.com/sprea ...
+  8 |   - AIOStreams
+  9 |     - abbr: AO
+----------------^
+ 10 |       href: https://aiostreams.hemati.com ...
+ 11 |   - Amazon:
+    at YAMLException.throwAt (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:1219:9)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:1849:16)
+    at readBlockSequence (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:2295:38)
+    at parseNode (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:2451:70)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:2377:7)
+    at parseNode (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:2439:105)
+    at readBlockSequence (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:2292:8)
+    at parseNode (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:2439:57)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:2528:7)
+    at parseEvents (file:///app/node_modules/.pnpm/js-yaml@5.4.3/node_modules/js-yaml/dist/js-yaml.mjs:2573:3)

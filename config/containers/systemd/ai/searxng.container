@@ -19,10 +19,10 @@ EnvironmentFile=%h/.secrets
 Environment=SEARXNG_BASE_URL=http://localhost:8082/
 
 Label=homepage.name=SearXNG
-Label=homepage.group=Containers
+Label=homepage.group=AI
 Label=homepage.icon=searxng
 Label=homepage.href=https://searxng.hemati.com
-Label="homepage.description=Speech Recognition"
+Label="homepage.description=Agent Search"
 [Service]
 Restart=always
 RestartSec=5
