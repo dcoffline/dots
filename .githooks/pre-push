@@ -1,25 +1,40 @@
 #!/usr/bin/env bash
-# Pre-push secret scan (2026-10-13): scans OUTGOING commits for credential-
-# bearing URLs (api_password, debrid keys, picker blobs, JWTs). Fails closed
-# on findings, warns open if scanner missing.
-SCANNER=/opt/data/scripts/dots_secret_scan.py
+# Pre-push protection (2026-10-13):
+#  a) secret-scan outgoing commits for credential-bearing URLs
+#  b) git-crypt gate: .secrets/*.secret/rclone.conf blobs MUST carry the
+#     GITCRYPT magic — a plaintext secret blob never reaches GitHub.
+# Runs under the containerized git; scanner lives IN the repo.
 zero=0000000000000000000000000000000000000000
 fail=0
 while read -r local_ref local_sha remote_ref remote_sha; do
-  [ "$local_sha" = "$zero" ] && continue   # branch deletion
+  [ "$local_sha" = "$zero" ] && continue
   if [ "$remote_sha" = "$zero" ]; then
-    diff_range="$local_sha^..$local_sha" 2>/dev/null || diff_range=""
+    range="$local_sha^..$local_sha"
   else
-    diff_range="$remote_sha..$local_sha"
+    range="$remote_sha..$local_sha"
   fi
-  [ -z "$diff_range" ] && continue
-  if [ -x "$SCANNER" ]; then
-    if ! git diff "$diff_range" -U0 | python3 "$SCANNER" --stdin; then
-      echo "PUSH BLOCKED: credential-bearing content in outgoing commits ($diff_range)."
+  [ -z "$range" ] && continue
+  top="$(git rev-parse --show-toplevel)"
+  SCANNER="$top/.githooks/secret_scan.py"
+  # (a) secret scan
+  if [ -f "$SCANNER" ]; then
+    if ! git diff "$range" -U0 | /usr/bin/python3 "$SCANNER" --stdin; then
+      echo "PUSH BLOCKED: credential-bearing content in $range"
       fail=1
     fi
   else
-    echo "WARN: secret scanner missing at $SCANNER; not scanned." >&2
+    echo "WARN: scanner missing ($SCANNER)" >&2
   fi
+  # (b) git-crypt gate
+  for p in $(git diff --name-only "$range" | grep -E '(^|/)\.secrets$|\.secret$|rclone\.conf$'); do
+    if git cat-file -e "$local_sha:$p" 2>/dev/null; then
+      magic=$(git cat-file blob "$local_sha:$p" 2>/dev/null | head -c 10 | tr -d '\0')
+      case "$magic" in
+        *GITCRYPT*) : ;;
+        *) echo "PUSH BLOCKED: $p in $local_sha is NOT git-crypt encrypted (missing GITCRYPT magic)"
+           fail=1 ;;
+      esac
+    fi
+  done
 done
 exit $fail

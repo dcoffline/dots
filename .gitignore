@@ -39,6 +39,5 @@ oauth*.token
 config/environment.d/envvars.conf.local
 local/bin/uv
 # secret-incident untracks (2026-10-13)
-home/.secrets
 config/dconf-backups/stremio-addons-backup-2026-05-19.json
 local/share/homepage/logs/homepage.log
