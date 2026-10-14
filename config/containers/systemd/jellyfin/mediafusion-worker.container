@@ -4,7 +4,7 @@ After=network-online.target mediafusion-db.service mediafusion-redis.service
 Wants=mediafusion-db.service mediafusion-redis.service
 
 [Container]
-Image=docker.io/mhdzumair/mediafusion:latest
+Image=docker.io/mhdzumair/mediafusion:6.1.6
 ContainerName=mediafusion-worker
 AutoUpdate=registry
 Network=homelab.network
