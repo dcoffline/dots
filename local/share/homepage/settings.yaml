@@ -18,11 +18,11 @@ layout:
   AI:
     header: true
     style: row
-    columns: 6
+    columns: 5
   Content:
     header: true
     style: row
-    columns: 5
+    columns: 6
   Sites:
     header: true
     style: row

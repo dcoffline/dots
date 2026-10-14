@@ -18,8 +18,8 @@ Label=homepage.name=AIOStreams
 Label=homepage.group=Content
 Label=homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/png/aiostreams-light.png
 Label=homepage.href=https://aiostreams.hemati.com/jellyfin
-
 Label="homepage.description=Stream Aggregator"
+
 [Service]
 Restart=always
 

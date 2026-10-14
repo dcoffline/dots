@@ -23,7 +23,7 @@ Label=homepage.name=Threadfin
 Label=homepage.group=Content
 Label=homepage.icon=threadfin
 Label=homepage.href=http://192.168.1.18:34400
-Label="homepage.description=IPTV Proxy for Jellyfin Live TV"
+Label="homepage.description=IPTV Proxy"
 
 [Service]
 Restart=always

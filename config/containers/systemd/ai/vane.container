@@ -15,9 +15,9 @@ Volume=%h/.local/share/vane:/home/vane/data:Z
 
 Label=homepage.name=Vane
 Label=homepage.group=AI
-Label=homepage.icon=https://vane.hemati.com/favicon.ico
+Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/10/vane-favicon.png
 Label=homepage.href=https://vane.hemati.com
-Label="homepage.description=AI Research"
+Label="homepage.description=AI answer engine"
 
 [Service]
 Restart=always

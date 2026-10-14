@@ -19,9 +19,9 @@ Volume=%h/.local/share/mediafusion/data:/app/data:Z
 
 Label=homepage.name=MediaFusion
 Label=homepage.group=Content
-Label=homepage.icon=https://raw.githubusercontent.com/mhdzumair/mediaflux/refs/heads/main/resources/images/mediafusion.png
+Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/10/MediaFusion.png
 Label=homepage.href=https://mediafusion.hemati.com
-Label="homepage.description=Torrentio-class Stremio Addon"
+Label="homepage.description=Debrid Scraper"
 
 HealthCmd=curl -f http://localhost:8000/health
 HealthInterval=1m
