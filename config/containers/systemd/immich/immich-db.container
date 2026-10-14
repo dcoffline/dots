@@ -11,6 +11,6 @@ AutoUpdate=registry
 # DB stays on the SSD for performance
 Volume=%h/.local/share/immich/db:/var/lib/postgresql/data:Z
 EnvironmentFile=%h/.secrets
-EnvironmentFile=%h/.secrets-immich
+EnvironmentFile=%h/.local/share/immich/.env
 Environment=POSTGRES_DB=immich
 Environment=POSTGRES_INITDB_ARGS='--auth-host=scram-sha-256'

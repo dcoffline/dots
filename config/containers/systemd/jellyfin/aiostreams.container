@@ -8,6 +8,7 @@ Image=ghcr.io/viren070/aiostreams:latest
 AutoUpdate=registry
 Network=homelab.network
 EnvironmentFile=%h/.secrets
+EnvironmentFile=%h/.local/share/aiostreams/.env
 Environment=BASE_URL=https://aiostreams.hemati.com
 
 # Persistent storage for local instance databases/sessions
