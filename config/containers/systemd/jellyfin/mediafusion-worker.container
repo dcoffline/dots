@@ -1,0 +1,20 @@
+[Unit]
+Description=MediaFusion Background Worker
+After=network-online.target mediafusion-db.service mediafusion-redis.service
+Wants=mediafusion-db.service mediafusion-redis.service
+
+[Container]
+Image=docker.io/mhdzumair/mediafusion:latest
+ContainerName=mediafusion-worker
+AutoUpdate=registry
+Network=homelab.network
+EnvironmentFile=%h/.local/share/mediafusion/.env
+Environment=REDIS_URL=redis://mediafusion-redis:6379
+Exec=/usr/local/bin/mediafusion-worker
+
+[Service]
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target

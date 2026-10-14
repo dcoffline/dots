@@ -1,0 +1,38 @@
+[Unit]
+Description=MediaFusion Stremio Addon (self-hosted Torrentio-class)
+After=network-online.target mediafusion-db.service mediafusion-redis.service
+Wants=mediafusion-db.service mediafusion-redis.service
+
+[Container]
+Image=docker.io/mhdzumair/mediafusion:latest
+ContainerName=mediafusion
+AutoUpdate=registry
+Network=homelab.network
+EnvironmentFile=%h/.secrets
+EnvironmentFile=%h/.local/share/mediafusion/.env
+Environment=HOST_URL=https://mediafusion.hemati.com
+Environment=POSTER_HOST_URL=https://mediafusion.hemati.com
+Environment=CONTACT_EMAIL=eric@hemati.com
+Environment=REDIS_URL=redis://mediafusion-redis:6379
+Environment=TASKIQ_SINGLE_WORKER_MODE=true
+Volume=%h/.local/share/mediafusion/data:/app/data:Z
+
+Label=homepage.name=MediaFusion
+Label=homepage.group=Content
+Label=homepage.icon=https://raw.githubusercontent.com/mhdzumair/mediaflux/refs/heads/main/resources/images/mediafusion.png
+Label=homepage.href=https://mediafusion.hemati.com
+Label="homepage.description=Torrentio-class Stremio Addon"
+
+HealthCmd=curl -f http://localhost:8000/health
+HealthInterval=1m
+HealthTimeout=10s
+HealthRetries=5
+HealthStartPeriod=20m
+
+[Service]
+Restart=always
+RestartSec=5s
+TimeoutStartSec=600
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,22 @@
+[Unit]
+Description=MediaFusion Postgres
+After=network-online.target homelab-network.service
+Requires=homelab-network.service
+
+[Container]
+Image=docker.io/library/postgres:17-alpine
+ContainerName=mediafusion-db
+AutoUpdate=registry
+Network=homelab.network
+EnvironmentFile=%h/.local/share/mediafusion/.env
+Environment=POSTGRES_USER=mediafusion
+Environment=POSTGRES_DB=mediafusion
+Volume=%h/.local/share/mediafusion/db:/var/lib/postgresql/data:Z
+
+
+[Service]
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
