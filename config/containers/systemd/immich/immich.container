@@ -19,6 +19,7 @@ Volume=%h/.mnt/10T/Pictures/Camera:/mnt/external
 
 # Give it the "keys" to the database
 EnvironmentFile=%h/.secrets
+EnvironmentFile=%h/.secrets-immich
 Environment=DB_HOSTNAME=immich-db
 Environment=DB_DATABASE_NAME=immich
 

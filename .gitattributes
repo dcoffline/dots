@@ -1,3 +1,4 @@
 .secrets filter=git-crypt diff=git-crypt
 *.secret filter=git-crypt diff=git-crypt
 rclone.conf filter=git-crypt diff=git-crypt
+.secrets-immich filter=git-crypt diff=git-crypt
