@@ -6,12 +6,19 @@
 default:
     @just --list
 
-# Verifies every tracked dots file is actually stow-linked into $HOME (catches symlink-destroying edits)
+# Verifies every tracked dots file actually resolves into the dots repo
+# (catches symlink-destroying edits; run 'just check-links' after touching dots)
 check-links:
     #!/usr/bin/env bash
     set -euo pipefail
-    SELF="$(readlink -f "{{justfile()}}")"
-    DOTS="$(cd "$(dirname "$SELF")/.." && pwd)"
+    # DOTS is deliberately NOT derived from this justfile's path: when the stow
+    # link gets destroyed (the failure this guards), {{justfile()}} resolves to
+    # ~/.justfile and the repo would be invisible. Same default as elsewhere.
+    DOTS="${DOTS:-$HOME/src/dots}"
+    if ! git -C "$DOTS" rev-parse --git-dir >/dev/null 2>&1; then
+      echo "check-links: $DOTS is not a git repo — set DOTS or restore ~/src/dots" >&2
+      exit 1
+    fi
     failed=0; checked=0
     is_mac="$(uname -s)"
     while IFS= read -r path; do
@@ -23,9 +30,9 @@ check-links:
         Library) base="$HOME/Library" ;;
         *) continue ;;
       esac
-      # Exemptions: home/.secrets is the git-crypt reinstall backup (live file
-      # is authoritative, never stowed); Library/ is macOS-only; the
-      # antigravitycli session link deliberately points outside dots (~/.gemini).
+      # Exemptions: home/.secrets is the git-crypt reinstall backup (the live
+      # ~/.secrets is authoritative, never stowed); Library/ is macOS-only;
+      # the antigravitycli session link deliberately points outside dots.
       case "$path" in
         home/.secrets) continue ;;
         Library/*) [ "$is_mac" = "Darwin" ] || continue ;;
@@ -33,20 +40,24 @@ check-links:
       esac
       t="$base/$rest"
       checked=$((checked+1))
-      if [ -L "$t" ] && [ "$(readlink -f "$t")" = "$DOTS/$path" ]; then
+      # Healthy = exists AND resolves into the repo. NOT "-L required": files
+      # under folded directory symlinks resolve fine without being links.
+      if [ -e "$t" ] && [ "$(readlink -f "$t" 2>/dev/null)" = "$DOTS/$path" ]; then
         continue
       fi
-      if [ -e "$t" ]; then
-        echo "WRONG LINK: $t -> $(readlink "$t" 2>/dev/null || echo '(regular file, not a symlink)')"
+      if [ -L "$t" ]; then
+        echo "BROKEN LINK: $t -> $(readlink "$t")"
+      elif [ -e "$t" ]; then
+        echo "REGULAR FILE (link destroyed): $t"
       else
         echo "MISSING: $t (dots/$path not stowed)"
       fi
       failed=1
     done < <(git -C "$DOTS" ls-files home/ config/ local/ Library/)
     if [ "$failed" -eq 0 ]; then
-      echo "OK: $checked tracked dots files all resolve into src/dots"
+      echo "OK: $checked tracked dots files all resolve into $DOTS"
     else
-      echo "Re-stow with: stow -R -t \"\$HOME\" home; stow -R -t \"\$HOME/.config\" config; stow -R -t \"\$HOME/.local\" local; stow -R -t \"\$HOME/Library\" Library" >&2
+      echo "Re-stow: stow -R -t \"\$HOME\" home; stow -R -t \"\$HOME/.config\" config; stow -R -t \"\$HOME/.local\" local; stow -R -t \"\$HOME/Library\" Library" >&2
       exit 1
     fi
 
