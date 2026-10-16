@@ -124,6 +124,12 @@ update:
     [ -f ./config/bash/function.bash ] && source ./config/bash/function.bash
     [ -f ./config/bash/os.bash ] && source ./config/bash/os.bash
 
+    # Gate: live stow tree must resolve into the repo (relative links) before
+    # `update` touches it. Absolute links break stow -R (2026-10-16 outage:
+    # stow 2.3.1 skips absolute links on unstow then aborts with "not owned
+    # by stow"); atomic-rename edits destroy stow links silently. Catch both.
+    bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
+
     echo "[ Syncing with GitHub... ]"
     gitup "update $NOW" || echo "⚠️ Warning: Git pull failed. Continuing..."
 
@@ -163,9 +169,10 @@ update:
 
       echo "[ Applying Dotfile Updates... ]"
       mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/bin" "$HOME/.local/share/gnome-shell/extensions"
-      stow -R --ignore=".DS_Store" -t "$HOME" home
-      stow -R --ignore=".DS_Store" -t "$HOME/.config" config
-      stow -R --ignore=".DS_Store" -t "$HOME/.local" local
+      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
+      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME" home
+      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.config" config
+      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.local" local
 
       echo "[ Backing up to GitHub... ]"
       git add Brewfile "$SHELLINI"
@@ -184,9 +191,10 @@ update:
       fi
 
       echo "[ Applying Dotfile Updates... ]"
-      stow -R --ignore=".DS_Store" -t "$HOME" home
-      stow -R --ignore=".DS_Store" -t "$HOME/.config" config
-      stow -R --ignore=".DS_Store" -t "$HOME/.local" local
+      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
+      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME" home
+      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.config" config
+      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.local" local
 
       echo "[ Backing up to GitHub via Container... ]"
       if [ "$OS_TYPE" = "mac" ]; then
@@ -224,6 +232,7 @@ update:
       fi
       if command -v brew >/dev/null 2>&1; then brew bundle dump --force && sedi '/^flatpak/d' Brewfile; fi
 
+      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
       stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
       stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
       stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
