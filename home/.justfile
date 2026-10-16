@@ -761,6 +761,7 @@ backup-nextcloud:
     # Source secrets if available to get MYSQL_ROOT_PASSWORD
     if [ -f "$HOME/.secrets" ]; then
       source "$HOME/.secrets"
+      source "$HOME/.local/share/nextcloud-db/.env" 2>/dev/null || true
     fi
 
     TARGET_DIR="$HOME/.mnt/10T/Backups/nextcloud"
