@@ -45,3 +45,4 @@ local/share/homepage/logs/homepage.log
 # per-service env files ARE tracked (git-crypt) - negate the blanket .env rule
 # (2026-10-15: .gitignore .env silently excluded every Phase-1 per-service env)
 !local/share/**/*.env
+__pycache__/
