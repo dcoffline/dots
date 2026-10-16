@@ -6,6 +6,7 @@
 # Runs under the containerized git; scanner lives IN the repo.
 zero=0000000000000000000000000000000000000000
 fail=0
+top="$(git rev-parse --show-toplevel)"
 while read -r local_ref local_sha remote_ref remote_sha; do
   [ "$local_sha" = "$zero" ] && continue
   if [ "$remote_sha" = "$zero" ]; then
@@ -14,7 +15,6 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     range="$remote_sha..$local_sha"
   fi
   [ -z "$range" ] && continue
-  top="$(git rev-parse --show-toplevel)"
   SCANNER="$top/.githooks/secret_scan.py"
   # (a) secret scan
   if [ -f "$SCANNER" ]; then
@@ -37,4 +37,14 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     fi
   done
 done
+
+# (c) stow-link integrity: the live $HOME stow tree must still resolve into
+# this repo. A destroyed symlink (e.g. atomic-rename edit through ~/.justfile)
+# means the next commit can bake in silently-diverged content — block publish.
+if [ -f "$top/.githooks/check_links.sh" ]; then
+  if ! DOTS="$top" bash "$top/.githooks/check_links.sh"; then
+    echo "PUSH BLOCKED: stow links broken — re-stow before pushing (see above)"
+    fail=1
+  fi
+fi
 exit $fail
