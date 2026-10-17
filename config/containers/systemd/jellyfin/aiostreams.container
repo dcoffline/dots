@@ -4,8 +4,7 @@ After=network-online.target
 
 [Container]
 ContainerName=aiostreams
-Image=ghcr.io/viren070/aiostreams:latest
-AutoUpdate=registry
+Image=ghcr.io/viren070/aiostreams:v2.36.0
 Network=homelab.network
 EnvironmentFile=%h/.secrets
 EnvironmentFile=%h/.local/share/aiostreams/.env
