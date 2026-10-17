@@ -165,6 +165,7 @@ update:
       if distrobox-host-exec printenv XDG_CURRENT_DESKTOP 2>/dev/null | grep -qi gnome; then
         distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
+        sed -i '/^playback-history=/d' "$DOTS/$SHELLINI"
       fi
 
       echo "[ Applying Dotfile Updates... ]"
@@ -188,6 +189,7 @@ update:
       if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sedi -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
+        sedi '/^playback-history=/d' "$DOTS/$SHELLINI"
       fi
 
       echo "[ Applying Dotfile Updates... ]"
@@ -229,6 +231,7 @@ update:
       if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sedi -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
+        sedi '/^playback-history=/d' "$DOTS/$SHELLINI"
       fi
       if command -v brew >/dev/null 2>&1; then brew bundle dump --force && sedi '/^flatpak/d' Brewfile; fi
 

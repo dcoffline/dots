@@ -25,11 +25,17 @@ PATTERNS = [
     r"real-debrid\.com/(d|api)/[A-Za-z0-9]{8,}",
     r"alldebrid\.com/[a-z]/[A-Za-z0-9]{8,}",
     r"premiumize\.[a-z]+/.*[?&]apikey=",
-    # Long JWT-ish blobs
-    r"eyJ[A-Za-z0-9_-]{15,}",
+    # Long JWT-ish blobs are matched by JWT_PATTERN below (NOT here).
 ]
 
-COMPILED = [re.compile(p, re.IGNORECASE) for p in PATTERNS]
+# JWTs: case-sensitive by construction (header is base64 of '{"' -> always 'eyJ'),
+# full 3-segment h.P.s shape. A loose case-insensitive eyJ scan false-positives on
+# random base64 — 2026-10-17: a ~340KB dconf playback-history line (JPEG art as
+# data:image/jpeg;base64) contained 8 case-insensitive 'EyJ/EYj' shapes and blocked
+# every push. Real JWT = dot-separated header.payload.signature.
+JWT_PATTERN = r"eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}"
+
+COMPILED = [re.compile(p, re.IGNORECASE) for p in PATTERNS] + [re.compile(JWT_PATTERN)]
 ALLOWLIST = [
     r"example\.com", r"your-instance-url", r"<MASKED>", r"aiostreams\.hemati\.com/jellyfin/\$",
 ]
