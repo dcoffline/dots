@@ -1205,3 +1205,106 @@ threadfin-fix-epg:
     PROGS=${PROGS:-0}
     echo "✅ Done. Export programmes: $PROGS"
     echo "   Previous mapping DB backed up alongside it (xepg.json.bak-*)"
+# =============================================================================
+# BACKUP IMMICH (DB dump + hardlink-incremental library sync, keeps 3)
+# =============================================================================
+backup-immich target_dir="$HOME/.mnt/10T/Backups/immich":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    TARGET_DIR="{{target_dir}}"
+    TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+    BACKUP_DIR="$TARGET_DIR/immich_$TIMESTAMP"
+    LATEST_LINK="$TARGET_DIR/latest"
+    RETENTION_COUNT=3
+
+    echo "================================================================"
+    echo " Starting Immich Backup Protocol"
+    echo " Destination: $BACKUP_DIR"
+    echo "================================================================"
+
+    mkdir -p "$BACKUP_DIR"
+
+    # 1. Postgres DB dump (logical, restorable into the same image)
+    echo "[ 1/3 ] Dumping Immich Postgres database..."
+    podman exec immich-db sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB"' > "$BACKUP_DIR/immich_db.sql"
+    echo "  ✓ DB dumped ($(du -h "$BACKUP_DIR/immich_db.sql" | cut -f1))"
+
+    # 2. Photos/videos upload library — hardlink-incremental rsync
+    echo "[ 2/3 ] Rsync'ing upload library (--link-dest incremental)..."
+    PREV=""
+    if [ -d "$LATEST_LINK" ]; then
+      PREV="--link-dest=$LATEST_LINK/library"
+    fi
+    rsync -a --delete $PREV "$HOME/.mnt/2T/immich/" "$BACKUP_DIR/library/"
+    echo "  ✓ Library synced."
+
+    # 3. Thumbs/profile dir if present
+    echo "[ 3/3 ] Rsync'ing thumbs..."
+    if [ -d "$HOME/.local/share/immich/thumbs" ]; then
+      rsync -a --delete $PREV "$HOME/.local/share/immich/thumbs/" "$BACKUP_DIR/thumbs/"
+      echo "  ✓ Thumbs synced."
+    else
+      echo "  (no thumbs dir — skipping)"
+    fi
+
+    # Manifest
+    cat > "$BACKUP_DIR/manifest.json" <<JSON
+    {
+      "timestamp": "$TIMESTAMP",
+      "db_dump": true,
+      "library_source": "$HOME/.mnt/2T/immich"
+    }
+    JSON
+
+    ln -sfn "$BACKUP_DIR" "$LATEST_LINK"
+
+    # Retention: keep newest N snapshots
+    cd "$TARGET_DIR"
+    ls -1dt immich_* | tail -n +$((RETENTION_COUNT + 1)) | xargs -r rm -rf
+
+    echo "✅ Immich backup complete: $BACKUP_DIR"
+
+# =============================================================================
+# BACKUP HONCHO (Hermes memory DB — pg_dump, keeps 7)
+# =============================================================================
+backup-honcho target_dir="$HOME/.mnt/10T/Backups/honcho":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    TARGET_DIR="{{target_dir}}"
+    TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+    BACKUP_DIR="$TARGET_DIR/honcho_$TIMESTAMP"
+    RETENTION_COUNT=7
+
+    echo "================================================================"
+    echo " Starting Honcho Backup Protocol"
+    echo " Destination: $BACKUP_DIR"
+    echo "================================================================"
+
+    mkdir -p "$BACKUP_DIR"
+
+    echo "[ 1/2 ] Dumping Honcho Postgres database..."
+    podman exec honcho-db sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB"' > "$BACKUP_DIR/honcho_db.sql"
+    echo "  ✓ DB dumped ($(du -h "$BACKUP_DIR/honcho_db.sql" | cut -f1))"
+
+    echo "[ 2/2 ] Copying app data dir (if any)..."
+    if [ -d "$HOME/.local/share/honcho/data" ] && [ -n "$(ls -A "$HOME/.local/share/honcho/data" 2>/dev/null)" ]; then
+      rsync -a "$HOME/.local/share/honcho/data/" "$BACKUP_DIR/data/"
+      echo "  ✓ App data copied."
+    else
+      echo "  (app data empty — DB is the state)"
+    fi
+
+    cat > "$BACKUP_DIR/manifest.json" <<JSON
+    {
+      "timestamp": "$TIMESTAMP",
+      "db_dump": true,
+      "retention_count": $RETENTION_COUNT
+    }
+    JSON
+
+    cd "$TARGET_DIR"
+    ls -1dt honcho_* | tail -n +$((RETENTION_COUNT + 1)) | xargs -r rm -rf
+
+    echo "✅ Honcho backup complete: $BACKUP_DIR"

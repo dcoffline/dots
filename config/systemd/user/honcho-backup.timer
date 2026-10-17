@@ -1,0 +1,10 @@
+[Unit]
+Description=Trigger Honcho Backup Daily at 4:30 AM
+
+[Timer]
+# Runs after immich at 4:00
+OnCalendar=*-*-* 04:30:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=Trigger Immich Backup Daily at 4:00 AM
+
+[Timer]
+# Runs every night at 4:00 AM (after athena 3AM, nextcloud 2AM)
+OnCalendar=*-*-* 04:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
