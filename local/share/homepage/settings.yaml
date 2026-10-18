@@ -9,11 +9,11 @@ useEqualHeights: true
 layout:
   System:
     header: true
-  Security:
-    header: true
   Routing:
     header: true
   Discovery:
+    header: true
+  Security:
     header: true
   AI:
     header: true
@@ -22,7 +22,7 @@ layout:
   Content:
     header: true
     style: row
-    columns: 6
+    columns: 5
   Sites:
     header: true
     style: row

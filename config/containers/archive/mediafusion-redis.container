@@ -1,11 +1,17 @@
 [Unit]
-Description=MediaFusion Redis Cache
+Description=MediaFusion Redis
 After=network-online.target
 
 [Container]
-Image=docker.io/library/redis:7-alpine
 ContainerName=mediafusion-redis
+Image=docker.io/library/redis:alpine
+AutoUpdate=registry
 Network=homelab.network
+
+Volume=%h/.local/share/mediafusion/redis:/data:Z
+
+[Service]
+Restart=always
 
 [Install]
 WantedBy=default.target

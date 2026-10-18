@@ -1,17 +1,20 @@
 [Unit]
 Description=MediaFusion Background Worker
 After=network-online.target mediafusion-db.service mediafusion-redis.service
+Wants=mediafusion-db.service mediafusion-redis.service
 
 [Container]
-Image=docker.io/mhdzumair/mediafusion:6.0.0-beta.25
+Image=docker.io/mhdzumair/mediafusion:6.1.6
 ContainerName=mediafusion-worker
-# Overrides the default CMD to run the background worker binary
-Exec=mediafusion-worker
+AutoUpdate=registry
 Network=homelab.network
-# Must match the API container exactly
-EnvironmentFile=%h/.secrets
-Environment=POSTGRES_URI=postgresql://mediafusion:mediafusion@mediafusion-db:5432/mediafusion
-Environment=REDIS_URL=redis://mediafusion-redis:6379/0
+EnvironmentFile=%h/.local/share/mediafusion/.env
+Environment=REDIS_URL=redis://mediafusion-redis:6379
+Exec=/usr/local/bin/mediafusion-worker
+
+[Service]
+Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=default.target
