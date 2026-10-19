@@ -3,12 +3,16 @@
 
 cd "$HOME" || exit 1
 
+if [ -f /run/.containerenv ] && command -v distrobox-host-exec &>/dev/null; then
+  exec distrobox-host-exec just --justfile "$HOME/.justfile" --working-directory "$HOME" mount "$@"
+fi
+
 if command -v just &>/dev/null; then
-  exec just mount "$@"
+  exec just --justfile "$HOME/.justfile" --working-directory "$HOME" mount "$@"
 elif [ -x /opt/homebrew/bin/just ]; then
-  exec /opt/homebrew/bin/just mount "$@"
+  exec /opt/homebrew/bin/just --justfile "$HOME/.justfile" --working-directory "$HOME" mount "$@"
 elif [ -x /usr/local/bin/just ]; then
-  exec /usr/local/bin/just mount "$@"
+  exec /usr/local/bin/just --justfile "$HOME/.justfile" --working-directory "$HOME" mount "$@"
 else
   echo "Error: 'just' command runner not found in PATH or /opt/homebrew/bin/just" >&2
   exit 1

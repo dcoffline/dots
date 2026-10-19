@@ -13,13 +13,13 @@ if [ "$ENV_TYPE" = "container" ]; then
   alias dea='dhe distrobox enter athena'
   alias dear='dhe distrobox enter athena -e'
 
-  # Rclone (Punching out to the host)
+  # Rclone (Punching out to the host; rmount lives in ~/.local/bin/rmount)
   alias dhe='distrobox-host-exec'
-  alias rmount="dhe just mount"
+  alias rcheck='dhe just --justfile "$HOME/.justfile" --working-directory "$HOME" check-mounts'
   alias rlsmount='dhe mount | grep rclone || echo "No rclone mounts active"'
-  alias rumount="dhe just unmount"
-  alias rcheck='dhe just check-mounts'
-  alias rremount='dhe rumount; sleep 3; rmount'
+  alias rremount='rumount; sleep 3; rmount'
+  alias rumount='dhe just --justfile "$HOME/.justfile" --working-directory "$HOME" unmount'
+  alias rupdate='dhe just --justfile "$HOME/.justfile" --working-directory "$HOME" update-rclone'
 
   # System Utils (Punching out to the host)
   alias btop='dhe btop'
@@ -47,12 +47,12 @@ else
   alias deu='distrobox enter ubuntu'
   alias deur='distrobox enter ubuntu -e'
 
-  # Rclone (Native)
-  alias rmount='just mount'
+  # Rclone (Native; rmount lives in ~/.local/bin/rmount)
+  alias rcheck='just --justfile "$HOME/.justfile" --working-directory "$HOME" check-mounts'
   alias rlsmount='mount | grep rclone || echo "No rclone mounts active"'
-  alias rumount='just unmount'
-  alias rcheck='just check-mounts'
   alias rremount='rumount; sleep 3; rmount'
+  alias rumount='just --justfile "$HOME/.justfile" --working-directory "$HOME" unmount'
+  alias rupdate='just --justfile "$HOME/.justfile" --working-directory "$HOME" update-rclone'
 fi
 
 # ────── GLOBAL ALIASES ──────
