@@ -66,7 +66,7 @@ for lineno, line in enumerate(body.splitlines(), 1):
         continue
     # secrets-class files are credential-bearing BY DESIGN — the git-crypt
     # gate (in pre-push) is what protects them, not this URL scan.
-    if current_file.endswith(".secrets") or current_file.endswith(".secret") or current_file == "rclone.conf":
+    if current_file.endswith(".secrets") or current_file.endswith(".secret") or current_file.endswith("rclone.conf"):
         continue
     if any(re.search(a, line) for a in ALLOWLIST):
         continue

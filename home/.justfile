@@ -606,6 +606,36 @@ check-mounts:
       echo "✅ All rclone mounts are healthy."
     fi
 
+# Commits and pushes rclone.conf changes while preserving skip-worktree and stow symlink integrity
+update-rclone msg="Update rclone remotes":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    DOTS="${DOTS:-$HOME/src/dots}"
+    LIVE_CONF="$HOME/.config/rclone/rclone.conf"
+    REPO_CONF="$DOTS/config/rclone/rclone.conf"
+
+    # Always restore skip-worktree on exit so background token refreshes stay ignored
+    trap 'git -C "$DOTS" update-index --skip-worktree config/rclone/rclone.conf 2>/dev/null || true' EXIT
+
+    # If rclone config atomically replaced the stow symlink with a regular file, sync it back and re-link
+    if [ -f "$LIVE_CONF" ] && [ ! -L "$LIVE_CONF" ]; then
+      echo "🔄 Live rclone.conf was replaced by a regular file; syncing to repo and restoring relative symlink..."
+      cp -p "$LIVE_CONF" "$REPO_CONF"
+      (cd "$HOME/.config/rclone" && ln -sfn ../../src/dots/config/rclone/rclone.conf rclone.conf)
+    fi
+
+    git -C "$DOTS" update-index --no-skip-worktree config/rclone/rclone.conf
+
+    if git -C "$DOTS" diff --quiet -- config/rclone/rclone.conf; then
+      echo "✅ No changes to commit in config/rclone/rclone.conf."
+      exit 0
+    fi
+
+    git -C "$DOTS" add config/rclone/rclone.conf
+    git -C "$DOTS" commit -m "{{msg}}" -- config/rclone/rclone.conf
+    git -C "$DOTS" push origin main
+    echo "✅ rclone.conf committed, pushed (git-crypt), and skip-worktree re-applied."
+
 # =============================================================================
 # DEVELOPMENT TOOLS
 # =============================================================================
