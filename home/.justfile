@@ -193,10 +193,15 @@ update:
       fi
 
       echo "[ Applying Dotfile Updates... ]"
-      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME" home
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.config" config
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.local" local
+      if [ "${IS_MAC:-0}" -eq 1 ]; then
+        stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/Library" Library
+        mkdir -p "$HOME/Library/Application Support/voxtype"
+        ln -sfn "../../../src/dots/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
+      fi
+      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
 
       echo "[ Backing up to GitHub via Container... ]"
       if [ "$OS_TYPE" = "mac" ]; then
