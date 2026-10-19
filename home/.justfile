@@ -472,23 +472,19 @@ mount:
       mountpoint="$BASE_MOUNT/$target"
 
       EXTRA_FLAGS=()
+      if [[ "$remote" == "RealDebrid" ]]; then
+        EXTRA_FLAGS=( --read-only --dir-cache-time 10s --attr-timeout 1s --multi-thread-streams=0 --cutoff-mode=cautious )
+      elif [[ "$remote" == "AllDebrid" ]]; then
+        # AllDebrid-recommended: minimal cache, no multi-thread, cautious cutoff
+        EXTRA_FLAGS=( --read-only --dir-cache-time 10s --attr-timeout 1s --multi-thread-streams=0 --cutoff-mode=cautious --vfs-cache-mode minimal --buffer-size 0 )
+      elif [[ "$remote" == "Nextcloud" ]]; then
+        EXTRA_FLAGS=( --dir-cache-time 10s --attr-timeout 1s )
+      else
+        EXTRA_FLAGS=( --dir-cache-time 72h )
+      fi
+
       if [[ "$OS_TYPE" == "Darwin" ]]; then
         EXTRA_FLAGS+=( --volname "$remote" )
-        if [[ "$remote" == "realdebrid" || "$remote" == "RealDebrid" || "$remote" == "AllDebrid" ]]; then
-          EXTRA_FLAGS+=( --read-only )
-        fi
-      else
-        # Linux
-        if [[ "$remote" == "RealDebrid" ]]; then
-          EXTRA_FLAGS=( --read-only --dir-cache-time 10s --attr-timeout 1s --multi-thread-streams=0 --cutoff-mode=cautious )
-        elif [[ "$remote" == "AllDebrid" ]]; then
-          # AllDebrid-recommended: minimal cache, no multi-thread, cautious cutoff
-          EXTRA_FLAGS=( --read-only --dir-cache-time 10s --attr-timeout 1s --multi-thread-streams=0 --cutoff-mode=cautious --vfs-cache-mode minimal --buffer-size 0 )
-        elif [[ "$remote" == "Nextcloud" ]]; then
-          EXTRA_FLAGS=( --dir-cache-time 10s --attr-timeout 1s )
-        else
-          EXTRA_FLAGS=( --dir-cache-time 72h )
-        fi
       fi
 
       echo "Mounting $remote → $mountpoint"
@@ -505,12 +501,21 @@ mount:
     for remote in "${!REMOTES[@]}"; do
       target="${REMOTES[$remote]}"
       mountpoint="$BASE_MOUNT/$target"
-      if ! mountpoint -q "$mountpoint" 2>/dev/null; then
+      if ! (mountpoint -q "$mountpoint" 2>/dev/null || mount | grep -Fq " on $mountpoint "); then
         continue
       fi
-      if ! timeout 5 ls "$mountpoint" >/dev/null 2>&1; then
+      if command -v timeout >/dev/null 2>&1; then
+        ls_ok=$(timeout 5 ls "$mountpoint" >/dev/null 2>&1 && echo 1 || echo 0)
+      else
+        ls_ok=$(perl -e 'alarm shift; exec @ARGV' 5 ls "$mountpoint" >/dev/null 2>&1 && echo 1 || echo 0)
+      fi
+      if [[ "$ls_ok" -eq 0 ]]; then
         echo "⚠️ $remote mount did not respond to listing (auth stale or endpoint down). Unmounting."
-        fusermount3 -uz "$mountpoint" 2>/dev/null || fusermount -uz "$mountpoint" 2>/dev/null || true
+        if [[ "$OS_TYPE" == "Darwin" ]]; then
+          umount "$mountpoint" 2>/dev/null || umount -f "$mountpoint" 2>/dev/null || diskutil unmount force "$mountpoint" 2>/dev/null || true
+        else
+          fusermount3 -uz "$mountpoint" 2>/dev/null || fusermount -uz "$mountpoint" 2>/dev/null || true
+        fi
       fi
     done
 
