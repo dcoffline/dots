@@ -1,0 +1,26 @@
+[Unit]
+Description=SearXNG -> Tavily-shape relay for freellmapi custom search
+After=searxng.service
+
+[Container]
+ContainerName=searxng-relay
+Image=localhost/searxng-relay:latest
+Network=homelab.network
+# No PublishPort: fleet convention - freellmapi reaches it via container DNS
+# http://searxng-relay:8080/search (Tavily wire shape, bearer-auth'd).
+Volume=%h/.local/share/searxng-relay/token:/run/relay-token:Z,ro
+Environment=SEARXNG_UPSTREAM=http://searxng:8080
+Environment=LISTEN_PORT=8080
+Environment=AUTH_TOKEN_FILE=/run/relay-token
+
+#Label=homepage.name=SearXNG Relay
+#Label=homepage.group=AI
+#Label=homepage.icon=searxng
+#Label="homepage.description=Tavily-SearXNG Bridge"
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

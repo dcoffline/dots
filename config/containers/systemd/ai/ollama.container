@@ -29,7 +29,7 @@ Environment=OLLAMA_ORIGINS=*
 #Label=homepage.name=Ollama
 #Label=homepage.group=AI
 #Label=homepage.icon=ollama
-#Label=homepage.href=http://10.89.0.100:11434
+#Label=homepage.href=https://ollama.hemati.com
 #Label="homepage.description=LLM Inference"
 
 [Service]

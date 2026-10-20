@@ -31,6 +31,7 @@ Label=homepage.group=AI
 Label=homepage.icon=https://cdn.jsdelivr.net/gh/selfhst/icons/svg/open-webui.svg
 Label=homepage.href=https://chat.hemati.com
 Label="homepage.description=Local AI Chat"
+
 [Service]
 Restart=always
 

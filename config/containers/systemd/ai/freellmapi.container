@@ -8,8 +8,12 @@ ContainerName=freellmapi
 Image=ghcr.io/tashfeenahmed/freellmapi:latest
 AutoUpdate=registry
 Network=homelab.network
-# No PublishPort: fleet convention is Cloudflare tunnel + container-DNS access.
-# Client endpoint: http://freellmapi:3001/v1 (unified key from the dashboard)
+# PublishPort loopback-only: the athena distrobox shares the host netns and
+# cannot reach container-netns IPs (pasta blocks inbound), so published
+# loopback ports are the only host-side path. LAN/external access stays via
+# Cloudflare tunnel + container DNS.
+# Client endpoints: http://freellmapi:3001/v1 (container DNS) | http://127.0.0.1:3001/v1 (athena distrobox)
+PublishPort=127.0.0.1:3001:3001
 Environment=NODE_ENV=production
 Environment=PORT=3001
 # ENCRYPTION_KEY lives here (chmod 600, outside public dots repo)
