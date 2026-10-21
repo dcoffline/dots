@@ -3,7 +3,7 @@ Description=Daily Honcho (Hermes memory) Backup
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/distrobox-host-exec just --justfile %h/.justfile backup-honcho
+ExecStart=/usr/bin/just --justfile %h/.justfile backup-honcho
 TimeoutStartSec=600
 
 [Install]

@@ -3,7 +3,7 @@ Description=Daily Immich Backup (DB dump + library sync)
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/distrobox-host-exec just --justfile %h/.justfile backup-immich
+ExecStart=/usr/bin/just --justfile %h/.justfile backup-immich
 TimeoutStartSec=4h
 
 [Install]
