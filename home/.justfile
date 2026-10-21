@@ -1269,7 +1269,16 @@ backup-immich target_dir="$HOME/.mnt/10T/Backups/immich":
     if [ -d "$LATEST_LINK" ]; then
       PREV="--link-dest=$LATEST_LINK/library"
     fi
-    rsync -a --delete $PREV "$HOME/.mnt/2T/immich/" "$BACKUP_DIR/library/"
+    rsync -a --delete $PREV \
+      --exclude='/encoded-video' --exclude='/library' --exclude='/backups' \
+      "$HOME/.mnt/2T/immich/" "$BACKUP_DIR/library/"
+    for sub in encoded-video library backups; do
+      SUB_PREV=""
+      if [ -d "$LATEST_LINK/library/$sub" ]; then
+        SUB_PREV="--link-dest=$LATEST_LINK/library/$sub"
+      fi
+      rsync -a --delete $SUB_PREV "$HOME/.mnt/10T/immich/$sub/" "$BACKUP_DIR/library/$sub/"
+    done
     echo "  ✓ Library synced."
 
     # 3. Thumbs/profile dir if present

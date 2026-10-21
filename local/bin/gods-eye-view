@@ -108,7 +108,9 @@ stop_server() {
 
 open_app_window() {
     # Check if Chrome flatpak is available for app-mode window
-    if flatpak info com.google.Chrome > /dev/null 2>&1; then
+    if flatpak info com.brave.Browser > /dev/null 2>&1; then
+        flatpak run com.brave.Browser --app="$URL" &
+    elif flatpak info com.google.Chrome > /dev/null 2>&1; then
         flatpak run com.google.Chrome --app="$URL" &
     else
         xdg-open "$URL" &
