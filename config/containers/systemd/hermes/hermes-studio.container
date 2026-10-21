@@ -8,6 +8,8 @@ Image=docker.io/library/node:22-alpine
 Volume=%h/sandbox-hermes/Hermes-Studio:/app:Z
 Volume=%h/.hermes/.env:/run/secrets/hermes-env:Z,ro
 Volume=%h/.config/hermes-studio.env:/run/secrets/studio-env:Z,ro
+Volume=%h/.hermes/skills:/root/.hermes/skills:Z,ro
+Volume=%h/.hermes/memories:/root/.hermes/memories:Z,ro
 Exec=/app/container-launch.sh
 Environment=HERMES_API_URL=http://host.containers.internal:8642
 Environment=PORT=3003
@@ -16,7 +18,7 @@ AddHost=host.containers.internal:host-gateway
 
 Label="homepage.name=Hermes Studio"
 Label=homepage.group=AI
-Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/10/IMG_5591.webp
+Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/10/IMG_5591-removebg-preview.png
 Label=homepage.href=https://studio.hemati.com
 Label="homepage.description=Agent Mission Control"
 
