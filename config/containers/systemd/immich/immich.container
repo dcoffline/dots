@@ -21,7 +21,6 @@ Volume=%h/.mnt/10T/immich/backups:/usr/src/app/upload/backups:Z
 Volume=%h/.mnt/10T/Pictures/Camera:/mnt/external
 
 # Give it the "keys" to the database
-EnvironmentFile=%h/.secrets
 EnvironmentFile=%h/.local/share/immich/.env
 Environment=DB_HOSTNAME=immich-db
 Environment=DB_DATABASE_NAME=immich

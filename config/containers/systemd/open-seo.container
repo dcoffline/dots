@@ -30,7 +30,6 @@ Volume=%h/.local/share/open-seo/.env:/app/.env:Z,ro
 
 # Env-file also loads container env (diagnostics + some overrides); the
 # canonical app config is /app/.env. Telemetry disabled per preference.
-EnvironmentFile=%h/.secrets
 Environment=PORT=3001
 Environment=AUTH_MODE=local_noauth
 Environment=OPENSEO_TELEMETRY_DISABLED=1

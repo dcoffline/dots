@@ -9,6 +9,5 @@ Image=docker.io/library/mariadb:10.6
 AutoUpdate=registry
 
 Volume=%h/.local/share/nextcloud/db:/var/lib/mysql:Z
-EnvironmentFile=%h/.secrets
 EnvironmentFile=%h/.local/share/nextcloud-db/.env
 Environment=MYSQL_DATABASE=nextcloud

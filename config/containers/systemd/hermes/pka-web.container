@@ -4,11 +4,11 @@ After=network-online.target
 
 [Container]
 ContainerName=pka-web
+EnvironmentFile=%h/.local/share/pka-web/.env
 Image=localhost/pka-web:latest
 AutoUpdate=local
 Network=homelab.network
 PublishPort=8888:8888
-EnvironmentFile=%h/.secrets
 Environment=PYTHONPATH=/app
 Volume=%h/src/projects/pka-web:/app
 Volume=%h/Documents/Notes/Hemati:/vault:ro

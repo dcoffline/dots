@@ -5,12 +5,12 @@ Requires=nextcloud.service nextcloud-redis.service nextcloud-db.service
 
 [Container]
 ContainerName=nextcloud-notify-push
+EnvironmentFile=%h/.local/share/nextcloud-notify-push/.env
 Network=homelab.network
 Image=ghcr.io/nextcloud/notify_push:latest
 AutoUpdate=registry
 SecurityLabelDisable=true
 
-EnvironmentFile=%h/.secrets
 Environment=PORT=7867
 Environment=NEXTCLOUD_URL=http://nextcloud
 Environment=DATABASE_PREFIX=oc_

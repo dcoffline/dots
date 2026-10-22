@@ -12,7 +12,6 @@ PublishPort=127.0.0.1:8000:8000
 Exec=sh docker/entrypoint.sh
 
 Volume=%h/.local/share/honcho/data:/app/data:Z
-EnvironmentFile=%h/.secrets
 
 # Database & Cache
 Environment=DB_CONNECTION_URI=postgresql+psycopg://postgres:postgres@honcho-db:5432/honcho

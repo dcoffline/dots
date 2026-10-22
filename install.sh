@@ -158,6 +158,12 @@ echo "[ Applying dotfiles with Stow... ]"
 mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/share/gnome-shell/extensions" "$HOME/.config/rclone"
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
+
+# SELinux: container-mounted .env files must be container_file_t (fresh checkouts
+# get user_home_t, which blocks container reads even with :Z on the mount)
+if command -v chcon >/dev/null 2>&1; then
+  find "$SCRIPT_DIR/local/share" -name '.env' -exec chcon system_u:object_r:container_file_t:s0 {} \; 2>/dev/null
+fi
 if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
   echo "[ 🐳 Including Podman container symlinks (--containers)... ]"
   stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config

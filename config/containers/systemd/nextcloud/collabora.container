@@ -5,11 +5,11 @@ Wants=network-online.target
 
 [Container]
 ContainerName=collabora
+EnvironmentFile=%h/.local/share/collabora/.env
 Image=docker.io/collabora/code:latest
 Network=homelab.network
 PublishPort=9980:9980
 Volume=%h/.local/share/collabora:/opt/collabora:Z
-EnvironmentFile=%h/.secrets
 Environment=extra_params=--o:ssl.enable=false --o:ssl.termination=true
 Environment=aliasgroup1=https://collabora.hemati.com
 Environment=server_name=cloud.hemati.com

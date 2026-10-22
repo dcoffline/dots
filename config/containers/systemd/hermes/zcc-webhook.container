@@ -4,9 +4,9 @@ After=network-online.target athena.service
 
 [Container]
 ContainerName=zcc-webhook
+EnvironmentFile=%h/.local/share/zcc-webhook/.env
 Image=localhost/zcc-webhook-base:latest
 Network=homelab.network
-EnvironmentFile=%h/.secrets
 UserNS=keep-id:uid=10000,gid=10000
 Volume=%h/.local/share/hermes/app:/opt/hermes:ro
 Volume=%h/.local/share/hermes:/opt/data:z

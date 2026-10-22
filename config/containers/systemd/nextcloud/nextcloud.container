@@ -8,6 +8,7 @@ Wants=rclone.service
 [Container]
 # Add the name so Cloudflare can find it
 ContainerName=nextcloud
+EnvironmentFile=%h/.local/share/nextcloud/.env
 Network=homelab.network
 Image=docker.io/library/nextcloud:latest
 AutoUpdate=registry
@@ -27,7 +28,6 @@ Volume=%h/.mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone:rslave
 Volume=%h/src:/mnt/src
 
-EnvironmentFile=%h/.secrets
 Environment=MYSQL_HOST=nextcloud-db
 Environment=REDIS_HOST=nextcloud-redis
 Environment=MYSQL_DATABASE=nextcloud

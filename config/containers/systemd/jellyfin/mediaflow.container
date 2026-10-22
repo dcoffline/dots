@@ -7,8 +7,8 @@ Requires=homelab-network.service
 [Container]
 Image=ghcr.io/mhdzumair/mediaflow-proxy-light:latest
 ContainerName=mediaflow
+EnvironmentFile=%h/.local/share/mediaflow/.env
 AutoUpdate=registry
-EnvironmentFile=%h/.secrets
 
 # Cap logging at warn: the INFO access logger embeds api_password and
 # destination URLs (RD/DMM keys) into journald. Warn+ still captured.
