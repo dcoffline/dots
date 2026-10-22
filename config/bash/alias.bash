@@ -29,7 +29,6 @@ if [ "$ENV_TYPE" = "container" ]; then
   alias scudr='dhe systemctl --user daemon-reload'
   alias jc='dhe journalctl'
   alias follow='dhe journalctl --user -fu'
-  alias ptrans='dhe dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
   alias brew='dhe /var/home/linuxbrew/.linuxbrew/bin/brew'
 
 # ──────  HOST ALIASES ──────
@@ -123,7 +122,6 @@ alias openports='ss -tulanp'
 alias lzd='lazydocker'
 alias cid="echo $CONTAINER_ID"
 alias rlog="tail /tmp/rclone-mount.log"
-alias ptrans='dconf write /org/gnome/Ptyxis/Profiles/***/opacity'
 alias macboot='sudo fdesetup authrestart'
 
 # File Management

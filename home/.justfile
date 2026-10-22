@@ -99,12 +99,41 @@ status:
     fi
 
 # Initiates the Fortress Maintenance Protocol (Updates, Syncs, Backups)
-update:
+# Pass --containers (or -c) to include Podman Quadlet symlinks (~/.config/containers)
+update *args:
     #!/usr/bin/env bash
     sudo -v
     set -e
     SHELLINI="config/dconf-backups/gnome-shell.ini"
-    
+
+    INCLUDE_CONTAINERS=0
+    for arg in {{args}}; do
+      case "$arg" in
+        --containers|-c|containers)
+          INCLUDE_CONTAINERS=1
+          ;;
+        *)
+          echo "Unknown option: $arg (use --containers or -c)"
+          exit 1
+          ;;
+      esac
+    done
+
+    STOW_CONFIG_ARGS=(--ignore=".DS_Store" --ignore='^\._')
+    if [ "$INCLUDE_CONTAINERS" -eq 0 ]; then
+      STOW_CONFIG_ARGS+=(--ignore='^containers$')
+    fi
+
+    cleanup_container_links() {
+      if [ "$INCLUDE_CONTAINERS" -eq 0 ]; then
+        if [ -L "$HOME/.config/containers" ] && [[ "$(readlink -f "$HOME/.config/containers" 2>/dev/null)" == "$DOTS/"* ]]; then
+          rm -f "$HOME/.config/containers"
+        elif [ -L "$HOME/.config/containers/systemd" ] && [[ "$(readlink -f "$HOME/.config/containers/systemd" 2>/dev/null)" == "$DOTS/"* ]]; then
+          rm -f "$HOME/.config/containers/systemd"
+        fi
+      fi
+    }
+
     # Sudo keep-alive
     while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
@@ -129,6 +158,7 @@ update:
     # stow 2.3.1 skips absolute links on unstow then aborts with "not owned
     # by stow"); atomic-rename edits destroy stow links silently. Catch both.
     bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
+    export INCLUDE_CONTAINERS
 
     echo "[ Syncing with GitHub... ]"
     gitup "update $NOW" || echo "⚠️ Warning: Git pull failed. Continuing..."
@@ -170,10 +200,11 @@ update:
 
       echo "[ Applying Dotfile Updates... ]"
       mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/bin" "$HOME/.local/share/gnome-shell/extensions"
-      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME" home
-      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.config" config
+      stow -R "${STOW_CONFIG_ARGS[@]}" -t "$HOME/.config" config
+      cleanup_container_links
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.local" local
+      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
 
       echo "[ Backing up to GitHub... ]"
       git add Brewfile "$SHELLINI"
@@ -194,7 +225,8 @@ update:
 
       echo "[ Applying Dotfile Updates... ]"
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME" home
-      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.config" config
+      stow -R "${STOW_CONFIG_ARGS[@]}" -t "$HOME/.config" config
+      cleanup_container_links
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.local" local
       if [ "${IS_MAC:-0}" -eq 1 ]; then
         stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/Library" Library
@@ -240,15 +272,16 @@ update:
       fi
       if command -v brew >/dev/null 2>&1; then brew bundle dump --force && sedi '/^flatpak/d' Brewfile; fi
 
-      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
       stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
       stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
-      stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
+      stow "${STOW_CONFIG_ARGS[@]}" -R -t "$HOME/.config" config
+      cleanup_container_links
       if [ "${IS_MAC:-0}" -eq 1 ]; then
         stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/Library" Library
         mkdir -p "$HOME/Library/Application Support/voxtype"
         ln -sfn "$DOTS/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
       fi
+      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
 
       git add "$SHELLINI" Brewfile
       git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
