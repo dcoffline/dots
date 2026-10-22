@@ -6,6 +6,32 @@ set -e
 # Determine the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# =========================================================
+# PARSE CLI FLAGS
+# =========================================================
+INCLUDE_CONTAINERS=0
+
+for arg in "$@"; do
+  case "$arg" in
+    --containers|-c)
+      INCLUDE_CONTAINERS=1
+      ;;
+    --help|-h)
+      echo "Usage: $(basename "$0") [OPTIONS]"
+      echo ""
+      echo "Options:"
+      echo "  -c, --containers   Include Podman Quadlet container symlinks (~/.config/containers)"
+      echo "  -h, --help         Show this help message"
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $arg"
+      echo "Run '$(basename "$0") --help' for usage."
+      exit 1
+      ;;
+  esac
+done
+
 # Export all environment variables sourced from configuration
 mkdir -p "$HOME/.local/bin" "$HOME/.config/systemd/user"
 set -a
@@ -107,6 +133,9 @@ backup_package() {
     [ -e "$item" ] || continue
     local name="$(basename "$item")"
     [[ "$name" == ".DS_Store" || "$name" == "._*" || "$name" == "*" ]] && continue
+    if [ "$INCLUDE_CONTAINERS" -eq 0 ] && [ "$pkg_name" == "config" ] && [ "$name" == "containers" ]; then
+      continue
+    fi
     backup_item_recursive "$item" "$target_base/$name"
   done
 }
@@ -129,7 +158,19 @@ echo "[ Applying dotfiles with Stow... ]"
 mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/share/gnome-shell/extensions" "$HOME/.config/rclone"
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
-stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
+if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
+  echo "[ 🐳 Including Podman container symlinks (--containers)... ]"
+  stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
+else
+  echo "[ ⏭️  Skipping Podman container symlinks (pass --containers to include)... ]"
+  stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' --ignore='^containers$' -R -t "$HOME/.config" config
+  # Remove any previously stowed container symlinks pointing into this repo
+  if is_link_to_dots "$HOME/.config/containers"; then
+    rm -f "$HOME/.config/containers"
+  elif is_link_to_dots "$HOME/.config/containers/systemd"; then
+    rm -f "$HOME/.config/containers/systemd"
+  fi
+fi
 if [ "${IS_MAC:-0}" -eq 1 ]; then
   stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/Library" Library
   mkdir -p "$HOME/Library/Application Support/voxtype"

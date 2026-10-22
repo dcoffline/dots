@@ -281,13 +281,29 @@ monitor-streams() {
 
 # Intelligent Multi-Environment Updater (Host & Distroboxes)
 update() {
-  local target="${1:-}"
+  local target=""
+  local just_args=()
+
+  for arg in "$@"; do
+    case "$arg" in
+      --containers|-c|containers)
+        just_args+=(--containers)
+        ;;
+      all|host|fedora|athena)
+        target="$arg"
+        ;;
+      *)
+        echo "Usage: update [all | host | fedora | athena] [--containers|-c]"
+        return 1
+        ;;
+    esac
+  done
 
   # ── Container Context ──────────────────────────────────────────
   if [ -f /run/.containerenv ]; then
     if [ "$target" = "all" ]; then
       echo "🌐 Inside container. Delegating 'update all' to host..."
-      distrobox-host-exec bash -ic "update all"
+      distrobox-host-exec bash -ic "update all ${just_args[*]}"
       return $?
     fi
 
@@ -306,7 +322,7 @@ update() {
   case "$target" in
     all)
       echo "🛡️  [1/2] Updating Host (Brew, Flatpaks, ujust, dotfiles)..."
-      just update
+      just update "${just_args[@]}"
 
       echo -e "\n📦 [2/2] Updating all Distroboxes (fedora, athena)..."
       distrobox-upgrade --all
@@ -323,12 +339,37 @@ update() {
       ;;
     host|"")
       echo "🛡️  Updating Host..."
-      just update
-      ;;
-    *)
-      echo "Usage: update [all | host | fedora | athena]"
-      return 1
+      just update "${just_args[@]}"
       ;;
   esac
 }
+
+# Set Ptyxis terminal opacity for the active default profile (e.g. ptrans 0.85)
+ptrans() {
+  local dconf_cmd=(dconf)
+  if [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+    dconf_cmd=(distrobox-host-exec dconf)
+  fi
+
+  local uuid
+  uuid="$("${dconf_cmd[@]}" read /org/gnome/Ptyxis/default-profile-uuid 2>/dev/null | tr -d "'")"
+  if [ -z "$uuid" ]; then
+    echo "Error: Could not determine Ptyxis default-profile-uuid." >&2
+    return 1
+  fi
+
+  if [ -z "${1:-}" ]; then
+    local current
+    current="$("${dconf_cmd[@]}" read "/org/gnome/Ptyxis/Profiles/${uuid}/opacity" 2>/dev/null)"
+    echo "Current Ptyxis opacity ($uuid): ${current:-1.0}"
+    echo "Usage: ptrans <decimal> (e.g. ptrans 0.85)"
+    return 0
+  fi
+
+  local val="$1"
+  [[ "$val" != *.* ]] && val="${val}.0"
+
+  "${dconf_cmd[@]}" write "/org/gnome/Ptyxis/Profiles/${uuid}/opacity" "$val"
+}
+
 

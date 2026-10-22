@@ -109,6 +109,6 @@ except Exception:
   # set instead of failing (a prep-cmd exit 1 blocks Sunshine launches).
   timeout 2 "${RUN[@]}" gdctl set -L -p -s "$SCALE" -M "$GNOME_MAIN" -m "$MODE" || true
   dock
-  natscroll off
+  natscroll
   ;;
 esac

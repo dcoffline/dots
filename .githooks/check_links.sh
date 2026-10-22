@@ -28,6 +28,17 @@ fi
 
 failed=0; abs=0; checked=0
 is_mac="$(uname -s)"
+
+# Check if config/containers is opted-in (via INCLUDE_CONTAINERS=1 or active stow symlink)
+check_containers="${INCLUDE_CONTAINERS:-0}"
+if [ "$check_containers" -eq 0 ]; then
+  if [ -L "$HOME/.config/containers" ] && [[ "$(readlink -f "$HOME/.config/containers" 2>/dev/null)" == "$DOTS/"* ]]; then
+    check_containers=1
+  elif [ -L "$HOME/.config/containers/systemd" ] && [[ "$(readlink -f "$HOME/.config/containers/systemd" 2>/dev/null)" == "$DOTS/"* ]]; then
+    check_containers=1
+  fi
+fi
+
 while IFS= read -r path; do
   pkg="${path%%/*}"; rest="${path#*/}"
   case "$pkg" in
@@ -39,10 +50,12 @@ while IFS= read -r path; do
   esac
   # Exemptions: home/.secrets is the git-crypt reinstall backup (the live
   # ~/.secrets is authoritative, never stowed); Library/ is macOS-only;
-  # the antigravitycli session link deliberately points outside dots.
+  # config/containers/ is opt-in (--containers); the antigravitycli session
+  # link deliberately points outside dots.
   case "$path" in
     home/.secrets) continue ;;
     Library/*) [ "$is_mac" = "Darwin" ] || continue ;;
+    config/containers/*) [ "$check_containers" -eq 1 ] || continue ;;
     config/environment.d/.antigravitycli/*) continue ;;
   esac
   t="$base/$rest"
