@@ -5,7 +5,7 @@
 *._*
 local/share/homepage/log/
 dotfiles.key
-
+*.log
 # --- hardened secret hygiene (2026-09-06) ---
 # --- hardened secret hygiene (2026-09-06) ---
 # .secrets + rclone.conf are ALREADY git-crypt encrypted; these protect FUTURE accidents
