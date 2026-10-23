@@ -2,7 +2,7 @@ tap "achannarasappa/tap", "https://github.com/achannarasappa/tap.git", trusted: 
 tap "bjarneo/cliamp"
 tap "browsh-org/browsh", trusted: true
 tap "jotta/cli", trusted: true
-tap "lizardbyte/homebrew", "https://github.com/LizardByte/homebrew-homebrew", trusted: true
+tap "lizardbyte/homebrew", trusted: true
 tap "macos-fuse-t/cask", trusted: true
 tap "nikitabobko/tap", trusted: true
 tap "peteonrails/voxtype", trusted: { casks: ["voxtype"] }
@@ -25,6 +25,8 @@ brew "bash"
 brew "bash-preexec"
 # Collection of portable C++ source libraries
 brew "boost"
+# GNU compiler collection
+brew "gcc"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
@@ -39,6 +41,10 @@ brew "libtool"
 brew "ffmpeg"
 # Create thumbnails for your video files
 brew "ffmpegthumbnailer"
+# Tool to install, manage and use Progressive Web Apps in Mozilla Firefox
+brew "firefoxpwa"
+# Enable transparent encryption/decryption of files in a git repo
+brew "git-crypt"
 # GNU implementation of which utility
 brew "gnu-which"
 # Open source programming language to build simple/reliable/efficient software
@@ -91,6 +97,8 @@ brew "python@3.12"
 brew "rclone"
 # SVG rendering tool and library
 brew "resvg"
+# Safe, concurrent, practical language
+brew "rust"
 # Display and control your Android device
 brew "scrcpy"
 # 7-Zip is a file archiver with a high compression ratio
@@ -111,6 +119,8 @@ brew "whisper.cpp"
 brew "yq"
 # A retro terminal music player inspired by Winamp 2.x
 brew "bjarneo/cliamp/cliamp", trusted: true
+# The modern, text-based browser
+brew "browsh-org/browsh/browsh", trusted: true
 # Self-hosted game stream host for Moonlight
 brew "lizardbyte/homebrew/sunshine", trusted: true
 # Modern TUI for managing Homebrew packages and casks on macOS and Linux
@@ -142,7 +152,6 @@ cargo "ripgrep"
 cargo "starship"
 cargo "tealdeer"
 cargo "television"
-cargo "vm-curator"
 cargo "yazi-build"
 cargo "yazi-cli"
 cargo "yazi-fm"
