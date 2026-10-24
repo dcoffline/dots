@@ -161,7 +161,8 @@ update *args:
     export INCLUDE_CONTAINERS
 
     echo "[ Syncing with GitHub... ]"
-    gitup "update $NOW" || echo "⚠️ Warning: Git pull failed. Continuing..."
+    git pull --rebase --autostash -X ours || echo "⚠️ Warning: Git pull failed. Continuing..."
+    gitup "update $NOW" || echo "⚠️ Warning: Git sync failed. Continuing..."
 
     echo "[ Initiating Fortress Maintenance Protocol... ]"
 
@@ -195,7 +196,7 @@ update *args:
       if distrobox-host-exec printenv XDG_CURRENT_DESKTOP 2>/dev/null | grep -qi gnome; then
         distrobox-host-exec dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sed -i -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
-        sed -i '/^playback-history=/d' "$DOTS/$SHELLINI"
+        sed -i -E '/^(playback-history|history|timer-last-trigger)=/d' "$DOTS/$SHELLINI"
       fi
 
       echo "[ Applying Dotfile Updates... ]"
@@ -209,7 +210,7 @@ update *args:
       echo "[ Backing up to GitHub... ]"
       git add Brewfile "$SHELLINI"
       git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
-      git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
+      git pull --rebase --autostash -X ours && git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
       
       echo "[ Starting Immutable Host Update... ]"
       distrobox-host-exec sudo ujust update
@@ -220,7 +221,7 @@ update *args:
       if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sedi -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
-        sedi '/^playback-history=/d' "$DOTS/$SHELLINI"
+        sedi -E '/^(playback-history|history|timer-last-trigger)=/d' "$DOTS/$SHELLINI"
       fi
 
       echo "[ Applying Dotfile Updates... ]"
@@ -239,11 +240,11 @@ update *args:
       if [ "$OS_TYPE" = "mac" ]; then
         git add Brewfile
         git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
-        git push origin main || echo "⚠️ Warning: Git push failed."
+        git pull --rebase --autostash -X ours && git push origin main || echo "⚠️ Warning: Git push failed."
       elif [ "$OS_TYPE" = "linux" ]; then
         CONTAINER_NAME=$(distrobox list --no-color | awk -F '|' 'NR>1 {gsub(/[ \t]+/, "", $2); print $2}' | head -n 1)
         if [ -n "$CONTAINER_NAME" ]; then
-          distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && git add Brewfile '$SHELLINI' && git commit -m \"System snapshot: $(date +'%Y-%m-%d')\" || true && git push origin main"
+          distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && git add Brewfile '$SHELLINI' && git commit -m \"System snapshot: $(date +'%Y-%m-%d')\" || true && git pull --rebase --autostash -X ours && git push origin main"
         fi
         echo "[ Starting Immutable Host Update... ]"
         sudo ujust update
@@ -268,7 +269,7 @@ update *args:
       if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
         dconf dump /org/gnome/shell/ >"$DOTS/$SHELLINI"
         sedi -E "s/([a-zA-Z0-9_-]*api-key)=['\"][^'\"]*['\"]/\1=''/g" "$DOTS/$SHELLINI"
-        sedi '/^playback-history=/d' "$DOTS/$SHELLINI"
+        sedi -E '/^(playback-history|history|timer-last-trigger)=/d' "$DOTS/$SHELLINI"
       fi
       if command -v brew >/dev/null 2>&1; then brew bundle dump --force && sedi '/^flatpak/d' Brewfile; fi
 
@@ -285,7 +286,7 @@ update *args:
 
       git add "$SHELLINI" Brewfile
       git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
-      git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
+      git pull --rebase --autostash -X ours && git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
     fi
     echo "[ Fortress Maintenance Complete ]"
 

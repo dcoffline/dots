@@ -53,19 +53,19 @@ gitup() {
   export NOW=$(date +"%Y-%m-%d_%H%M%S")
   local msg="${*:-$NOW}"
   git add -A
-  git commit -m "$msg"
-  git push
+  git diff --cached --quiet || git commit -m "$msg"
+  git pull --rebase --autostash -X ours && git push
 }
 
 # Update DOTS Repository
 dotup() {
   export NOW=$(date +"%Y-%m-%d_%H%M%S")
   local msg="${*:-$NOW}"
-  \cd "$DOTS" >/dev/null
+  \cd "$DOTS" >/dev/null || return 1
   git add -A
-  git commit -m "$msg"
-  git push
-  \cd - >/dev/null
+  git diff --cached --quiet || git commit -m "$msg"
+  git pull --rebase --autostash -X ours && git push
+  \cd - >/dev/null || true
 }
 
 # Edit, source and update BASH configs
