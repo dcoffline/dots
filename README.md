@@ -184,7 +184,6 @@ The Fortress uses [`just`](home/.justfile) as a unified task runner across all p
 | `just install-voxtype` | Installs and configures Voxtype push-to-talk voice-to-text (Vulkan GPU/AVX2 on Linux, Cask on macOS) |
 | `just install-openwispr`| Downloads and configures OpenWispr speech-to-text service and desktop launcher |
 | `just install-agy` | Installs or updates the Google Antigravity CLI |
-| `just rounded-blur` | Rebuilds the `gnome-rounded-blur` library inside a Fedora container after Mutter updates |
 | `just clean-apple [dir]`| Scans and cleans macOS metadata junk (`._*` sidecar files and `.DS_Store`) |
 
 For a complete list of interactive aliases and shortcuts, see **[CHEATSHEET.md](CHEATSHEET.md)**.

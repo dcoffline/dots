@@ -107,13 +107,19 @@ update *args:
     SHELLINI="config/dconf-backups/gnome-shell.ini"
 
     INCLUDE_CONTAINERS=0
+    if [ -L "$HOME/.config/containers" ] || [ -L "$HOME/.config/containers/systemd" ]; then
+      INCLUDE_CONTAINERS=1
+    fi
     for arg in {{args}}; do
       case "$arg" in
         --containers|-c|containers)
           INCLUDE_CONTAINERS=1
           ;;
+        --no-containers)
+          INCLUDE_CONTAINERS=0
+          ;;
         *)
-          echo "Unknown option: $arg (use --containers or -c)"
+          echo "Unknown option: $arg (use --containers/-c or --no-containers)"
           exit 1
           ;;
       esac
@@ -345,34 +351,6 @@ resync-gdrive:
     echo "=== Running Bisync --resync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
     $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync --slow-hash-sync-only --tpslimit 10 --exclude '**/.trash/**' --exclude '**/.Trash*/**' --exclude '**/.Trash-1000/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v
     echo "=== Resync Complete ==="
-
-# Rebuild the gnome-rounded-blur library (run after Mutter/GNOME updates)
-rounded-blur:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    
-    echo "⚙️  Configuring environment variables..."
-    mkdir -p ~/.config/environment.d
-    echo "GI_TYPELIB_PATH=/usr/local/lib64/girepository-1.0:/usr/local/lib/girepository-1.0" > ~/.config/environment.d/60-gnome-rounded-blur.conf
-    
-    if [ ! -f /etc/ld.so.conf.d/usr-local-x86_64.conf ]; then
-        echo "⚙️  Configuring dynamic linker search path..."
-        echo -e "/usr/local/lib64\n/usr/local/lib" | sudo tee /etc/ld.so.conf.d/usr-local-x86_64.conf > /dev/null
-    fi
-
-    echo "🔄 Updating build dependencies in Fedora distrobox..."
-    distrobox-enter -n fedora -- sudo dnf upgrade -y --refresh glib2-devel mutter-devel gobject-introspection-devel gobject-introspection meson gcc gcc-c++ make git
-    
-    echo "🏗️  Rebuilding gnome-rounded-blur inside Fedora distrobox..."
-    distrobox-enter -n fedora -- bash -c "curl -sL https://raw.githubusercontent.com/aunetx/blur-my-shell/refs/heads/master/scripts/rounded_blur_build.sh | bash -s -- -i"
-    
-    echo "📦 Copying files to host /usr/local/..."
-    sudo cp -r /tmp/gnome-rounded-blur/build/binary/usr/local/* /usr/local/
-    
-    echo "🔄 Reloading dynamic linker cache..."
-    sudo ldconfig
-    
-    echo "✅ Success! Please log out and back in to apply the changes."
 
 # Upgrades Sunshine, reapplies KMS/uhid capabilities, fixes Qt plugin links, and restarts the service
 update-sunshine:

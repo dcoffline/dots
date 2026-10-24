@@ -8,11 +8,6 @@ add_to_path() {
   fi
 }
 
-# ────── COMMON PATHS ──────
-add_to_path "$HOME/.local/share/go/bin"
-add_to_path "$HOME/.config/npm/bin"
-add_to_path "$HOME/.local/share/cargo/bin"
-add_to_path "$HOME/.local/bin"
 # ────── OS SPECIFIC PATHS ──────
 if [ "$IS_MAC" -eq 1 ]; then
   # Homebrew (ARM64 macOS)
@@ -30,6 +25,12 @@ elif [ "$IS_LINUX" -eq 1 ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
   fi
 fi
+
+# ────── COMMON PATHS (take precedence over Homebrew) ──────
+add_to_path "$HOME/.local/share/go/bin"
+add_to_path "$HOME/.config/npm/bin"
+add_to_path "$HOME/.local/share/cargo/bin"
+add_to_path "$HOME/.local/bin"
 
 # ────── CLEANUP ──────
 # Use cleanpath function from .functions if available

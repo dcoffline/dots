@@ -45,7 +45,6 @@ Run `just` with no arguments to list all available recipes, or run any of the fo
 # System & Maintenance
 just status                          # Health report on systemd host and user services
 just update                          # Full Fortress maintenance protocol (update, sync, push)
-just rounded-blur                    # Rebuilds gnome-rounded-blur library via Fedora container
 
 # Cloud Storage (Rclone)
 just mount                           # Mounts cloud storage remotes (macOS & Linux auto-aware)
