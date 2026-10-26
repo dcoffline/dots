@@ -1,4 +1,3 @@
 .secrets filter=git-crypt diff=git-crypt
 *.secret filter=git-crypt diff=git-crypt
-rclone.conf filter=git-crypt diff=git-crypt
 local/share/**/*.env filter=git-crypt diff=git-crypt

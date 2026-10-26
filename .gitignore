@@ -37,6 +37,7 @@ oauth*.token
 
 # dotfiles that commonly hold creds (in addition to .secrets which is encrypted)
 config/environment.d/envvars.conf.local
+config/rclone/rclone.conf
 local/bin/uv
 # secret-incident untracks (2026-10-13)
 config/dconf-backups/stremio-addons-backup-2026-05-19.json
