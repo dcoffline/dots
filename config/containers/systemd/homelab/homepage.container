@@ -15,11 +15,11 @@ Environment=HOMEPAGE_ALLOWED_HOSTS=localhost:8080,home.hemati.com,homepage.hemat
 AutoUpdate=registry
 AddHost=host.containers.internal:host-gateway
 
-#Label=homepage.name=Homepage
-#Label=homepage.group=Content
-#Label=homepage.icon=homepage
-#Label=homepage.href=https://home.hemati.com
-#Label="homepage.description=Server Dashboard"
+Label=homepage.name=Homepage
+Label=homepage.group=Content
+Label=homepage.icon=homepage
+Label=homepage.href=https://home.hemati.com
+Label="homepage.description=Homelab Dashboard"
 
 [Service]
 Restart=always

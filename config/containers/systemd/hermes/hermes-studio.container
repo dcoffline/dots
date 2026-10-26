@@ -20,7 +20,7 @@ Label="homepage.name=Studio OS"
 Label=homepage.group=AI
 Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/10/IMG_5591-removebg-preview.png
 Label=homepage.href=https://studio.hemati.com
-Label="homepage.description=Admin Panel"
+Label="homepage.description=AI Mission Control"
 
 [Service]
 Restart=always

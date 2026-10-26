@@ -17,7 +17,7 @@ Label=homepage.name=Vane
 Label=homepage.group=AI
 Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/10/vane-favicon.png
 Label=homepage.href=https://vane.hemati.com
-Label="homepage.description=AI Answers"
+Label="homepage.description=AI Deep Research"
 
 [Service]
 Restart=always
