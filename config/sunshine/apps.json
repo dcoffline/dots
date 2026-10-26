@@ -88,7 +88,7 @@
             "output": "$(HOME)/.config/sunshine/app-phone.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1280x720 119.858 1.33",
+                    "do": "monctl 1280x720 60",
                     "undo": ""
                 },
                 {
