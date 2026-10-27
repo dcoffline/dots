@@ -1362,3 +1362,21 @@ backup-honcho target_dir="$HOME/.mnt/10T/Backups/honcho":
     ls -1dt honcho_* | tail -n +$((RETENTION_COUNT + 1)) | xargs -r rm -rf
 
     echo "✅ Honcho backup complete: $BACKUP_DIR"
+
+
+# Relinks all 2T persistent data directories back into ~/.local/share                        
+# After a clean install, you mount the 2T drive, clone dots, run just link-persistent, and       
+# everything is restored in 0.2 seconds.                                                         
+link-persistent:                                                                             
+    #!/usr/bin/env bash                                                                      
+    set -euo pipefail                                                                        
+    mkdir -p "$HOME/.local/share" "$HOME/.config/bash"                                       
+    for dir in "$HOME/.mnt/2T/local/"*; do                                                   
+        name="$(basename "$dir")"                                                            
+        # Skip special dotfiles                                                              
+        [[ "$name" == .* ]] && continue                                                      
+        ln -sfn "$dir" "$HOME/.local/share/$name"                                            
+    done                                                                                     
+    ln -sfn "$HOME/.mnt/2T/local/.atuin" "$HOME/.atuin"                                      
+    ln -sfn "$HOME/.mnt/2T/local/.histfile" "$HOME/.config/bash/.histfile"                   
+    echo "✅ All persistent folders linked from 2T successfully."                               
