@@ -3,8 +3,13 @@ Description=openwispr hold-to-talk daemon
 After=graphical-session.target
 Wants=openwispr-engine.service
 After=openwispr-engine.service
-Wants=xdg-desktop-portal.service xdg-desktop-portal-gnome.service
-After=xdg-desktop-portal.service xdg-desktop-portal-gnome.service
+# Support both GNOME and KDE (systemd only uses whichever is actually installed/running)
+Wants=xdg-desktop-portal.service \
+      xdg-desktop-portal-gnome.service \
+      xdg-desktop-portal-kde.service
+After=xdg-desktop-portal.service \
+      xdg-desktop-portal-gnome.service \
+      xdg-desktop-portal-kde.service
 
 [Service]
 Type=simple

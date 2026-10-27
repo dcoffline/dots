@@ -4,26 +4,44 @@ if [[ "$OSTYPE" == darwin* ]]; then
   exit 0
 fi
 
-# Wait for GNOME Wayland & Mutter to report a valid logical monitor
+DESKTOP="${XDG_CURRENT_DESKTOP:-GNOME}"
 TIMEOUT=30
 ELAPSED=0
 
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
 
-# Ensure Mutter hasn't left headless displays in power save mode
-busctl --user set-property org.gnome.Mutter.DisplayConfig /org/gnome/Mutter/DisplayConfig org.gnome.Mutter.DisplayConfig PowerSaveMode i 0 2>/dev/null
+case "$DESKTOP" in
+*"KDE"*|plasma)
+  # Enable KScreen connectors; wait for kscreen-doctor to show active outputs
+  while [ $ELAPSED -lt $TIMEOUT ]; do
+    if command -v kscreen-doctor >/dev/null 2>&1 \
+       && kscreen-doctor output 2>/dev/null | grep -qE "\.(enable|active)" \
+       && grep -qs "enabled" /sys/class/drm/card*-*/enabled; then
+      sleep 1.5
+      exit 0
+    fi
+    sleep 1
+    ELAPSED=$((ELAPSED + 1))
+  done
+  ;;
+*)
+  # Wait for GNOME Wayland & Mutter to report a valid logical monitor
+  # Ensure Mutter hasn't left headless displays in power save mode
+  busctl --user set-property org.gnome.Mutter.DisplayConfig /org/gnome/Mutter/DisplayConfig org.gnome.Mutter.DisplayConfig PowerSaveMode i 0 2>/dev/null
 
-while [ $ELAPSED -lt $TIMEOUT ]; do
-  # 1. Does gdctl report an active logical monitor?
-  # 2. Is there at least one DRM connector reporting 'enabled'?
-  if gdctl show 2>/dev/null | grep -q "Logical monitor" && grep -qs "enabled" /sys/class/drm/card*-*/enabled; then
-    # Settle time for KMS mode lock
-    sleep 1.5
-    exit 0
-  fi
-  sleep 1
-  ELAPSED=$((ELAPSED + 1))
-done
+  while [ $ELAPSED -lt $TIMEOUT ]; do
+    # 1. Does gdctl report an active logical monitor?
+    # 2. Is there at least one DRM connector reporting 'enabled'?
+    if gdctl show 2>/dev/null | grep -q "Logical monitor" \
+       && grep -qs "enabled" /sys/class/drm/card*-*/enabled; then
+      sleep 1.5
+      exit 0
+    fi
+    sleep 1
+    ELAPSED=$((ELAPSED + 1))
+  done
+  ;;
+esac
 
 echo "sunshine-wait-display: Timed out waiting for display after ${TIMEOUT}s" >&2
 exit 0

@@ -4,24 +4,37 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
 
 # macOS support
 if [[ "$OSTYPE" == darwin* ]]; then
-  osk "$@"
-  exit 0
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    # No equivalent on macOS
+    exit 0
+  fi
 fi
 
+DESKTOP="${XDG_CURRENT_DESKTOP:-GNOME}"
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
   RUN=(flatpak-spawn --host --env=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" --env=XAUTHORITY="$XAUTHORITY")
 fi
-if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
-  # Disable OSK & Touchbar
-  timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
-  timeout 2 "${RUN[@]}" gnome-extensions disable touchup@mityax
-  timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
-else
-  # Enable OSK & Touchbar
-  timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
-  timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
-  timeout 2 "${RUN[@]}" gnome-extensions disable hotedge@jonathan.jdoda.ca
-  timeout 2 "${RUN[@]}" gnome-extensions enable touchup@mityax
-fi
+
+case "$DESKTOP" in
+*"KDE"*|plasma)
+  # KDE has no GNOME-extension equivalents for dash-to-dock/touchup/hotedge
+  # KWin scripts handle window behavior; no CLI toggle exists
+  echo "touchup: KDE mode — GNOME extensions not applicable (no-op)" >>"$HOME/.config/sunshine/sunshine_script.log" 2>/dev/null || true
+  ;;
+*)
+  # GNOME: toggle accessibility and extension state
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
+    timeout 2 "${RUN[@]}" gnome-extensions disable touchup@mityax
+    timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
+    timeout 2 "${RUN[@]}" gnome-extensions enable hotedge@jonathan.jdoda.ca
+  else
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
+    timeout 2 "${RUN[@]}" gnome-extensions enable touchup@mityax
+    timeout 2 "${RUN[@]}" gnome-extensions disable dash-to-dock@micxgx.gmail.com
+    timeout 2 "${RUN[@]}" gnome-extensions disable hotedge@jonathan.jdoda.ca
+  fi
+  ;;
+esac

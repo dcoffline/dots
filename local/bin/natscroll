@@ -12,15 +12,32 @@ if [[ "$OSTYPE" == darwin* ]]; then
   exit 0
 fi
 
+DESKTOP="${XDG_CURRENT_DESKTOP:-GNOME}"
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
   RUN=(flatpak-spawn --host --env=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" --env=XAUTHORITY="$XAUTHORITY")
 fi
-if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
-  # Disable natural-scroll
-  timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
-else
-  # Enable natural-scroll
-  timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
-fi
+
+case "$DESKTOP" in
+*"KDE"*|plasma)
+  # KDE natural scroll is toggled via kcmshell5 or gsettings-like dconf
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    timeout 2 "${RUN[@]}" qdbus org.kde.kglobalaccel /component/kded5 invokeShortcut "NaturalScrollingDisabled" 2>/dev/null || \
+      timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false 2>/dev/null || true
+  else
+    timeout 2 "${RUN[@]}" qdbus org.kde.kglobalaccel /component/kded5 invokeShortcut "NaturalScrollingEnabled" 2>/dev/null || \
+      timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true 2>/dev/null || true
+  fi
+  ;;
+*)
+  # GNOME: toggle gsettings
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    # Disable natural-scroll
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false
+  else
+    # Enable natural-scroll
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
+  fi
+  ;;
+esac

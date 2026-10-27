@@ -12,15 +12,28 @@ if [[ "$OSTYPE" == darwin* ]]; then
   exit 0
 fi
 
+DESKTOP="${XDG_CURRENT_DESKTOP:-GNOME}"
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
   RUN=(flatpak-spawn --host --env=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" --env=XAUTHORITY="$XAUTHORITY")
 fi
-if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
-  # Disable OSK
-  timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
-else
-  # Enable OSK
-  timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
-fi
+
+case "$DESKTOP" in
+*"KDE"*|plasma)
+  # KDE: attempt Qt Virtual Keyboard toggle via kcmshell5 or dbus; no-op silently if unavailable
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    timeout 2 "${RUN[@]}" kcmshell5 kvkb off >/dev/null 2>&1 || true
+  else
+    timeout 2 "${RUN[@]}" kcmshell5 kvkb on >/dev/null 2>&1 || true
+  fi
+  ;;
+*)
+  # GNOME: toggle gsettings screen-keyboard
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled false
+  else
+    timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
+  fi
+  ;;
+esac

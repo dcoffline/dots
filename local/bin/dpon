@@ -20,9 +20,6 @@ if [[ "$OSTYPE" == darwin* ]]; then
     rm -f "$HOME/.config/sunshine/.prev_displayplacer"
   fi
 
-  dock on
-  touchup on
-  natscroll on
   exit 0
 fi
 
@@ -108,7 +105,7 @@ except Exception:
   # Best-effort restore: if HDMI-A-1 is unplugged/headless, skip the mode
   # set instead of failing (a prep-cmd exit 1 blocks Sunshine launches).
   timeout 2 "${RUN[@]}" gdctl set -L -p -s "$SCALE" -M "$GNOME_MAIN" -m "$MODE" || true
-  dock
-  natscroll
+  dock on
+  natscroll on
   ;;
 esac

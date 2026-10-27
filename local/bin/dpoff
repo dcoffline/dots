@@ -12,7 +12,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
     if [ ! -f "$HOME/.config/sunshine/.prev_displayplacer" ]; then
       PREV=$(displayplacer list 2>/dev/null | grep '^displayplacer ')
       if [[ -n "$PREV" && "$PREV" != *"+"* ]]; then
-        echo "$PREV" > "$HOME/.config/sunshine/.prev_displayplacer"
+        echo "$PREV" >"$HOME/.config/sunshine/.prev_displayplacer"
       fi
     fi
   fi
@@ -26,10 +26,6 @@ if [[ "$OSTYPE" == darwin* ]]; then
       betterdisplaycli set -nameLike="Remote Screen" -main=on 2>/dev/null || true
     fi
   fi
-
-  dock off
-  touchup off
-  natscroll off
 
   if [ -n "$1" ]; then
     monctl "$@"
@@ -75,9 +71,9 @@ case "$XDG_CURRENT_DESKTOP" in
   sleep 1
   # Retry fallbacks: an unsupported client resolution must never abort
   # the launch (Sunshine treats prep-cmd failure as fatal).
-  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" \
-    || "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m 2560x1440@119.877 \
-    || "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m 1920x1080@119.877
+  "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" ||
+    "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m 2560x1440@119.877 ||
+    "${RUN[@]}" gdctl set -L -p -M "$GNOME_DUMMY" -m 1920x1080@119.877
 
   # 3. Turn off dock, natscroll, tablet
   dock off
