@@ -64,3 +64,6 @@ fi
 
 # Added by Antigravity CLI installer
 export PATH="/home/eric/.local/bin:$PATH"
+### bling.sh source start
+test -f /usr/share/bazzite-cli/bling.sh && source /usr/share/bazzite-cli/bling.sh
+### bling.sh source end

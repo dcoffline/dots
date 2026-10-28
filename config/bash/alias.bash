@@ -146,6 +146,8 @@ alias la='eza -la --icons=auto --group-directories-first'
 # Ghostty Terminal
 [ "$OS_TYPE" = "linux" ] && alias ghostty='~/Applications/ghostty.appimage'
 
+### Bluefin CLI Bling
+
 # ls aliases
 if [ "$(command -v eza)" ]; then
   alias ll='eza -l --icons=auto --group-directories-first'
