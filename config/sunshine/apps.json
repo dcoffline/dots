@@ -19,6 +19,10 @@
                 {
                     "do": "touchup",
                     "undo": "touchup off"
+                },
+                {
+                    "do": "loginctl unlock-session $(loginctl show-user $USER -p Display --value)",
+                    "undo": ""
                 }
             ],
             "wait-all": true
@@ -60,6 +64,10 @@
                 {
                     "do": "natscroll",
                     "undo": ""
+                },
+                {
+                    "do": "loginctl unlock-session $(loginctl show-user $USER -p Display --value)",
+                    "undo": ""
                 }
             ],
             "wait-all": true
@@ -98,6 +106,10 @@
                 {
                     "do": "touchup",
                     "undo": "touchup off"
+                },
+                {
+                    "do": "loginctl unlock-session $(loginctl show-user $USER -p Display --value)",
+                    "undo": ""
                 }
             ],
             "wait-all": true
