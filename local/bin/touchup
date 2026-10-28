@@ -19,9 +19,15 @@ fi
 
 case "$DESKTOP" in
 *"KDE"*|plasma)
-  # KDE has no GNOME-extension equivalents for dash-to-dock/touchup/hotedge
-  # KWin scripts handle window behavior; no CLI toggle exists
-  echo "touchup: KDE mode — GNOME extensions not applicable (no-op)" >>"$HOME/.config/sunshine/sunshine_script.log" 2>/dev/null || true
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
+    echo "touchup: KDE mode — setting VirtualKeyboard.mode=1 (touch-only)" >>"$HOME/.config/sunshine/sunshine_script.log" 2>/dev/null || true
+    timeout 2 "${RUN[@]}" qdbus org.kde.KWin /VirtualKeyboard org.kde.kwin.VirtualKeyboard.mode 1 >/dev/null 2>&1 || true
+  else
+    echo "touchup: KDE mode — setting VirtualKeyboard.mode=2 (always)" >>"$HOME/.config/sunshine/sunshine_script.log" 2>/dev/null || true
+    timeout 2 "${RUN[@]}" kwriteconfig6 --file kwinrc --group Wayland --key InputMethod /usr/share/applications/org.kde.plasma.keyboard.desktop 2>/dev/null || true
+    timeout 2 "${RUN[@]}" qdbus org.kde.KWin /VirtualKeyboard org.kde.kwin.VirtualKeyboard.active true >/dev/null 2>&1 || true
+    timeout 2 "${RUN[@]}" qdbus org.kde.KWin /VirtualKeyboard org.kde.kwin.VirtualKeyboard.mode 2 >/dev/null 2>&1 || true
+  fi
   ;;
 *)
   # GNOME: toggle accessibility and extension state

@@ -114,8 +114,39 @@ fi
 SCALE=${3:-1}
 
 case "$XDG_CURRENT_DESKTOP" in
-"KDE")
-  "${RUN[@]}" kscreen-doctor output."$DUMMY".mode."$RES"@"${REFRESH}" output."$DUMMY".scale."$SCALE"
+"KDE" | *"KDE"* | plasma)
+  export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+  export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
+
+  WIDTH=$(echo "$RES" | cut -d'x' -f1)
+  HEIGHT=$(echo "$RES" | cut -d'x' -f2)
+  FPS_INT=$(printf "%.0f" "$REFRESH" 2>/dev/null || echo 60)
+
+  if "${RUN[@]}" kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then
+    TARGET_OUT="Virtual-sunshine-vmon"
+  else
+    TARGET_OUT="$DUMMY"
+  fi
+
+  MODE_ID=$("${RUN[@]}" kscreen-doctor --json 2>/dev/null | jq -r --arg vmon "$TARGET_OUT" --argjson w "$WIDTH" --argjson h "$HEIGHT" --argjson fps "$FPS_INT" '
+    .outputs[] | select(.name == $vmon) | .modes[] |
+    select(.size.width == $w and .size.height == $h and ((.refreshRate - $fps) | fabs < 2)) | .id
+  ' | head -n1)
+
+  if [ -z "$MODE_ID" ] && [ "$TARGET_OUT" = "Virtual-sunshine-vmon" ]; then
+    "${RUN[@]}" kscreen-doctor "output.${TARGET_OUT}.addCustomMode.${WIDTH}.${HEIGHT}.$((FPS_INT * 1000)).full"
+    MODE_ID=$("${RUN[@]}" kscreen-doctor --json 2>/dev/null | jq -r --arg vmon "$TARGET_OUT" --argjson w "$WIDTH" --argjson h "$HEIGHT" --argjson fps "$FPS_INT" '
+      .outputs[] | select(.name == $vmon) | .modes[] |
+      select(.size.width == $w and .size.height == $h and ((.refreshRate - $fps) | fabs < 2)) | .id
+    ' | head -n1)
+  fi
+
+  if [ -n "$MODE_ID" ]; then
+    "${RUN[@]}" kscreen-doctor "output.${TARGET_OUT}.enable" "output.${TARGET_OUT}.mode.${MODE_ID}" "output.${TARGET_OUT}.scale.${SCALE}"
+  else
+    "${RUN[@]}" kscreen-doctor "output.${TARGET_OUT}.enable" "output.${TARGET_OUT}.mode.${RES}@${FPS_INT}" "output.${TARGET_OUT}.scale.${SCALE}" || true
+  fi
   ;;
 "COSMIC")
   WIDTH=$(echo "$RES" | cut -d'x' -f1)

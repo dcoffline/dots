@@ -55,7 +55,7 @@
                 },
                 {
                     "do": "touchup",
-                    "undo": ""
+                    "undo": "touchup off"
                 },
                 {
                     "do": "natscroll",
@@ -92,12 +92,12 @@
             "output": "$(HOME)/.config/sunshine/app-phone.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1280x720 60",
+                    "do": "monctl 1560x720 60",
                     "undo": ""
                 },
                 {
                     "do": "touchup",
-                    "undo": ""
+                    "undo": "touchup off"
                 }
             ],
             "wait-all": true

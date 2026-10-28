@@ -367,10 +367,26 @@ update-sunshine:
     if [ -x "$POSTINST" ]; then
         echo "==> Running post-install setup (requires sudo for capabilities and udev rules)..."
         sudo "$POSTINST"
+    elif [ -x /usr/libexec/sunshine-postinst ]; then
+        echo "==> Running Bazzite sunshine-postinst..."
+        sudo /usr/libexec/sunshine-postinst
     else
         echo "==> Applying KMS capture capabilities..."
         sudo setcap cap_sys_admin,cap_sys_nice+p "$(readlink -f "$(which sunshine)")"
     fi
+
+    # Refresh KWin Screencast Wayland permission desktop file with current Cellar path
+    mkdir -p "$HOME/.local/share/applications"
+    cat <<EOF > "$HOME/.local/share/applications/dev.lizardbyte.app.Sunshine.kwin.desktop"
+    [Desktop Entry]
+    Exec=$(readlink -f "$(which sunshine)")
+    X-KDE-Wayland-Interfaces=zkde_screencast_unstable_v1
+    Type=Application
+    Name=dev.lizardbyte.app.Sunshine-kwin-wayland-permission
+    Comment=Sunshine KWin screencast permission
+    NoDisplay=true
+    EOF
+    command -v kbuildsycoca6 >/dev/null 2>&1 && kbuildsycoca6 2>/dev/null || true
 
     # Fix potential Homebrew Qt plugin collisions on ostree/Silverblue
     if brew list qtbase >/dev/null 2>&1; then

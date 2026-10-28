@@ -47,3 +47,10 @@ local/share/homepage/logs/homepage.log
 # (2026-10-15: .gitignore .env silently excluded every Phase-1 per-service env)
 !local/share/**/*.env
 __pycache__/
+
+# Sunshine runtime logs and credentials
+config/sunshine/*.log*
+config/sunshine/*token*
+config/sunshine/*state*.json
+config/sunshine/credentials/
+

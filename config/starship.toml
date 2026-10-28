@@ -96,6 +96,8 @@ format = "[ $output ]($style)"
 "Volumes" = " "
 ".config" = " "
 ".local" = "⌘ "
+"/var/home/eric" = "~"
+"/home/eric" = "~"
 
 # Programming Languages
 

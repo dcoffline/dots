@@ -18,11 +18,11 @@ SecurityLabelDisable=true
 PublishPort=8088:80
 
 # Config on bee
-Volume=%h/.local/share/nextcloud/config:/var/www/html/config:Z
-Volume=%h/.local/share/nextcloud/data:/var/www/html/data:Z
-Volume=%h/.local/share/nextcloud/custom_apps:/var/www/html/custom_apps:Z
-Volume=%h/.local/share/nextcloud/notify_push_apache.conf:/etc/apache2/conf-enabled/notify_push.conf:Z
-Volume=%h/.local/share/nextcloud/php-config/zz-uploadtmp.ini:/usr/local/etc/php/conf.d/zz-uploadtmp.ini:Z
+Volume=%h/.local/share/nextcloud/config:/var/www/html/config
+Volume=%h/.local/share/nextcloud/data:/var/www/html/data
+Volume=%h/.local/share/nextcloud/custom_apps:/var/www/html/custom_apps
+Volume=%h/.local/share/nextcloud/notify_push_apache.conf:/etc/apache2/conf-enabled/notify_push.conf
+Volume=%h/.local/share/nextcloud/php-config/zz-uploadtmp.ini:/usr/local/etc/php/conf.d/zz-uploadtmp.ini
 # Data on HDD
 Volume=%h/.mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone:rslave

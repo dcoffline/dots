@@ -5,11 +5,12 @@ After=network-online.target
 [Container]
 ContainerName=hermes-studio
 Image=docker.io/library/node:22-alpine
-Volume=%h/sandbox-hermes/Hermes-Studio:/app:Z
-Volume=%h/.hermes/.env:/run/secrets/hermes-env:Z,ro
-Volume=%h/.config/hermes-studio.env:/run/secrets/studio-env:Z,ro
-Volume=%h/.hermes/skills:/root/.hermes/skills:Z,ro
-Volume=%h/.hermes/memories:/root/.hermes/memories:Z,ro
+SecurityLabelDisable=true
+Volume=%h/src/projects/Hermes-Studio:/app
+Volume=%h/.hermes/.env:/run/secrets/hermes-env:ro
+Volume=%h/.config/hermes-studio.env:/run/secrets/studio-env:ro
+Volume=%h/.hermes/skills:/root/.hermes/skills:ro
+Volume=%h/.hermes/memories:/root/.hermes/memories:ro
 Exec=/app/container-launch.sh
 Environment=HERMES_API_URL=http://host.containers.internal:8642
 Environment=PORT=3003

@@ -13,7 +13,7 @@ AutoUpdate=registry
 AddDevice=/dev/dri
 GroupAdd=keep-groups
 SecurityLabelDisable=true
-Volume=%h/.local/share/immich/model-cache:/cache:Z
+Volume=%h/.local/share/immich/model-cache:/cache
 
 [Service]
 Restart=always

@@ -12,12 +12,13 @@ Network=homelab.network
 Image=ghcr.io/immich-app/immich-server:release
 AutoUpdate=registry
 PublishPort=2283:2283
+SecurityLabelDisable=true
 
 # Thumbs/profile/upload stay on 2T SSD; bulk media/backups go to 10T HDD
-Volume=%h/.mnt/2T/immich:/usr/src/app/upload:Z
-Volume=%h/.mnt/10T/immich/encoded-video:/usr/src/app/upload/encoded-video:Z
-Volume=%h/.mnt/10T/immich/library:/usr/src/app/upload/library:Z
-Volume=%h/.mnt/10T/immich/backups:/usr/src/app/upload/backups:Z
+Volume=%h/.mnt/2T/immich:/usr/src/app/upload
+Volume=%h/.mnt/10T/immich/encoded-video:/usr/src/app/upload/encoded-video
+Volume=%h/.mnt/10T/immich/library:/usr/src/app/upload/library
+Volume=%h/.mnt/10T/immich/backups:/usr/src/app/upload/backups
 Volume=%h/.mnt/10T/Pictures/Camera:/mnt/external
 
 # Give it the "keys" to the database

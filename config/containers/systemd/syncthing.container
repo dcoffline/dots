@@ -14,10 +14,10 @@ Network=host
 UserNS=keep-id
 
 # Syncthing configuration & state directory
-Volume=%h/.local/share/syncthing:/var/syncthing:Z
+Volume=%h/.local/share/syncthing:/var/syncthing
 
 # Obsidian Vault mount
-Volume=%h/.mnt/10T/Documents/Notes/Hemati:/var/syncthing/Obsidian/Hemati:Z
+Volume=%h/.mnt/10T/Documents/Notes/Hemati:/var/syncthing/Obsidian/Hemati
 
 Environment=PUID=1000
 Environment=PGID=1000

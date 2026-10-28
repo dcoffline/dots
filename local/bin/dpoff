@@ -50,10 +50,34 @@ fi
 echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>"$HOME/.config/sunshine/sunshine_script.log"
 
 case "$XDG_CURRENT_DESKTOP" in
-"KDE")
-  "${RUN[@]}" kscreen-doctor output."$DUMMY".enable
-  sleep 1
-  "${RUN[@]}" kscreen-doctor output."$MAIN".disable
+"KDE" | *"KDE"* | plasma)
+  export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+  export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
+
+  INIT_RES="${SUNSHINE_CLIENT_WIDTH:-1920}x${SUNSHINE_CLIENT_HEIGHT:-1080}"
+  if ! "${RUN[@]}" kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then
+    "${RUN[@]}" systemctl --user stop sunshine-vmon.service 2>/dev/null || true
+    "${RUN[@]}" systemd-run --user --unit=sunshine-vmon --collect --property=TimeoutStopSec=1s \
+      krfb-virtualmonitor --resolution "$INIT_RES" --name sunshine-vmon --password sunshinepass --port 5905
+
+    # Wait for KWin to register Virtual-sunshine-vmon (up to 5s)
+    for _ in {1..25}; do
+      if "${RUN[@]}" kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then
+        break
+      fi
+      sleep 0.2
+    done
+  fi
+
+  "${RUN[@]}" kscreen-doctor "output.Virtual-sunshine-vmon.enable"
+
+  # Disable all physical monitors so only the virtual monitor is active
+  "${RUN[@]}" kscreen-doctor --json 2>/dev/null |
+    jq -r '.outputs[] | select(.name != "Virtual-sunshine-vmon" and .enabled == true) | .name' |
+    while read -r out; do
+      [ -n "$out" ] && "${RUN[@]}" kscreen-doctor "output.${out}.disable"
+    done
   ;;
 "COSMIC")
   "${RUN[@]}" cosmic-randr enable "$DUMMY"

@@ -1,5 +1,10 @@
 # .bashrc — The One True Config (BASH edition)
 
+# Clear 32-bit Steam extest preload if terminal inherited Steam's environment
+if [[ "$LD_PRELOAD" == *"/usr/lib/extest/libextest.so"* ]]; then
+  unset LD_PRELOAD
+fi
+
 # ────── MODULAR CORE ──────
 [ -f "$HOME/.config/bash/os.bash" ] && source "$HOME/.config/bash/os.bash"
 

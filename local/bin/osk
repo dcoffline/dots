@@ -21,11 +21,13 @@ fi
 
 case "$DESKTOP" in
 *"KDE"*|plasma)
-  # KDE: attempt Qt Virtual Keyboard toggle via kcmshell5 or dbus; no-op silently if unavailable
+  # KDE Plasma 6: toggle KWin Wayland VirtualKeyboard via D-Bus
   if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
-    timeout 2 "${RUN[@]}" kcmshell5 kvkb off >/dev/null 2>&1 || true
+    timeout 2 "${RUN[@]}" qdbus org.kde.KWin /VirtualKeyboard org.kde.kwin.VirtualKeyboard.mode 1 >/dev/null 2>&1 || true
   else
-    timeout 2 "${RUN[@]}" kcmshell5 kvkb on >/dev/null 2>&1 || true
+    timeout 2 "${RUN[@]}" kwriteconfig6 --file kwinrc --group Wayland --key InputMethod /usr/share/applications/org.kde.plasma.keyboard.desktop 2>/dev/null || true
+    timeout 2 "${RUN[@]}" qdbus org.kde.KWin /VirtualKeyboard org.kde.kwin.VirtualKeyboard.active true >/dev/null 2>&1 || true
+    timeout 2 "${RUN[@]}" qdbus org.kde.KWin /VirtualKeyboard org.kde.kwin.VirtualKeyboard.mode 2 >/dev/null 2>&1 || true
   fi
   ;;
 *)
