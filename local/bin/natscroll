@@ -21,14 +21,18 @@ fi
 
 case "$DESKTOP" in
 *"KDE"*|plasma)
-  # KDE natural scroll is toggled via kcmshell5 or gsettings-like dconf
-  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
-    timeout 2 "${RUN[@]}" qdbus org.kde.kglobalaccel /component/kded5 invokeShortcut "NaturalScrollingDisabled" 2>/dev/null || \
-      timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll false 2>/dev/null || true
+  # Plasma 6: per-device NaturalScroll lives in ~/.config/kcminputrc.
+  # Target the virtual HID mouse specifically (USB mice keep their own setting).
+  # Edited directly (kwriteconfig6 host binary can't run inside a distrobox).
+  CONF="$HOME/.config/kcminputrc"
+  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then V=false; else V=true; fi
+  if grep -q '\[Libinput\]\[4617\]\[3\]\[libvirtualhid Mouse\]' "$CONF" 2>/dev/null; then
+    sed -i "/\[Libinput\]\[4617\]\[3\]\[libvirtualhid Mouse\]/,/^\[/ s/^NaturalScroll=.*/NaturalScroll=$V/" "$CONF"
   else
-    timeout 2 "${RUN[@]}" qdbus org.kde.kglobalaccel /component/kded5 invokeShortcut "NaturalScrollingEnabled" 2>/dev/null || \
-      timeout 2 "${RUN[@]}" env -u GSETTINGS_BACKEND /usr/bin/gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true 2>/dev/null || true
+    printf '\n[Libinput][4617][3][libvirtualhid Mouse]\nNaturalScroll=%s\n' "$V" >> "$CONF"
   fi
+  # Tell running Plasma to reload input settings
+  timeout 2 dbus-send --session --type=method_call --dest=org.kde.KWin     /KWin org.kde.KWin.reconfigure 2>/dev/null || true
   ;;
 *)
   # GNOME: toggle gsettings

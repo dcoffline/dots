@@ -105,6 +105,7 @@ update *args:
     sudo -v
     set -e
     SHELLINI="config/dconf-backups/gnome-shell.ini"
+    DOTS="$(readlink -f "${DOTS:-$HOME/src/dots}")"
 
     INCLUDE_CONTAINERS=0
     if [ -L "$HOME/.config/containers" ] || [ -L "$HOME/.config/containers/systemd" ]; then
@@ -154,10 +155,12 @@ update *args:
       echo "[ 💻 Standard mutable host detected ]"
     fi
 
-    cd "$DOTS" || exit 1
+    cd "${DOTS:-$HOME/src/dots}" || exit 1
     [ -f ./config/environment.d/envvars.conf ] && source ./config/environment.d/envvars.conf
     [ -f ./config/bash/function.bash ] && source ./config/bash/function.bash
     [ -f ./config/bash/os.bash ] && source ./config/bash/os.bash
+    DOTS="$(readlink -f "${DOTS:-$HOME/src/dots}")"
+    export DOTS
 
     # Gate: live stow tree must resolve into the repo (relative links) before
     # `update` touches it. Absolute links break stow -R (2026-10-16 outage:

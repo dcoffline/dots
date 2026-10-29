@@ -20,6 +20,11 @@ if [ "$IS_MAC" -eq 1 ]; then
   add_to_path "/opt/local/bin"
 
 elif [ "$IS_LINUX" -eq 1 ]; then
+  # In containers (Distrobox / Toolbox), link host Linuxbrew if not already present
+  if [ ! -e /home/linuxbrew ] && [ -d /run/host/home/linuxbrew ]; then
+    sudo -n ln -s /run/host/home/linuxbrew /home/linuxbrew 2>/dev/null || true
+  fi
+
   # Linuxbrew if available
   if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

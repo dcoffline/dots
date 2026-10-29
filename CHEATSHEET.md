@@ -45,6 +45,7 @@ Run `just` with no arguments to list all available recipes, or run any of the fo
 # System & Maintenance
 just status                          # Health report on systemd host and user services
 just update                          # Full Fortress maintenance protocol (update, sync, push)
+just check-links                     # Validates GNU Stow symlink integrity against dots repo
 
 # Cloud Storage (Rclone)
 just mount                           # Mounts cloud storage remotes (macOS & Linux auto-aware)
@@ -56,6 +57,8 @@ just resync-gdrive                   # Force initial / recovery bisync with Goog
 # Backups & Disaster Recovery
 just backup-athena [target_dir]      # Snapshot dev projects, Hermes state, Quadlets, units, Gemini, secrets
 just restore-athena [backup_path]    # Interactive snapshot restoration (defaults to latest)
+just backup-immich                   # Dumps Immich PostgreSQL database, uploads, and Quadlets
+just backup-honcho                   # Dumps Honcho PostgreSQL cognitive memory database
 just backup-nextcloud                # Dumps MariaDB, config directory, and Quadlet definitions
 
 # Development & Speech Tools
@@ -71,7 +74,7 @@ just clean-apple [target_dir]        # Scans and deletes macOS sidecar files (._
 
 | Alias | Underlying Command | Description |
 | :--- | :--- | :--- |
-| `rmount` | `just mount` *(or `dhe just mount`)* | Mounts Archive, Backup, GDrive, Nextcloud, OneDrive, Timeline, and Zurg |
+| `rmount` | `just mount` *(or `dhe just mount`)* | Mounts Archive, Backup, GDrive, Nextcloud, OneDrive, and Timeline |
 | `rumount` | `just unmount` | Unmounts all active rclone endpoints |
 | `rlsmount` | `mount \| grep rclone` | Lists currently mounted rclone filesystems |
 | `rcheck` | `just check-mounts` | Verifies mount responsiveness and restarts dead mounts |
@@ -103,9 +106,10 @@ just clean-apple [target_dir]        # Scans and deletes macOS sidecar files (._
 | `podip <name>` | Inspect and print container IP address |
 | `podclean` | Prune all stopped containers, dangling images, networks, and volumes |
 | `lzd` | Launch LazyDocker TUI |
-| `logs-hermes` / `logs-ollama` / `logs-openwebui` | Tail latest 100 log lines from respective AI services |
+| `logs-athena` / `logs-hermes` | Tail latest logs from Athena / Hermes Agent service |
+| `logs-ollama` / `logs-openwebui` | Tail latest 100 log lines from local LLM and WebUI |
 | `logs-nc` / `logs-immich` / `logs-tunnel` | Tail latest 100 log lines from Nextcloud, Immich, or Cloudflared |
-| `monitor-streams` | Tmux split-screen monitoring `stremthru` and `aiostreams` logs |
+| `monitor-streams` | Tmux split-screen monitoring streaming middleware logs |
 
 ---
 
@@ -118,12 +122,12 @@ just clean-apple [target_dir]        # Scans and deletes macOS sidecar files (._
 - `susc <args>`: Host `sudo systemctl`
 - `scu <args>`: Host `systemctl --user`
 - `scudr`: Host `systemctl --user daemon-reload`
-- `brew`: Call host Homebrew binary
+- `brew`: Host Homebrew is directly accessible via `$PATH` inside containers (shared `/home`)
 
 ### When On the Host
-- `def` / `defr`: Enter Fedora container (user / root)
-- `dea` / `dear`: Enter Arch container (user / root)
+- `dea` / `dear`: Enter Athena AI development container (user / root)
 - `deu` / `deur`: Enter Ubuntu container (user / root)
+- Native CLI: All standard tools (`git-crypt`, `gh`, `glab`, `eza`, `bat`, `yazi`, etc.) execute natively on the host via Homebrew without Distrobox shims
 
 ---
 
@@ -135,4 +139,4 @@ just clean-apple [target_dir]        # Scans and deletes macOS sidecar files (._
 | **Config Package** | `config/` | `~/.config/` | Shell modules (`bash/`), Quadlets (`containers/systemd/`), systemd units (`systemd/user/`), app configs |
 | **Local Package** | `local/` | `~/.local/` | Custom binaries & scripts (`bin/`), extension assets (`share/`) |
 | **macOS Library** | `Library/` | `~/Library/` | macOS LaunchAgents (`LaunchAgents/com.eric.*.plist`) |
-| **Secrets** | Local only | `~/.secrets`, `~/.config/rclone/rclone.conf` | Sensitive credentials (chmod 600, excluded from Git) |
+| **Secrets** | Transparent git-crypt | `home/.secrets`, `local/share/**/*.env`, `*.secret` | Sensitive credentials & per-container environment files (encrypted in repo) |

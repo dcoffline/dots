@@ -1,0 +1,25 @@
+[Unit]
+Description=Quartz 4 - Obsidian Publish Site (notes.hemati.com)
+After=network-online.target
+
+[Container]
+Image=ghcr.io/jackyzha0/quartz:latest
+ContainerName=quartz
+AutoUpdate=registry
+Network=homelab.network
+PublishPort=127.0.0.1:8090:8080
+Volume=%h/notes-site/content:/usr/src/app/content:Z
+Volume=%h/notes-site/config/quartz.config.yaml:/usr/src/app/quartz.config.yaml:Z,ro
+
+Label=homepage.name=Notes
+Label=homepage.group=Publishing
+Label=homepage.icon=quartz
+Label=homepage.href=https://notes.hemati.com
+Label=homepage.description=Obsidian Publish (Quartz)
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

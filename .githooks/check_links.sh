@@ -21,6 +21,7 @@ if [ -z "${DOTS:-}" ]; then
   top="$(git rev-parse --show-toplevel 2>/dev/null || true)"
   DOTS="${top:-$HOME/src/dots}"
 fi
+DOTS="$(readlink -f "$DOTS")"
 if ! git -C "$DOTS" rev-parse --git-dir >/dev/null 2>&1; then
   echo "check-links: $DOTS is not a git repo — set DOTS or restore ~/src/dots" >&2
   exit 1

@@ -1,10 +1,10 @@
 [Unit]
-Description=Jottacloud Daemon inside Fedora Distrobox
-After=podman.service
+Description=Jottacloud Daemon
+After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/distrobox-enter -n fedora -- jottad datadir %h/.local/share/jottad
+ExecStart=%h/.local/bin/jottad datadir %h/.local/share/jottad
 Restart=always
 
 [Install]

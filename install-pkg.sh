@@ -26,6 +26,17 @@ if [ "$ENV_TYPE" = "immutable" ]; then
   else
     echo "[ Homebrew not found; skipping Brewfile ]"
   fi
+
+  # Jottacloud CLI for Linux (standalone static binary since Homebrew tap is macOS-only)
+  if [ "${IS_LINUX:-0}" -eq 1 ] && [ ! -f "$HOME/.local/bin/jotta-cli" ]; then
+    echo "[ Installing Jottacloud CLI standalone binary for Linux... ]"
+    TMP_JOTTA=$(mktemp -d)
+    if curl -fsSL "https://repo.jotta.cloud/archives/linux/amd64/jotta-cli-0.17.176206_linux_amd64.tar.gz" | tar -xz -C "$TMP_JOTTA"; then
+      install -m 755 "$TMP_JOTTA/usr/bin/jotta-cli" "$HOME/.local/bin/jotta-cli"
+      install -m 755 "$TMP_JOTTA/usr/bin/jottad" "$HOME/.local/bin/jottad"
+    fi
+    rm -rf "$TMP_JOTTA"
+  fi
 fi
 
 # =========================================================
@@ -39,14 +50,17 @@ if [ "$ENV_TYPE" != "immutable" ]; then
     if [ ! -f /etc/yum.repos.d/jotta-cli.repo ] && [ ! -f /etc/yum.repos.d/JottaCLI.repo ]; then
       echo "[ Configuring Jottacloud CLI repository... ]"
       sudo mkdir -p /etc/pki/rpm-gpg
-      sudo sh -c 'curl -s https://repo.jotta.cloud/jotta.gpg | gpg --no-default-keyring --keyring /tmp/jotta_temp.gpg --import && gpg --no-default-keyring --keyring /tmp/jotta_temp.gpg --export --armor > /etc/pki/rpm-gpg/RPM-GPG-KEY-jotta && rm -f /tmp/jotta_temp.gpg' 2>/dev/null || true
+      TMP_GPG=$(mktemp -d)
+      gpg --homedir "$TMP_GPG" --import <(curl -fsSL https://repo.jotta.cloud/jotta.gpg) 2>/dev/null || true
+      gpg --homedir "$TMP_GPG" --armor --export | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-jotta >/dev/null 2>&1 || true
+      rm -rf "$TMP_GPG"
       sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-jotta 2>/dev/null || true
       sudo tee /etc/yum.repos.d/jotta-cli.repo >/dev/null <<'EOF'
 [jotta-cli]
 name=Jottacloud CLI
 baseurl=https://repo.jotta.cloud/redhat
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jotta https://repo.jotta.cloud/public.gpg
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-jotta
 EOF
     fi
     DNF_PACKAGES=(
@@ -125,21 +139,17 @@ if ! cargo --version >/dev/null 2>&1; then
 fi
 
 # RUST BINARIES
-echo "[ Installing Rust binaries... ]"
 if cargo --version >/dev/null 2>&1; then
-  # Install cargo-binstall for lightning-fast, pre-compiled deployments
-  if ! command -v cargo-binstall >/dev/null 2>&1; then
-    echo "[ Installing cargo-binstall... ]"
-    cargo install cargo-binstall
-  fi
   CARGO_PACKAGES=(
-    atuin bat dysk eza fd-find ripgrep starship
-    tealdeer television yazi-fm yazi-cli zoxide
+    linutil_tui
   )
-  echo "[ Fetching pre-compiled binaries... ]"
-  cargo binstall -y "${CARGO_PACKAGES[@]}"
-else
-  echo "[ ERROR: Cargo is still not available. Skipping Rust binaries. ]"
+  if [ "${#CARGO_PACKAGES[@]}" -gt 0 ]; then
+    echo "[ Installing select Cargo binaries... ]"
+    if ! command -v cargo-binstall >/dev/null 2>&1; then
+      cargo install cargo-binstall 2>/dev/null || true
+    fi
+    cargo binstall -y "${CARGO_PACKAGES[@]}" 2>/dev/null || cargo install "${CARGO_PACKAGES[@]}" 2>/dev/null || true
+  fi
 fi
 
 # NERD FONTS

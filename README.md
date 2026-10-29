@@ -10,11 +10,11 @@ An XDG-compliant, modular Bash environment and containerized homelab architectur
 - **GNU Stow Management**: Clean symlinking organized into modular packages (`home`, `config`, `local`, and macOS `Library`).
 - **Idempotent Installation & Backup**: Automatically detects pre-existing conflicting configurations and backs them up to `*.bak` before symlinking.
 - **Complete Uninstall Routine**: Safe, clean teardown via [`uninstall.sh`](uninstall.sh) that unstows packages, cleans lingering symlinks, and restores original `*.bak` configurations.
-- **Environment & Distrobox Aware**: Automatically detects host vs container environments, immutable vs mutable systems, and macOS vs Linux.
-- **Multi-tiered Package Automation**: Automatically provisions CLI & GUI tools via **Homebrew** (`Brewfile`), **DNF**, **APT**, **Pacman**, **Cargo** (`cargo-binstall`), **Flatpak**, and **GNOME Extensions**.
-- **Transparent Secrets Management**: Encrypted with **`git-crypt`** for sensitive credentials (`home/.secrets`, `rclone.conf`) while keeping the dotfiles repo safe for remote tracking.
-- **Justfile Automation**: Comprehensive task runner managing updates, rclone mounts, disaster recovery backups (Athena, Nextcloud), voice-to-text engines, and systemd monitoring.
-- **Podman Quadlet & Distrobox Suite**: Production-ready, systemd-managed rootless container suite and dedicated AI agent development environment.
+- **Environment & Distrobox Aware**: Automatically detects host vs container environments, immutable vs mutable systems, macOS vs Linux, and desktop environments (KDE Plasma vs GNOME).
+- **Consolidated Homebrew & Native Package Automation**: Unified package management on macOS and Linuxbrew (`Brewfile`) for CLI tools, fast binary bottles, standalone Linux services (Jottacloud), Flatpaks, and selective Cargo/npm tools—eliminating unnecessary containerized binary wrappers.
+- **Transparent Secrets Management & Pre-Push Guards**: Encrypted with **`git-crypt`** for sensitive credentials (`home/.secrets`, per-container `local/share/**/*.env`) backed by an automated pre-push security scanner and Stow link-integrity checker.
+- **Justfile Automation**: Comprehensive task runner managing updates, rclone mounts, disaster recovery backups (Athena, Immich, Honcho, Nextcloud), voice-to-text engines, and systemd monitoring.
+- **Podman Quadlet & AI Development Suite**: Production-ready, systemd-managed rootless container suite featuring autonomous AI agent environments (Athena/Hermes, Honcho, Odysseus, Vane, FreeLLMAPI).
 
 ---
 
@@ -101,22 +101,27 @@ Containerized workloads run as user-managed systemd services via Podman Quadlets
 
 | Category | Active Services | Description |
 | :--- | :--- | :--- |
-| **Media Suite** | **Remux** | Jellyfin-compatible streaming server replacing legacy media stacks |
+| **Media Suite** | **Jellyfin** | Media streaming server (`jellyfin`) with hardware acceleration |
 | | **AioStreams** | Fast streaming middleware & add-on manager |
-| | **MediaFlow** | Media proxy and flow controller |
+| | **MediaFlow** | Media proxy and stream flow controller |
+| | **Threadfin** | M3U / XMLTV proxy and channel manager for live TV |
 | | **Immich** | Self-hosted photo/video backup suite (`immich`, `immich-db`, `immich-ml`, `immich-redis`) |
 | | **Nextcloud** | Cloud storage & collaboration suite (`nextcloud`, `nextcloud-db`, `nextcloud-redis`, `nextcloud-notify-push`, `collabora`) |
-| **AI & Automation** | **Athena / Hermes** | Autonomous AI agent environment running in a dedicated **Distrobox** container (`athena`), launched via host wrappers (`athena`, `thena`, `hermes`) |
+| **AI & Automation** | **Athena / Hermes** | Autonomous AI agent environment in dedicated **Distrobox** container (`athena`), launched via host wrappers (`athena`, `thena`, `hermes`) |
+| | **Hermes Studio** | Web UI & management console for Hermes agent workflows |
 | | **Honcho** | Cognitive memory engine for AI agents (`honcho`, `honcho-db`, `honcho-redis`) |
+| | **Odysseus & Vane** | Specialized AI conversational & routing engines |
+| | **FreeLLMAPI** | LLM API proxy and virtualization layer |
 | | **Ollama** | Local LLM inference engine with AMD ROCm / Vulkan acceleration |
+| | **SearXNG & Relay** | Privacy-respecting metasearch engine with relay proxy |
 | | **Open-WebUI** | Full-featured conversational frontend for local and remote models |
 | | **Open-Terminal** | Containerized web terminal utility |
 | | **PKA-Web** | Personal Knowledge Architecture web interface |
-| | **SearXNG** | Privacy-respecting metasearch engine used as primary search backend |
 | | **Open-SEO** | Search engine optimization & DataForSEO query tool |
 | | **ZCC-Webhook** | Webhook integration receiver for external event automation |
 | **Infrastructure** | **Cloudflared** | Zero Trust encrypted ingress tunnels connecting homelab services |
 | | **Homepage** | Unified dashboard organizing homelab services, bookmarks, and metrics |
+| | **Shlink** | Self-hosted URL shortener with REST API (`shlink`, `shlink-db`, `shlink-webui`) |
 | | **Vaultwarden** | Bitwarden-compatible lightweight credential vault |
 | | **Syncthing** | Continuous peer-to-peer folder synchronization |
 
@@ -144,25 +149,35 @@ The [`local/bin/`](local/bin/) directory contains custom scripts stowed directly
 | `lutris-fullscreen` | Helper forcing borderless fullscreen on Lutris and Ubisoft Connect titles |
 | `stremio-steam-fullscreen` | Launches Stremio flatpak forced into fullscreen for Steam Big Picture / Moonlight |
 | `stremio-web-fullscreen` | Launches Stremio Chrome web app in fullscreen mode for Moonlight streaming |
-| `dpon` / `dpoff` | Quick DisplayPort monitor power state toggle utilities |
+| `dpon` / `dpoff` | Multi-OS monitor power state and virtual display (BetterDisplay/Wayland) toggle utilities |
+| `sunshine-wait-display` | Waits and ensures virtual / remote display is active before Sunshine streaming starts |
+| `touchup` | Display geometry, scaling, and Sunshine virtual display alignment utility |
+| `osk` | On-screen keyboard toggle helper for handheld / remote desktop sessions |
+| `dock` | Display dock state manager and screen reconfiguration utility |
 | `voxtype-clean` | Post-processing pipeline routing speech-to-text transcripts through local Ollama LLMs |
 | `wave` | Launches Wave terminal configured for Wayland / XWayland transparent rendering |
 | `zcc_webhook_watch.sh` | Health watchdog for the ZCC webhook unit and tunnel, managed by systemd timer |
 | `rmount` | Helper wrapper around `just mount` for cloud storage remotes |
-| `gdmreset` | Restarts the GNOME Display Manager session |
+| `gdmreset` | Restarts the Display Manager session |
 | `browsh` | Terminal web browser wrapper |
 
 ---
 
-## 🔐 Secrets & Security Management
+## 🔐 Secrets & Security Architecture
 
-Sensitive environment variables, database passwords, and API tokens are managed via **`git-crypt`**:
-- **Protected Files**: [`home/.secrets`](home/.secrets) and `config/rclone/rclone.conf` are transparently encrypted before any Git commit.
+The Fortress implements a defense-in-depth security model combining encrypted repositories, scoped per-service configurations, and automated git pre-push gates:
+
+- **Transparent Encryption with `git-crypt`**:
+  - `home/.secrets` (general environment secrets)
+  - `local/share/**/*.env` (isolated per-service container environments, e.g. Immich, Nextcloud-DB, AioStreams, Open-SEO, FreeLLMAPI)
+  - `*.secret` files
+- **Per-Service Secret Isolation**: Container-specific tokens and database passwords have been decoupled from a single monolithic file into individual, service-scoped `.env` files tracked under `local/share/`.
+- **Pre-Push Security Scanner**: A Git pre-push hook scans outgoing commit ranges for plaintext credential patterns, API tokens, and ensures all secrets-class files are encrypted before pushing to GitHub.
+- **Symlink Integrity Guard**: A pre-push hook (`check_links.sh`) validates that all active symlinks cleanly point into the `dots` repository without dangling references.
 - **Unlocking Repository**: After cloning on a new machine, unlock secrets using your GPG key or symmetric key:
   ```bash
   git-crypt unlock /path/to/git-crypt-key
   ```
-- **Dynamic Ingestion**: Custom scripts (such as `zcc_webhook_watch.sh`) pull sensitive URLs and tokens directly from `~/.secrets` or the environment at runtime, preventing plaintext credential leaks in the Git tree.
 
 ---
 

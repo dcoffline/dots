@@ -194,7 +194,7 @@ fi
 # =========================================================
 # 5. ENABLE GNOME SHELL EXTENSIONS IF APPLICABLE
 # =========================================================
-if command -v gsettings >/dev/null 2>&1; then
+if command -v gsettings >/dev/null 2>&1 && gsettings list-schemas 2>/dev/null | grep -q "^org\.gnome\.shell$"; then
   echo "[ Configuring GNOME Shell extensions... ]"
   current_extensions=$(gsettings get org.gnome.shell enabled-extensions 2>/dev/null || echo "[]")
   if [[ "$current_extensions" != *"logomenu-fixed@dcoffline"* ]]; then

@@ -24,10 +24,13 @@ if [ "$ENV_TYPE" = "container" ]; then
   # System Utils (Punching out to the host)
   alias btop='dhe btop'
   alias htop='dhe htop'
+  alias sc='dhe systemctl'
   alias susc='dhe sudo systemctl'
   alias scu='dhe systemctl --user'
+  alias suscdr='dhe sudo systemctl daemon-reload'
   alias scudr='dhe systemctl --user daemon-reload'
   alias jc='dhe journalctl'
+  alias jcu='dhe journalctl --user -xeu'
   alias follow='dhe journalctl --user -fu'
   alias brew='dhe /var/home/linuxbrew/.linuxbrew/bin/brew'
 
@@ -52,6 +55,16 @@ else
   alias rremount='rumount; sleep 3; rmount'
   alias rumount='just --justfile "$HOME/.justfile" --working-directory "$HOME" unmount'
   alias rupdate='just --justfile "$HOME/.justfile" --working-directory "$HOME" update-rclone'
+
+  # System Utils (Native)
+  alias sc='systemctl'
+  alias susc='sudo systemctl'
+  alias scu='systemctl --user'
+  alias suscdr='sudo systemctl daemon-reload'
+  alias scudr='systemctl --user daemon-reload'
+  alias jc='journalctl'
+  alias jcu='journalctl --user -xeu'
+  alias follow='journalctl --user -fu'
 fi
 
 # ────── GLOBAL ALIASES ──────
@@ -101,7 +114,7 @@ alias nano=$EDITOR
 alias svi='sudo $EDITOR'
 alias ted='flatpak run org.gnome.TextEditor'
 
-# System Utils (Native)
+# System Utils (Global)
 alias status='just status'
 alias gd=gdctl
 alias yey=paru
@@ -109,14 +122,6 @@ alias bb=busybox
 alias j=jotta-cli
 alias ff=fastfetch
 alias ios=blueferry-tui
-alias sc='systemctl'
-alias susc='sudo systemctl'
-alias scu='systemctl --user'
-alias suscdr='sudo systemctl daemon-reload'
-alias scudr='systemctl --user daemon-reload'
-alias jc='journalctl'
-alias jcu="journalctl --user -xeu"
-alias follow='journalctl --user -fu'
 alias gsettings='/usr/bin/gsettings'
 alias openports='ss -tulanp'
 alias lzd='lazydocker'
