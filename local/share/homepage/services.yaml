@@ -16,7 +16,7 @@
           version: 6
           key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
           fields: ["queries", "blocked", "blocked_percent", "gravity"]
-- Discovery:
+- Content:
     - God's Eye View:
         icon: https://cdn-icons-png.flaticon.com/512/1791/1791989.png
         href: https://maps.hemati.com

@@ -22,16 +22,19 @@ AutoUpdate=registry
 # (Remux already owns host 3001/3002 would collide anyway.)
 
 # Persistent data (SQLite/state lives under /app/.wrangler)
-Volume=%h/.local/share/open-seo:/app/.wrangler:Z
+Volume=%h/.local/share/open-seo:/app/.wrangler:z
 
 # OpenSEO reads config from /app/.env (documented Docker self-host path).
 # The .env is generated from ~/.secrets (DATAFOREOSEO_API_KEY) + this file.
-Volume=%h/.local/share/open-seo/.env:/app/.env:Z,ro
+Volume=%h/.local/share/open-seo/.env:/app/.env:ro
+
+EnvironmentFile=%h/.local/share/open-seo/.env
 
 # Env-file also loads container env (diagnostics + some overrides); the
 # canonical app config is /app/.env. Telemetry disabled per preference.
 Environment=PORT=3001
 Environment=AUTH_MODE=local_noauth
+Environment=CLOUDFLARE_INCLUDE_PROCESS_ENV=true
 Environment=OPENSEO_TELEMETRY_DISABLED=1
 Environment=DO_NOT_TRACK=1
 Environment=ALLOWED_HOST=seo.hemati.com
@@ -39,7 +42,7 @@ Environment=BETTER_AUTH_URL=http://open-seo:3001
 
 # Homepage dashboard labels (per convention: every NEW container gets these)
 Label=homepage.name=OpenSEO
-Label=homepage.group=Discovery
+Label=homepage.group=Content
 Label=homepage.icon=https://assets.microsaasexamples.com/products/openseo/logo.png
 Label=homepage.href=https://seo.hemati.com
 Label="homepage.description=Semrush alternative"

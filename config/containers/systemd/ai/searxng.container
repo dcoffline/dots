@@ -18,11 +18,11 @@ Volume=%h/.config/searxng/limiter.toml:/etc/searxng/limiter.toml:Z,ro
 
 Environment=SEARXNG_BASE_URL=http://localhost:8082/
 
-Label=homepage.name=SearXNG
-Label=homepage.group=AI
-Label=homepage.icon=searxng
-Label=homepage.href=https://searxng.hemati.com
-Label="homepage.description=Agent Search Engine"
+#Label=homepage.name=SearXNG
+#Label=homepage.group=AI
+#Label=homepage.icon=searxng
+#Label=homepage.href=https://searxng.hemati.com
+#Label="homepage.description=Agent Search Engine"
 
 [Service]
 Restart=always

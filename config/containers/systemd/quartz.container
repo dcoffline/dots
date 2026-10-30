@@ -12,8 +12,8 @@ Volume=%h/notes-site/content:/usr/src/app/content:Z
 Volume=%h/notes-site/config/quartz.config.yaml:/usr/src/app/quartz.config.yaml:Z,ro
 
 Label=homepage.name=Notes
-Label=homepage.group=Publishing
-Label=homepage.icon=quartz
+Label=homepage.group=Content
+Label=homepage.icon=https://notes.hemati.com/static/icon.png
 Label=homepage.href=https://notes.hemati.com
 Label=homepage.description=Obsidian Publish (Quartz)
 

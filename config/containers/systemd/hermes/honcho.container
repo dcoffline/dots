@@ -27,6 +27,7 @@ EnvironmentFile=%h/.local/share/honcho/honcho-llm.env
 Environment=DERIVER_MODEL_CONFIG__TRANSPORT=openai
 Environment=DERIVER_MODEL_CONFIG__MODEL=auto
 Environment=DERIVER_MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
+
 # Insurance: if the 'auto' rotation hands the deriver a model that botches
 # tool-calling, fall back to a proven cheap tool-user.
 Environment=DERIVER_MODEL_CONFIG__FALLBACK__TRANSPORT=openai
@@ -68,11 +69,11 @@ Environment=DREAM_DEDUCTION_MODEL_CONFIG__TRANSPORT=openai
 Environment=DREAM_DEDUCTION_MODEL_CONFIG__MODEL=auto
 Environment=DREAM_DEDUCTION_MODEL_CONFIG__OVERRIDES__BASE_URL=http://freellmapi:3001/v1
 
-Label=homepage.name=Honcho
-Label=homepage.group=AI
-Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/08/Honcho-removebg-preview.png
-Label=homepage.href=https://honcho.hemati.com/docs
-Label="homepage.description=AI Memory Surface"
+#Label=homepage.name=Honcho
+#Label=homepage.group=AI
+#Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/08/Honcho-removebg-preview.png
+#Label=homepage.href=https://honcho.hemati.com/docs
+#Label="homepage.description=AI Memory Surface"
 
 [Service]
 TimeoutStartSec=300
