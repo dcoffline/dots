@@ -23,6 +23,7 @@ Volume=%h/.local/share/nextcloud/data:/var/www/html/data
 Volume=%h/.local/share/nextcloud/custom_apps:/var/www/html/custom_apps
 Volume=%h/.local/share/nextcloud/notify_push_apache.conf:/etc/apache2/conf-enabled/notify_push.conf
 Volume=%h/.local/share/nextcloud/php-config/zz-uploadtmp.ini:/usr/local/etc/php/conf.d/zz-uploadtmp.ini
+
 # Data on HDD
 Volume=%h/.mnt/10T:/mnt/10T
 Volume=%h/.mnt/rclone:/mnt/rclone:rslave
@@ -35,11 +36,12 @@ Environment=NC_overwrite.cli.url=https://cloud.hemati.com
 Environment=NC_maintenance_window_start=1
 Environment=NC_default_phone_region=US
 Environment=NEXTCLOUD_UMASK=0002
+
 # Fix PHP upload temp dir (official image's TMPDIR points to a non-existent dir)
 Environment=TMPDIR=/tmp
 
 Label=homepage.name=Nextcloud
-Label=homepage.group=Content
+Label=homepage.group=Files
 Label=homepage.icon=nextcloud
 Label=homepage.href=https://cloud.hemati.com
 Label="homepage.description=Private File Storage"

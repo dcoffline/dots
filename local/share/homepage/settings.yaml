@@ -11,6 +11,8 @@ layout:
     header: true
   Routing:
     header: true
+  Files:
+    header: true
   Security:
     header: true
   AI:
@@ -20,8 +22,8 @@ layout:
   Content:
     header: true
     style: row
-    columns: 6
+    columns: 5
   Sites:
     header: true
     style: row
-    columns: 5
+    columns: 6

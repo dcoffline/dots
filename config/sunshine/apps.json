@@ -9,7 +9,7 @@
             "exclude-global-prep-cmd": false,
             "exit-timeout": 3,
             "image-path": "steam.png",
-            "name": "Big Picture",
+            "name": "Big Picture Mode",
             "output": "$(HOME)/.config/sunshine/app-bigpic.log",
             "prep-cmd": [
                 {
@@ -49,24 +49,12 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "$(HOME)/.config/sunshine/covers/ipad.png",
-            "name": "Galaxy Tab",
-            "output": "$(HOME)/.config/sunshine/app-tablet.log",
+            "image-path": "/home/eric/.config/sunshine/covers/igdb_288397.png",
+            "name": "Low Resolution",
+            "output": "/var/home/eric/.config/sunshine/app-lowres.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1280x800 119.909",
-                    "undo": ""
-                },
-                {
-                    "do": "touchup",
-                    "undo": "touchup off"
-                },
-                {
-                    "do": "natscroll",
-                    "undo": ""
-                },
-                {
-                    "do": "loginctl unlock-session $(loginctl show-user $USER -p Display --value)",
+                    "do": "monctl 1920x1080 59.963",
                     "undo": ""
                 }
             ],
@@ -95,17 +83,21 @@
             "elevated": false,
             "exclude-global-prep-cmd": false,
             "exit-timeout": 5,
-            "image-path": "$(HOME)/.config/sunshine/covers/iphone.png",
-            "name": "Phone",
-            "output": "$(HOME)/.config/sunshine/app-phone.log",
+            "image-path": "$(HOME)/.config/sunshine/covers/ipad.png",
+            "name": "Tablet",
+            "output": "$(HOME)/.config/sunshine/app-tablet.log",
             "prep-cmd": [
                 {
-                    "do": "monctl 1560x720 60",
+                    "do": "monctl 1280x800 119.909",
                     "undo": ""
                 },
                 {
                     "do": "touchup",
                     "undo": "touchup off"
+                },
+                {
+                    "do": "natscroll",
+                    "undo": ""
                 },
                 {
                     "do": "loginctl unlock-session $(loginctl show-user $USER -p Display --value)",
@@ -130,6 +122,31 @@
                 },
                 {
                     "do": "natscroll",
+                    "undo": ""
+                }
+            ],
+            "wait-all": true
+        },
+        {
+            "auto-detach": true,
+            "cmd": "",
+            "elevated": false,
+            "exclude-global-prep-cmd": false,
+            "exit-timeout": 5,
+            "image-path": "$(HOME)/.config/sunshine/covers/iphone.png",
+            "name": "Wide Phone",
+            "output": "$(HOME)/.config/sunshine/app-phone.log",
+            "prep-cmd": [
+                {
+                    "do": "monctl 1560x720 60",
+                    "undo": ""
+                },
+                {
+                    "do": "touchup",
+                    "undo": "touchup off"
+                },
+                {
+                    "do": "loginctl unlock-session $(loginctl show-user $USER -p Display --value)",
                     "undo": ""
                 }
             ],

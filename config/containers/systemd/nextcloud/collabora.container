@@ -14,11 +14,12 @@ Environment=extra_params=--o:ssl.enable=false --o:ssl.termination=true
 Environment=aliasgroup1=https://collabora.hemati.com
 Environment=server_name=cloud.hemati.com
 
-Label=homepage.name=Collabora
-Label=homepage.group=Content
-Label=homepage.icon=https://cdn.simpleicons.org/collaboraonline/5C2983
-Label=homepage.href=https://collabora.hemati.com
-Label="homepage.description=LibreOffice Online"
+#Label=homepage.name=Collabora
+#Label=homepage.group=Content
+#Label=homepage.icon=https://cdn.simpleicons.org/collaboraonline/5C2983
+#Label=homepage.href=https://collabora.hemati.com
+#Label="homepage.description=LibreOffice Online"
+
 [Service]
 Restart=always
 RestartSec=5

@@ -11,11 +11,11 @@ PublishPort=127.0.0.1:8090:8080
 Volume=%h/notes-site/content:/usr/src/app/content:Z
 Volume=%h/notes-site/config/quartz.config.yaml:/usr/src/app/quartz.config.yaml:Z,ro
 
-Label=homepage.name=Notes
+Label=homepage.name=Quartz
 Label=homepage.group=Content
 Label=homepage.icon=https://notes.hemati.com/static/icon.png
 Label=homepage.href=https://notes.hemati.com
-Label=homepage.description=Obsidian Publish (Quartz)
+Label=homepage.description="Obsidian Portal"
 
 [Service]
 Restart=always
