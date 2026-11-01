@@ -9,6 +9,8 @@ tap "peteonrails/voxtype", trusted: { casks: ["voxtype"] }
 tap "samtay/tui", trusted: true
 tap "ublue-os/tap", trusted: true
 tap "valkyrie00/bbrew", trusted: true
+# Simple, modern, secure file encryption
+brew "age"
 # Aquarium animation in ASCII art
 brew "asciiquarium"
 # Core application library for C
@@ -45,8 +47,12 @@ brew "ffmpeg"
 brew "ffmpegthumbnailer"
 # Tool to install, manage and use Progressive Web Apps in Mozilla Firefox
 brew "firefoxpwa"
+# GitHub command-line tool
+brew "gh"
 # Enable transparent encryption/decryption of files in a git repo
 brew "git-crypt"
+# Open-source GitLab command-line tool
+brew "glab"
 # GNU implementation of which utility
 brew "gnu-which"
 # Open source programming language to build simple/reliable/efficient software
@@ -85,6 +91,8 @@ brew "newsboat"
 brew "node"
 # NUMA support for Linux
 brew "numactl"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
 # Package compiler and linker metadata toolkit
 brew "pkgconf"
 # Podman Terminal User Interface
@@ -105,6 +113,10 @@ brew "rust"
 brew "scrcpy"
 # 7-Zip is a file archiver with a high compression ratio
 brew "sevenzip"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Editor of encrypted files
+brew "sops"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
 # Performance monitoring tools for Linux
