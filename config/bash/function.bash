@@ -289,11 +289,11 @@ update() {
       --containers|-c|containers)
         just_args+=(--containers)
         ;;
-      all|host|fedora|athena)
+      all|host|fedora|ubuntu|athena)
         target="$arg"
         ;;
       *)
-        echo "Usage: update [all | host | fedora | athena] [--containers|-c]"
+        echo "Usage: update [all | host | fedora | ubuntu | athena] [--containers|-c]"
         return 1
         ;;
     esac
@@ -324,18 +324,36 @@ update() {
       echo "🛡️  [1/2] Updating Host (Brew, Flatpaks, ujust, dotfiles)..."
       just update "${just_args[@]}"
 
-      echo -e "\n📦 [2/2] Updating all Distroboxes (fedora, athena)..."
-      distrobox-upgrade --all
+      if command -v distrobox >/dev/null 2>&1 && distrobox list --no-color 2>/dev/null | awk -F '|' 'NR>1 {gsub(/[ \t]+/, "", $2); if (length($2) > 0) count++} END {exit (count > 0 ? 0 : 1)}'; then
+        echo -e "\n📦 [2/2] Updating all Distroboxes..."
+        distrobox-upgrade --all
+      fi
 
-      echo -e "\n✅ Host and all Distroboxes updated successfully!"
+      echo -e "\n✅ Update completed successfully!"
       ;;
     fedora)
-      echo "📦 Updating 'fedora' Distrobox..."
-      distrobox enter fedora -- sudo dnf upgrade -y --skip-unavailable
+      if command -v distrobox >/dev/null 2>&1 && distrobox list --no-color 2>/dev/null | grep -qw "fedora"; then
+        echo "📦 Updating 'fedora' Distrobox..."
+        distrobox enter fedora -- sudo dnf upgrade -y --skip-unavailable
+      else
+        echo "⚠️ 'fedora' Distrobox not found."
+      fi
+      ;;
+    ubuntu)
+      if command -v distrobox >/dev/null 2>&1 && distrobox list --no-color 2>/dev/null | grep -qw "ubuntu"; then
+        echo "📦 Updating 'ubuntu' Distrobox..."
+        distrobox enter ubuntu -- sh -c "sudo apt-get update && sudo apt-get upgrade -y"
+      else
+        echo "⚠️ 'ubuntu' Distrobox not found."
+      fi
       ;;
     athena)
-      echo "📦 Updating 'athena' Distrobox..."
-      distrobox enter athena -- sh -c "sudo apt-get update && sudo apt-get upgrade -y"
+      if command -v distrobox >/dev/null 2>&1 && distrobox list --no-color 2>/dev/null | grep -qw "athena"; then
+        echo "📦 Updating 'athena' Distrobox..."
+        distrobox enter athena -- sh -c "sudo apt-get update && sudo apt-get upgrade -y"
+      else
+        echo "⚠️ 'athena' Distrobox not found."
+      fi
       ;;
     host|"")
       echo "🛡️  Updating Host..."
