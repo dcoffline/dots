@@ -130,6 +130,7 @@ update *args:
     if [ "$INCLUDE_CONTAINERS" -eq 0 ]; then
       STOW_CONFIG_ARGS+=(--ignore='^containers$')
     fi
+    STOW_LOCAL_ARGS=(--ignore=".DS_Store" --ignore='^\._' --ignore='aiostreams|collabora|freellmapi|immich|mediaflow|nextcloud|nextcloud-notify-push|open-seo|pka-web|searxng|zcc-webhook')
 
     cleanup_container_links() {
       if [ "$INCLUDE_CONTAINERS" -eq 0 ]; then
@@ -213,7 +214,7 @@ update *args:
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME" home
       stow -R "${STOW_CONFIG_ARGS[@]}" -t "$HOME/.config" config
       cleanup_container_links
-      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.local" local
+      stow -R "${STOW_LOCAL_ARGS[@]}" -t "$HOME/.local" local
       bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
 
       echo "[ Backing up to GitHub... ]"
@@ -237,7 +238,7 @@ update *args:
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME" home
       stow -R "${STOW_CONFIG_ARGS[@]}" -t "$HOME/.config" config
       cleanup_container_links
-      stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.local" local
+      stow -R "${STOW_LOCAL_ARGS[@]}" -t "$HOME/.local" local
       if [ "${IS_MAC:-0}" -eq 1 ]; then
         stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/Library" Library
         mkdir -p "$HOME/Library/Application Support/voxtype"
@@ -1435,7 +1436,7 @@ link-persistent:
         name="$(basename "$dir")"                                                            
         # Skip special dotfiles                                                              
         [[ "$name" == .* ]] && continue                                                      
-        ln -sfn "$dir" "$HOME/.local/share/$name"                                            
+        ln -sfn "$(realpath --relative-to="$HOME/.local/share" "$dir")" "$HOME/.local/share/$name"                                            
     done                                                                                     
     ln -sfn "$HOME/.mnt/2T/local/.atuin" "$HOME/.atuin"                                      
     ln -sfn "$HOME/.mnt/2T/local/.histfile" "$HOME/.config/bash/.histfile"                   
