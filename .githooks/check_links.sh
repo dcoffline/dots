@@ -66,7 +66,7 @@ while IFS= read -r path; do
   # readlink -f alone false-greens on ABSOLUTE links (2026-10-15 'update
   # all' outage): they resolve fine here but stow 2.3.1 cannot restow them,
   # so require stow-style relative links whenever the live node is a link.
-  if [ -e "$t" ] && [ "$(readlink -f "$t" 2>/dev/null)" = "$DOTS/$path" ]; then
+  if [ -e "$t" ] && [ "$(readlink -f "$t" 2>/dev/null)" = "$(readlink -f "$DOTS/$path" 2>/dev/null)" ]; then
     if [ -L "$t" ]; then
       lt="$(readlink "$t")"
       case "$lt" in
