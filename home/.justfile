@@ -1616,3 +1616,23 @@ fix-flicker target="":
         print(f"{YELLOW}💡 Note:{RESET} If an affected application is currently running, quit and reopen it for changes to take effect.\n")
     else:
         print(f"{GREEN}{BOLD}✨ All detected applications are already properly configured!{RESET}\n")
+
+# =============================================================================
+# JELLYFIN / GELATO
+# =============================================================================
+
+# Gelato: enable new catalogs & start collection import sync (use --list to inspect)
+gelato-sync *args:
+    python3 ${HOME}/.hermes/scripts/gelato_sync.py {{args}}
+
+# Gelato: show enable state of every catalog
+gelato-list:
+    python3 ${HOME}/.hermes/scripts/gelato_sync.py --list
+
+# Jellyfin: restart the user service (busts Gelato's cached manifest)
+jf-restart:
+    systemctl --user restart jellyfin.service
+
+# Jellyfin: trigger Gelato collection import sync only (no enabling)
+gelato-sync-run:
+    python3 ${HOME}/.hermes/scripts/gelato_sync.py --sync-only
