@@ -151,7 +151,13 @@ alias la='eza -la --icons=auto --group-directories-first'
 # Ghostty Terminal
 [ "$OS_TYPE" = "linux" ] && alias ghostty='~/Applications/ghostty.appimage'
 
-### Bluefin CLI Bling
+# Chris Titus Linux Utilities
+[ ! -f "$HOME/.local/share/cargo/bin/linutil" ] && alias linutil='curl -fsSL https://christitus.com/linux | sh'
+
+# Sync Jellyfin-Gelato with AIOStreams
+alias jf-sync='just jf-restart && just gelato-sync'
+
+# ────── BLUEFIN CLI BLING ──────
 
 # ls aliases
 if [ "$(command -v eza)" ]; then
@@ -170,10 +176,3 @@ if [ "$(command -v ug)" ]; then
   alias xzegrep='ug -zE'
   alias xzfgrep='ug -zF'
 fi
-
-# Chris Titus Linux Utilities
-if [ ! -f "$HOME/.local/share/cargo/bin/linutil" ]; then
-  alias linutil='curl -fsSL https://christitus.com/linux | sh'
-fi
-
-alias panda='cd ~/src/projects/pandadoc_export >/dev/null && ./status.sh && cd - >/dev/null'
