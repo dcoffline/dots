@@ -1,0 +1,23 @@
+[Unit]
+Description=Scrob - self-hosted media tracker
+
+[Container]
+ContainerName=scrob
+Image=docker.io/bellamy/scrob:latest
+AutoUpdate=registry
+Network=homelab.network
+PublishPort=127.0.0.1:7330:7330
+EnvironmentFile=%h/.local/share/scrob/.env
+Volume=scrob_data:/app/backend/data:Z
+Volume=/var/home/eric/.mnt/2T/local/hermes/scrob-entrypoint.sh:/entrypoint.sh:ro,Z
+Label=homepage.group=Media
+Label=homepage.name=Scrob
+Label=homepage.href=https://scrob.hemati.com
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

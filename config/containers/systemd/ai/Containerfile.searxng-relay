@@ -1,0 +1,5 @@
+FROM docker.io/library/python:3.12-alpine
+WORKDIR /app
+COPY searxng_relay.py /app/relay.py
+ENV PYTHONUNBUFFERED=1
+CMD ["python", "/app/relay.py"]

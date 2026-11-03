@@ -325,6 +325,16 @@ sync-gdrive:
     # Nextcloud container (UID 524320) retains access via default ACLs.
     podman unshare chown -R 0:0 /var/home/eric/.mnt/10T/Documents 2>/dev/null || true
 
+    # Auto-clear stale rclone bisync lock if the owning PID is dead (e.g. prior power cut / reboot)
+    LOCKFILE="$HOME/.cache/rclone/bisync/var_home_eric_.mnt_10T_Documents..GDrive_.lck"
+    if [ -f "$LOCKFILE" ]; then
+        LOCK_PID=$(jq -r '.PID // empty' "$LOCKFILE" 2>/dev/null || grep -o '"PID": *"[0-9]*"' "$LOCKFILE" | grep -o '[0-9]*' || true)
+        if [ -n "$LOCK_PID" ] && ! kill -0 "$LOCK_PID" 2>/dev/null; then
+            echo "⚠️ Stale bisync lockfile from dead PID $LOCK_PID detected (prior crash/reboot). Auto-clearing."
+            rm -f "$LOCKFILE"
+        fi
+    fi
+
     # Set the environment variable to completely hide Google Docs/Sheets
     export RCLONE_DRIVE_SKIP_GDOC=true
 
@@ -353,11 +363,38 @@ resync-gdrive:
     # Nextcloud container (UID 524320) retains access via default ACLs.
     podman unshare chown -R 0:0 /var/home/eric/.mnt/10T/Documents 2>/dev/null || true
 
+    # Auto-clear stale rclone bisync lock if the owning PID is dead (e.g. prior power cut / reboot)
+    LOCKFILE="$HOME/.cache/rclone/bisync/var_home_eric_.mnt_10T_Documents..GDrive_.lck"
+    if [ -f "$LOCKFILE" ]; then
+        LOCK_PID=$(jq -r '.PID // empty' "$LOCKFILE" 2>/dev/null || grep -o '"PID": *"[0-9]*"' "$LOCKFILE" | grep -o '[0-9]*' || true)
+        if [ -n "$LOCK_PID" ] && ! kill -0 "$LOCK_PID" 2>/dev/null; then
+            echo "⚠️ Stale bisync lockfile from dead PID $LOCK_PID detected (prior crash/reboot). Auto-clearing."
+            rm -f "$LOCKFILE"
+        fi
+    fi
+
     export RCLONE_DRIVE_SKIP_GDOC=true
 
     echo "=== Running Bisync --resync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
     $RCLONE bisync /var/home/eric/.mnt/10T/Documents GDrive: --resync --slow-hash-sync-only --tpslimit 10 --exclude '**/.trash/**' --exclude '**/.Trash*/**' --exclude '**/.Trash-1000/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v
     echo "=== Resync Complete ==="
+
+# Builds or rebuilds local container images (pka-web, searxng-relay, zcc-webhook-base)
+build-local-images:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    DOTS="${DOTS:-$HOME/src/dots}"
+    echo "==> Building localhost/zcc-webhook-base:latest..."
+    podman build -t localhost/zcc-webhook-base:latest -f "$DOTS/config/containers/systemd/hermes/Containerfile.zcc-webhook" "$DOTS/config/containers/systemd/hermes/"
+
+    if [ -f "$HOME/src/projects/pka-web/Containerfile" ]; then
+        echo "==> Building localhost/pka-web:latest..."
+        podman build -t localhost/pka-web:latest -f "$HOME/src/projects/pka-web/Containerfile" "$HOME/src/projects/pka-web"
+    fi
+
+    echo "==> Building localhost/searxng-relay:latest..."
+    podman build -t localhost/searxng-relay:latest -f "$DOTS/config/containers/systemd/ai/Containerfile.searxng-relay" "$DOTS/config/containers/systemd/ai/"
+    echo "==> All local container images built successfully."
 
 # Upgrades Sunshine, reapplies KMS/uhid capabilities, fixes Qt plugin links, and restarts the service
 update-sunshine:
@@ -639,7 +676,7 @@ check-mounts:
     if [ "$trigger_restart" = true ]; then
       echo "Reconnecting mounts... Failure detected on: $failed_remote"
       if command -v notify-send &>/dev/null; then
-        notify-send -u critical "Rclone Watchdog" "Mount failed on $failed_remote. Reconnecting..."
+        notify-send -u critical "Rclone Watchdog" "Mount failed on $failed_remote. Reconnecting..." || true
       fi
       systemctl --user restart rclone.service
     else
@@ -1628,6 +1665,10 @@ gelato-sync *args:
 # Gelato: show enable state of every catalog
 gelato-list:
     python3 ${HOME}/.hermes/scripts/gelato_sync.py --list
+
+# Gelato: wipe ALL collections and rebuild from enabled catalogs (nuclear reset)
+gelato-reset:
+    python3 /opt/data/scripts/gelato_sync.py --reset
 
 # Jellyfin: restart the user service (busts Gelato's cached manifest)
 jf-restart:

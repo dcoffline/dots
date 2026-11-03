@@ -1,0 +1,22 @@
+[Unit]
+Description=Scrob PostgreSQL 16 database
+After=network-online.target
+
+[Container]
+ContainerName=scrob-db
+Image=docker.io/library/postgres:16-alpine
+AutoUpdate=registry
+Network=homelab.network
+Environment=POSTGRES_USER=scrob
+Environment=POSTGRES_PASSWORD=2081b5ebebf750bccc178ff2f1173c65
+Environment=POSTGRES_DB=scrob
+HealthCmd=pg_isready -U scrob -d scrob
+HealthInterval=10s
+Volume=scrob-db_data:/var/lib/postgresql/data
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

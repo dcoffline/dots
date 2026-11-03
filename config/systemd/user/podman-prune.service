@@ -3,4 +3,4 @@ Description=Podman Image Prune
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/podman image prune -a -f
+ExecStart=/usr/bin/podman image prune -f

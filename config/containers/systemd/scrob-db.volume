@@ -1,0 +1,5 @@
+[Unit]
+Description=Scrob postgres data
+
+[Volume]
+VolumeName=scrob-db_data
