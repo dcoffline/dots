@@ -149,7 +149,7 @@ alias vich='command -v'
 alias la='eza -la --icons=auto --group-directories-first'
 
 # Ghostty Terminal
-[ "$OS_TYPE" = "linux" ] && alias ghostty='~/Applications/ghostty.appimage'
+[ "$OS_TYPE" = "linux" ] && alias ghostty='~/AppImages/ghostty.appimage'
 
 # Chris Titus Linux Utilities
 [ ! -f "$HOME/.local/share/cargo/bin/linutil" ] && alias linutil='curl -fsSL https://christitus.com/linux | sh'

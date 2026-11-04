@@ -5,6 +5,11 @@ window-width = 100
 window-padding-x = 5
 window-padding-y = 5
 
+# Ghostty Drop-Down
+quick-terminal-position = top
+quick-terminal-screen = mouse
+quick-terminal-animation-duration = 0.15
+
 # You can generate the list of valid values using the CLI:
 # ghostty +list-fonts
 
