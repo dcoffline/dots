@@ -1,4 +1,5 @@
 # .bashrc — The One True Config (BASH edition)
+export GPG_TTY=$(tty 2>/dev/null)
 
 # Clear 32-bit Steam extest preload if terminal inherited Steam's environment
 if [[ "$LD_PRELOAD" == *"/usr/lib/extest/libextest.so"* ]]; then
@@ -60,7 +61,6 @@ if [ "$(command -v atuin)" ]; then
 
   eval "$(atuin init bash)"
 fi
-
 
 # Added by Antigravity CLI installer
 export PATH="/home/eric/.local/bin:$PATH"

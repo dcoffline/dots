@@ -93,6 +93,29 @@ fi
 MAIN="HDMI-1"
 DUMMY="DP-6"
 
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
+
+if [ -z "$XDG_CURRENT_DESKTOP" ]; then
+  if pgrep -x kwin_wayland >/dev/null 2>&1; then
+    export XDG_CURRENT_DESKTOP="KDE"
+  elif pgrep -x gnome-shell >/dev/null 2>&1; then
+    export XDG_CURRENT_DESKTOP="GNOME"
+  elif pgrep -x cosmic-comp >/dev/null 2>&1; then
+    export XDG_CURRENT_DESKTOP="COSMIC"
+  fi
+fi
+
+if [ -z "$WAYLAND_DISPLAY" ] || [ ! -S "${XDG_RUNTIME_DIR}/$WAYLAND_DISPLAY" ]; then
+  for s in "${XDG_RUNTIME_DIR}"/wayland-[0-9]*; do
+    if [ -S "$s" ]; then
+      export WAYLAND_DISPLAY="$(basename "$s")"
+      break
+    fi
+  done
+fi
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
@@ -115,10 +138,6 @@ SCALE=${3:-1}
 
 case "$XDG_CURRENT_DESKTOP" in
 "KDE" | *"KDE"* | plasma)
-  export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
-  export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
-  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
-
   WIDTH=$(echo "$RES" | cut -d'x' -f1)
   HEIGHT=$(echo "$RES" | cut -d'x' -f2)
   FPS_INT=$(printf "%.0f" "$REFRESH" 2>/dev/null || echo 60)

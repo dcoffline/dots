@@ -32,6 +32,29 @@ SCALE="1"
 # Source functions from bash (dock, osk, tablet, natscroll)
 [ -f {$HOME}/.config/bash/function.bash ] && source {$HOME}/.config/bash/function.bash
 
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
+
+if [ -z "$XDG_CURRENT_DESKTOP" ]; then
+  if pgrep -x kwin_wayland >/dev/null 2>&1; then
+    export XDG_CURRENT_DESKTOP="KDE"
+  elif pgrep -x gnome-shell >/dev/null 2>&1; then
+    export XDG_CURRENT_DESKTOP="GNOME"
+  elif pgrep -x cosmic-comp >/dev/null 2>&1; then
+    export XDG_CURRENT_DESKTOP="COSMIC"
+  fi
+fi
+
+if [ -z "$WAYLAND_DISPLAY" ] || [ ! -S "${XDG_RUNTIME_DIR}/$WAYLAND_DISPLAY" ]; then
+  for s in "${XDG_RUNTIME_DIR}"/wayland-[0-9]*; do
+    if [ -S "$s" ]; then
+      export WAYLAND_DISPLAY="$(basename "$s")"
+      break
+    fi
+  done
+fi
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+
 # Dynamically detect Flatpak or Toolbx/Distrobox containers
 RUN=()
 if [ -f /.flatpak-info ] || [ -f /run/.containerenv ]; then
@@ -42,14 +65,11 @@ echo "Running as $XDG_CURRENT_DESKTOP on $WAYLAND_DISPLAY" >>"$HOME/.config/suns
 
 case "$XDG_CURRENT_DESKTOP" in
 "KDE" | *"KDE"* | plasma)
-  export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
-  export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
-  export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
-
   # Ensure Virtual-sunshine-vmon exists as a standby output so KWin never drops to 0 outputs if physical displays disconnect
   if ! "${RUN[@]}" kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then
-    "${RUN[@]}" systemctl --user stop sunshine-vmon.service 2>/dev/null || true
+    "${RUN[@]}" systemctl --user stop --wait sunshine-vmon.service 2>/dev/null || true
     "${RUN[@]}" systemd-run --user --unit=sunshine-vmon --collect --property=TimeoutStopSec=1s \
+      --setenv=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" \
       krfb-virtualmonitor --resolution 1920x1080 --name sunshine-vmon --password sunshinepass --port 5905
     for _ in {1..25}; do
       if "${RUN[@]}" kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then

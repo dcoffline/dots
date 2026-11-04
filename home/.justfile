@@ -1669,7 +1669,7 @@ gelato-list:
 
 # Gelato: wipe ALL collections and rebuild from enabled catalogs (nuclear reset)
 gelato-reset:
-    python3 /opt/data/scripts/gelato_sync.py --reset
+    python3 ${HOME}/.hermes/scripts/gelato_sync.py --reset
 
 # Jellyfin: restart the user service (busts Gelato's cached manifest)
 jf-restart:

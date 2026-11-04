@@ -4,21 +4,41 @@ if [[ "$OSTYPE" == darwin* ]]; then
   exit 0
 fi
 
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
+
+if [ -z "$XDG_CURRENT_DESKTOP" ]; then
+  if pgrep -x kwin_wayland >/dev/null 2>&1; then
+    export XDG_CURRENT_DESKTOP="KDE"
+  elif pgrep -x gnome-shell >/dev/null 2>&1; then
+    export XDG_CURRENT_DESKTOP="GNOME"
+  elif pgrep -x cosmic-comp >/dev/null 2>&1; then
+    export XDG_CURRENT_DESKTOP="COSMIC"
+  fi
+fi
+
 DESKTOP="${XDG_CURRENT_DESKTOP:-GNOME}"
 TIMEOUT=30
 ELAPSED=0
 
-export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=/run/user/$(id -u)/bus}"
+if [ -z "$WAYLAND_DISPLAY" ] || [ ! -S "${XDG_RUNTIME_DIR}/$WAYLAND_DISPLAY" ]; then
+  for s in "${XDG_RUNTIME_DIR}"/wayland-[0-9]*; do
+    if [ -S "$s" ]; then
+      export WAYLAND_DISPLAY="$(basename "$s")"
+      break
+    fi
+  done
+fi
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
 
 case "$DESKTOP" in
 *"KDE"*|plasma)
-  export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
-  export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
   # Ensure standby virtual monitor service is running so headless boots / TV-off states always have an output
   if command -v krfb-virtualmonitor >/dev/null 2>&1; then
     if ! kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then
-      systemctl --user stop sunshine-vmon.service 2>/dev/null || true
+      systemctl --user stop --wait sunshine-vmon.service 2>/dev/null || true
       systemd-run --user --unit=sunshine-vmon --collect --property=TimeoutStopSec=1s \
+        --setenv=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" \
         krfb-virtualmonitor --resolution 1920x1080 --name sunshine-vmon --password sunshinepass --port 5905 >/dev/null 2>&1 || true
     fi
   fi
@@ -34,7 +54,7 @@ case "$DESKTOP" in
       elif kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then
         kscreen-doctor "output.Virtual-sunshine-vmon.enable" >/dev/null 2>&1 || true
       fi
-      if kscreen-doctor -o 2>/dev/null | grep -q "enabled"; then
+      if kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.connected == true or .enabled == true)' >/dev/null 2>&1; then
         sleep 1.5
         exit 0
       fi
