@@ -8,6 +8,9 @@ Wants=rclone.service
 [Container]
 # Add the name so Cloudflare can find it
 ContainerName=nextcloud
+
+# Healthcheck so podman/boot-health detects Up-but-hung
+HealthCmd=curl -fsS -o /dev/null http://localhost:80/status.php || exit 1
 EnvironmentFile=%h/.local/share/nextcloud/.env
 Network=homelab.network
 Image=docker.io/library/nextcloud:latest

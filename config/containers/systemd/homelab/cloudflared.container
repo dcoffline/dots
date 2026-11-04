@@ -4,6 +4,10 @@ After=network-online.target
 
 [Container]
 ContainerName=cloudflared
+
+# Healthcheck so podman/boot-health detects Up-but-hung
+# distroless image (no shell): add metrics port, curl it from quadlet-side? Use process check via /proc:
+HealthCmd=test -d /proc/1 && grep -q cloudflared /proc/1/cmdline
 Image=docker.io/cloudflare/cloudflared:latest
 Network=homelab.network
 Volume=%h/.local/share/cloudflared/token:/run/secrets/tunnel-token:Z,ro

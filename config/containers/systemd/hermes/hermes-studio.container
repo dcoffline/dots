@@ -4,6 +4,9 @@ After=network-online.target
 
 [Container]
 ContainerName=hermes-studio
+
+# Healthcheck so podman/boot-health detects Up-but-hung
+HealthCmd=node -e "fetch('http://localhost:3003/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 Image=docker.io/library/node:22-alpine
 SecurityLabelDisable=true
 Volume=%h/src/projects/Hermes-Studio:/app

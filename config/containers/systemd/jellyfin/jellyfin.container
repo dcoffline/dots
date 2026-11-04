@@ -4,6 +4,9 @@ After=network-online.target
 
 [Container]
 ContainerName=jellyfin
+
+# Healthcheck so podman/boot-health detects Up-but-hung
+HealthCmd=curl -fsS -o /dev/null http://localhost:8096/health || exit 1
 # DB was migrated to 12.0 schema (ExtraIds/Permission columns dropped).
 # 10.11.11 binary + 12.0 DB = broken auth + Gelato SQLite errors.
 # Back on latest (12.x) so the server matches the DB. Gelato is 10.11-only;

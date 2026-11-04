@@ -8,6 +8,9 @@ StartLimitIntervalSec=0
 [Container]
 # Add the name for Cloudflare
 ContainerName=immich-server
+
+# Healthcheck so podman/boot-health detects Up-but-hung
+HealthCmd=curl -fsS -o /dev/null http://localhost:2283/api/server/ping || exit 1
 Network=homelab.network
 Image=ghcr.io/immich-app/immich-server:release
 AutoUpdate=registry
