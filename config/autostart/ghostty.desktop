@@ -1,0 +1,27 @@
+[Desktop Entry]
+Actions=new-window;
+Categories=System;TerminalEmulator;
+Comment=A terminal emulator
+Exec=env DESKTOPINTEGRATION=1 /home/eric/AppImages/ghostty.appimage --gtk-single-instance=true
+Icon=/home/eric/AppImages/.icons/ghostty
+Keywords=terminal;tty;pty;
+Name=Ghostty
+StartupNotify=true
+StartupWMClass=com.mitchellh.ghostty
+Terminal=false
+TryExec=/home/eric/AppImages/ghostty.appimage
+Type=Application
+Version=1.0
+X-AppImage-Name=Ghostty
+X-GNOME-UsesNotifications=true
+X-KDE-Shortcuts=Ctrl+Alt+T
+X-TerminalArgAppId=--class=
+X-TerminalArgDir=--working-directory=
+X-TerminalArgExec=-e
+X-TerminalArgHold=--wait-after-command
+X-TerminalArgTitle=--title=
+
+[Desktop Action new-window]
+Exec=/home/eric/AppImages/ghostty.appimage --gtk-single-instance=true
+Icon=/home/eric/AppImages/.icons/ghostty
+Name=New Window

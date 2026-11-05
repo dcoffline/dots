@@ -1,0 +1,30 @@
+[Unit]
+Description=AIOMetadata - Stremio metadata/catalog addon (self-hosted)
+After=homelab-network.service
+Requires=homelab-network.service
+
+[Container]
+Image=ghcr.io/cedya77/aiometadata:latest
+ContainerName=aiometadata
+AutoUpdate=registry
+Network=homelab.network
+PublishPort=127.0.0.1:3232:3232
+
+# Persistent per-user configs + caches (SQLite lives here)
+Volume=%h/.local/share/aiometadata:/app/addon/data:Z
+
+EnvironmentFile=%h/.local/share/aiometadata/.env
+
+Label=homepage.name=AIOMetadata
+Label=homepage.group=Content
+Label=homepage.icon=https://github.com/cedya77/aiometadata/raw/dev/public/logo.png
+Label=homepage.href=https://aiometadata.hemati.com
+Label="homepage.description=Metadata & Catalog Aggregator"
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

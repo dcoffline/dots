@@ -1,0 +1,17 @@
+[Unit]
+Description=AIOMetadata Redis cache
+
+[Container]
+Image=docker.io/library/redis:8-alpine
+ContainerName=aiometadata-redis
+Network=homelab.network
+Volume=aiometadata_redis:/data:Z
+HealthCmd=redis-cli ping
+HealthInterval=30s
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

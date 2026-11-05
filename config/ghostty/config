@@ -1,22 +1,32 @@
-#theme = Nord
+# Theme (Kitty default palette, pure #000000 background)
+theme = Kitty Default
 #window-theme = ghostty
-window-height = 30
+window-height = 33
 window-width = 100
 window-padding-x = 5
 window-padding-y = 5
+window-padding-balance = true
 
 # Ghostty Drop-Down
+initial-window = false
 quick-terminal-position = top
 quick-terminal-screen = mouse
+quick-terminal-autohide = true
 quick-terminal-animation-duration = 0.15
+gtk-tabs-location = hidden
 
-# You can generate the list of valid values using the CLI:
-# ghostty +list-fonts
-
+# Typography / Fonts
+# You can generate the list of valid values using the CLI: ghostty +list-fonts
 font-family = CaskaydiaMono Nerd Font
-font-family-bold = CaskaydiaMono NF Bold
-font-family-italic = CaskaydiaMono NF Italic
-font-family-bold-italic = CaskaydiaMono NF Bold Italic
+#font-family-bold = CaskaydiaMono NF Bold
+#font-family-italic = CaskaydiaMono NF Italic
+#font-family-bold-italic = CaskaydiaMono NF Bold Italic
+
+# Replicate Kitty's FreeType stem darkening for bold, punchy font rendering
+font-thicken = true
+
+# Replicate Kitty's vertical rhythm & line spacing
+adjust-cell-height = 1
 
 #font-family = Hack Nerd Font
 #font-family-bold = Hack Nerd Font Bold

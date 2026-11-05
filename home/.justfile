@@ -557,6 +557,10 @@ mount:
         EXTRA_FLAGS=( --read-only --dir-cache-time 10s --attr-timeout 1s --multi-thread-streams=0 --cutoff-mode=cautious --vfs-cache-mode minimal --buffer-size 0 )
       elif [[ "$remote" == "Nextcloud" ]]; then
         EXTRA_FLAGS=( --dir-cache-time 10s --attr-timeout 1s )
+        # On bee (where Nextcloud container runs), bypass Cloudflare tunnel and use local WebDAV
+        if [[ "$OS_TYPE" != "Darwin" ]] && { [ -d "$HOME/.local/share/nextcloud" ] || [ "$(hostname)" = "bee" ]; }; then
+          EXTRA_FLAGS+=( --webdav-url "http://127.0.0.1:8088/remote.php/dav/files/eric" )
+        fi
       else
         EXTRA_FLAGS=( --dir-cache-time 72h )
       fi
@@ -576,7 +580,8 @@ mount:
 
     # 5. Post-mount verification (debrid WebDAVs: auth can go stale silently)
     sleep 3
-    for remote in "${!REMOTES[@]}"; do
+    for remote in "RealDebrid" "AllDebrid"; do
+      [[ -v REMOTES[$remote] ]] || continue
       target="${REMOTES[$remote]}"
       mountpoint="$BASE_MOUNT/$target"
       if ! (mountpoint -q "$mountpoint" 2>/dev/null || mount | grep -Fq " on $mountpoint "); then

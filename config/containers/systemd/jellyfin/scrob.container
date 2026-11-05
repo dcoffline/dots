@@ -10,9 +10,13 @@ PublishPort=127.0.0.1:7330:7330
 EnvironmentFile=%h/.local/share/scrob/.env
 Volume=scrob_data:/app/backend/data:Z
 Volume=/var/home/eric/.mnt/2T/local/hermes/scrob-entrypoint.sh:/entrypoint.sh:ro,Z
-Label=homepage.group=Media
+
 Label=homepage.name=Scrob
 Label=homepage.href=https://scrob.hemati.com
+Label=homepage.group=Content
+Label=homepage.icon=scrob
+Label=homepage.href=https://scrob.hemati.com
+Label="homepage.description=Media and List Tracker"
 
 [Service]
 Restart=always
