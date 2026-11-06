@@ -40,6 +40,10 @@ Label="homepage.description=Home Media Server"
 [Service]
 Restart=always
 TimeoutStartSec=300
+# Cap memory so Gelato catalog imports can't push host into swap thrash (2026-11-05 stutter).
+# 6G = baseline (~1.5G) + import spikes; MemoryHigh soft-throttles reclaim before the hard cap.
+MemoryMax=6G
+MemoryHigh=4G
 
 [Install]
 WantedBy=default.target

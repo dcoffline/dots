@@ -39,6 +39,10 @@
                 {
                     "do": "monctl 2560x1440 120",
                     "undo": ""
+                },
+                {
+                    "do": "natscroll off",
+                    "undo": ""
                 }
             ],
             "wait-all": true

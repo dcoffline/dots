@@ -21,18 +21,56 @@ fi
 
 case "$DESKTOP" in
 *"KDE"*|plasma)
-  # Plasma 6: per-device NaturalScroll lives in ~/.config/kcminputrc.
-  # Target the virtual HID mouse specifically (USB mice keep their own setting).
-  # Edited directly (kwriteconfig6 host binary can't run inside a distrobox).
-  CONF="$HOME/.config/kcminputrc"
+  # Plasma 6: KWin manages input devices per-device via D-Bus and ~/.config/kcminputrc.
+  # Note: org.kde.KWin.reconfigure does NOT reload input device settings into KWin.
+  # We set the naturalScroll property directly on KWin's InputDevice D-Bus objects,
+  # which updates KWin's live state immediately and persists it into kcminputrc.
   if [ "$1" = "disable" ] || [ "$1" = "off" ]; then V=false; else V=true; fi
-  if grep -q '\[Libinput\]\[4617\]\[3\]\[libvirtualhid Mouse\]' "$CONF" 2>/dev/null; then
-    sed -i "/\[Libinput\]\[4617\]\[3\]\[libvirtualhid Mouse\]/,/^\[/ s/^NaturalScroll=.*/NaturalScroll=$V/" "$CONF"
-  else
-    printf '\n[Libinput][4617][3][libvirtualhid Mouse]\nNaturalScroll=%s\n' "$V" >> "$CONF"
+
+  set_kde_input_device() {
+    local dev_path="$1"
+    local val="$2"
+    if command -v busctl >/dev/null 2>&1; then
+      "${RUN[@]}" busctl --user set-property org.kde.KWin "$dev_path" org.kde.KWin.InputDevice naturalScroll b "$val" 2>/dev/null || true
+    elif command -v dbus-send >/dev/null 2>&1; then
+      "${RUN[@]}" dbus-send --session --dest=org.kde.KWin "$dev_path" org.freedesktop.DBus.Properties.Set string:"org.kde.KWin.InputDevice" string:"naturalScroll" variant:boolean:"$val" 2>/dev/null || true
+    fi
+  }
+
+  found=0
+  # 1. Direct discovery via sysfs (fastest)
+  for name_file in /sys/class/input/event*/device/name; do
+    [ -f "$name_file" ] || continue
+    if grep -qi "libvirtualhid.*mouse" "$name_file" 2>/dev/null; then
+      ev=$(basename "$(dirname "$(dirname "$name_file")")")
+      set_kde_input_device "/org/kde/KWin/InputDevice/$ev" "$V"
+      found=1
+    fi
+  done
+
+  # 2. Fallback: discover via KWin D-Bus tree if sysfs is not accessible
+  if [ "$found" -eq 0 ] && command -v busctl >/dev/null 2>&1; then
+    for dev in $("${RUN[@]}" busctl --user --list tree org.kde.KWin 2>/dev/null | grep '^/org/kde/KWin/InputDevice/event'); do
+      dev_name=$("${RUN[@]}" busctl --user get-property org.kde.KWin "$dev" org.kde.KWin.InputDevice name 2>/dev/null | cut -d'"' -f2)
+      case "$dev_name" in
+        *"libvirtualhid Mouse"*)
+          set_kde_input_device "$dev" "$V"
+          ;;
+      esac
+    done
   fi
-  # Tell running Plasma to reload input settings
-  timeout 2 dbus-send --session --type=method_call --dest=org.kde.KWin     /KWin org.kde.KWin.reconfigure 2>/dev/null || true
+
+  # 3. Ensure ~/.config/kcminputrc has entries for persistence across reboots
+  CONF="$HOME/.config/kcminputrc"
+  for subgrp in "libvirtualhid Mouse" "libvirtualhid Mouse (Absolute)"; do
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+      "${RUN[@]}" kwriteconfig6 --file "$CONF" --group "Libinput" --group "4617" --group "3" --group "$subgrp" --key NaturalScroll "$V" 2>/dev/null || true
+    elif grep -q "\[Libinput\]\[4617\]\[3\]\[$subgrp\]" "$CONF" 2>/dev/null; then
+      sed -i "/\[Libinput\]\[4617\]\[3\]\[$subgrp\]/,/^\[/ s/^NaturalScroll=.*/NaturalScroll=$V/" "$CONF"
+    else
+      printf '\n[Libinput][4617][3][%s]\nNaturalScroll=%s\n' "$subgrp" "$V" >> "$CONF"
+    fi
+  done
   ;;
 *)
   # GNOME: toggle gsettings
