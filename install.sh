@@ -5,6 +5,7 @@ set -e
 
 # Determine the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR_REAL="$(readlink -f "$SCRIPT_DIR")"
 
 # =========================================================
 # PARSE CLI FLAGS
@@ -86,7 +87,18 @@ is_link_to_dots() {
   if [ -L "$target" ]; then
     local link_target
     link_target="$(readlink -f "$target" 2>/dev/null || readlink "$target")"
-    if [[ "$link_target" == "$SCRIPT_DIR"* ]]; then
+    if [[ "$link_target" == "$SCRIPT_DIR"* || "$link_target" == "$SCRIPT_DIR_REAL"* ]]; then
+      return 0
+    fi
+  fi
+  return 1
+}
+
+# Helper: check if a target is an external directory with dotfiles-managed symlinks (e.g. .env on 2T)
+is_external_dir_with_dots_link() {
+  local target="$1"
+  if [ -L "$target" ] && [ -d "$target" ]; then
+    if [ -e "$target/.env" ] && is_link_to_dots "$target/.env"; then
       return 0
     fi
   fi
@@ -102,6 +114,11 @@ backup_item_recursive() {
 
   # If dst exists and already links to our dots repo, skip
   if is_link_to_dots "$dst"; then
+    return 0
+  fi
+
+  # If dst is an external directory with dots links (e.g., container data on 2T with stowed .env), skip
+  if is_external_dir_with_dots_link "$dst"; then
     return 0
   fi
 
@@ -157,7 +174,21 @@ fi
 echo "[ Applying dotfiles with Stow... ]"
 mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/share/gnome-shell/extensions" "$HOME/.config/rclone"
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
-stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
+
+# Collect any local/share directories that are symlinked to external storage (e.g. 2T SSD)
+# so Stow does not attempt to clobber the external directory links with repository symlinks
+local_stow_ignores=("--ignore=.DS_Store" "--ignore=^\._")
+if [ -d "$SCRIPT_DIR/local/share" ]; then
+  for d in "$SCRIPT_DIR/local/share"/*; do
+    [ -d "$d" ] || continue
+    name="$(basename "$d")"
+    target="$HOME/.local/share/$name"
+    if is_external_dir_with_dots_link "$target"; then
+      local_stow_ignores+=("--ignore=^${name}$" "--ignore=${name}$")
+    fi
+  done
+fi
+stow -d "$SCRIPT_DIR" "${local_stow_ignores[@]}" -R -t "$HOME/.local" local
 
 # SELinux: container-mounted .env files must be container_file_t (fresh checkouts
 # get user_home_t, which blocks container reads even with :Z on the mount)

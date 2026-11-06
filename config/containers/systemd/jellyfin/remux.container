@@ -1,22 +1,23 @@
 [Unit]
 Description=Remux Media Server (Jellyfin-compatible, Stremio/AIOStreams)
-After=network-online.target
+After=network-online.target homelab-network.service
+Requires=homelab-network.service
 
 [Container]
 ContainerName=remux
 # Remux: Jellyfin-compatible media server replacing Gelato search/streaming.
-# v0.30.0+ supports Jellyfin 12 clients; imports existing Jellyfin users.
+# Speaks the Jellyfin API, bridges Stremio add-ons + local files + IPTV to Jellyfin clients.
 Image=ghcr.io/lostb1t/remux:latest
 Network=homelab.network
 SecurityLabelDisable=true
 
-# Publish port 3001 -> 3000 (3000 internal is aiostreams/homepage)
-PublishPort=3001:3000
+# Publish port 8097 for local LAN / Tailscale (avoids collision with 8096 Jellyfin and 3001 FreeLLMAPI)
+PublishPort=8097:3000
 
-# Data dir (SQLite DB, torrents, logs)
+# Persistent Data (SQLite DB, torrents, caches, user profiles)
 Volume=%h/.local/share/remux:/data:Z
 
-# Bulk media (read-only) — same mounts as jellyfin
+# Bulk Media (Same local media pool as Jellyfin)
 Volume=%h/.mnt/10T:/media:ro
 
 # AMD Hardware Acceleration (Radeon 780M / VA-API)
@@ -30,14 +31,15 @@ Environment=DATABASE_URL=sqlite:///data/db.sqlite?mode=rwc
 Environment=LOG_FILE=/data/logs/remux.jsonl
 Environment=TORRENT_DATA_DIR=/data/torrents
 
-Label=homepage.name=Jellyfin
+Label=homepage.name=Remux
 Label=homepage.icon=jellyfin
-Label=homepage.group=Containers
-Label=homepage.href=https://media.hemati.com
-Label="homepage.description=Home Media Server"
+Label=homepage.group=Media
+Label=homepage.href=http://192.168.1.18:8097
+Label="homepage.description=Stremio-Jellyfin Hybrid Server"
 
 [Service]
 Restart=always
+TimeoutStartSec=300
 
 [Install]
 WantedBy=default.target
