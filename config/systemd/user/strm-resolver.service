@@ -1,0 +1,12 @@
+[Unit]
+Description=STRM Stream Resolver Service for Jellyfin & AIOStreams
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 %h/.local/bin/strm-resolver
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

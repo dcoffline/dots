@@ -1,0 +1,11 @@
+[Unit]
+Description=STRM Catalog Sync for Jellyfin
+After=network-online.target strm-resolver.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/.local/bin/strm-sync --limit 30 --concurrency 5
+TimeoutStartSec=600
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,186 @@
+#!/usr/bin/env python3
+"""
+strm-sync: Fetches media items from AIOMetadata catalogs and generates .strm + .nfo files
+for Jellyfin, pointing to the local strm-resolver service.
+"""
+
+import argparse
+import concurrent.futures
+import json
+import logging
+import os
+import re
+import sys
+import urllib.request
+from pathlib import Path
+
+MANIFEST_URL = "https://aiometadata.hemati.com/stremio/9fe2626d-50dd-4875-8626-c227162be222/manifest.json"
+RESOLVER_HOST = "192.168.1.18:8098"
+BASE_DIR = Path("/home/eric/.local/share/jellyfin/catalogs")
+HEADERS = {"User-Agent": "strm-sync/1.0"}
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger("strm-sync")
+
+
+def sanitize_filename(name: str) -> str:
+    return re.sub(r'[\\/*?:"<>|]', "", name).strip()
+
+
+def fetch_json(url: str) -> dict | None:
+    req = urllib.request.Request(url, headers=HEADERS)
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            return json.loads(resp.read().decode())
+    except Exception as e:
+        logger.debug(f"Failed to fetch {url}: {e}")
+        return None
+
+
+def sync_movie(meta: dict, catalog_name: str, movies_dir: Path) -> bool:
+    imdb_id = meta.get("id")
+    title = meta.get("name")
+    if not imdb_id or not title:
+        return False
+
+    year = meta.get("releaseInfo", "")
+    safe_title = sanitize_filename(title)
+    folder_name = f"{safe_title} ({year}) [imdbid-{imdb_id}]" if year else f"{safe_title} [imdbid-{imdb_id}]"
+    item_dir = movies_dir / folder_name
+    item_dir.mkdir(parents=True, exist_ok=True)
+
+    strm_file = item_dir / f"{folder_name}.strm"
+    stream_url = f"http://{RESOLVER_HOST}/play/movie/{imdb_id}\n"
+    if not strm_file.exists() or strm_file.read_text() != stream_url:
+        strm_file.write_text(stream_url)
+
+    # Optional NFO to associate with Collection/BoxSet
+    if catalog_name:
+        nfo_file = item_dir / f"{folder_name}.nfo"
+        nfo_content = (
+            f'<?xml version="1.0" encoding="utf-8" standalone="yes"?>\n'
+            f'<movie>\n'
+            f'  <title>{title}</title>\n'
+            f'  <set>\n'
+            f'    <name>{catalog_name}</name>\n'
+            f'  </set>\n'
+            f'</movie>\n'
+        )
+        if not nfo_file.exists():
+            nfo_file.write_text(nfo_content)
+
+    return True
+
+
+def sync_series(meta: dict, catalog_name: str, shows_dir: Path, manifest_base: str) -> bool:
+    imdb_id = meta.get("id")
+    title = meta.get("name")
+    if not imdb_id or not title:
+        return False
+
+    year = meta.get("releaseInfo", "")
+    safe_title = sanitize_filename(title)
+    folder_name = f"{safe_title} ({year}) [imdbid-{imdb_id}]" if year else f"{safe_title} [imdbid-{imdb_id}]"
+    show_dir = shows_dir / folder_name
+    show_dir.mkdir(parents=True, exist_ok=True)
+
+    # Fetch episode details from AIOMetadata meta endpoint
+    meta_url = f"{manifest_base}/meta/series/{imdb_id}.json"
+    meta_data = fetch_json(meta_url)
+    if not meta_data or "meta" not in meta_data:
+        return False
+
+    videos = meta_data["meta"].get("videos", [])
+    if not videos:
+        return False
+
+    for v in videos:
+        s_num = v.get("season", 1)
+        e_num = v.get("episode", 1)
+        v_id = v.get("id", f"{imdb_id}:{s_num}:{e_num}")
+
+        season_dir = show_dir / f"Season {s_num:02d}"
+        season_dir.mkdir(parents=True, exist_ok=True)
+
+        ep_filename = f"{safe_title} - S{s_num:02d}E{e_num:02d}.strm"
+        ep_file = season_dir / ep_filename
+        stream_url = f"http://{RESOLVER_HOST}/play/series/{v_id}\n"
+        if not ep_file.exists() or ep_file.read_text() != stream_url:
+            ep_file.write_text(stream_url)
+
+    return True
+
+
+def sync_catalog(catalog: dict, manifest_base: str, movies_dir: Path, shows_dir: Path, limit: int) -> int:
+    cat_type = catalog.get("type")
+    cat_id = catalog.get("id")
+    cat_name = catalog.get("name", cat_id)
+
+    # Skip search / internal catalogs
+    if cat_type not in ("movie", "series"):
+        return 0
+    if any(k in cat_id for k in ("search", "similar")):
+        return 0
+
+    catalog_url = f"{manifest_base}/catalog/{cat_type}/{cat_id}.json"
+    data = fetch_json(catalog_url)
+    if not data or "metas" not in data:
+        return 0
+
+    metas = data["metas"][:limit] if limit > 0 else data["metas"]
+    count = 0
+    logger.info(f"Syncing catalog: {cat_name} ({len(metas)} items)...")
+
+    for meta in metas:
+        try:
+            if cat_type == "movie":
+                if sync_movie(meta, cat_name, movies_dir):
+                    count += 1
+            elif cat_type == "series":
+                if sync_series(meta, cat_name, shows_dir, manifest_base):
+                    count += 1
+        except Exception as e:
+            logger.debug(f"Error syncing item in {cat_name}: {e}")
+
+    return count
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Sync AIOMetadata catalogs to Jellyfin STRM files")
+    parser.add_argument("--limit", type=int, default=25, help="Max items per catalog (default: 25)")
+    parser.add_argument("--concurrency", type=int, default=5, help="Concurrent catalog fetches (default: 5)")
+    args = parser.parse_args()
+
+    movies_dir = BASE_DIR / "Movies"
+    shows_dir = BASE_DIR / "Shows"
+    movies_dir.mkdir(parents=True, exist_ok=True)
+    shows_dir.mkdir(parents=True, exist_ok=True)
+
+    manifest_base = MANIFEST_URL.replace("/manifest.json", "")
+    manifest = fetch_json(MANIFEST_URL)
+    if not manifest:
+        logger.error("Could not fetch manifest from AIOMetadata")
+        sys.exit(1)
+
+    catalogs = manifest.get("catalogs", [])
+    logger.info(f"Found {len(catalogs)} total catalogs in manifest. Starting sync (limit={args.limit})...")
+
+    total_synced = 0
+    with concurrent.futures.ThreadPoolExecutor(max_workers=args.concurrency) as executor:
+        futures = {
+            executor.submit(sync_catalog, cat, manifest_base, movies_dir, shows_dir, args.limit): cat
+            for cat in catalogs
+        }
+        for future in concurrent.futures.as_completed(futures):
+            cat = futures[future]
+            try:
+                synced = future.result()
+                total_synced += synced
+            except Exception as e:
+                logger.error(f"Failed catalog {cat.get('name')}: {e}")
+
+    logger.info(f"Sync complete! Processed {total_synced} items.")
+
+
+if __name__ == "__main__":
+    main()

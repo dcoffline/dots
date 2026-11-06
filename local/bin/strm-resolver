@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+"""
+strm-resolver: Resolves Stremio media IDs to direct Debrid stream URLs via AIOStreams.
+Listens on port 8098 and responds with HTTP 302 redirects to playable streams.
+"""
+
+import http.server
+import json
+import logging
+import sys
+import time
+import urllib.request
+from urllib.error import HTTPError, URLError
+
+PORT = 8098
+AIOSTREAMS_MANIFEST = "https://aiostreams.hemati.com/stremio/b937e71b-cef2-4d3d-8146-d6e26f53e57c/eyJpIjoiYWlSb2lSWFVXckZpZUU1RURKQWw1UT09IiwiZSI6ImlxRE5lN0gwTG9jQkJVcGgvVGhiYkE4ejh5am1hVTZkMi9jVVpBWVhtMHc9IiwidCI6ImEifQ/manifest.json"
+CACHE_TTL = 1800  # 30 minutes
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger("strm-resolver")
+
+# In-memory stream cache: (type, id) -> (stream_url, timestamp)
+_cache = {}
+
+
+def get_stream_url(media_type: str, media_id: str) -> str | None:
+    now = time.time()
+    cache_key = f"{media_type}:{media_id}"
+    cached = _cache.get(cache_key)
+    if cached and (now - cached[1]) < CACHE_TTL:
+        return cached[0]
+
+    base_url = AIOSTREAMS_MANIFEST.replace("/manifest.json", "")
+    req_url = f"{base_url}/stream/{media_type}/{media_id}.json"
+    req = urllib.request.Request(req_url, headers={"User-Agent": "strm-resolver/1.0"})
+
+    try:
+        with urllib.request.urlopen(req, timeout=12) as resp:
+            data = json.loads(resp.read().decode())
+            streams = data.get("streams", [])
+            for s in streams:
+                url = s.get("url")
+                if url:
+                    _cache[cache_key] = (url, now)
+                    return url
+    except Exception as e:
+        logger.error(f"Failed to resolve {media_type}/{media_id}: {e}")
+        return None
+    return None
+
+
+class ResolverHandler(http.server.BaseHTTPRequestHandler):
+    def handle_play(self):
+        parts = self.path.strip("/").split("/")
+        if len(parts) >= 3 and parts[0] == "play":
+            media_type, media_id = parts[1], parts[2]
+            logger.info(f"Resolving request: type={media_type}, id={media_id} from {self.client_address[0]}")
+            stream_url = get_stream_url(media_type, media_id)
+            if stream_url:
+                self.send_response(302)
+                self.send_header("Location", stream_url)
+                self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                return
+            else:
+                self.send_error(404, "No playable stream found for item")
+                return
+
+        if self.path == "/health":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.end_headers()
+            self.wfile.write(b"OK\n")
+            return
+
+        self.send_error(404, "Endpoint not found")
+
+    def do_GET(self):
+        self.handle_play()
+
+    def do_HEAD(self):
+        self.handle_play()
+
+    def log_message(self, format, *args):
+        pass
+
+
+def main():
+    server = http.server.ThreadingHTTPServer(("0.0.0.0", PORT), ResolverHandler)
+    logger.info(f"strm-resolver started on port {PORT}")
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        server.server_close()
+
+
+if __name__ == "__main__":
+    main()

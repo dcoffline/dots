@@ -25,6 +25,7 @@ GroupAdd=keep-groups
 # Config and Cache go on the fast SSD
 Volume=%h/.local/share/jellyfin/config:/config
 Volume=%h/.local/share/jellyfin/cache:/cache
+Volume=%h/.local/share/jellyfin/catalogs:/catalogs:ro
 
 # Bulk Media Storage on the HDD (Mounted read-only to prevent writing .nfo/thumbnails in media folders)
 Volume=%h/.mnt/10T:/media:ro
