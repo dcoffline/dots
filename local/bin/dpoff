@@ -122,7 +122,7 @@ case "$XDG_CURRENT_DESKTOP" in
   # 3. Turn off dock, natscroll, tablet
   dock off
   touchup off
-  natscroll off
   ;;
 esac
+natscroll off
 monctl

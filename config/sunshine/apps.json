@@ -77,6 +77,10 @@
                 {
                     "do": "monctl 1680x1050 119.891",
                     "undo": ""
+                },
+                {
+                    "do": "natscroll off",
+                    "undo": ""
                 }
             ],
             "wait-all": true

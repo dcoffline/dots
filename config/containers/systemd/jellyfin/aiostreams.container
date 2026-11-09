@@ -11,6 +11,7 @@ Image=ghcr.io/viren070/aiostreams:v2.36.0
 Network=homelab.network
 EnvironmentFile=%h/.local/share/aiostreams/.env
 Environment=BASE_URL=https://aiostreams.hemati.com
+Environment=JELLYFIN_PIN_SIGN_IN=true
 # NOTE: NODE_OPTIONS (incl. --max-http-header-size=65536 for Gelato 431 fix) lives in ~/.local/share/aiostreams/.env — quadlet cannot quote spaced envs.
 
 # Persistent storage for local instance databases/sessions
