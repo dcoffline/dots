@@ -39,10 +39,6 @@
                 {
                     "do": "monctl 2560x1440 120",
                     "undo": ""
-                },
-                {
-                    "do": "natscroll off",
-                    "undo": ""
                 }
             ],
             "wait-all": true
@@ -76,10 +72,6 @@
             "prep-cmd": [
                 {
                     "do": "monctl 1680x1050 119.891",
-                    "undo": ""
-                },
-                {
-                    "do": "natscroll off",
                     "undo": ""
                 }
             ],
@@ -152,6 +144,10 @@
                 {
                     "do": "touchup",
                     "undo": "touchup off"
+                },
+                {
+                    "do": "natscroll",
+                    "undo": ""
                 },
                 {
                     "do": "loginctl unlock-session $(loginctl show-user $USER -p Display --value)",
