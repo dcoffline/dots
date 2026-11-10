@@ -4,10 +4,7 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
 
 # macOS support
 if [[ "$OSTYPE" == darwin* ]]; then
-  if [ "$1" = "disable" ] || [ "$1" = "off" ]; then
-    # No equivalent on macOS
-    exit 0
-  fi
+  exit 0
 fi
 
 DESKTOP="${XDG_CURRENT_DESKTOP:-GNOME}"

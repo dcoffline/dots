@@ -17,20 +17,14 @@ if [[ "$OSTYPE" == darwin* ]]; then
     fi
   fi
 
-  # If BetterDisplay virtual screen exists, unmirror, connect it and designate it as Main
+  # Ensure virtual screens don't interfere with Sunshine's capture
   if command -v betterdisplaycli >/dev/null 2>&1; then
-    if betterdisplaycli get -identifiers 2>/dev/null | grep -qE "(Remote Screen|Galaxy Tab)"; then
-      betterdisplaycli set -nameLike="DELL" -mirror=off 2>/dev/null || true
-      betterdisplaycli set -nameLike="Remote Screen" -connected=on 2>/dev/null || true
-      sleep 0.5
-      betterdisplaycli set -nameLike="Remote Screen" -main=on 2>/dev/null || true
-    fi
+    betterdisplaycli set -nameLike="Remote Screen" -connected=off 2>/dev/null || true
+    betterdisplaycli set -nameLike="DELL" -mirror=off 2>/dev/null || true
   fi
 
   if [ -n "$1" ]; then
     monctl "$@"
-  else
-    monctl
   fi
   exit 0
 fi

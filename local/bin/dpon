@@ -6,18 +6,19 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
 if [[ "$OSTYPE" == darwin* ]]; then
   echo "Running as macOS on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
 
-  # Return Main to physical display, keeping Remote Screen connected for remote/headless access
-  if command -v betterdisplaycli >/dev/null 2>&1; then
-    betterdisplaycli set -deviceType=Display -main=on 2>/dev/null || true
-  fi
-
   # Restore saved pre-stream display configuration (ignoring any mirrored layouts)
   if [ -f "$HOME/.config/sunshine/.prev_displayplacer" ]; then
     CMD=$(cat "$HOME/.config/sunshine/.prev_displayplacer")
     if [[ -n "$CMD" && "$CMD" != *"+"* ]]; then
-      eval "$CMD"
+      eval "$CMD" 2>/dev/null || true
     fi
     rm -f "$HOME/.config/sunshine/.prev_displayplacer"
+  fi
+
+  if command -v betterdisplaycli >/dev/null 2>&1; then
+    betterdisplaycli set -nameLike="DELL" -mirror=off 2>/dev/null || true
+    betterdisplaycli set -nameLike="Remote Screen" -connected=off 2>/dev/null || true
+    betterdisplaycli set -deviceType=Display -main=on 2>/dev/null || true
   fi
 
   exit 0
