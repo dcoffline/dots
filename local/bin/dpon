@@ -6,22 +6,46 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:$HOME/.local/bin:$PATH"
 if [[ "$OSTYPE" == darwin* ]]; then
   echo "Running as macOS on $(uname -m)" >>"$HOME/.config/sunshine/sunshine_script.log"
 
-  # Restore saved pre-stream display configuration (ignoring any mirrored layouts)
-  if [ -f "$HOME/.config/sunshine/.prev_displayplacer" ]; then
-    CMD=$(cat "$HOME/.config/sunshine/.prev_displayplacer")
-    if [[ -n "$CMD" && "$CMD" != *"+"* ]]; then
-      eval "$CMD" 2>/dev/null || true
-    fi
-    rm -f "$HOME/.config/sunshine/.prev_displayplacer"
-  fi
+  # 1. Restore Dell physical monitor as Main display at (0,0) and move Remote Screen to (2560,1440)
+  python3 -c '
+import subprocess, re
 
+try:
+    out = subprocess.check_output(["displayplacer", "list"], text=True)
+    screens = out.split("Persistent screen id: ")
+    v_id = None
+    p_id = None
+    v_res = "2560x1440"
+
+    for s in screens[1:]:
+        lines = s.splitlines()
+        sid = lines[0].strip()
+        if sid.startswith("0BDA5B94") or "s3546859106" in sid:
+            v_id = sid
+            for l in lines:
+                m = re.match(r"^Resolution:\s+(\d+x\d+)", l)
+                if m:
+                    v_res = m.group(1)
+        elif sid.startswith("8FF805E8") or "s1095512908" in sid:
+            p_id = sid
+
+    if p_id and v_id:
+        cmd = ["displayplacer", f"id:{p_id} res:2560x1440 hz:75 color_depth:8 enabled:true scaling:off origin:(0,0) degree:0", f"id:{v_id} res:{v_res} origin:(2560,1440) degree:0"]
+        subprocess.check_call(cmd)
+    elif p_id:
+        subprocess.check_call(["displayplacer", f"id:{p_id} res:2560x1440 hz:75 color_depth:8 enabled:true scaling:off origin:(0,0) degree:0"])
+except Exception as e:
+    pass
+' 2>/dev/null || true
+
+  # 2. Restore DELL brightness to 100% (keep Remote Screen connected so display ID never resets)
   if command -v betterdisplaycli >/dev/null 2>&1; then
     betterdisplaycli set -nameLike="DELL" -mirror=off 2>/dev/null || true
     betterdisplaycli set -nameLike="DELL" -brightness=1.0 2>/dev/null || true
-    betterdisplaycli set -nameLike="Remote Screen" -connected=off 2>/dev/null || true
     betterdisplaycli set -deviceType=Display -main=on 2>/dev/null || true
   fi
 
+  rm -f "$HOME/.config/sunshine/.prev_displayplacer"
   exit 0
 fi
 
