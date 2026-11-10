@@ -29,6 +29,15 @@ fi
 
 failed=0; abs=0; checked=0
 is_mac="$(uname -s)"
+allow_missing=0
+
+for arg in "$@"; do
+  case "$arg" in
+    --pre-stow|--allow-missing)
+      allow_missing=1
+      ;;
+  esac
+done
 
 # Check if config/containers is opted-in (via INCLUDE_CONTAINERS=1 or active stow symlink)
 check_containers="${INCLUDE_CONTAINERS:-0}"
@@ -52,12 +61,24 @@ while IFS= read -r path; do
   # Exemptions: home/.secrets is the git-crypt reinstall backup (the live
   # ~/.secrets is authoritative, never stowed); Library/ is macOS-only;
   # config/containers/ is opt-in (--containers); the antigravitycli session
-  # link deliberately points outside dots.
+  # link deliberately points outside dots; local/share container dirs are
+  # ignored by stow (STOW_LOCAL_ARGS) and persistent-linked on host.
   case "$path" in
     home/.secrets) continue ;;
     Library/*) [ "$is_mac" = "Darwin" ] || continue ;;
     config/containers/*) [ "$check_containers" -eq 1 ] || continue ;;
     config/environment.d/.antigravitycli/*) continue ;;
+    local/share/aiostreams/*|\
+    local/share/collabora/*|\
+    local/share/freellmapi/*|\
+    local/share/immich/*|\
+    local/share/mediaflow/*|\
+    local/share/nextcloud/*|\
+    local/share/nextcloud-notify-push/*|\
+    local/share/open-seo/*|\
+    local/share/pka-web/*|\
+    local/share/searxng/*|\
+    local/share/zcc-webhook/*) continue ;;
   esac
   t="$base/$rest"
   checked=$((checked+1))
@@ -78,12 +99,17 @@ while IFS= read -r path; do
   fi
   if [ -L "$t" ]; then
     echo "BROKEN LINK: $t -> $(readlink "$t")"
+    failed=1
   elif [ -e "$t" ]; then
     echo "REGULAR FILE (link destroyed): $t"
+    failed=1
   else
+    if [ "$allow_missing" -eq 1 ]; then
+      continue
+    fi
     echo "MISSING: $t (dots/$path not stowed)"
+    failed=1
   fi
-  failed=1
 done < <(git -C "$DOTS" ls-files home/ config/ local/ Library/)
 
 if [ "$failed" -eq 0 ]; then

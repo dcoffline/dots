@@ -102,7 +102,11 @@ status:
 # Pass --containers (or -c) to include Podman Quadlet symlinks (~/.config/containers)
 update *args:
     #!/usr/bin/env bash
-    sudo -v
+    if [[ "$(uname -s)" != "Darwin" ]]; then
+      sudo -v
+      # Sudo keep-alive
+      while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+    fi
     set -e
     SHELLINI="config/dconf-backups/gnome-shell.ini"
     DOTS="$(readlink -f "${DOTS:-$HOME/src/dots}")"
@@ -142,9 +146,6 @@ update *args:
       fi
     }
 
-    # Sudo keep-alive
-    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
     if [ -f /run/.containerenv ]; then
       ENV_TYPE="container"
       echo "[ 🏗️  Container environment detected ]"
@@ -167,7 +168,7 @@ update *args:
     # `update` touches it. Absolute links break stow -R (2026-10-16 outage:
     # stow 2.3.1 skips absolute links on unstow then aborts with "not owned
     # by stow"); atomic-rename edits destroy stow links silently. Catch both.
-    bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
+    bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh" --pre-stow
     export INCLUDE_CONTAINERS
 
     echo "[ Syncing with GitHub... ]"
@@ -226,6 +227,23 @@ update *args:
       distrobox-host-exec sudo ujust update
 
     elif [ "$ENV_TYPE" = "immutable" ]; then
+      if [ "${IS_MAC:-0}" -eq 1 ]; then
+        echo "[ Updating macOS packages... ]"
+        if command -v brew >/dev/null 2>&1; then
+          brew update && brew upgrade
+        fi
+        if command -v cargo >/dev/null 2>&1; then
+          if command -v rustup >/dev/null 2>&1; then
+            echo "[ Updating Rust toolchain... ]"
+            rustup update stable
+          fi
+          cargo binstall -y television atuin || cargo install television atuin || echo "⚠️ Warning: Cargo updates failed."
+        fi
+        if command -v mas >/dev/null 2>&1; then
+          mas upgrade || echo "⚠️ Warning: Mac App Store upgrade failed."
+        fi
+      fi
+
       echo "[ Syncing Host State... ]"
       brew bundle dump --force && sedi '/^flatpak/d' Brewfile || echo "⚠️ Warning: Homebrew dump failed."
       if command -v dconf >/dev/null 2>&1 && [[ "$XDG_CURRENT_DESKTOP" =~ "GNOME" ]]; then
@@ -240,6 +258,10 @@ update *args:
       cleanup_container_links
       stow -R "${STOW_LOCAL_ARGS[@]}" -t "$HOME/.local" local
       if [ "${IS_MAC:-0}" -eq 1 ]; then
+        if [ -f "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist" ] && [ ! -L "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist" ]; then
+          echo "Restoring symlink for sh.brew.sunshine.plist (overwritten by Homebrew)..."
+          rm -f "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist"
+        fi
         stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/Library" Library
         mkdir -p "$HOME/Library/Application Support/voxtype"
         ln -sfn "../../../src/dots/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
@@ -287,14 +309,18 @@ update *args:
       fi
       if command -v brew >/dev/null 2>&1; then brew bundle dump --force && sedi '/^flatpak/d' Brewfile; fi
 
-      stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
-      stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.local" local
-      stow "${STOW_CONFIG_ARGS[@]}" -R -t "$HOME/.config" config
+      stow -R --ignore='.DS_Store' --ignore='^\._' -t "$HOME" home
+      stow -R "${STOW_LOCAL_ARGS[@]}" -t "$HOME/.local" local
+      stow -R "${STOW_CONFIG_ARGS[@]}" -t "$HOME/.config" config
       cleanup_container_links
       if [ "${IS_MAC:-0}" -eq 1 ]; then
-        stow --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/Library" Library
+        if [ -f "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist" ] && [ ! -L "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist" ]; then
+          echo "Restoring symlink for sh.brew.sunshine.plist (overwritten by Homebrew)..."
+          rm -f "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist"
+        fi
+        stow -R --ignore='.DS_Store' --ignore='^\._' -t "$HOME/Library" Library
         mkdir -p "$HOME/Library/Application Support/voxtype"
-        ln -sfn "$DOTS/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
+        ln -sfn "../../../src/dots/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
       fi
       bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
 
