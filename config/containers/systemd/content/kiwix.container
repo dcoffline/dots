@@ -1,0 +1,25 @@
+[Unit]
+Description=Kiwix Container
+After=network-online.target
+
+[Container]
+ContainerName=kiwix
+Image=ghcr.io/kiwix/kiwix-serve:latest
+Network=homelab.network
+Volume=%h/.mnt/2T/local/kiwix:/data:ro,Z
+Exec=/data/wikipedia_en_mini.zim
+AutoUpdate=registry
+AddHost=host.containers.internal:host-gateway
+
+Label=homepage.name=Kiwix
+Label=homepage.group=Content
+Label=homepage.icon=kiwix
+Label=homepage.href=https://kiwix.hemati.com
+Label=homepage.description=Offline Wikipedia
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

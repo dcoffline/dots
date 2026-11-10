@@ -1,0 +1,26 @@
+[Unit]
+Description=Homebox Container
+After=network-online.target
+
+[Container]
+ContainerName=homebox
+Image=ghcr.io/sysadminsmedia/homebox:latest
+Network=homelab.network
+Volume=%h/.local/share/homebox:/data:Z
+AutoUpdate=registry
+HealthCmd=wget -qO- http://localhost:7745/ >/dev/null || exit 1
+EnvironmentFile=%h/.local/share/homebox/.env
+AddHost=host.containers.internal:host-gateway
+
+Label=homepage.name=Homebox
+Label=homepage.group=Content
+Label=homepage.icon=homebox
+Label=homepage.href=https://homebox.hemati.com
+Label=homepage.description=Home Inventory
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

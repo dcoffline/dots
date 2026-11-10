@@ -1,0 +1,16 @@
+[Unit]
+Description=Paperless Redis Container
+After=network-online.target
+
+[Container]
+ContainerName=paperless-redis
+Image=docker.io/library/redis:alpine
+Network=homelab.network
+AutoUpdate=registry
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

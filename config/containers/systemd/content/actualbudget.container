@@ -1,0 +1,24 @@
+[Unit]
+Description=Actual Budget Container
+After=network-online.target
+
+[Container]
+ContainerName=actualbudget
+Image=docker.io/actualbudget/actual-server:latest
+Network=homelab.network
+Volume=%h/.local/share/actualbudget:/data:Z
+AutoUpdate=registry
+AddHost=host.containers.internal:host-gateway
+
+Label=homepage.name=Actual Budget
+Label=homepage.group=Content
+Label=homepage.icon=actual-budget
+Label=homepage.href=https://budget.hemati.com
+Label=homepage.description=Envelope Budgeting
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
