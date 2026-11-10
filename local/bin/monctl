@@ -17,16 +17,63 @@ if [[ "$OSTYPE" == darwin* ]]; then
     REFRESH="60"
   fi
 
-  if ! command -v displayplacer >/dev/null 2>&1; then
-    echo "monctl: displayplacer not found in PATH ($PATH). Install with: brew install displayplacer" >>"$HOME/.config/sunshine/sunshine_script.log"
+  # 1. Connect BetterDisplay virtual screen and set resolution
+  if command -v betterdisplaycli >/dev/null 2>&1; then
+    betterdisplaycli set -nameLike="Remote Screen" -connected=on 2>/dev/null || true
+    betterdisplaycli set -nameLike="Remote Screen" -resolution="$RES" 2>/dev/null || true
+    sleep 0.5
+  fi
+
+  # 2. Arrange displays: Remote Screen as Main at (0,0), physical display at (tw, th) corner
+  if command -v displayplacer >/dev/null 2>&1; then
+    python3 -c '
+import subprocess, re, sys
+
+target_res = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] else "2560x1440"
+try:
+    tw, th = map(int, target_res.split("x"))
+except Exception:
+    tw, th = 2560, 1440
+
+try:
+    out = subprocess.check_output(["displayplacer", "list"], text=True)
+    screens = out.split("Persistent screen id: ")
+    virtual_id = None
+    physical_id = None
+    virtual_modes = []
+
+    for s in screens[1:]:
+        lines = s.splitlines()
+        sid = lines[0].strip()
+        if sid.startswith("0BDA5B94") or "s3546859106" in sid:
+            virtual_id = sid
+            for line in lines:
+                m = re.match(r"\s+mode (\d+): res:(\d+x\d+)", line)
+                if m:
+                    virtual_modes.append((m.group(1), m.group(2)))
+        elif sid.startswith("8FF805E8") or "s1095512908" in sid:
+            physical_id = sid
+
+    if virtual_id and physical_id:
+        v_mode = None
+        for m_num, m_res in virtual_modes:
+            if m_res == target_res:
+                v_mode = m_num
+                break
+        if v_mode:
+            cmd = ["displayplacer", f"id:{virtual_id} mode:{v_mode} origin:(0,0)", f"id:{physical_id} res:2560x1440 origin:({tw},{th})"]
+        else:
+            cmd = ["displayplacer", f"id:{virtual_id} res:{target_res} origin:(0,0)", f"id:{physical_id} res:2560x1440 origin:({tw},{th})"]
+        subprocess.check_call(cmd)
+        subprocess.run(["betterdisplaycli", "set", "-nameLike=DELL", "-brightness=0"], capture_output=True)
+    elif physical_id:
+        subprocess.check_call(["displayplacer", f"id:{physical_id} res:{target_res} origin:(0,0)"])
+except Exception as e:
+    print(f"monctl error: {e}", file=sys.stderr)
+' "$RES" "$REFRESH" 2>/dev/null
     exit 0
   fi
 
-  # 2. Fallback to displayplacer on physical display
-  if ! command -v displayplacer >/dev/null 2>&1; then
-    echo "monctl: displayplacer not found in PATH ($PATH). Install with: brew install displayplacer" >>"$HOME/.config/sunshine/sunshine_script.log"
-    exit 0
-  fi
 
   CMD=$(python3 -c '
 import subprocess, re, sys

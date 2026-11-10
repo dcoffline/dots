@@ -17,14 +17,10 @@ if [[ "$OSTYPE" == darwin* ]]; then
     fi
   fi
 
-  # Ensure virtual screens don't interfere with Sunshine's capture
-  if command -v betterdisplaycli >/dev/null 2>&1; then
-    betterdisplaycli set -nameLike="Remote Screen" -connected=off 2>/dev/null || true
-    betterdisplaycli set -nameLike="DELL" -mirror=off 2>/dev/null || true
-  fi
-
   if [ -n "$1" ]; then
     monctl "$@"
+  else
+    monctl
   fi
   exit 0
 fi

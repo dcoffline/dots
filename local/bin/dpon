@@ -17,6 +17,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
   if command -v betterdisplaycli >/dev/null 2>&1; then
     betterdisplaycli set -nameLike="DELL" -mirror=off 2>/dev/null || true
+    betterdisplaycli set -nameLike="DELL" -brightness=1.0 2>/dev/null || true
     betterdisplaycli set -nameLike="Remote Screen" -connected=off 2>/dev/null || true
     betterdisplaycli set -deviceType=Display -main=on 2>/dev/null || true
   fi
