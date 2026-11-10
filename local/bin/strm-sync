@@ -14,7 +14,7 @@ import sys
 import urllib.request
 from pathlib import Path
 
-MANIFEST_URL = "https://aiometadata.hemati.com/stremio/9fe2626d-50dd-4875-8626-c227162be222/manifest.json"
+MANIFEST_URL = "https://aiometadata.hemati.com/stremio/09b7a9b1-39cf-4e51-815f-1cd20a2e4d20/manifest.json"
 RESOLVER_HOST = "192.168.1.18:8098"
 BASE_DIR = Path("/home/eric/.local/share/jellyfin/catalogs")
 HEADERS = {"User-Agent": "strm-sync/1.0"}
