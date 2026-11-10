@@ -230,7 +230,9 @@ update *args:
       if [ "${IS_MAC:-0}" -eq 1 ]; then
         echo "[ Updating macOS packages... ]"
         if command -v brew >/dev/null 2>&1; then
-          brew update && brew upgrade
+          export HOMEBREW_NO_ASK=1
+          brew update || echo "⚠️ Warning: Homebrew update failed. Continuing..."
+          brew upgrade -y || echo "⚠️ Warning: Homebrew upgrade reported errors. Continuing..."
         fi
         if command -v cargo >/dev/null 2>&1; then
           if command -v rustup >/dev/null 2>&1; then
