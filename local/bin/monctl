@@ -22,7 +22,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
     betterdisplaycli set -nameLike="Remote Screen" -connected=on 2>/dev/null || true
   fi
 
-  # 2. Arrange displays: Remote Screen as Main at (0,0), physical Dell display at (tw, th) corner
+  # 2. Arrange displays: Mirror Dell onto Remote Screen as master at (0,0)
   if command -v displayplacer >/dev/null 2>&1; then
     python3 -c '
 import subprocess, re, sys, time
@@ -59,39 +59,19 @@ try:
                 if m:
                     p_cur_origin = m.group(1)
 
-    def warp_cursor_and_focus(x, y):
-        try:
-            import ctypes
-            cg = ctypes.cdll.LoadLibrary("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics")
-            class CGPoint(ctypes.Structure):
-                _fields_ = [("x", ctypes.c_double), ("y", ctypes.c_double)]
-            cg.CGWarpMouseCursorPosition.argtypes = [CGPoint]
-            cg.CGWarpMouseCursorPosition(CGPoint(x, y))
-            cg.CGEventCreateMouseEvent.argtypes = [ctypes.c_void_p, ctypes.c_uint32, CGPoint, ctypes.c_uint32]
-            cg.CGEventCreateMouseEvent.restype = ctypes.c_void_p
-            cg.CGEventPost.argtypes = [ctypes.c_uint32, ctypes.c_void_p]
-            pt = CGPoint(x, y)
-            cg.CGEventPost(0, cg.CGEventCreateMouseEvent(None, 5, pt, 0))
-            cg.CGEventPost(0, cg.CGEventCreateMouseEvent(None, 1, pt, 0))
-            cg.CGEventPost(0, cg.CGEventCreateMouseEvent(None, 2, pt, 0))
-        except Exception:
-            pass
-
     if virtual_id and physical_id:
-        if v_is_main and v_cur_res == target_res and p_cur_origin == f"({tw},{th})":
-            # Already in desired state; ensure Dell brightness is 0, focus remote screen, and exit
+        if v_is_main and v_cur_res == target_res and p_cur_origin == "(0,0)":
+            # Already mirrored with Remote Screen as master at target resolution
             subprocess.run(["betterdisplaycli", "set", "-nameLike=DELL", "-brightness=0"], capture_output=True)
-            warp_cursor_and_focus(tw / 2.0, th / 2.0)
             sys.exit(0)
 
-        # Set resolution on virtual screen via BetterDisplay
+        # Set resolution on virtual screen via BetterDisplay first
         subprocess.run(["betterdisplaycli", "set", "-nameLike=Remote Screen", f"-resolution={target_res}"], capture_output=True)
 
-        # Arrange: Remote Screen at (0,0) as main display, Dell at (tw, th) corner
-        cmd = ["displayplacer", f"id:{virtual_id} res:{target_res} origin:(0,0)", f"id:{physical_id} res:2560x1440 origin:({tw},{th})"]
+        # Mirror Dell onto Remote Screen (Remote Screen is master at (0,0))
+        cmd = ["displayplacer", f"id:{virtual_id}+{physical_id} res:{target_res} origin:(0,0)"]
         subprocess.check_call(cmd)
         subprocess.run(["betterdisplaycli", "set", "-nameLike=DELL", "-brightness=0"], capture_output=True)
-        warp_cursor_and_focus(tw / 2.0, th / 2.0)
         time.sleep(0.5)
     elif physical_id:
         subprocess.check_call(["displayplacer", f"id:{physical_id} res:{target_res} origin:(0,0)"])
