@@ -1,0 +1,16 @@
+#
+# Gotenberg: document conversion sidecar for Paperless-ngx (office docs -> PDF)
+#
+[Container]
+Image=docker.io/gotenberg/gotenberg:8
+ContainerName=paperless-gotenberg
+Network=homelab.network
+SecurityLabelDisable=true
+Label=io.containers.autoupdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

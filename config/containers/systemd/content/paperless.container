@@ -10,7 +10,7 @@ Environment=PAPERLESS_REDIS=redis://paperless-redis:6379
 EnvironmentFile=%h/.local/share/paperless/.env
 Volume=%h/.local/share/paperless/data:/usr/src/paperless/data:Z
 Volume=%h/.local/share/paperless/media:/usr/src/paperless/media:Z
-Volume=%h/.mnt/2T/local/paperless/consume:/usr/src/paperless/consume:Z
+Volume=%h/.local/share/paperless/consume:/usr/src/paperless/consume:Z
 AutoUpdate=registry
 HealthCmd=curl -fsS -o /dev/null http://localhost:8000/ || exit 1
 AddHost=host.containers.internal:host-gateway

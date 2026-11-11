@@ -13,7 +13,7 @@ AddHost=host.containers.internal:host-gateway
 Label=homepage.name=Actual Budget
 Label=homepage.group=Content
 Label=homepage.icon=actual-budget
-Label=homepage.href=https://budget.hemati.com
+Label=homepage.href=https://actual.hemati.com
 Label=homepage.description=Envelope Budgeting
 
 [Service]

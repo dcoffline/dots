@@ -22,30 +22,6 @@
         href: https://gev.hemati.com
         description: Satellite Maps
         ping: https://gev.hemati.com
-    - Paperless-ngx:
-        icon: paperless-ngx
-        href: https://paperless.hemati.com
-        description: Document Archive
-        server: podman
-        container: paperless
-    - Actual Budget:
-        icon: actual-budget
-        href: https://budget.hemati.com
-        description: Envelope Budgeting
-        server: podman
-        container: actualbudget
-    - Kiwix:
-        icon: kiwix
-        href: https://kiwix.hemati.com
-        description: Offline Wikipedia
-        server: podman
-        container: kiwix
-    - Homebox:
-        icon: homebox
-        href: https://homebox.hemati.com
-        description: Home Inventory
-        server: podman
-        container: homebox
 - AI:
     - Hermes:
         icon: hermes 

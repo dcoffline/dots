@@ -155,9 +155,17 @@ case "$XDG_CURRENT_DESKTOP" in
   fi
 
   if [ -n "$MODE_ID" ]; then
-    "${RUN[@]}" kscreen-doctor "output.${TARGET_OUT}.enable" "output.${TARGET_OUT}.mode.${MODE_ID}" "output.${TARGET_OUT}.scale.${SCALE}"
+    if [ "$TARGET_OUT" = "Virtual-sunshine-vmon" ]; then
+      "${RUN[@]}" kscreen-doctor "output.${TARGET_OUT}.mode.${MODE_ID}" "output.${TARGET_OUT}.scale.${SCALE}"
+    else
+      "${RUN[@]}" kscreen-doctor "output.${TARGET_OUT}.enable" "output.${TARGET_OUT}.mode.${MODE_ID}" "output.${TARGET_OUT}.scale.${SCALE}"
+    fi
   else
-    "${RUN[@]}" kscreen-doctor "output.${TARGET_OUT}.enable" "output.${TARGET_OUT}.mode.${RES}@${FPS_INT}" "output.${TARGET_OUT}.scale.${SCALE}" || true
+    if [ "$TARGET_OUT" = "Virtual-sunshine-vmon" ]; then
+      "${RUN[@]}" kscreen-doctor "output.${TARGET_OUT}.mode.${RES}@${FPS_INT}" "output.${TARGET_OUT}.scale.${SCALE}" || true
+    else
+      "${RUN[@]}" kscreen-doctor "output.${TARGET_OUT}.enable" "output.${TARGET_OUT}.mode.${RES}@${FPS_INT}" "output.${TARGET_OUT}.scale.${SCALE}" || true
+    fi
   fi
   ;;
 "COSMIC")

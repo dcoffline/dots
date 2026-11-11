@@ -1,0 +1,16 @@
+#
+# Tika: text/metadata extraction sidecar for Paperless-ngx
+#
+[Container]
+Image=docker.io/apache/tika:2.9.0.0-full
+ContainerName=paperless-tika
+Network=homelab.network
+SecurityLabelDisable=true
+# classic tika server; autoupdate would float to pipes-based newer builds
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

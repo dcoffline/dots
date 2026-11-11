@@ -68,7 +68,7 @@ case "$XDG_CURRENT_DESKTOP" in
 "KDE" | *"KDE"* | plasma)
   INIT_RES="${SUNSHINE_CLIENT_WIDTH:-1920}x${SUNSHINE_CLIENT_HEIGHT:-1080}"
   if ! "${RUN[@]}" kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then
-    "${RUN[@]}" systemctl --user stop --wait sunshine-vmon.service 2>/dev/null || true
+    "${RUN[@]}" systemctl --user stop sunshine-vmon.service 2>/dev/null || true
     "${RUN[@]}" systemd-run --user --unit=sunshine-vmon --collect --property=TimeoutStopSec=1s \
       --setenv=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" \
       krfb-virtualmonitor --resolution "$INIT_RES" --name sunshine-vmon --password sunshinepass --port 5905
@@ -81,8 +81,6 @@ case "$XDG_CURRENT_DESKTOP" in
       sleep 0.2
     done
   fi
-
-  "${RUN[@]}" kscreen-doctor "output.Virtual-sunshine-vmon.enable"
 
   # Disable all physical monitors so only the virtual monitor is active
   "${RUN[@]}" kscreen-doctor --json 2>/dev/null |
@@ -117,4 +115,4 @@ case "$XDG_CURRENT_DESKTOP" in
   ;;
 esac
 natscroll off
-monctl
+monctl "$@"

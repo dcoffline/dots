@@ -9,6 +9,10 @@ Network=homelab.network
 PublishPort=127.0.0.1:7330:7330
 EnvironmentFile=%h/.local/share/scrob/.env
 Volume=scrob_data:/app/backend/data:Z
+HealthCmd=python3 -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:7330/', timeout=5).status==200 else 1)"
+HealthInterval=60s
+HealthRetries=3
+HealthStartPeriod=30s
 Volume=/var/home/eric/.mnt/2T/local/hermes/scrob-entrypoint.sh:/entrypoint.sh:ro,Z
 
 Label=homepage.name=Scrob
