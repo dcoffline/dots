@@ -114,5 +114,4 @@ case "$XDG_CURRENT_DESKTOP" in
   touchup off
   ;;
 esac
-natscroll off
 monctl "$@"

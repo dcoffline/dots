@@ -50,7 +50,9 @@ def sync_movie(meta: dict, catalog_name: str, movies_dir: Path) -> bool:
     item_dir.mkdir(parents=True, exist_ok=True)
 
     strm_file = item_dir / f"{folder_name}.strm"
-    stream_url = f"http://{RESOLVER_HOST}/play/movie/{imdb_id}\n"
+    # dynamiclibrary:// scheme required — DynamicLibrary PlaybackInfoFilter returns
+    # EMPTY MediaSources for any other scheme (2026-11-10 Android TV crash fix).
+    stream_url = f"dynamiclibrary://movie/{imdb_id}\n"
     if not strm_file.exists() or strm_file.read_text() != stream_url:
         strm_file.write_text(stream_url)
 
@@ -104,7 +106,7 @@ def sync_series(meta: dict, catalog_name: str, shows_dir: Path, manifest_base: s
 
         ep_filename = f"{safe_title} - S{s_num:02d}E{e_num:02d}.strm"
         ep_file = season_dir / ep_filename
-        stream_url = f"http://{RESOLVER_HOST}/play/series/{v_id}\n"
+        stream_url = f"dynamiclibrary://tv/{v_id.replace(':', '/', 2)}\n"
         if not ep_file.exists() or ep_file.read_text() != stream_url:
             ep_file.write_text(stream_url)
 
