@@ -10,7 +10,7 @@ This project manages the configuration and installation of a development environ
 - **`Brewfile`**: Defines the package set for Homebrew-managed environments.
 - **`config/`**: Contains the dotfiles for `~/.config`.
 - **`local/`**: Contains scripts and data for `~/.local`.
-- **`config/containers/systemd/`**: Quadlet files for managing containerized services.
+- **`containers/systemd/`**: Quadlet files for managing containerized services (stowed to `~/.config/containers` on container host).
 - **`config/systemd/user`**: Service files for --user systemd services.
 - **Secrets Management**: Sensitive files (`home/.secrets`, `local/share/**/*.env`, `*.secret`) are transparently encrypted and tracked using **`git-crypt`**. Commits are guarded by a pre-push secret scanner and a symlink integrity checker (`check_links.sh`).
 

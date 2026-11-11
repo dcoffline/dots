@@ -111,8 +111,10 @@ update *args:
     SHELLINI="config/dconf-backups/gnome-shell.ini"
     DOTS="$(readlink -f "${DOTS:-$HOME/src/dots}")"
 
+    # By default, containers are only included if explicitly requested via --containers
+    # or if we are on the primary container host 'bee'
     INCLUDE_CONTAINERS=0
-    if [ -L "$HOME/.config/containers" ] || [ -L "$HOME/.config/containers/systemd" ]; then
+    if [ "$(hostname)" = "bee" ]; then
       INCLUDE_CONTAINERS=1
     fi
     for arg in {{args}}; do
@@ -131,17 +133,22 @@ update *args:
     done
 
     STOW_CONFIG_ARGS=(--ignore=".DS_Store" --ignore='^\._')
-    if [ "$INCLUDE_CONTAINERS" -eq 0 ]; then
-      STOW_CONFIG_ARGS+=(--ignore='^containers$')
-    fi
     STOW_LOCAL_ARGS=(--ignore=".DS_Store" --ignore='^\._' --ignore='aiostreams|collabora|freellmapi|immich|mediaflow|nextcloud|nextcloud-notify-push|open-seo|pka-web|searxng|zcc-webhook')
 
-    cleanup_container_links() {
-      if [ "$INCLUDE_CONTAINERS" -eq 0 ]; then
+    apply_container_links() {
+      if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
+        echo "[ 🐳 Stowing Podman container Quadlets... ]"
+        mkdir -p "$HOME/.config/containers"
+        stow -d "$DOTS" -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.config/containers" containers
+      else
+        if [ -d "$HOME/.config/containers" ]; then
+          stow -d "$DOTS" -D --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.config/containers" containers 2>/dev/null || true
+          rmdir "$HOME/.config/containers" 2>/dev/null || true
+        fi
         if [ -L "$HOME/.config/containers" ] && [[ "$(readlink -f "$HOME/.config/containers" 2>/dev/null)" == "$DOTS/"* ]]; then
-          rm -f "$HOME/.config/containers"
+          rm -rf "$HOME/.config/containers"
         elif [ -L "$HOME/.config/containers/systemd" ] && [[ "$(readlink -f "$HOME/.config/containers/systemd" 2>/dev/null)" == "$DOTS/"* ]]; then
-          rm -f "$HOME/.config/containers/systemd"
+          rm -rf "$HOME/.config/containers/systemd"
         fi
       fi
     }
@@ -214,7 +221,7 @@ update *args:
       mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/bin" "$HOME/.local/share/gnome-shell/extensions"
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME" home
       stow -R "${STOW_CONFIG_ARGS[@]}" -t "$HOME/.config" config
-      cleanup_container_links
+      apply_container_links
       stow -R "${STOW_LOCAL_ARGS[@]}" -t "$HOME/.local" local
       bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
 
@@ -257,7 +264,7 @@ update *args:
       echo "[ Applying Dotfile Updates... ]"
       stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME" home
       stow -R "${STOW_CONFIG_ARGS[@]}" -t "$HOME/.config" config
-      cleanup_container_links
+      apply_container_links
       stow -R "${STOW_LOCAL_ARGS[@]}" -t "$HOME/.local" local
       if [ "${IS_MAC:-0}" -eq 1 ]; then
         if [ -f "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist" ] && [ ! -L "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist" ]; then
@@ -314,7 +321,7 @@ update *args:
       stow -R --ignore='.DS_Store' --ignore='^\._' -t "$HOME" home
       stow -R "${STOW_LOCAL_ARGS[@]}" -t "$HOME/.local" local
       stow -R "${STOW_CONFIG_ARGS[@]}" -t "$HOME/.config" config
-      cleanup_container_links
+      apply_container_links
       if [ "${IS_MAC:-0}" -eq 1 ]; then
         if [ -f "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist" ] && [ ! -L "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist" ]; then
           echo "Restoring symlink for sh.brew.sunshine.plist (overwritten by Homebrew)..."
@@ -414,7 +421,7 @@ build-local-images:
     set -euo pipefail
     DOTS="${DOTS:-$HOME/src/dots}"
     echo "==> Building localhost/zcc-webhook-base:latest..."
-    podman build -t localhost/zcc-webhook-base:latest -f "$DOTS/config/containers/systemd/hermes/Containerfile.zcc-webhook" "$DOTS/config/containers/systemd/hermes/"
+    podman build -t localhost/zcc-webhook-base:latest -f "$DOTS/containers/systemd/hermes/Containerfile.zcc-webhook" "$DOTS/containers/systemd/hermes/"
 
     if [ -f "$HOME/src/projects/pka-web/Containerfile" ]; then
         echo "==> Building localhost/pka-web:latest..."
@@ -422,8 +429,32 @@ build-local-images:
     fi
 
     echo "==> Building localhost/searxng-relay:latest..."
-    podman build -t localhost/searxng-relay:latest -f "$DOTS/config/containers/systemd/ai/Containerfile.searxng-relay" "$DOTS/config/containers/systemd/ai/"
+    podman build -t localhost/searxng-relay:latest -f "$DOTS/containers/systemd/ai/Containerfile.searxng-relay" "$DOTS/containers/systemd/ai/"
     echo "==> All local container images built successfully."
+
+# Stows Homelab Podman Quadlet container definitions to ~/.config/containers (Host only)
+stow-containers:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    DOTS="$(readlink -f "${DOTS:-$HOME/src/dots}")"
+    echo "[ 🐳 Stowing Podman Quadlet containers... ]"
+    mkdir -p "$HOME/.config/containers"
+    stow -d "$DOTS" -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.config/containers" containers
+    systemctl --user daemon-reload
+    echo "✅ Containers stowed and systemd daemon reloaded!"
+
+# Unstows Homelab Podman Quadlet container definitions and reloads systemd
+unstow-containers:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    DOTS="$(readlink -f "${DOTS:-$HOME/src/dots}")"
+    echo "[ 🧹 Unstowing Podman Quadlet containers... ]"
+    if [ -d "$HOME/.config/containers" ]; then
+      stow -d "$DOTS" -D --ignore=".DS_Store" --ignore='^\._' -t "$HOME/.config/containers" containers 2>/dev/null || true
+      rm -rf "$HOME/.config/containers"
+    fi
+    systemctl --user daemon-reload
+    echo "✅ Containers unstowed and systemd daemon reloaded!"
 
 # Upgrades Sunshine, reapplies KMS/uhid capabilities, fixes Qt plugin links, and restarts the service
 update-sunshine:
@@ -586,7 +617,7 @@ mount:
       elif [[ "$remote" == "Nextcloud" ]]; then
         EXTRA_FLAGS=( --dir-cache-time 10s --attr-timeout 1s )
         # On bee (where Nextcloud container runs), bypass Cloudflare tunnel and use local WebDAV
-        if [[ "$OS_TYPE" != "Darwin" ]] && { [ -d "$HOME/.local/share/nextcloud" ] || [ "$(hostname)" = "bee" ]; }; then
+        if [[ "$OS_TYPE" != "Darwin" ]] && [ "$(hostname)" = "bee" ] && command -v podman >/dev/null 2>&1 && podman container exists nextcloud 2>/dev/null; then
           EXTRA_FLAGS+=( --webdav-url "http://127.0.0.1:8088/remote.php/dav/files/eric" )
         fi
       else
@@ -654,7 +685,7 @@ unmount:
       if [[ "$(uname -s)" == "Darwin" ]]; then
         umount "$mountpoint" 2>/dev/null || umount -f "$mountpoint" 2>/dev/null || diskutil unmount force "$mountpoint" 2>/dev/null || true
       else
-        fusermount -uz "$mountpoint" 2>/dev/null || fusermount -u "$mountpoint" 2>/dev/null || true
+        fusermount3 -uz "$mountpoint" 2>/dev/null || fusermount -uz "$mountpoint" 2>/dev/null || fusermount -u "$mountpoint" 2>/dev/null || true
       fi
 
       if [ -d "$mountpoint" ] && ! mount | grep -Fq "$mountpoint"; then

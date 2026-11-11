@@ -97,7 +97,7 @@ cd ~/src/dots
 
 ## 📦 Containerized Services (Podman Quadlets & Distrobox)
 
-Containerized workloads run as user-managed systemd services via Podman Quadlets located in [`config/containers/systemd/`](config/containers/systemd/), complemented by dedicated Distrobox containers for specialized AI workflows:
+Containerized workloads run as user-managed systemd services via Podman Quadlets located in [`containers/systemd/`](containers/systemd/), complemented by dedicated Distrobox containers for specialized AI workflows:
 
 | Category | Active Services | Description |
 | :--- | :--- | :--- |
@@ -126,7 +126,7 @@ Containerized workloads run as user-managed systemd services via Podman Quadlets
 | | **Syncthing** | Continuous peer-to-peer folder synchronization |
 
 > [!NOTE]
-> **Archived Containers**: Legacy service definitions (Plex, Zurg, Samba, Homarr, Paperclip, Scriber, Activepieces, standalone Jellyfin) are preserved in [`config/containers/archive/`](config/containers/archive/) for reference and rollback.
+> **Archived Containers**: Legacy service definitions (Plex, Zurg, Samba, Homarr, Paperclip, Scriber, Activepieces, standalone Jellyfin) are preserved in [`containers/archive/`](containers/archive/) for reference and rollback.
 
 Manage Quadlets directly with systemd:
 ```bash

@@ -107,6 +107,7 @@ if command -v stow >/dev/null 2>&1; then
   stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -D -t "$HOME" home 2>/dev/null || true
   stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -D -t "$HOME/.local" local 2>/dev/null || true
   stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -D -t "$HOME/.config" config 2>/dev/null || true
+  stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -D -t "$HOME/.config/containers" containers 2>/dev/null || true
   if [ "${IS_MAC:-0}" -eq 1 ]; then
     stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -D -t "$HOME/Library" Library 2>/dev/null || true
   fi
@@ -116,6 +117,10 @@ fi
 cleanup_lingering_symlinks "home" "$HOME"
 cleanup_lingering_symlinks "local" "$HOME/.local"
 cleanup_lingering_symlinks "config" "$HOME/.config"
+cleanup_lingering_symlinks "containers" "$HOME/.config/containers"
+if [ -d "$HOME/.config/containers" ]; then
+  rmdir "$HOME/.config/containers" 2>/dev/null || true
+fi
 if [ "${IS_MAC:-0}" -eq 1 ]; then
   cleanup_lingering_symlinks "Library" "$HOME/Library"
 fi
@@ -127,6 +132,7 @@ echo "[ 📦 Restoring original backups (*.bak)... ]"
 restore_package "home" "$HOME"
 restore_package "local" "$HOME/.local"
 restore_package "config" "$HOME/.config"
+restore_package "containers" "$HOME/.config/containers"
 if [ "${IS_MAC:-0}" -eq 1 ]; then
   restore_package "Library" "$HOME/Library"
 fi

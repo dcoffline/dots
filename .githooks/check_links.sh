@@ -39,12 +39,12 @@ for arg in "$@"; do
   esac
 done
 
-# Check if config/containers is opted-in (via INCLUDE_CONTAINERS=1 or active stow symlink)
+# Check if containers is opted-in (via INCLUDE_CONTAINERS=1 or active stow symlink)
 check_containers="${INCLUDE_CONTAINERS:-0}"
 if [ "$check_containers" -eq 0 ]; then
   if [ -L "$HOME/.config/containers" ] && [[ "$(readlink -f "$HOME/.config/containers" 2>/dev/null)" == "$DOTS/"* ]]; then
     check_containers=1
-  elif [ -L "$HOME/.config/containers/systemd" ] && [[ "$(readlink -f "$HOME/.config/containers/systemd" 2>/dev/null)" == "$DOTS/"* ]]; then
+  elif [ -d "$HOME/.config/containers" ] && [ -L "$HOME/.config/containers/systemd" ] && [[ "$(readlink -f "$HOME/.config/containers/systemd" 2>/dev/null)" == "$DOTS/"* ]]; then
     check_containers=1
   fi
 fi
@@ -52,21 +52,22 @@ fi
 while IFS= read -r path; do
   pkg="${path%%/*}"; rest="${path#*/}"
   case "$pkg" in
-    home)    base="$HOME" ;;
-    config)  base="$HOME/.config" ;;
-    local)   base="$HOME/.local" ;;
-    Library) base="$HOME/Library" ;;
+    home)       base="$HOME" ;;
+    config)     base="$HOME/.config" ;;
+    local)      base="$HOME/.local" ;;
+    Library)    base="$HOME/Library" ;;
+    containers) base="$HOME/.config/containers" ;;
     *) continue ;;
   esac
   # Exemptions: home/.secrets is the git-crypt reinstall backup (the live
   # ~/.secrets is authoritative, never stowed); Library/ is macOS-only;
-  # config/containers/ is opt-in (--containers); the antigravitycli session
+  # containers/ is opt-in (--containers); the antigravitycli session
   # link deliberately points outside dots; local/share container dirs are
   # ignored by stow (STOW_LOCAL_ARGS) and persistent-linked on host.
   case "$path" in
     home/.secrets) continue ;;
     Library/*) [ "$is_mac" = "Darwin" ] || continue ;;
-    config/containers/*) [ "$check_containers" -eq 1 ] || continue ;;
+    containers/*) [ "$check_containers" -eq 1 ] || continue ;;
     config/environment.d/.antigravitycli/*) continue ;;
     local/share/aiostreams/*|\
     local/share/collabora/*|\
@@ -110,7 +111,7 @@ while IFS= read -r path; do
     echo "MISSING: $t (dots/$path not stowed)"
     failed=1
   fi
-done < <(git -C "$DOTS" ls-files home/ config/ local/ Library/)
+done < <(git -C "$DOTS" ls-files home/ config/ local/ Library/ containers/)
 
 if [ "$failed" -eq 0 ]; then
   echo "OK: $checked tracked dots files all resolve into $DOTS (relative links)"

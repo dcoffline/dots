@@ -150,9 +150,6 @@ backup_package() {
     [ -e "$item" ] || continue
     local name="$(basename "$item")"
     [[ "$name" == ".DS_Store" || "$name" == "._*" || "$name" == "*" ]] && continue
-    if [ "$INCLUDE_CONTAINERS" -eq 0 ] && [ "$pkg_name" == "config" ] && [ "$name" == "containers" ]; then
-      continue
-    fi
     backup_item_recursive "$item" "$target_base/$name"
   done
 }
@@ -164,6 +161,9 @@ echo "[ Checking for existing configurations to back up (*.bak)... ]"
 backup_package "home" "$HOME"
 backup_package "local" "$HOME/.local"
 backup_package "config" "$HOME/.config"
+if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
+  backup_package "containers" "$HOME/.config/containers"
+fi
 if [ "${IS_MAC:-0}" -eq 1 ]; then
   backup_package "Library" "$HOME/Library"
 fi
@@ -195,17 +195,24 @@ stow -d "$SCRIPT_DIR" "${local_stow_ignores[@]}" -R -t "$HOME/.local" local
 if command -v chcon >/dev/null 2>&1; then
   find "$SCRIPT_DIR/local/share" -name '.env' -exec chcon system_u:object_r:container_file_t:s0 {} \; 2>/dev/null
 fi
+
+# Apply config package
+stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
+
+# Podman Quadlet container symlinks (Host-only opt-in)
 if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
   echo "[ 🐳 Including Podman container symlinks (--containers)... ]"
-  stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
+  mkdir -p "$HOME/.config/containers"
+  stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config/containers" containers
 else
   echo "[ ⏭️  Skipping Podman container symlinks (pass --containers to include)... ]"
-  stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' --ignore='^containers$' -R -t "$HOME/.config" config
   # Remove any previously stowed container symlinks pointing into this repo
+  if [ -d "$HOME/.config/containers" ]; then
+    stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -D -t "$HOME/.config/containers" containers 2>/dev/null || true
+    rmdir "$HOME/.config/containers" 2>/dev/null || true
+  fi
   if is_link_to_dots "$HOME/.config/containers"; then
-    rm -f "$HOME/.config/containers"
-  elif is_link_to_dots "$HOME/.config/containers/systemd"; then
-    rm -f "$HOME/.config/containers/systemd"
+    rm -rf "$HOME/.config/containers"
   fi
 fi
 if [ "${IS_MAC:-0}" -eq 1 ]; then
