@@ -29,8 +29,6 @@ brew "bash"
 brew "bash-preexec"
 # Collection of portable C++ source libraries
 brew "boost"
-# GNU compiler collection
-brew "gcc"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
@@ -47,16 +45,14 @@ brew "ffmpeg"
 brew "ffmpegthumbnailer"
 # Tool to install, manage and use Progressive Web Apps in Mozilla Firefox
 brew "firefoxpwa"
+# GNU compiler collection
+brew "gcc"
 # GitHub command-line tool
 brew "gh"
 # Enable transparent encryption/decryption of files in a git repo
 brew "git-crypt"
-# Open-source GitLab command-line tool
-brew "glab"
 # GNU implementation of which utility
 brew "gnu-which"
-# Open source programming language to build simple/reliable/efficient software
-brew "go"
 # Improved top (interactive process viewer)
 brew "htop"
 # Tools and libraries to manipulate images in select formats
@@ -103,8 +99,6 @@ brew "poppler"
 brew "portaudio"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
-# Rsync for cloud storage
-brew "rclone"
 # SVG rendering tool and library
 brew "resvg"
 # Safe, concurrent, practical language
@@ -154,7 +148,6 @@ cask "font-sauce-code-pro-nerd-font"
 cask "font-source-code-pro"
 cask "font-symbols-only-nerd-font"
 cask "font-ubuntu-nerd-font"
-go "github.com/gokcehan/lf"
 cargo "atuin"
 cargo "bat"
 cargo "cargo-binstall"
