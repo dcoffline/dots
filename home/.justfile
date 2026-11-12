@@ -1138,6 +1138,17 @@ backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
     find "$BACKUP_DIR/secrets" -type f -exec chmod 600 {} + 2>/dev/null || true
     echo "  ✓ Secrets & environment configs backed up (chmod 600)."
 
+    # 6b. Back up freellmapi app state (DB with api keys/settings — lost once already, 2026-11-11)
+    echo "[ 6b ] Backing up freellmapi state (~/.local/share/freellmapi/)..."
+    mkdir -p "$BACKUP_DIR/freellmapi"
+    if [ -d "$HOME/.local/share/freellmapi" ]; then
+      sudo rsync -a --exclude='*.sock' "$HOME/.local/share/freellmapi/" "$BACKUP_DIR/freellmapi/"
+      sudo chown -R "$(id -u):$(id -g)" "$BACKUP_DIR/freellmapi/"
+      echo "  ✓ freellmapi state backed up."
+    else
+      echo "  ℹ️ freellmapi dir not found, skipping."
+    fi
+
     # 7. Back up Athena Gem Obsidian Project Notes
     echo "[ 7/7 ] Backing up Athena Gem Notes..."
     mkdir -p "$BACKUP_DIR/notes_athena"
