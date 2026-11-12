@@ -2,12 +2,18 @@
 use crate::parser::{Justfile, Recipe};
 use crate::runner::{self, RunHandle};
 use anyhow::Result;
-use crossterm::event::{self, Event as CEvent, KeyCode, KeyEvent, KeyModifiers};
+use crossterm::event::{self, Event as CEvent, KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
 use crossterm::terminal::{enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen};
 use ratatui::prelude::*;
 use ratatui::widgets::{Block, Borders, List, ListItem, ListState, Paragraph, Wrap};
 use std::path::PathBuf;
 use std::time::{Duration, Instant};
+
+#[derive(PartialEq, Clone, Copy)]
+enum Focus {
+    Sections,
+    Recipes,
+}
 
 #[derive(PartialEq)]
 enum Mode {
@@ -36,6 +42,7 @@ struct App {
     collected_args: Vec<String>,
     should_quit: bool,
     filter: Option<String>,
+    focus: Focus,
 }
 
 impl App {
@@ -111,6 +118,7 @@ pub fn run(justfile: PathBuf, jf: Justfile) -> Result<()> {
         collected_args: Vec::new(),
         should_quit: false,
         filter: None,
+        focus: Focus::Recipes,
     };
     app.recipe.select(Some(0));
     app.refresh_preview();
@@ -131,12 +139,9 @@ fn event_loop(term: &mut Terminal<CrosstermBackend<std::io::Stdout>>, app: &mut 
 
         let timeout = tick.saturating_sub(last_tick.elapsed());
         if event::poll(timeout)? {
-            if let CEvent::Key(key) = event::read()? {
-                handle_key(app, key);
-            }
-            // Handle resize
-            if let CEvent::Resize(_, _) = event::read().ok().unwrap_or(CEvent::Resize(0, 0)) {
-                // ratatui auto-resizes on next draw
+            match event::read()? {
+                CEvent::Key(key) => handle_key(app, key),
+                _ => {}
             }
         }
         // Poll running child
@@ -159,6 +164,9 @@ fn event_loop(term: &mut Terminal<CrosstermBackend<std::io::Stdout>>, app: &mut 
 }
 
 fn handle_key(app: &mut App, key: KeyEvent) {
+    if key.kind != KeyEventKind::Press {
+        return;
+    }
     match app.mode {
         Mode::Menu => handle_menu_key(app, key),
         Mode::ArgInput => handle_arg_input(app, key),
@@ -170,7 +178,7 @@ fn handle_key(app: &mut App, key: KeyEvent) {
 
 fn handle_menu_key(app: &mut App, key: KeyEvent) {
     match key.code {
-        KeyCode::Char('q') => app.should_quit = true,
+        KeyCode::Char('q') if app.filter.is_none() => app.should_quit = true,
         KeyCode::Esc => {
             if app.filter.is_some() {
                 app.filter = None;
@@ -179,14 +187,42 @@ fn handle_menu_key(app: &mut App, key: KeyEvent) {
                 app.should_quit = true;
             }
         }
-        KeyCode::Char('/') => {
+        KeyCode::Char('/') if app.filter.is_none() => {
             app.filter = Some(String::new());
         }
-        KeyCode::Down | KeyCode::Char('j') => app.move_selection(1),
-        KeyCode::Up | KeyCode::Char('k') => app.move_selection(-1),
-        KeyCode::Tab => next_section(app, 1),
-        KeyCode::BackTab => next_section(app, -1),
-        KeyCode::Enter => start_run_flow(app),
+        KeyCode::Down | KeyCode::Char('j') if app.filter.is_none() && app.focus == Focus::Recipes => app.move_selection(1),
+        KeyCode::Up | KeyCode::Char('k') if app.filter.is_none() && app.focus == Focus::Recipes => app.move_selection(-1),
+        KeyCode::Char('h') | KeyCode::Char('l') if app.filter.is_some() => {
+            if let Some(f) = app.filter.as_mut() { f.push(key.code.to_string().chars().last().unwrap()); app.recipe.select(Some(0)); }
+        }
+        KeyCode::Char('h') | KeyCode::Left => app.focus = Focus::Sections,
+        KeyCode::Char('l') | KeyCode::Right => app.focus = Focus::Recipes,
+        KeyCode::Tab => app.focus = match app.focus { Focus::Sections => Focus::Recipes, Focus::Recipes => Focus::Sections },
+        KeyCode::BackTab => app.focus = match app.focus { Focus::Sections => Focus::Recipes, Focus::Recipes => Focus::Sections },
+        KeyCode::Char('j') | KeyCode::Down if app.focus == Focus::Sections && app.filter.is_none() => {
+            let n = app.jf.sections.len();
+            let cur = app.section.selected().unwrap_or(0);
+            app.section.select(Some((cur + 1).min(n.saturating_sub(1))));
+        }
+        KeyCode::Char('k') | KeyCode::Up if app.focus == Focus::Sections && app.filter.is_none() => {
+            let cur = app.section.selected().unwrap_or(0);
+            app.section.select(Some(cur.saturating_sub(1)));
+        }
+        KeyCode::Enter => {
+            if app.focus == Focus::Sections {
+                app.focus = Focus::Recipes;
+                if let Some(si) = app.section.selected() {
+                    if let Some(pos) = app.filtered().iter().position(|(s, _)| *s == si) {
+                        app.recipe.select(Some(pos));
+                        app.refresh_preview();
+                    }
+                }
+            } else {
+                start_run_flow(app);
+            }
+        }
+        KeyCode::Char('J') if app.focus == Focus::Sections => next_section(app, 1),
+        KeyCode::Char('K') if app.focus == Focus::Sections => next_section(app, -1),
         _ => {
             if let Some(f) = app.filter.as_mut() {
                 match key.code {
@@ -333,7 +369,7 @@ fn draw_menu(f: &mut Frame, app: &mut App) {
         .map(|s| ListItem::new(s.title.clone()).style(Style::default().fg(Color::Cyan)))
         .collect();
     let sec_list = List::new(section_items)
-        .block(Block::default().borders(Borders::ALL).title(" Sections "))
+        .block(Block::default().borders(Borders::ALL).title(" Sections ").border_style(if app.focus == Focus::Sections { Style::default().fg(Color::Cyan) } else { Style::default() }))
         .highlight_style(Style::default().bg(Color::DarkGray).fg(Color::White));
     f.render_stateful_widget(sec_list, chunks[0], &mut app.section);
 
@@ -359,7 +395,7 @@ fn draw_menu(f: &mut Frame, app: &mut App) {
         None => " Recipes ".to_string(),
     };
     let rec_list = List::new(items)
-        .block(Block::default().borders(Borders::ALL).title(title))
+        .block(Block::default().borders(Borders::ALL).title(title).border_style(if app.focus == Focus::Recipes { Style::default().fg(Color::Cyan) } else { Style::default() }))
         .highlight_style(Style::default().bg(Color::DarkGray).fg(Color::White));
     f.render_stateful_widget(rec_list, right[0], &mut app.recipe);
 

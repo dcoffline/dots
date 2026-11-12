@@ -90,6 +90,10 @@ is_link_to_dots() {
     if [[ "$link_target" == "$SCRIPT_DIR"* || "$link_target" == "$SCRIPT_DIR_REAL"* ]]; then
       return 0
     fi
+    # Same repo accessed via a different path prefix (e.g. /var/home vs /home)
+    if [[ "$link_target" == *"/src/dots/"* ]]; then
+      return 0
+    fi
   fi
   return 1
 }

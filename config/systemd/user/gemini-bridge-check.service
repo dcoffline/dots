@@ -1,0 +1,10 @@
+[Unit]
+Description=Check Agent Bridge to_gemini folder for Athena tasks
+After=network-online.target rclone.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=PATH=/home/eric/.local/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:/usr/bin:/bin
+WorkingDirectory=%h
+ExecStart=%h/.local/bin/gemini-bridge-check

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Checks to_gemini/ for pending tasks from Athena and executes them via agy.
+set -euo pipefail
+
+BRIDGE_DIR="/var/home/eric/.mnt/rclone/GDrive/agent-bridge"
+TO_GEMINI="$BRIDGE_DIR/to_gemini"
+TO_ATHENA="$BRIDGE_DIR/to_athena"
+LOG_DIR="${HOME}/.gemini/antigravity-cli/log"
+LOG_FILE="$LOG_DIR/agent-bridge-check.log"
+
+mkdir -p "$LOG_DIR"
+
+if [ ! -d "$TO_GEMINI" ]; then
+    echo "[$(date -Iseconds)] $TO_GEMINI does not exist or is not mounted. Skipping." >> "$LOG_FILE"
+    exit 0
+fi
+
+PENDING_TASKS=()
+for f in "$TO_GEMINI"/*.md; do
+    [ -f "$f" ] || continue
+    if grep -qE "^status:[[:space:]]*pending" "$f"; then
+        PENDING_TASKS+=("$f")
+    fi
+done
+
+if [ ${#PENDING_TASKS[@]} -eq 0 ]; then
+    exit 0
+fi
+
+echo "[$(date -Iseconds)] Found ${#PENDING_TASKS[@]} pending task(s) in $TO_GEMINI" >> "$LOG_FILE"
+
+if command -v notify-send >/dev/null 2>&1; then
+    notify-send "Agent Bridge" "Gemini picked up ${#PENDING_TASKS[@]} task(s) from Athena" -i dialog-information || true
+fi
+
+for task_file in "${PENDING_TASKS[@]}"; do
+    task_name=$(basename "$task_file")
+    echo "[$(date -Iseconds)] Executing task $task_name with agy..." >> "$LOG_FILE"
+    
+    /home/eric/.local/bin/agy --dangerously-skip-permissions -p "You are running the automated Agent Bridge task handler. A new task has been placed by Athena: $task_file. Read the task requirements, claim it by editing the task file in place to set 'status: claimed' (and 'in-progress' while executing), complete the requested deliverable, write the result to $TO_ATHENA/ per the Agent Bridge protocol, and set the task status to 'done' (or 'blocked' if unable to complete)." >> "$LOG_FILE" 2>&1 || {
+        echo "[$(date -Iseconds)] Error processing $task_name" >> "$LOG_FILE"
+    }
+done

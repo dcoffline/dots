@@ -1,0 +1,6 @@
+[Unit]
+Description=Sync publish:true notes into Quartz content dir
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/eric/.mnt/2T/local/hermes/scripts/quartz_sync.py
