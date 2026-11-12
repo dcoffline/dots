@@ -54,3 +54,4 @@ config/sunshine/*token*
 config/sunshine/*state*.json
 config/sunshine/credentials/
 
+projects/just-tui/target/

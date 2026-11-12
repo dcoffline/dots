@@ -1,0 +1,17 @@
+[package]
+name = "just-tui"
+version = "0.1.0"
+edition = "2021"
+description = "linutil-style ratatui TUI for running recipes from a justfile"
+license = "MIT"
+
+[dependencies]
+ratatui = "0.29"
+crossterm = "0.28"
+portable-pty = "0.8"
+anyhow = "1"
+regex = "1"
+
+[profile.release]
+strip = true
+lto = true

@@ -1742,3 +1742,11 @@ jf-restart:
 # Jellyfin: trigger Gelato collection import sync only (no enabling)
 gelato-sync-run:
     python3 ${HOME}/.hermes/scripts/gelato_sync.py --sync-only
+
+# =============================================================================
+# RECIPE BROWSER
+# =============================================================================
+
+# Launch the just-tui recipe browser (q to quit, Enter to run with y/n confirm)
+tui:
+    @~/src/dots/projects/just-tui/target/release/just-tui --justfile "{{justfile()}}"

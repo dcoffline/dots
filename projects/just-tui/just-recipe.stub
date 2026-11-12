@@ -1,0 +1,4 @@
+# Add to ~/.justfile:
+# Launch the just-tui recipe browser (q to quit, Enter to run with y/n confirm)
+tui:
+    @~/src/projects/just-tui/target/release/just-tui --justfile "{{justfile()}}"

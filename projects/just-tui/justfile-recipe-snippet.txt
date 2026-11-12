@@ -1,0 +1,5 @@
+# --- just-tui recipe stub (add to justfile) ---
+
+# Browse and run justfile recipes in a linutil-style TUI
+tui:
+    just-tui
