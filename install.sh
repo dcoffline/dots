@@ -34,7 +34,7 @@ for arg in "$@"; do
 done
 
 # Export all environment variables sourced from configuration
-mkdir -p "$HOME/.local/bin" "$HOME/.config/systemd/user"
+mkdir -p "$HOME/.local/bin" "$HOME/.local/lib" "$HOME/.config/systemd/user"
 set -a
 [ -f "$SCRIPT_DIR/config/environment.d/envvars.conf" ] && source "$SCRIPT_DIR/config/environment.d/envvars.conf"
 [ -f "$SCRIPT_DIR/config/bash/os.bash" ] && source "$SCRIPT_DIR/config/bash/os.bash"
@@ -176,7 +176,7 @@ fi
 # 3. APPLY DOTFILES WITH STOW
 # =========================================================
 echo "[ Applying dotfiles with Stow... ]"
-mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/share/gnome-shell/extensions" "$HOME/.config/rclone"
+mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/lib" "$HOME/.local/share/gnome-shell/extensions" "$HOME/.config/rclone"
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
 
 # Collect any local/share directories that are symlinked to external storage (e.g. 2T SSD)

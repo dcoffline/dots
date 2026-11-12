@@ -55,3 +55,7 @@ config/sunshine/*state*.json
 config/sunshine/credentials/
 
 projects/just-tui/target/
+
+# Local lib runtime artifacts (prevent folding/stow pollution)
+local/lib/python*/
+local/lib/*.so
