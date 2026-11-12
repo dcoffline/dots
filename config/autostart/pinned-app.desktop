@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=New application
+Type=Application
+Icon=appimagekit-kitty
+Exec=notify-send "Hello world!"
