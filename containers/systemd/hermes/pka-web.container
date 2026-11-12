@@ -18,7 +18,7 @@ Exec=python3 /app/server.py
 SecurityLabelDisable=true
 
 Label="homepage.name=Hemati PKA"
-Label=homepage.group=AI
+Label=homepage.group=Content
 Label=homepage.icon=https://hemati.com/wp-content/uploads/2026/08/Hemati_favicon-removebg-preview-Edited.png
 Label=homepage.href=https://pka.hemati.com
 Label="homepage.description=Knowledge Vault"
