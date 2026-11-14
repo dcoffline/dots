@@ -48,8 +48,8 @@ else
   alias dear='distrobox enter athena -e'
   alias deu='distrobox enter ubuntu'
   alias deur='distrobox enter ubuntu -e'
-  alias dearch='distrobox enter arch'
-  alias dearchr='distrobox enter arch -e'
+  alias der='distrobox enter arch'
+  alias derr='distrobox enter arch -e'
 
   # Rclone (Native; rmount lives in ~/.local/bin/rmount)
   alias rcheck='just --justfile "$HOME/.justfile" --working-directory "$HOME" check-mounts'
