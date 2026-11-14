@@ -88,6 +88,7 @@ alias nc-redis='podman exec -it nextcloud-redis redis-cli'
 alias immich-redis='podman exec -it immich-redis redis-cli'
 
 # Log shortcuts (tails active output)
+alias logs-gnome='journalctl /usr/bin/gnome-shell -f -o cat'
 alias logs-athena='journalctl --user -fu athena.service'
 alias logs-hermes='journalctl --user -fu athena.service'
 alias logs-ollama='podman logs -f --tail 100 ollama'
