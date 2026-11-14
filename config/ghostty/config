@@ -1,7 +1,7 @@
 # Theme (Kitty default palette, pure #000000 background)
 theme = Kitty Default
 #window-theme = ghostty
-window-height = 33
+window-height = 25
 window-width = 100
 window-padding-x = 5
 window-padding-y = 5
