@@ -617,7 +617,7 @@ mount:
       elif [[ "$remote" == "Nextcloud" ]]; then
         EXTRA_FLAGS=( --dir-cache-time 10s --attr-timeout 1s )
         # On bee (where Nextcloud container runs), bypass Cloudflare tunnel and use local WebDAV
-        if [[ "$OS_TYPE" != "Darwin" ]] && [ "$(hostname)" = "bee" ] && command -v podman >/dev/null 2>&1 && podman container exists nextcloud 2>/dev/null; then
+        if [[ "$OS_TYPE" != "Darwin" && "$(hostname -s)" == "bee" ]]; then
           EXTRA_FLAGS+=( --webdav-url "http://127.0.0.1:8088/remote.php/dav/files/eric" )
         fi
       else
@@ -1498,6 +1498,76 @@ backup-honcho target_dir="$HOME/.mnt/10T/Backups/honcho":
     ls -1dt honcho_* | tail -n +$((RETENTION_COUNT + 1)) | xargs -r rm -rf
 
     echo "✅ Honcho backup complete: $BACKUP_DIR"
+
+
+# BACKUP APPS (per-service container data not covered by other recipes; keeps 7)
+# Skips Kiwix (14G, re-downloadable) per Eric 2026-11-13. Excludes caches.
+# =============================================================================
+backup-apps target_dir="$HOME/.mnt/10T/Backups/apps":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    TARGET_DIR="{{target_dir}}"
+    TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+    BACKUP_DIR="$TARGET_DIR/apps_$TIMESTAMP"
+    RETENTION_COUNT=7
+    SHARE="$HOME/.local/share"
+
+    echo "================================================================"
+    echo " Starting Apps Backup Protocol"
+    echo " Destination: $BACKUP_DIR"
+    echo "================================================================"
+
+    mkdir -p "$BACKUP_DIR"
+
+    # --- Vaultwarden (passwords - highest value) ---
+    echo "[1/7] Vaultwarden..."
+    mkdir -p "$BACKUP_DIR/vaultwarden"
+    rsync -a --exclude 'cache' "$SHARE/vaultwarden/" "$BACKUP_DIR/vaultwarden/"
+
+    # --- Paperless (data + media; uid-mapped files, tar via podman unshare) ---
+    echo "[2/7] Paperless..."
+    mkdir -p "$BACKUP_DIR/paperless"
+    podman unshare tar --exclude='data/index' --exclude='data/llm_index' -cf - -C "$SHARE/paperless" data media \
+      | tar -xf - -C "$BACKUP_DIR/paperless"
+
+    # --- Actual Budget ---
+    echo "[3/7] Actual Budget..."
+    mkdir -p "$BACKUP_DIR/actualbudget"
+    rsync -a "$SHARE/actualbudget/" "$BACKUP_DIR/actualbudget/"
+
+    # --- Homebox ---
+    echo "[4/7] Homebox..."
+    mkdir -p "$BACKUP_DIR/homebox"
+    rsync -a "$SHARE/homebox/" "$BACKUP_DIR/homebox/"
+
+    # --- Shlink (MariaDB dump via container) ---
+    echo "[5/7] Shlink DB..."
+    mkdir -p "$BACKUP_DIR/shlink"
+    if podman exec shlink-db sh -c 'mariadb-dump -uroot -p"$MYSQL_ROOT_PASSWORD" --all-databases 2>/dev/null' > "$BACKUP_DIR/shlink/shlink_db.sql" 2>/dev/null; then
+      echo "  ✓ shlink db dumped"
+    else
+      echo "  ⚠️ shlink dump failed"
+    fi
+
+    # --- Open WebUI (config/data, no cache) ---
+    echo "[6/7] Open WebUI..."
+    mkdir -p "$BACKUP_DIR/open-webui"
+    rsync -a --exclude 'cache' "$SHARE/open-webui/" "$BACKUP_DIR/open-webui/"
+
+    # --- AIOMetadata / AIOStreams / Vane (small app states) ---
+    echo "[7/7] AIOMetadata / AIOStreams / Vane..."
+    mkdir -p "$BACKUP_DIR/aiometadata" "$BACKUP_DIR/aiostreams" "$BACKUP_DIR/vane"
+    rsync -a "$SHARE/aiometadata/" "$BACKUP_DIR/aiometadata/"
+    rsync -a --exclude 'cache' "$SHARE/aiostreams/" "$BACKUP_DIR/aiostreams/"
+    rsync -a "$SHARE/vane/" "$BACKUP_DIR/vane/"
+
+    printf '{"timestamp": "%s", "retention_count": %d, "kiwix": "skipped per Eric 2026-11-13"}\n' "$TIMESTAMP" "$RETENTION_COUNT" > "$BACKUP_DIR/manifest.json"
+
+    # Retention: keep 7 most recent
+    ls -1dt "$TARGET_DIR"/apps_* 2>/dev/null | tail -n +$((RETENTION_COUNT+1)) | xargs -r rm -rf
+
+    echo "✅ Apps backup complete: $BACKUP_DIR"
 
 
 # Relinks all 2T persistent data directories back into ~/.local/share                        
