@@ -1,39 +1,36 @@
 # Theme (Kitty default palette, pure #000000 background)
 theme = Kitty Default
 #window-theme = ghostty
-window-height = 25
-window-width = 100
-window-padding-x = 5
-window-padding-y = 5
+window-height = 27
+window-width = 80
+#window-padding-x = 5
+#window-padding-y = 5
 window-padding-balance = true
 
 # Ghostty Drop-Down
-initial-window = false
+#initial-window = false
 quick-terminal-position = top
 quick-terminal-screen = mouse
 quick-terminal-autohide = true
 quick-terminal-animation-duration = 0.15
-gtk-tabs-location = hidden
+#gtk-tabs-location = hidden
 
 # Typography / Fonts
 # You can generate the list of valid values using the CLI: ghostty +list-fonts
 font-family = CaskaydiaMono Nerd Font
-#font-family-bold = CaskaydiaMono NF Bold
-#font-family-italic = CaskaydiaMono NF Italic
-#font-family-bold-italic = CaskaydiaMono NF Bold Italic
+#font-family = Hack Nerd Font
+font-size = 11
 
-# Replicate Kitty's FreeType stem darkening for bold, punchy font rendering
+# Replicate Kitty's stem darkening (macOS-only; ignored on Linux)
 font-thicken = true
 
+# Linux FreeType rendering tweaks for fuller strokes
+freetype-load-flags = no-light,no-autohint
+#font-style = SemiBold
+alpha-blending = linear
+
 # Replicate Kitty's vertical rhythm & line spacing
-adjust-cell-height = 1
-
-#font-family = Hack Nerd Font
-#font-family-bold = Hack Nerd Font Bold
-#font-family-italic = Hack Nerd Font Italic
-#font-family-bold-italic = Hack Nerd Font Bold Italic
-
-font-size = 11
+adjust-cell-height = -8%
 
 cursor-style = block
 cursor-style-blink = true
@@ -43,7 +40,7 @@ cursor-style-blink = true
 keybind = ctrl+up=scroll_page_up
 keybind = ctrl+down=scroll_page_down
 
-background-opacity = 0.85
+background-opacity = 0.8
 #gtk-titlebar = false
 confirm-close-surface = false
 shell-integration-features = no-cursor

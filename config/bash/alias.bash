@@ -67,6 +67,7 @@ else
   alias jc='journalctl'
   alias jcu='journalctl --user -xeu'
   alias follow='journalctl --user -fu'
+  alias hc='hostnamectl'
 fi
 
 # ────── GLOBAL ALIASES ──────
