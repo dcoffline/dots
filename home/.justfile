@@ -133,7 +133,21 @@ update *args:
     done
 
     STOW_CONFIG_ARGS=(--ignore=".DS_Store" --ignore='^\._')
-    STOW_LOCAL_ARGS=(--ignore=".DS_Store" --ignore='^\._' --ignore='aiostreams|collabora|freellmapi|immich|mediaflow|nextcloud|nextcloud-notify-push|open-seo|pka-web|searxng|zcc-webhook')
+    # Repo local/share/<container>/ dirs are the source of truth for per-container
+    # .env files (git-crypt). Stow links them per-file into the live dirs: an
+    # existing ~/.local/share/<container>/ keeps all its data and only gets the
+    # .env linked (stow never folds into an existing dir); a fresh machine gets
+    # the whole dir seeded. 2026-11-15: replaced the blunt 11-name skip-list with
+    # this model. Multi-file repo dirs (homepage) stow wholesale as before.
+    STOW_LOCAL_ARGS=(--ignore=".DS_Store" --ignore='^\._' \
+      $(for d in "$DOTS"/local/share/*/; do
+          n=$(basename "$d")
+          # only skip multi-file repo dirs whose live target is real data
+          if [ "$(find "$d" -type f ! -name '.env' | wc -l)" -gt 0 ] \
+             && [ -d "$HOME/.local/share/$n" ] && [ ! -L "$HOME/.local/share/$n" ]; then
+            printf -- '--ignore=%s ' "$n"
+          fi
+        done))
 
     apply_container_links() {
       if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
