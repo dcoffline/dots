@@ -514,6 +514,39 @@ update-sunshine:
     echo "==> Sunshine update completed successfully!"
     systemctl --user status sunshine.service --no-pager
 
+# Recovers Moonlight/Sunshine streaming by restarting plasmashell (if hung on D-Bus) and Sunshine
+fix-sunshine:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        echo "⚠️ fix-sunshine is only applicable on Linux (KDE/Sunshine)."
+        exit 0
+    fi
+
+    HOST_RUN=()
+    if [ -f /run/.containerenv ] && command -v distrobox-host-exec >/dev/null 2>&1; then
+        HOST_RUN=(distrobox-host-exec)
+    fi
+
+    echo "==> Restarting plasma-plasmashell.service (clears hung org.freedesktop.Notifications)..."
+    "${HOST_RUN[@]}" systemctl --user restart plasma-plasmashell.service
+
+    echo "==> Waiting for org.freedesktop.Notifications on D-Bus..."
+    for _ in {1..15}; do
+        if "${HOST_RUN[@]}" busctl --user call org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.DBus.Peer Ping >/dev/null 2>&1; then
+            break
+        fi
+        sleep 0.5
+    done
+
+    echo "==> Restarting Sunshine user service..."
+    "${HOST_RUN[@]}" systemctl --user restart app-dev.lizardbyte.app.Sunshine.service
+
+    echo "==> Status:"
+    "${HOST_RUN[@]}" systemctl --user status plasma-plasmashell.service app-dev.lizardbyte.app.Sunshine.service --no-pager | grep -E "●|Active:|Main PID:" || true
+    echo "✅ Sunshine recovery complete!"
+
 # =============================================================================
 # CLOUD STORAGE
 # =============================================================================
