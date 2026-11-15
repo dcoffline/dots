@@ -43,5 +43,5 @@ keybind = ctrl+down=scroll_page_down
 background-opacity = 0.8
 #gtk-titlebar = false
 confirm-close-surface = false
-shell-integration-features = no-cursor
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo
 mouse-hide-while-typing = false
