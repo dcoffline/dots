@@ -134,20 +134,14 @@ update *args:
 
     STOW_CONFIG_ARGS=(--ignore=".DS_Store" --ignore='^\._')
     # Repo local/share/<container>/ dirs are the source of truth for per-container
-    # .env files (git-crypt). Stow links them per-file into the live dirs: an
-    # existing ~/.local/share/<container>/ keeps all its data and only gets the
-    # .env linked (stow never folds into an existing dir); a fresh machine gets
-    # the whole dir seeded. 2026-11-15: replaced the blunt 11-name skip-list with
-    # this model. Multi-file repo dirs (homepage) stow wholesale as before.
-    STOW_LOCAL_ARGS=(--ignore=".DS_Store" --ignore='^\._' \
-      $(for d in "$DOTS"/local/share/*/; do
-          n=$(basename "$d")
-          # only skip multi-file repo dirs whose live target is real data
-          if [ "$(find "$d" -type f ! -name '.env' | wc -l)" -gt 0 ] \
-             && [ -d "$HOME/.local/share/$n" ] && [ ! -L "$HOME/.local/share/$n" ]; then
-            printf -- '--ignore=%s ' "$n"
-          fi
-        done))
+    # .env files (git-crypt). Plain stow handles everything: existing live dirs
+    # get per-file links (only the .env/entrypoint link in, data untouched); a
+    # fresh machine gets whole-dir folds seeded from the repo. 2026-11-15: the
+    # old 11-name skip-list and its dynamic replacement were both removed -
+    # dry-run proved plain stow produces zero conflicts on bee. If update ever
+    # errors "cannot stow over existing target", a live file diverged from the
+    # repo: diff and commit the correct side (that error is the drift signal).
+    STOW_LOCAL_ARGS=(--ignore=".DS_Store" --ignore='^\._')
 
     apply_container_links() {
       if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
