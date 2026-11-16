@@ -1,8 +1,12 @@
 # Theme (Kitty default palette, pure #000000 background)
 theme = Kitty Default
 #window-theme = ghostty
-window-height = 27
+# Default: KDE (server-side decorations, no row loss)
+window-height = 24
+# GNOME CSD bug: header bar eats ~3 rows, so override via optional include
+config-file = ?config-gnome
 window-width = 80
+
 #window-padding-x = 5
 #window-padding-y = 5
 window-padding-balance = true
