@@ -2,8 +2,8 @@
 theme = Kitty Default
 #window-theme = ghostty
 # Default: KDE (server-side decorations, no row loss)
-window-height = 24
-window-width = 80
+window-height = 27
+window-width = 90
 
 #window-padding-x = 5
 #window-padding-y = 5
