@@ -15,8 +15,10 @@ Volume=%h/.local/share/open-webui:/app/backend/data:Z
 # Mount the curated Open WebUI knowledge pack into the container
 Volume=%h/Documents/Notes/Hemati/openwebui:/app/backend/data/openwebui:Z
 
-# Tells the frontend where to find your Ollama engine.
+# Points the frontend at the colibri OpenAI-compatible API (DS4 Flash).
 # host.containers.internal is Podman's way of reaching the host machine.
+Environment=OPENAI_API_BASE_URL=http://host.containers.internal:8001/v1
+Environment=OPENAI_API_KEY=06e47feaef41b7d8ce27b194194e3ee44c954d384d89110a
 Environment=OLLAMA_BASE_URL=http://ollama:11434
 
 # SearXNG Web Search integration
