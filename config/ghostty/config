@@ -32,7 +32,7 @@ freetype-load-flags = no-light,no-autohint
 alpha-blending = linear
 
 # Replicate Kitty's vertical rhythm & line spacing
-#adjust-cell-height = -8%
+adjust-cell-height = -8%
 
 cursor-style = block
 cursor-style-blink = true
