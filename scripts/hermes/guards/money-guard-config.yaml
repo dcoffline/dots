@@ -51,6 +51,7 @@ approved_payment_urls:
   - "https://app.gohighlevel.com"
   - "https://www.salesflare.com"
   - "https://linear.app"
+  - "https://stephango.com"
 
 # Known models: what profile uses what model (populated from config)
 profile_models:
