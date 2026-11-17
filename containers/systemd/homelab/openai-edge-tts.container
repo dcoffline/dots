@@ -1,0 +1,19 @@
+[Unit]
+Description=OpenAI-compatible TTS via Microsoft Edge voices (open-webui voice engine)
+After=network-online.target
+Requires=homelab-network.service
+
+[Container]
+ContainerName=openai-edge-tts
+Image=localhost/openai-edge-tts-patched:latest
+Network=homelab
+PublishPort=127.0.0.1:8055:8055
+EnvironmentFile=%h/.local/share/openai-edge-tts/.env
+Environment=PORT=8055
+
+[Service]
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
