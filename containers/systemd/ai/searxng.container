@@ -16,7 +16,7 @@ PublishPort=127.0.0.1:8082:8080
 Volume=%h/.config/searxng/settings.yml:/etc/searxng/settings.yml:Z,ro
 Volume=%h/.config/searxng/limiter.toml:/etc/searxng/limiter.toml:Z,ro
 
-Environment=SEARXNG_BASE_URL=http://localhost:8082/
+Environment=SEARXNG_BASE_URL=https://searxng.hemati.com/
 
 Label=homepage.name=SearXNG
 Label=homepage.group=Content
