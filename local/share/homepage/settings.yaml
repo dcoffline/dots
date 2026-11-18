@@ -22,7 +22,7 @@ layout:
   Content:
     header: true
     style: row
-    columns: 4
+    columns: 5
   Sites:
     header: true
     style: row
