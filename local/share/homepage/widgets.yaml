@@ -8,4 +8,6 @@
     units: imperial
     label: Leander
 - search:
-    provider: google
+    provider: custom
+    url: https://searxng.hemati.com/?q=
+    target: _blank
