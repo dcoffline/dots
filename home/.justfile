@@ -1853,8 +1853,22 @@ gelato-sync *args:
 gelato-list:
     python3 ${HOME}/.hermes/scripts/gelato_sync.py --list
 
+# Gelato: prune legacy catalog blocks from Gelato.xml (dry-run first!)
+# Stops jellyfin for the edit (JF overwrites plugin config on shutdown-save).
+gelato-prune *args:
+    systemctl --user stop jellyfin.service
+    python3 ${HOME}/.hermes/scripts/gelato_prune_legacy.py {{args}}
+    systemctl --user start jellyfin.service
+
+# Gelato: refresh the cached live-catalog ID list (run while jellyfin is up)
+gelato-prune-ids:
+    python3 ${HOME}/.hermes/scripts/gelato_prune_legacy.py --refresh-cache-only
+
 # Gelato: wipe ALL collections and rebuild from enabled catalogs (nuclear reset)
+# Prunes legacy Gelato.xml blocks FIRST, otherwise re-keyed ghost catalogs
+# resurrect duplicate collections on every rebuild.
 gelato-reset:
+    just gelato-prune
     python3 ${HOME}/.hermes/scripts/gelato_sync.py --reset
 
 # Jellyfin: restart the user service (busts Gelato's cached manifest)
