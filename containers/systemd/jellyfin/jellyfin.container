@@ -41,11 +41,11 @@ Label="homepage.description=Home Media Server"
 [Service]
 Restart=always
 TimeoutStartSec=300
-# Cap memory so Gelato catalog imports can't push host into swap thrash (2026-11-05 stutter).
-# Raised 2026-11-08: 4G high caused swap thrash (4.2G swap) during search while
-# DynamicLibrary hydrates AIOStreams stream lists. 8G high / 10G max = search headroom.
-MemoryMax=10G
-MemoryHigh=8G
+# Cap memory so catalog scans and search cannot push the host into swap thrash.
+# Explicit MemorySwapMax ensures excess allocations don't fill system swap.
+MemoryHigh=4G
+MemoryMax=6G
+MemorySwapMax=1G
 
 [Install]
 WantedBy=default.target
