@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Smile
-X-XDP-Autostart=it.mijorus.smile
-Exec=flatpak run --command=smile it.mijorus.smile --start-hidden
-X-Flatpak=it.mijorus.smile
