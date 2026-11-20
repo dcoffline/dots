@@ -230,24 +230,17 @@ if [ "${IS_LINUX:-0}" -eq 1 ]; then
   if [ "$IS_GNOME" -eq 1 ]; then
     GNOME_EXTENSIONS=(
       "allowlockedremotedesktop@kamens.us"
-      "all-windows-srwp@jkavery.github.io"
       "AlphabeticalAppGrid@stuarthayhurst"
-      "blur-my-shell@aunetx"
+      "app-hider@lynith.dev"
       "clipboard-indicator@tudmotu.com"
-      "dynamic-music-pill@andbal"
-      "logomenu-fixed@dcoffline"
-      "openwispr-gnome-extension"
+      "hotedge@jonathan.jdoda.ca"
+      "immich-wallpaper@nokichan.github.io"
       "panel-workspace-scroll@polymeilex.github.io"
-      "randomwallpaper@iflow.space"
-      "screentospace@dilzhan.dev"
+      "MaximizeWindowIntoNewWorkspace@kyleross.com"
       "smart-pause-resume@erenseymen.github.io"
       "status-area-horizontal-spacing@mathematical.coffee.gmail.com"
       "tailscale-gnome@diskmth.fr"
-      "tilingshell@ferrarodomenico.com"
-      "transparent-window-moving@noobsai.github.com"
       "tweaks-system-menu@extensions.gnome-shell.fifi.org"
-      "window-list@gnome-shell-extensions.gcampax.github.com"
-      "workspace-bar@jguece"
     )
 
     if ! command -v gext >/dev/null 2>&1; then

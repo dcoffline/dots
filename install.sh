@@ -14,22 +14,22 @@ INCLUDE_CONTAINERS=0
 
 for arg in "$@"; do
   case "$arg" in
-    --containers|-c)
-      INCLUDE_CONTAINERS=1
-      ;;
-    --help|-h)
-      echo "Usage: $(basename "$0") [OPTIONS]"
-      echo ""
-      echo "Options:"
-      echo "  -c, --containers   Include Podman Quadlet container symlinks (~/.config/containers)"
-      echo "  -h, --help         Show this help message"
-      exit 0
-      ;;
-    *)
-      echo "Unknown option: $arg"
-      echo "Run '$(basename "$0") --help' for usage."
-      exit 1
-      ;;
+  --containers | -c)
+    INCLUDE_CONTAINERS=1
+    ;;
+  --help | -h)
+    echo "Usage: $(basename "$0") [OPTIONS]"
+    echo ""
+    echo "Options:"
+    echo "  -c, --containers   Include Podman Quadlet container symlinks (~/.config/containers)"
+    echo "  -h, --help         Show this help message"
+    exit 0
+    ;;
+  *)
+    echo "Unknown option: $arg"
+    echo "Run '$(basename "$0") --help' for usage."
+    exit 1
+    ;;
   esac
 done
 
@@ -242,14 +242,6 @@ fi
 if command -v gsettings >/dev/null 2>&1 && gsettings list-schemas 2>/dev/null | grep -q "^org\.gnome\.shell$"; then
   echo "[ Configuring GNOME Shell extensions... ]"
   current_extensions=$(gsettings get org.gnome.shell enabled-extensions 2>/dev/null || echo "[]")
-  if [[ "$current_extensions" != *"logomenu-fixed@dcoffline"* ]]; then
-    if [[ "$current_extensions" == "@as []" || "$current_extensions" == "[]" ]]; then
-      gsettings set org.gnome.shell enabled-extensions "['logomenu-fixed@dcoffline']"
-    else
-      new_extensions=$(echo "$current_extensions" | sed "s/]/, 'logomenu-fixed@dcoffline']/g")
-      gsettings set org.gnome.shell enabled-extensions "$new_extensions"
-    fi
-  fi
 fi
 
 echo "✅ Fortress bootstrap complete!"
