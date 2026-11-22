@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=TuxTalk
+GenericName=Voice Dictation
+Comment=Hold a key, talk, and your words are typed for you
+Exec=/home/eric/AppImages/TuxTalk.AppImage
+Icon=/home/eric/.local/share/icons/hicolor/256x256/apps/tuxtalk.png
+Terminal=false
+Categories=Utility;
+Keywords=dictation;voice;speech;whisper;ai;transcription;
+StartupNotify=true
+StartupWMClass=TuxTalk
+X-GNOME-Autostart-enabled=true

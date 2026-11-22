@@ -71,6 +71,7 @@ SCALE="1"
 
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
+rm -f "${XDG_RUNTIME_DIR}/sunshine-streaming"
 
 if [ -z "$XDG_CURRENT_DESKTOP" ]; then
   if pgrep -x kwin_wayland >/dev/null 2>&1; then

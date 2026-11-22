@@ -1,0 +1,76 @@
+#!/bin/bash
+# sunshine-display-watcher: monitors display connection changes and ensures Virtual-sunshine-vmon is active when headless.
+
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=${XDG_RUNTIME_DIR}/bus}"
+
+resolve_wayland_display() {
+  if [ -z "$WAYLAND_DISPLAY" ] || [ ! -S "${XDG_RUNTIME_DIR}/$WAYLAND_DISPLAY" ]; then
+    for s in "${XDG_RUNTIME_DIR}"/wayland-[0-9]*; do
+      if [ -S "$s" ]; then
+        export WAYLAND_DISPLAY="$(basename "$s")"
+        break
+      fi
+    done
+  fi
+  export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+}
+
+STREAM_FLAG="${XDG_RUNTIME_DIR}/sunshine-streaming"
+
+check_and_update() {
+  resolve_wayland_display
+
+  # If a stream is actively running, do not alter display configuration
+  if [ -f "$STREAM_FLAG" ]; then
+    return 0
+  fi
+
+  # Query KWin outputs
+  PHYS_OUTS=""
+  if command -v kscreen-doctor >/dev/null 2>&1; then
+    PHYS_OUTS=$(kscreen-doctor --json 2>/dev/null | jq -r '.outputs[] | select(.name != "Virtual-sunshine-vmon" and .connected == true) | .name')
+  fi
+
+  if [ -z "$PHYS_OUTS" ]; then
+    # Headless / TV is OFF: Ensure virtual monitor is running
+    if ! kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then
+      echo "sunshine-display-watcher: No physical displays connected. Starting sunshine-vmon..."
+      systemctl --user stop sunshine-vmon.service 2>/dev/null || true
+      systemd-run --user --unit=sunshine-vmon --collect --property=TimeoutStopSec=1s \
+        --setenv=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" \
+        krfb-virtualmonitor --resolution 2560x1440 --name sunshine-vmon --password sunshinepass --port 5905 >/dev/null 2>&1 || true
+    fi
+  else
+    # Physical display IS connected: If virtual monitor is running and stream is not active, tear it down and enable physical
+    if kscreen-doctor --json 2>/dev/null | jq -e '.outputs[] | select(.name == "Virtual-sunshine-vmon")' >/dev/null 2>&1; then
+      echo "sunshine-display-watcher: Physical display ($PHYS_OUTS) connected. Stopping sunshine-vmon..."
+      systemctl --user stop sunshine-vmon.service 2>/dev/null || true
+      echo "$PHYS_OUTS" | while read -r out; do
+        [ -n "$out" ] && kscreen-doctor "output.${out}.enable" >/dev/null 2>&1 || true
+      done
+    fi
+  fi
+}
+
+# Initial check on service start
+check_and_update
+
+# Periodic heartbeat in background (every 30s)
+(
+  while true; do
+    sleep 30
+    check_and_update
+  done
+) &
+TIMER_PID=$!
+trap 'kill "$TIMER_PID" 2>/dev/null' EXIT INT TERM
+
+# Event-driven listener on DRM kernel uevents with 3s debounce for HDMI/CEC sleep quirks
+udevadm monitor --kernel --subsystem-match=drm 2>/dev/null | while read -r line; do
+  # Debounce: wait 3 seconds to let HDMI/CEC handshakes settle
+  sleep 3
+  # Drain any queued events that arrived during the 3-second sleep
+  while read -t 0.1 -r extra; do :; done
+  check_and_update
+done
