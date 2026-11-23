@@ -1598,10 +1598,15 @@ backup-apps target_dir="$HOME/.mnt/10T/Backups/apps":
 
     # --- AIOMetadata / AIOStreams / Vane (small app states) ---
     echo "[7/7] AIOMetadata / AIOStreams / Vane..."
-    mkdir -p "$BACKUP_DIR/aiometadata" "$BACKUP_DIR/aiostreams" "$BACKUP_DIR/vane"
-    rsync -a "$SHARE/aiometadata/" "$BACKUP_DIR/aiometadata/"
-    rsync -a --exclude 'cache' "$SHARE/aiostreams/" "$BACKUP_DIR/aiostreams/"
-    rsync -a "$SHARE/vane/" "$BACKUP_DIR/vane/"
+    # Skip any app whose local dir is absent (aiometadata retired 2026-11-17).
+    for app in aiometadata aiostreams vane; do
+      if [ -d "$SHARE/$app" ]; then
+        mkdir -p "$BACKUP_DIR/$app"
+        rsync -a --exclude 'cache' "$SHARE/$app/" "$BACKUP_DIR/$app/"
+      else
+        echo "  - $app: no local dir, skipping"
+      fi
+    done
 
     printf '{"timestamp": "%s", "retention_count": %d, "kiwix": "skipped per Eric 2026-11-13"}\n' "$TIMESTAMP" "$RETENTION_COUNT" > "$BACKUP_DIR/manifest.json"
 
