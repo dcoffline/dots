@@ -11,17 +11,22 @@ SCRIPT_DIR_REAL="$(readlink -f "$SCRIPT_DIR")"
 # PARSE CLI FLAGS
 # =========================================================
 INCLUDE_CONTAINERS=0
+NO_APPS=0
 
 for arg in "$@"; do
   case "$arg" in
   --containers | -c)
     INCLUDE_CONTAINERS=1
     ;;
+  --no-apps)
+    NO_APPS=1
+    ;;
   --help | -h)
     echo "Usage: $(basename "$0") [OPTIONS]"
     echo ""
     echo "Options:"
     echo "  -c, --containers   Include Podman Quadlet container symlinks (~/.config/containers)"
+    echo "      --no-apps      Skip installing CLI tools, packages, and apps (only stow symlinks)"
     echo "  -h, --help         Show this help message"
     exit 0
     ;;
@@ -231,7 +236,9 @@ fi
 # =========================================================
 # 4. RUN PACKAGE INSTALLER
 # =========================================================
-if [ -f "$SCRIPT_DIR/install-pkg.sh" ]; then
+if [ "$NO_APPS" -eq 1 ]; then
+  echo "[ ⏭️  Skipping package installer (--no-apps)... ]"
+elif [ -f "$SCRIPT_DIR/install-pkg.sh" ]; then
   echo "[ Running package installer... ]"
   bash "$SCRIPT_DIR/install-pkg.sh"
 fi
@@ -239,7 +246,7 @@ fi
 # =========================================================
 # 5. ENABLE GNOME SHELL EXTENSIONS IF APPLICABLE
 # =========================================================
-if command -v gsettings >/dev/null 2>&1 && gsettings list-schemas 2>/dev/null | grep -q "^org\.gnome\.shell$"; then
+if [ "$NO_APPS" -eq 0 ] && command -v gsettings >/dev/null 2>&1 && gsettings list-schemas 2>/dev/null | grep -q "^org\.gnome\.shell$"; then
   echo "[ Configuring GNOME Shell extensions... ]"
   current_extensions=$(gsettings get org.gnome.shell enabled-extensions 2>/dev/null || echo "[]")
 fi
