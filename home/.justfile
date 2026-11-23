@@ -1183,8 +1183,10 @@ backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
     echo "[ 6b ] Backing up freellmapi state (~/.local/share/freellmapi/)..."
     mkdir -p "$BACKUP_DIR/freellmapi"
     if [ -d "$HOME/.local/share/freellmapi" ]; then
-      sudo rsync -a --exclude='*.sock' "$HOME/.local/share/freellmapi/" "$BACKUP_DIR/freellmapi/"
-      sudo chown -R "$(id -u):$(id -g)" "$BACKUP_DIR/freellmapi/"
+      # data/ is owned by the rootless-podman subuid (525287), mode 700. podman unshare
+      # enters eric's user namespace, where that subuid is readable, so no sudo needed.
+      # /home is a symlink the namespace can't trust, so pass resolved real paths.
+      podman unshare rsync -a --no-owner --no-group --exclude='*.sock' "$(readlink -f "$HOME/.local/share/freellmapi")/" "$(readlink -f "$BACKUP_DIR/freellmapi")/"
       echo "  ✓ freellmapi state backed up."
     else
       echo "  ℹ️ freellmapi dir not found, skipping."
