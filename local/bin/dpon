@@ -30,10 +30,10 @@ try:
             p_id = sid
 
     if p_id and v_id:
-        cmd = ["displayplacer", f"id:{p_id} res:2560x1440 hz:75 color_depth:8 enabled:true scaling:off origin:(0,0) degree:0", f"id:{v_id} res:{v_res} origin:(2560,1440) degree:0"]
+        cmd = ["displayplacer", f"id:{p_id} res:2560x1440 hz:60 color_depth:8 enabled:true scaling:off origin:(0,0) degree:0", f"id:{v_id} res:{v_res} origin:(2560,1440) degree:0"]
         subprocess.check_call(cmd)
     elif p_id:
-        subprocess.check_call(["displayplacer", f"id:{p_id} res:2560x1440 hz:75 color_depth:8 enabled:true scaling:off origin:(0,0) degree:0"])
+        subprocess.check_call(["displayplacer", f"id:{p_id} res:2560x1440 hz:60 color_depth:8 enabled:true scaling:off origin:(0,0) degree:0"])
 
     # Warp cursor back to center of Dell physical screen
     try:
