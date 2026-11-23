@@ -103,12 +103,23 @@ y() {
   \rm -f -- "$tmp" &>/dev/null
 }
 
-# Automatically do an ls after each cd, z, or zoxide
+# Smart cd: zoxide fallback + auto-ls on every directory change
+unalias cd 2>/dev/null || true
 cd() {
-  if [ -n "$1" ]; then
-    builtin cd "$@" && ls
-  else
+  if (( $# == 0 )); then
     builtin cd ~ && ls
+  elif [[ "$1" == "-" || -d "$1" ]]; then
+    builtin cd "$@" && ls
+  elif declare -F z &>/dev/null; then
+    if z "$@"; then
+      printf "\U000F17A9 %s\n" "$PWD"
+      ls
+    else
+      echo "Error: Directory not found"
+      return 1
+    fi
+  else
+    builtin cd "$@" && ls
   fi
 }
 
@@ -157,22 +168,24 @@ up() {
 
 # Copy file with a progress bar
 cpp() {
-  set -e
-  strace -q -ewrite cp -- "${1}" "${2}" 2>&1 |
-    awk '{
-    count += $NF
-      if (count % 10 == 0) {
-        percent = count / total_size * 100
-        printf "%3d%% [", percent
-        for (i=0;i<=percent;i++)
-          printf "="
-        printf ">"
-          for (i=percent;i<100;i++)
-            printf " "
-          printf "]\r"
-      }
-  }
-  END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+  (
+    set -e
+    strace -q -ewrite cp -- "${1}" "${2}" 2>&1 |
+      awk '{
+      count += $NF
+        if (count % 10 == 0) {
+          percent = count / total_size * 100
+          printf "%3d%% [", percent
+          for (i=0;i<=percent;i++)
+            printf "="
+          printf ">"
+            for (i=percent;i<100;i++)
+              printf " "
+            printf "]\r"
+        }
+    }
+    END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+  )
 }
 
 # Copy and go to the directory
@@ -391,3 +404,299 @@ ptrans() {
 }
 
 
+
+# ────── PORTABLE UTILITIES (ADOPTED FROM OMARCHY) ──────
+
+# Open files/URLs with default app on Linux (macOS already has native open)
+if [[ "${IS_LINUX:-0}" -eq 1 || "$OSTYPE" == linux* ]]; then
+  open() (
+    xdg-open "$@" >/dev/null 2>&1 &
+  )
+fi
+
+# Open Neovim in current directory or with given arguments
+n() {
+  if [ "$#" -eq 0 ]; then
+    command nvim .
+  else
+    command nvim "$@"
+  fi
+}
+
+# Fuzzy file preview picker (keeps `ff` free for fastfetch)
+fp() {
+  if [[ "${TERM:-}" == "xterm-kitty" ]] && command -v bat &>/dev/null; then
+    fzf --preview 'case $(file --mime-type -b {}) in image/*) kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} ;; *) bat --style=numbers --color=always {} ;; esac' "$@"
+  elif command -v bat &>/dev/null; then
+    fzf --preview 'bat --style=numbers --color=always {}' "$@"
+  else
+    fzf "$@"
+  fi
+}
+
+# Fuzzy-pick a file and open it in $EDITOR
+eff() {
+  local file
+  file=$(fp) && [[ -n $file ]] && "${EDITOR:-nvim}" "$file" "$@"
+}
+
+# ── SSH Auto-Reconnect & Terminal Mode Disarm ───────────────────
+# Wrap ssh to disarm stuck terminal modes (mouse tracking, focus reporting,
+# alternate screen) and auto-reconnect when an interactive session drops.
+ssh() {
+  local rc started
+
+  started=$SECONDS
+  command ssh "$@"
+  rc=$?
+
+  [[ -t 1 ]] || return $rc
+  _ssh_disarm
+
+  if (( rc != 255 )) || [[ ! -t 0 ]] || ! _ssh_interactive "$@" ||
+    (( SECONDS - started < 30 )); then
+    return $rc
+  fi
+
+  (
+    while true; do
+      echo "Connection lost. Reconnecting (Ctrl-C to stop)..."
+      sleep 2
+      command ssh "$@"
+      rc=$?
+      _ssh_disarm
+      (( rc != 255 )) && exit $rc
+    done
+  )
+}
+
+_ssh_disarm() {
+  printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1004l\e[?1049l\e[?25h'
+}
+
+_ssh_interactive() {
+  local value_opts="BbcDEeFIiJLlmOoPpQRSWw"
+  local argv=("$@") arg letters i dest="" opts_done=""
+
+  while (($#)); do
+    arg="$1"
+    shift
+
+    if [[ -z $opts_done && $arg == "--" ]]; then
+      opts_done=1
+    elif [[ -z $opts_done && $arg == -?* ]]; then
+      letters="${arg#-}"
+      for ((i = 0; i < ${#letters}; i++)); do
+        if [[ $value_opts == *"${letters:i:1}"* ]]; then
+          (( i == ${#letters} - 1 )) && shift
+          break
+        fi
+      done
+    elif [[ -z $dest ]]; then
+      dest="$arg"
+    else
+      return 1
+    fi
+  done
+
+  [[ -n $dest ]] || return 1
+
+  local resolved
+  resolved=$(command ssh -G "${argv[@]}" 2>/dev/null) || return 1
+  ! grep -i '^remotecommand ' <<<"$resolved" | grep -qvi '^remotecommand none$'
+}
+
+# ── SSH Local Port Forwarding ───────────────────────────────────
+fip() {
+  (( $# < 2 )) && echo "Usage: fip <host> <port1> [port2] ..." && return 1
+  local host="$1"
+  shift
+  for port in "$@"; do
+    ssh -f -N -L "${port}:localhost:${port}" "$host" && echo "Forwarding localhost:$port -> $host:$port"
+  done
+}
+
+dip() {
+  (( $# == 0 )) && echo "Usage: dip <port1> [port2] ..." && return 1
+  for port in "$@"; do
+    pkill -f "ssh.*-L ${port}:localhost:${port}" && echo "Stopped forwarding port $port" || echo "No forwarding on port $port"
+  done
+}
+
+lip() {
+  pgrep -af "ssh.*-L [0-9]+:localhost:[0-9]+" || echo "No active forwards"
+}
+
+# ── Git Worktrees ───────────────────────────────────────────────
+# Create a new worktree and branch from within current git directory
+ga() {
+  if [[ -z "${1:-}" ]]; then
+    echo "Usage: ga <branch-name>"
+    return 1
+  fi
+
+  local branch="$1"
+  local base
+  base="$(basename "$PWD")"
+  local wt_path="../${base}--${branch}"
+
+  git worktree add -b "$branch" "$wt_path" || return 1
+  command -v mise &>/dev/null && mise trust "$wt_path"
+  cd "$wt_path"
+}
+
+# Remove worktree and branch from within active worktree directory
+gd() {
+  local confirmed=0
+  if command -v gum &>/dev/null; then
+    gum confirm "Remove worktree and branch?" && confirmed=1
+  else
+    local reply
+    read -rp "Remove worktree and branch? (y/N): " reply
+    [[ "$reply" =~ ^[Yy]$ ]] && confirmed=1
+  fi
+
+  if (( confirmed )); then
+    local cwd branch root worktree
+
+    cwd="$(pwd)"
+    worktree="$(basename "$cwd")"
+
+    # split on first `--`
+    root="${worktree%%--*}"
+    branch="${worktree#*--}"
+
+    # Protect against accidentally nuking a non-worktree directory
+    if [[ "$root" != "$worktree" ]]; then
+      cd "../$root" || return 1
+      git worktree remove "$cwd" --force || return 1
+      git branch -D "$branch"
+    fi
+  fi
+}
+
+# ── Tmux Dev Layouts ────────────────────────────────────────────
+# Create a Tmux Dev Layout with editor, ai, and terminal
+# Usage: tdl <ai_cmd> [<second_ai_cmd>]
+tdl() {
+  [[ -z "${1:-}" ]] && { echo "Usage: tdl <ai_cmd> [<second_ai_cmd>]"; return 1; }
+  [[ -z "${TMUX:-}" ]] && { echo "You must start tmux to use tdl."; return 1; }
+
+  local current_dir="${PWD}"
+  local editor_pane ai_pane ai2_pane
+  local ai="$1"
+  local ai2="${2:-}"
+
+  editor_pane="$TMUX_PANE"
+  tmux rename-window -t "$editor_pane" "$(basename "$current_dir")"
+
+  # Split window vertically - top 85%, bottom 15%
+  tmux split-window -v -p 15 -t "$editor_pane" -c "$current_dir"
+
+  # Split editor pane horizontally - AI on right 30%
+  ai_pane=$(tmux split-window -h -p 30 -t "$editor_pane" -c "$current_dir" -P -F '#{pane_id}')
+
+  # If second AI provided, split the AI pane vertically
+  if [[ -n $ai2 ]]; then
+    ai2_pane=$(tmux split-window -v -t "$ai_pane" -c "$current_dir" -P -F '#{pane_id}')
+    tmux send-keys -t "$ai2_pane" "$ai2" C-m
+  fi
+
+  tmux send-keys -t "$ai_pane" "$ai" C-m
+  tmux send-keys -t "$editor_pane" "${EDITOR:-nvim} ." C-m
+
+  # Select the editor pane for focus (fixes Omarchy's undefined $opencode_pane)
+  tmux select-pane -t "$editor_pane"
+}
+
+# Create a Tmux Dev Square layout with editor, diff watch, terminal, and opencode
+tds() {
+  [[ -n "${1:-}" ]] && { echo "Usage: tds"; return 1; }
+  [[ -z "${TMUX:-}" ]] && { echo "You must start tmux to use tds."; return 1; }
+
+  local current_dir="${PWD}"
+  local editor_pane diff_pane terminal_pane opencode_pane
+
+  editor_pane="$TMUX_PANE"
+  tmux rename-window -t "$editor_pane" "$(basename "$current_dir")"
+
+  terminal_pane=$(tmux split-window -v -p 50 -t "$editor_pane" -c "$current_dir" -P -F '#{pane_id}')
+  diff_pane=$(tmux split-window -h -p 50 -t "$editor_pane" -c "$current_dir" -P -F '#{pane_id}')
+  opencode_pane=$(tmux split-window -h -p 50 -t "$terminal_pane" -c "$current_dir" -P -F '#{pane_id}')
+
+  tmux send-keys -t "$editor_pane" -l "${EDITOR:-nvim} ."
+  tmux send-keys -t "$editor_pane" C-m
+  tmux send-keys -t "$diff_pane" -l "hunk diff --watch"
+  tmux send-keys -t "$diff_pane" C-m
+  tmux send-keys -t "$opencode_pane" -l "opencode"
+  tmux send-keys -t "$opencode_pane" C-m
+
+  tmux select-pane -t "$editor_pane"
+}
+
+# Create multiple tdl windows with one per subdirectory in the current directory
+tdlm() {
+  [[ -z "${1:-}" ]] && { echo "Usage: tdlm <ai_cmd> [<second_ai_cmd>]"; return 1; }
+  [[ -z "${TMUX:-}" ]] && { echo "You must start tmux to use tdlm."; return 1; }
+
+  local ai="$1"
+  local ai2="${2:-}"
+  local base_dir="$PWD"
+  local first=true
+  local tdl_command
+
+  tmux rename-session "$(basename "$base_dir" | tr '.:' '--')"
+
+  for dir in "$base_dir"/*/; do
+    [[ -d $dir ]] || continue
+    local dirpath="${dir%/}"
+
+    printf -v tdl_command 'tdl %q' "$ai"
+    [[ -n $ai2 ]] && printf -v tdl_command '%s %q' "$tdl_command" "$ai2"
+
+    if $first; then
+      printf -v tdl_command 'cd %q && %s' "$dirpath" "$tdl_command"
+      tmux send-keys -t "$TMUX_PANE" "$tdl_command" C-m
+      first=false
+    else
+      local pane_id
+      pane_id=$(tmux new-window -c "$dirpath" -P -F '#{pane_id}')
+      tmux send-keys -t "$pane_id" "$tdl_command" C-m
+    fi
+  done
+}
+
+# Create a multi-pane tiled swarm layout with the same command started in each pane
+tsl() {
+  [[ ! "${1:-}" =~ ^[1-9][0-9]*$ || -z "${2:-}" ]] && { echo "Usage: tsl <pane_count> <command>"; return 1; }
+  [[ -z "${TMUX:-}" ]] && { echo "You must start tmux to use tsl."; return 1; }
+
+  local count="$1"
+  shift
+  local cmd
+  if (( $# == 1 )); then
+    cmd="$1"
+  else
+    printf -v cmd '%q ' "$@"
+    cmd="${cmd% }"
+  fi
+  local current_dir="${PWD}"
+  local -a panes
+
+  tmux rename-window -t "$TMUX_PANE" "$(basename "$current_dir")"
+  panes+=("$TMUX_PANE")
+
+  while (( ${#panes[@]} < count )); do
+    local new_pane
+    local split_target="${panes[-1]}"
+    new_pane=$(tmux split-window -h -t "$split_target" -c "$current_dir" -P -F '#{pane_id}')
+    panes+=("$new_pane")
+    tmux select-layout -t "${panes[0]}" tiled
+  done
+
+  for pane in "${panes[@]}"; do
+    tmux send-keys -t "$pane" "$cmd" C-m
+  done
+
+  tmux select-pane -t "${panes[0]}"
+}

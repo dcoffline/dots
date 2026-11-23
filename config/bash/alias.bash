@@ -38,8 +38,10 @@ if [ "$ENV_TYPE" = "container" ]; then
 
 else
 
-  # Set Podman socket path
-  export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
+  # Set Podman socket path only when native Docker isn't active
+  if [ ! -S /var/run/docker.sock ] && [ -S "/run/user/$(id -u)/podman/podman.sock" ]; then
+    export DOCKER_HOST="unix:///run/user/$(id -u)/podman/podman.sock"
+  fi
 
   # Distrobox
   alias def='distrobox enter fedora'
@@ -73,7 +75,7 @@ fi
 # ────── GLOBAL ALIASES ──────
 
 # Fix for Ptyxis/VTE terminal color query leaks
-[[ $TERM == "xterm-256color" ]] && export TERM="vte-256color"
+[[ -n "${VTE_VERSION:-}" && "$TERM" == "xterm-256color" ]] && export TERM="vte-256color"
 #alias wave="/var/home/eric/Applications/wave.appimage --ozone-platform=x11 --enable-transparent-visuals --ignore-gpu-blocklist"
 
 # List recently installed packages
@@ -120,7 +122,7 @@ alias ted='flatpak run org.gnome.TextEditor'
 
 # System Utils (Global)
 alias status='just status'
-alias gd=gdctl
+command -v gdctl &>/dev/null && alias gd=gdctl
 alias yey=paru
 alias bb=busybox
 alias j=jotta-cli
@@ -137,7 +139,7 @@ alias macboot='sudo fdesetup authrestart'
 alias cat=bat
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm='trash -v'
+command -v trash &>/dev/null && alias rm='trash -v'
 alias mkdir='mkdir -p'
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -153,7 +155,7 @@ alias vich='command -v'
 alias la='eza -la --icons=auto --group-directories-first'
 
 # Ghostty Terminal
-[ "$OS_TYPE" = "linux" ] && alias ghostty='~/AppImages/ghostty.appimage'
+[ "$OS_TYPE" = "linux" ] && [ -x "$HOME/AppImages/ghostty.appimage" ] && alias ghostty="$HOME/AppImages/ghostty.appimage"
 
 # Chris Titus Linux Utilities
 [ ! -f "$HOME/.local/share/cargo/bin/linutil" ] && alias linutil='curl -fsSL https://christitus.com/linux | sh'

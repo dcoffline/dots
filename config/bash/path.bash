@@ -37,8 +37,15 @@ add_to_path "$HOME/.config/npm/bin"
 add_to_path "$HOME/.local/share/cargo/bin"
 add_to_path "$HOME/.local/bin"
 
+# Keep mise command-wrappers first when present so mise account switches work
+_mise_wrappers="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/command-wrappers/bin"
+if [ -d "$_mise_wrappers" ] || [[ ":$PATH:" == *":$_mise_wrappers:"* ]]; then
+  PATH="$_mise_wrappers:$PATH"
+fi
+unset _mise_wrappers
+
 # ────── CLEANUP ──────
-# Use cleanpath function from .functions if available
+# Use cleanpath function from function.bash if available
 cleanpath
 
 export PATH
