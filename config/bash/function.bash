@@ -408,7 +408,7 @@ ptrans() {
 # ────── PORTABLE UTILITIES (ADOPTED FROM OMARCHY) ──────
 
 # Open files/URLs with default app on Linux (macOS already has native open)
-unalias open 2>/dev/null
+unalias open 2>/dev/null || true
 if [[ "${IS_LINUX:-0}" -eq 1 || "$OSTYPE" == linux* ]]; then
   function open {
     xdg-open "$@" >/dev/null 2>&1 &
