@@ -5,8 +5,10 @@ After=network-online.target honcho-db.service honcho-redis.service
 
 [Container]
 ContainerName=honcho
-Image=ghcr.io/plastic-labs/honcho:latest
-AutoUpdate=registry
+# Pinned by digest (v3.6.2, revision e212feef) after the 2026-11-23 migration
+# mismatch. Image was :latest and auto-updated; a :latest pull can break the
+# Alembic chain again. Bump deliberately: verify migrations, then update the digest.
+Image=ghcr.io/plastic-labs/honcho@sha256:1e968e537a78c0710f8d2e7eb36992e8585a1d42c1a84d7d6563fe58124f3349
 Network=homelab.network
 PublishPort=127.0.0.1:8000:8000
 Exec=sh docker/entrypoint.sh
