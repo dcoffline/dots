@@ -1,0 +1,32 @@
+# Rootless quadlet draft for family-site. Parent places this in ~/src/dots (stow) — not done here.
+# Requires the homelab network quadlet (homelab.network) to exist.
+# Build first:  cd <project dir> && podman build -t localhost/family-site:latest -f Containerfile .
+
+[Unit]
+Description=Hamilton family notes web app (behind Cloudflare Access)
+After=network-online.target
+
+[Container]
+ContainerName=family-site
+Image=localhost/family-site:latest
+Network=homelab
+# Map container uid/gid 1000 to host eric (1000) so the bind mount is writable, incl. .git.
+# Without this, container uid 1000 lands on host subuid 525287 and cannot write eric-owned files.
+UserNS=keep-id:uid=1000,gid=1000
+User=1000:1000
+Volume=%h/Documents/Personal/Genealogy:/data:Z
+Volume=family-site-state:/var/lib/family-site:Z
+EnvironmentFile=%h/.config/family-site/family-site.env
+Environment=GENEALOGY_ROOT=/data
+Environment=INDEX_DB=/var/lib/family-site/index.db
+Environment=BIND_HOST=0.0.0.0
+Environment=PORT=8000
+# Intentionally NO PublishPort=: the tunnel reaches the app over the homelab network only.
+HealthCmd=/usr/bin/env python3 -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=5).status == 200 else 1)"
+HealthInterval=60s
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
