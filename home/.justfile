@@ -102,7 +102,7 @@ status:
 # Pass --containers (or -c) to include Podman Quadlet symlinks (~/.config/containers)
 update *args:
     #!/usr/bin/env bash
-    if [[ "$(uname -s)" != "Darwin" ]]; then
+    if [[ "$(uname -s)" != "Darwin" ]] && { [ -f /run/.containerenv ] || ! command -v omarchy-update >/dev/null 2>&1; }; then
       sudo -v
       # Sudo keep-alive
       while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
@@ -167,6 +167,9 @@ update *args:
     elif [ -f /run/ostree-booted ] || [[ "$(uname -s)" == "Darwin" ]]; then
       ENV_TYPE="immutable"
       echo "[ 🛡️  Immutable host detected ]"
+    elif command -v omarchy-update >/dev/null 2>&1; then
+      ENV_TYPE="mutable"
+      echo "[ 🏹 Omarchy host detected ]"
     else
       ENV_TYPE="mutable"
       echo "[ 💻 Standard mutable host detected ]"
@@ -302,6 +305,20 @@ update *args:
         echo "[ Starting Immutable Host Update... ]"
         sudo ujust update
       fi
+
+    elif command -v omarchy-update >/dev/null 2>&1; then
+      echo "[ Syncing Dotfiles... ]"
+      stow -R --ignore='.DS_Store' --ignore='^\._' -t "$HOME" home
+      stow -R "${STOW_LOCAL_ARGS[@]}" -t "$HOME/.local" local
+      stow -R "${STOW_CONFIG_ARGS[@]}" -t "$HOME/.config" config
+      apply_container_links
+      bash "${DOTS:-$HOME/src/dots}/.githooks/check_links.sh"
+
+      echo "[ Backing up to GitHub... ]"
+      git pull --rebase --autostash -X ours && git push origin main || echo "⚠️ Warning: Could not push updates to GitHub."
+
+      echo "[ Starting Omarchy Update... ]"
+      omarchy update
 
     else
       echo "[ Updating System binaries... ]"
