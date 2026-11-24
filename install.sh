@@ -39,7 +39,7 @@ for arg in "$@"; do
 done
 
 # Export all environment variables sourced from configuration
-mkdir -p "$HOME/.local/bin" "$HOME/.local/lib" "$HOME/.config/systemd/user"
+mkdir -p "$HOME/.local/bin" "$HOME/.local/lib" "$HOME/.local/share" "$HOME/.config/systemd/user"
 set -a
 [ -f "$SCRIPT_DIR/config/environment.d/envvars.conf" ] && source "$SCRIPT_DIR/config/environment.d/envvars.conf"
 [ -f "$SCRIPT_DIR/config/bash/os.bash" ] && source "$SCRIPT_DIR/config/bash/os.bash"
@@ -50,6 +50,8 @@ set +a
 # =========================================================
 if [ "$ENV_TYPE" == "container" ]; then
   echo "[ 🏗️  Container environment detected ]"
+elif [ "${IS_MAC:-0}" -eq 1 ]; then
+  echo "[ 🍏 macOS host detected ]"
 elif [ "$ENV_TYPE" == "immutable" ]; then
   echo "[ 🛡️  Immutable host detected ]"
 else
@@ -95,12 +97,36 @@ is_link_to_dots() {
     if [[ "$link_target" == "$SCRIPT_DIR"* || "$link_target" == "$SCRIPT_DIR_REAL"* ]]; then
       return 0
     fi
+    # If link is relative, normalize and check
+    if [[ "$link_target" != /* ]]; then
+      local parent_dir
+      parent_dir="$(cd "$(dirname "$target")" 2>/dev/null && pwd -P || dirname "$target")"
+      local combined="$parent_dir/$link_target"
+      if [[ "$combined" == "$SCRIPT_DIR"* || "$combined" == "$SCRIPT_DIR_REAL"* || "$combined" == *"/src/dots/"* || "$combined" == *"/dots/"* ]]; then
+        return 0
+      fi
+    fi
     # Same repo accessed via a different path prefix (e.g. /var/home vs /home)
-    if [[ "$link_target" == *"/src/dots/"* ]]; then
+    if [[ "$link_target" == *"/src/dots/"* || "$link_target" == *"/dots/"* ]]; then
       return 0
     fi
   fi
   return 1
+}
+
+# Helper: clean up dead/broken symlinks that point into this repository
+prune_broken_dots_links() {
+  local target_dir="$1"
+  local max_depth="${2:-4}"
+  [ -d "$target_dir" ] || return 0
+
+  while IFS= read -r link; do
+    [ -L "$link" ] || continue
+    if [ ! -e "$link" ] && is_link_to_dots "$link"; then
+      echo "[ 🧹 Pruning dead dotfiles symlink: $link ]"
+      rm -f "$link"
+    fi
+  done < <(find "$target_dir" -maxdepth "$max_depth" -type l 2>/dev/null || true)
 }
 
 # Helper: check if a target is an external directory with dotfiles-managed symlinks (e.g. .env on 2T)
@@ -164,8 +190,16 @@ backup_package() {
 }
 
 # =========================================================
-# 2. BACKUP EXISTING CONFLICTING TARGETS
+# 2. PRUNE DEAD LINKS & BACKUP CONFLICTING TARGETS
 # =========================================================
+echo "[ Pruning dead dotfiles symlinks... ]"
+prune_broken_dots_links "$HOME" 2
+prune_broken_dots_links "$HOME/.local" 4
+prune_broken_dots_links "$HOME/.config" 4
+if [ "${IS_MAC:-0}" -eq 1 ]; then
+  prune_broken_dots_links "$HOME/Library" 4
+fi
+
 echo "[ Checking for existing configurations to back up (*.bak)... ]"
 backup_package "home" "$HOME"
 backup_package "local" "$HOME/.local"
@@ -181,7 +215,7 @@ fi
 # 3. APPLY DOTFILES WITH STOW
 # =========================================================
 echo "[ Applying dotfiles with Stow... ]"
-mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/lib" "$HOME/.local/share/gnome-shell/extensions" "$HOME/.config/rclone"
+mkdir -p "$HOME/.config/systemd/user" "$HOME/.local/bin" "$HOME/.local/lib" "$HOME/.local/share" "$HOME/.config/rclone"
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME" home
 
 # Collect any local/share directories that are symlinked to external storage (e.g. 2T SSD)

@@ -18,8 +18,10 @@ brew "glib"
 brew "atuin"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
-# Service Discovery for Linux using mDNS/DNS-SD
-brew "avahi"
+if OS.linux?
+  # Service Discovery for Linux using mDNS/DNS-SD
+  brew "avahi"
+end
 # JPEG image codec that aids compression and decompression
 brew "jpeg-turbo"
 # TIFF library and utilities
@@ -34,8 +36,10 @@ brew "bat"
 brew "boost"
 # Resource monitor. C++ version and continuation of bashtop and bpytop
 brew "btop"
-# Server and user space API to deal with multimedia pipelines
-brew "pipewire"
+if OS.linux?
+  # Server and user space API to deal with multimedia pipelines
+  brew "pipewire"
+end
 # Console-based Audio Visualizer for ALSA
 brew "cava"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
@@ -106,8 +110,10 @@ brew "neovim"
 brew "newsboat"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
-# NUMA support for Linux
-brew "numactl"
+if OS.linux?
+  # NUMA support for Linux
+  brew "numactl"
+end
 # General-purpose scripting language
 brew "php"
 # Execute binaries from Python packages in isolated environments
@@ -144,8 +150,10 @@ brew "starship"
 brew "stow"
 # Stress test a computer system in various selectable ways
 brew "stress-ng"
-# Performance monitoring tools for Linux
-brew "sysstat"
+if OS.linux?
+  # Performance monitoring tools for Linux
+  brew "sysstat"
+end
 # Very fast implementation of tldr in Rust
 brew "tealdeer"
 # General purpose fuzzy finder TUI
@@ -174,8 +182,10 @@ brew "lizardbyte/homebrew/sunshine", pin: true, trusted: true
 brew "valkyrie00/bbrew/bbrew", trusted: true
 # Android SDK component
 cask "android-platform-tools"
-# Agent orchestration platform
-cask "ublue-os/tap/antigravity-linux", trusted: true
+if OS.linux?
+  # Agent orchestration platform
+  cask "ublue-os/tap/antigravity-linux", trusted: true
+end
 cask "font-0xproto-nerd-font"
 cask "font-blex-mono-nerd-font"
 cask "font-caskaydia-mono-nerd-font"
