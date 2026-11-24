@@ -52,7 +52,7 @@ backup-nextcloud:
 
 # Backs up all dev projects, Hermes state, Quadlets, Systemd units, Gemini & Secrets (keeps 7)
 [no-cd]
-backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
+backup-athena target_dir="":
     #!/usr/bin/env bash
     exec bash "$HOME/.config/just/lib/backup-athena.sh" "{{target_dir}}"
 
@@ -64,12 +64,13 @@ restore-athena backup_path="":
 
 # Backs up Immich (Postgres DB dump + hardlink-incremental library sync, keeps 3)
 [no-cd]
-backup-immich target_dir="$HOME/.mnt/10T/Backups/immich":
+backup-immich target_dir="":
     #!/usr/bin/env bash
     set -euo pipefail
     source "$HOME/.config/just/lib/common.sh"
 
     TARGET_DIR="{{target_dir}}"
+    TARGET_DIR="${TARGET_DIR:-$HOME/.mnt/10T/Backups/immich}"
     TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
     BACKUP_DIR="$TARGET_DIR/immich_$TIMESTAMP"
     LATEST_LINK="$TARGET_DIR/latest"
@@ -132,12 +133,13 @@ backup-immich target_dir="$HOME/.mnt/10T/Backups/immich":
 
 # Backs up Honcho (Hermes memory DB — pg_dump, keeps 7)
 [no-cd]
-backup-honcho target_dir="$HOME/.mnt/10T/Backups/honcho":
+backup-honcho target_dir="":
     #!/usr/bin/env bash
     set -euo pipefail
     source "$HOME/.config/just/lib/common.sh"
 
     TARGET_DIR="{{target_dir}}"
+    TARGET_DIR="${TARGET_DIR:-$HOME/.mnt/10T/Backups/honcho}"
     TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
     BACKUP_DIR="$TARGET_DIR/honcho_$TIMESTAMP"
     RETENTION_COUNT=7
@@ -175,12 +177,13 @@ backup-honcho target_dir="$HOME/.mnt/10T/Backups/honcho":
 
 # Backs up per-service container data not covered by other recipes (keeps 7; skips Kiwix)
 [no-cd]
-backup-apps target_dir="$HOME/.mnt/10T/Backups/apps":
+backup-apps target_dir="":
     #!/usr/bin/env bash
     set -euo pipefail
     source "$HOME/.config/just/lib/common.sh"
 
     TARGET_DIR="{{target_dir}}"
+    TARGET_DIR="${TARGET_DIR:-$HOME/.mnt/10T/Backups/apps}"
     TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
     BACKUP_DIR="$TARGET_DIR/apps_$TIMESTAMP"
     RETENTION_COUNT=7

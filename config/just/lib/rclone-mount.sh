@@ -94,7 +94,7 @@ for remote in "${RCLONE_REMOTES[@]}"; do
     # AllDebrid-recommended: minimal cache, no multi-thread, cautious cutoff
     EXTRA_FLAGS=( --read-only --dir-cache-time 10s --attr-timeout 1s --multi-thread-streams=0 --cutoff-mode=cautious --vfs-cache-mode minimal --buffer-size 0 )
   elif [[ "$remote" == "Nextcloud" ]]; then
-    EXTRA_FLAGS=( --dir-cache-time 10s --attr-timeout 1s )
+    EXTRA_FLAGS=( --dir-cache-time 10m --attr-timeout 5m )
     # On bee (where Nextcloud container runs), bypass Cloudflare tunnel and use local WebDAV
     if [[ "$OS_TYPE" != "Darwin" && "$(hostname -s)" == "bee" ]]; then
       EXTRA_FLAGS+=( --webdav-url "http://127.0.0.1:8088/remote.php/dav/files/eric" )

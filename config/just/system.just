@@ -107,11 +107,15 @@ link-persistent:
 
 # Clean up macOS AppleDouble sidecar files (._*) in a target directory
 [no-cd]
-clean-apple target_dir="/var/home/eric/.mnt/10T/Documents/Notes":
+clean-apple target_dir="":
     #!/usr/bin/env bash
     set -euo pipefail
 
     TARGET_DIR="{{target_dir}}"
+    TARGET_DIR="${TARGET_DIR:-$HOME/.mnt/10T/Documents/Notes}"
+    if [ ! -d "$TARGET_DIR" ] && [ -d "/var/home/eric/.mnt/10T/Documents/Notes" ]; then
+        TARGET_DIR="/var/home/eric/.mnt/10T/Documents/Notes"
+    fi
 
     if [ ! -d "$TARGET_DIR" ]; then
         echo "Error: Directory '$TARGET_DIR' does not exist."
