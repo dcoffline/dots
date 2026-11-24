@@ -42,9 +42,9 @@ done
 # Check if containers is opted-in (via INCLUDE_CONTAINERS=1 or active stow symlink)
 check_containers="${INCLUDE_CONTAINERS:-0}"
 if [ "$check_containers" -eq 0 ]; then
-  if [ -L "$HOME/.config/containers" ] && [[ "$(readlink -f "$HOME/.config/containers" 2>/dev/null)" == "$DOTS/"* ]]; then
+  if [ -L "$HOME/.config/containers" ] && { [ "$HOME/.config/containers" -ef "$DOTS/containers" ] || [[ "$(readlink -f "$HOME/.config/containers" 2>/dev/null)" == "$DOTS/"* ]]; }; then
     check_containers=1
-  elif [ -d "$HOME/.config/containers" ] && [ -L "$HOME/.config/containers/systemd" ] && [[ "$(readlink -f "$HOME/.config/containers/systemd" 2>/dev/null)" == "$DOTS/"* ]]; then
+  elif [ -d "$HOME/.config/containers" ] && [ -L "$HOME/.config/containers/systemd" ] && { [ "$HOME/.config/containers/systemd" -ef "$DOTS/containers/systemd" ] || [[ "$(readlink -f "$HOME/.config/containers/systemd" 2>/dev/null)" == "$DOTS/"* ]]; }; then
     check_containers=1
   fi
 fi
@@ -88,7 +88,7 @@ while IFS= read -r path; do
   # readlink -f alone false-greens on ABSOLUTE links (2026-10-15 'update
   # all' outage): they resolve fine here but stow 2.3.1 cannot restow them,
   # so require stow-style relative links whenever the live node is a link.
-  if [ -e "$t" ] && [ "$(readlink -f "$t" 2>/dev/null)" = "$(readlink -f "$DOTS/$path" 2>/dev/null)" ]; then
+  if [ -e "$t" ] && { [ "$t" -ef "$DOTS/$path" ] || [ "$(readlink -f "$t" 2>/dev/null)" = "$(readlink -f "$DOTS/$path" 2>/dev/null)" ]; }; then
     if [ -L "$t" ]; then
       lt="$(readlink "$t")"
       case "$lt" in

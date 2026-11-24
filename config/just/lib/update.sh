@@ -174,14 +174,9 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
     git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
     git pull --rebase --autostash -X ours && git push origin main || echo "⚠️ Warning: Git push failed."
   elif [ "${OS_TYPE:-}" = "linux" ]; then
-    CONTAINER_NAME=$(distrobox list --no-color 2>/dev/null | awk -F '|' 'NR>1 {gsub(/[ \t]+/, "", $2); print $2}' | head -n 1)
-    if [ -n "$CONTAINER_NAME" ]; then
-      distrobox enter "$CONTAINER_NAME" -- sh -c "cd '$DOTS' && git add Brewfile '$SHELLINI' && git commit -m \"System snapshot: $(date +'%Y-%m-%d')\" || true && git pull --rebase --autostash -X ours && git push origin main"
-    else
-      git add Brewfile "$SHELLINI"
-      git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
-      git pull --rebase --autostash -X ours && git push origin main || echo "⚠️ Warning: Git push failed."
-    fi
+    git add Brewfile "$SHELLINI"
+    git commit -m "System snapshot: $(date +'%Y-%m-%d')" || true
+    git pull --rebase --autostash -X ours && git push origin main || echo "⚠️ Warning: Git push failed."
     echo "[ Starting Immutable Host Update... ]"
     sudo ujust update
   fi
