@@ -2,7 +2,7 @@
 # distrobox_binary
 # name: athena
 export HERMES_HOME=/opt/data
-export HERMES_WRITE_SAFE_ROOT=/opt/data
+export HERMES_WRITE_SAFE_ROOT=/opt/data:/var/home/eric/.local/share/hermes:/var/home/eric/src/dots:/var/home/eric/src/projects
 export HERMES_WEB_DIST=/opt/hermes/hermes_cli/web_dist
 export PLAYWRIGHT_BROWSERS_PATH=/opt/hermes/.playwright
 export PYTHONPATH="${PYTHONPATH:-/opt/data/google-chat-deps}"
