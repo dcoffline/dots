@@ -68,9 +68,6 @@ EOF
       neovim nodejs npm openssl-devel pipx ShellCheck sops stress-ng trash-cli weston which yq
     )
     sudo dnf install -y --skip-unavailable "${DNF_PACKAGES[@]}"
-    EXPORT_BINS=(
-      busybox cava gh git git-crypt glab jotta-cli shellcheck sops stress-ng weston
-    )
 
     # Ubuntu-based systems
   elif command -v apt-get >/dev/null 2>&1; then
@@ -96,61 +93,12 @@ EOF
       neovim nodejs python-pipx shellcheck sops stress-ng trash-cli weston which yq
     )
     sudo pacman -S --noconfirm --needed "${ARCH_PACKAGES[@]}"
-    EXPORT_BINS=(
-      busybox cava gh github-cli git git-crypt glab shellcheck sops stress-ng weston
-    )
-  fi
-
-  # DISTROBOX EXPORTS
-  if [ -f /run/.containerenv ] && [ -n "${EXPORT_BINS[*]}" ]; then
-    echo "[ Exporting select binaries to Host... ]"
-    for bin in "${EXPORT_BINS[@]}"; do
-      BIN_PATH=$(which -a "$bin" 2>/dev/null | grep -v "$HOME" | head -n 1)
-      if [ -n "$BIN_PATH" ]; then
-        distrobox-export --bin "$BIN_PATH" --export-path "$HOME/.local/bin"
-      fi
-    done
   fi
 fi
 
 # =========================================================
 # UNIVERSAL (Host-aware)
 # =========================================================
-
-# RUST & CARGO TOOLCHAINS
-echo "[ Checking for Rust toolchain... ]"
-CARGO_BIN_DIR="${CARGO_HOME:-$HOME/.cargo}/bin"
-export PATH="$CARGO_BIN_DIR:$PATH"
-
-if ! cargo --version >/dev/null 2>&1; then
-  if command -v rustup >/dev/null 2>&1; then
-    echo "[ Initializing Rustup toolchain... ]"
-    rustup default stable
-  else
-    echo "[ Cargo not found. Installing Rustup... ]"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  fi
-
-  if [ -f "${CARGO_HOME:-$HOME/.cargo}/env" ]; then
-    source "${CARGO_HOME:-$HOME/.cargo}/env"
-  elif [ -f "$HOME/.cargo/env" ]; then
-    source "$HOME/.cargo/env"
-  fi
-fi
-
-# RUST BINARIES
-if cargo --version >/dev/null 2>&1; then
-  CARGO_PACKAGES=(
-    linutil_tui
-  )
-  if [ "${#CARGO_PACKAGES[@]}" -gt 0 ]; then
-    echo "[ Installing select Cargo binaries... ]"
-    if ! command -v cargo-binstall >/dev/null 2>&1; then
-      cargo install cargo-binstall 2>/dev/null || true
-    fi
-    cargo binstall -y "${CARGO_PACKAGES[@]}" 2>/dev/null || cargo install "${CARGO_PACKAGES[@]}" 2>/dev/null || true
-  fi
-fi
 
 # NERD FONTS
 FONT_NAME="CascadiaCode"

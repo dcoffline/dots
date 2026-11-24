@@ -1,10 +1,15 @@
 #!/bin/bash
 
 # The Fortress Uninstaller
+# Reverses install.sh: removes stow links into this repo, restores *.bak originals,
+# and removes empty directories the installer creates.
+# NOT reverted (installed system-wide, not tracked by stow): packages, Flatpak
+# apps, Jottacloud CLI and its repo/GPG entries, Nerd Fonts, GNOME extensions and dconf.
 set -e
 
 # Determine the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR_REAL="$(readlink -f "$SCRIPT_DIR")"
 
 # Source OS and environment detection if available
 [ -f "$SCRIPT_DIR/config/environment.d/envvars.conf" ] && set -a && source "$SCRIPT_DIR/config/environment.d/envvars.conf" && set +a
@@ -17,25 +22,39 @@ echo "🛡️  Unwinding the Fortress (Uninstalling dotfiles)..."
 # =========================================================
 
 # Helper: check if a target is a symlink pointing into the dotfiles repository
+# (works for dangling links; matches the same path aliases install.sh accepts)
 is_link_to_dots() {
   local target="$1"
   if [ -L "$target" ]; then
     local link_target
-    link_target="$(readlink -f "$target" 2>/dev/null || readlink "$target")"
-    if [[ "$link_target" == "$SCRIPT_DIR"* ]]; then
+    link_target="$(readlink -f "$target" 2>/dev/null)" || return 1
+    if [[ "$link_target" == "$SCRIPT_DIR"/* || "$link_target" == "$SCRIPT_DIR_REAL"/* ]]; then
+      return 0
+    fi
+    if [[ "$link_target" == *"/src/dots/"* ]]; then
       return 0
     fi
   fi
   return 1
 }
 
-# Helper: restore backup if .bak exists
+# Helper: restore <target>.bak -> <target>. Never deletes real user files:
+# only a stow link into this repo (or nothing) may be replaced.
 restore_target() {
   local target="$1"
-  if [ -e "${target}.bak" ] || [ -L "${target}.bak" ]; then
-    echo "[ 🔄 Restoring backup: ${target}.bak -> $target ]"
-    rm -rf "$target"
-    mv "${target}.bak" "$target"
+  local backup="${target}.bak"
+  if [ -e "$backup" ] || [ -L "$backup" ]; then
+    if [ -L "$target" ] && ! is_link_to_dots "$target"; then
+      echo "[ ⚠️  Leaving $backup in place: $target is an unrelated symlink ]"
+      return 0
+    fi
+    if [ -e "$target" ] && [ ! -L "$target" ]; then
+      echo "[ ⚠️  Leaving $backup in place: $target exists and is not a link ]"
+      return 0
+    fi
+    echo "[ 🔄 Restoring backup: $backup -> $target ]"
+    rm -f "$target"
+    mv "$backup" "$target"
   fi
 }
 
@@ -48,10 +67,8 @@ restore_item_recursive() {
 
   # If a backup for this item exists, restore it
   if [ -e "${dst}.bak" ] || [ -L "${dst}.bak" ]; then
-    echo "[ 🔄 Restoring backup: ${dst}.bak -> $dst ]"
-    rm -rf "$dst"
-    mv "${dst}.bak" "$dst"
-  elif [ -d "$src" ]; then
+    restore_target "$dst"
+  elif [ -d "$src" ] && [ -d "$dst" ] && [ ! -L "$dst" ]; then
     # If src is a directory, inspect its children for sub-backups
     for child in "$src"/* "$src"/.[!.]* "$src"/..?*; do
       [ -e "$child" ] || continue
@@ -99,6 +116,16 @@ cleanup_lingering_symlinks() {
   done
 }
 
+# Helper: rmdir directories install.sh created, deepest first; only succeeds if empty
+remove_empty_dirs() {
+  local d
+  for d in "$@"; do
+    if [ -d "$d" ] && [ ! -L "$d" ]; then
+      rmdir "$d" 2>/dev/null && echo "[ 🗑️  Removed empty directory: $d ]" || true
+    fi
+  done
+}
+
 # =========================================================
 # 1. REMOVE STOW SYMLINKS
 # =========================================================
@@ -123,6 +150,18 @@ if [ -d "$HOME/.config/containers" ]; then
 fi
 if [ "${IS_MAC:-0}" -eq 1 ]; then
   cleanup_lingering_symlinks "Library" "$HOME/Library"
+
+  # Legacy cleanup: voxtype was removed from the repo; older installs left a link
+  # (and possibly a .bak) here. Also clears ghostty links from even older installs.
+  APPSUP="$HOME/Library/Application Support"
+  for link in "$APPSUP/voxtype/config.toml" "$APPSUP/com.mitchellh.ghostty/config"; do
+    if is_link_to_dots "$link"; then
+      echo "[ 🗑️  Removing lingering symlink: $link ]"
+      rm -f "$link"
+    fi
+  done
+  restore_target "$APPSUP/voxtype/config.toml"
+  remove_empty_dirs "$APPSUP/voxtype" "$APPSUP/com.mitchellh.ghostty"
 fi
 
 # =========================================================
@@ -138,15 +177,18 @@ if [ "${IS_MAC:-0}" -eq 1 ]; then
 fi
 
 # =========================================================
-# 3. GNOME EXTENSION CLEANUP (IF APPLICABLE)
+# 3. REMOVE DIRECTORIES INSTALL.SH CREATED (only if now empty)
 # =========================================================
-if command -v gsettings >/dev/null 2>&1; then
-  current_extensions=$(gsettings get org.gnome.shell enabled-extensions 2>/dev/null || echo "[]")
-  if [[ "$current_extensions" == *"logomenu-fixed@dcoffline"* ]]; then
-    echo "[ ⚙️  Disabling logomenu GNOME Shell extension... ]"
-    new_extensions=$(echo "$current_extensions" | sed "s/'logomenu-fixed@dcoffline', //g; s/, 'logomenu-fixed@dcoffline'//g; s/'logomenu-fixed@dcoffline'//g")
-    gsettings set org.gnome.shell enabled-extensions "$new_extensions" 2>/dev/null || true
-  fi
-fi
+remove_empty_dirs \
+  "$HOME/.local/share/gnome-shell/extensions" \
+  "$HOME/.local/share/gnome-shell" \
+  "$HOME/.local/share" \
+  "$HOME/.config/systemd/user" \
+  "$HOME/.config/systemd" \
+  "$HOME/.config/rclone" \
+  "$HOME/.local/lib" \
+  "$HOME/.local/bin"
 
-echo "✅ Fortress uninstalled cleanly and original environment restored!"
+echo "✅ Fortress links removed and original backups restored."
+echo "   Not reverted: installed packages, Flatpaks, Jottacloud CLI, Nerd Fonts,"
+echo "   GNOME extensions/dconf, and system repo/GPG entries. Remove those manually if wanted."

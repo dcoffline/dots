@@ -11,11 +11,6 @@ install-omarchy-cli *args:
 install-agy:
     curl -fsSL https://antigravity.google/cli/install.sh | bash
 
-# Installs and configures Voxtype push-to-talk voice-to-text on Linux and macOS
-install-voxtype:
-    #!/usr/bin/env bash
-    exec bash "$HOME/.config/just/lib/install-voxtype.sh"
-
 # Installs the open-wispr GNOME extension
 install-openwispr:
     #!/usr/bin/env bash

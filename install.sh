@@ -226,11 +226,6 @@ else
 fi
 if [ "${IS_MAC:-0}" -eq 1 ]; then
   stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/Library" Library
-  mkdir -p "$HOME/Library/Application Support/voxtype"
-  ln -sfn "$SCRIPT_DIR/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
-  mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
-  ln -sfn "$SCRIPT_DIR/config/ghostty/macos.config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
-
 fi
 
 # =========================================================
@@ -244,9 +239,9 @@ elif [ -f "$SCRIPT_DIR/install-pkg.sh" ]; then
 fi
 
 # =========================================================
-# 5. ENABLE GNOME SHELL EXTENSIONS IF APPLICABLE
+# 5. GNOME SHELL EXTENSIONS (GNOME hosts only; no-op elsewhere)
 # =========================================================
-if [ "$NO_APPS" -eq 0 ] && command -v gsettings >/dev/null 2>&1 && gsettings list-schemas 2>/dev/null | grep -q "^org\.gnome\.shell$"; then
+if [ "$NO_APPS" -eq 0 ] && [[ "${XDG_CURRENT_DESKTOP:-}" == *GNOME* ]] && command -v gsettings >/dev/null 2>&1 && gsettings list-schemas 2>/dev/null | grep -q "^org\.gnome\.shell$"; then
   echo "[ Configuring GNOME Shell extensions... ]"
   current_extensions=$(gsettings get org.gnome.shell enabled-extensions 2>/dev/null || echo "[]")
 fi

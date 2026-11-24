@@ -109,13 +109,6 @@ if [ "$ENV_TYPE" = "container" ]; then
     sudo pacman -Syu --noconfirm
   fi
 
-  echo "[ Updating Cargo packages... ]"
-  if command -v rustup >/dev/null 2>&1; then
-    echo "[ Updating Rust toolchain... ]"
-    rustup update stable
-  fi
-  cargo binstall -y television atuin || cargo install television atuin || echo "⚠️ Warning: Cargo updates failed."
-
   echo "[ Syncing Host State... ]"
   distrobox-host-exec sh -c "cd '$DOTS' && /home/linuxbrew/.linuxbrew/bin/brew bundle dump --force && sed -i '/^flatpak/d' Brewfile"
   if distrobox-host-exec printenv XDG_CURRENT_DESKTOP 2>/dev/null | grep -qi gnome; then
@@ -148,13 +141,6 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
       brew update || echo "⚠️ Warning: Homebrew update failed. Continuing..."
       brew upgrade -y || echo "⚠️ Warning: Homebrew upgrade reported errors. Continuing..."
     fi
-    if command -v cargo >/dev/null 2>&1; then
-      if command -v rustup >/dev/null 2>&1; then
-        echo "[ Updating Rust toolchain... ]"
-        rustup update stable
-      fi
-      cargo binstall -y television atuin || cargo install television atuin || echo "⚠️ Warning: Cargo updates failed."
-    fi
     if command -v mas >/dev/null 2>&1; then
       mas upgrade || echo "⚠️ Warning: Mac App Store upgrade failed."
     fi
@@ -179,8 +165,6 @@ elif [ "$ENV_TYPE" = "immutable" ]; then
       rm -f "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist"
     fi
     stow -R --ignore=".DS_Store" --ignore='^\._' -t "$HOME/Library" Library
-    mkdir -p "$HOME/Library/Application Support/voxtype"
-    ln -sfn "../../../src/dots/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
   fi
   bash "$DOTS/.githooks/check_links.sh"
 
@@ -223,13 +207,6 @@ else
   if command -v apt-get >/dev/null 2>&1; then sudo apt-get update && sudo apt-get upgrade -y; fi
   if command -v pacman >/dev/null 2>&1; then sudo pacman -Syu; fi
   if command -v npm >/dev/null 2>&1; then sudo npm update -g; fi
-  if command -v cargo >/dev/null 2>&1; then
-    if command -v rustup >/dev/null 2>&1; then
-      echo "[ Updating Rust toolchain... ]"
-      rustup update stable
-    fi
-    cargo binstall -y television atuin || cargo install television atuin || echo "⚠️ Warning: Cargo failed."
-  fi
 
   echo "[ Syncing Host State & Dotfiles... ]"
   if command -v dconf >/dev/null 2>&1 && [[ "${XDG_CURRENT_DESKTOP:-}" =~ "GNOME" ]]; then
@@ -249,8 +226,6 @@ else
       rm -f "$HOME/Library/LaunchAgents/sh.brew.sunshine.plist"
     fi
     stow -R --ignore='.DS_Store' --ignore='^\._' -t "$HOME/Library" Library
-    mkdir -p "$HOME/Library/Application Support/voxtype"
-    ln -sfn "../../../src/dots/config/voxtype/config.toml" "$HOME/Library/Application Support/voxtype/config.toml"
   fi
   bash "$DOTS/.githooks/check_links.sh"
 

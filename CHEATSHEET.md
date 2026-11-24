@@ -8,8 +8,8 @@ Quick reference for everyday commands, aliases, container shortcuts, and system 
 
 | Action | Command | Details |
 | :--- | :--- | :--- |
-| **Install / Bootstrap** | `./install.sh` | Installs Stow, backs up conflicting files to `*.bak`, symlinks dotfiles, and executes `install-pkg.sh` |
-| **Clean Uninstall** | `./uninstall.sh` | Unlinks all Stow packages, cleans lingering symlinks, removes custom GNOME extensions, and restores `*.bak` backups |
+| **Install / Bootstrap** | `./install.sh` | Installs Stow, backs up conflicting files to `*.bak`, symlinks dotfiles, and executes `install-pkg.sh`. Flags: `--containers` (also link Quadlets), `--no-apps` (symlinks only) |
+| **Clean Uninstall** | `./uninstall.sh` | Unlinks all Stow packages, removes lingering repo links, restores `*.bak` backups. Packages, GNOME extensions, and dconf are not reverted |
 
 ---
 
@@ -17,7 +17,7 @@ Quick reference for everyday commands, aliases, container shortcuts, and system 
 
 | Command / Alias | Target | Description |
 | :--- | :--- | :--- |
-| `update` | `just update` | Complete maintenance: Git pull, package upgrades (Brew/DNF/APT/Pacman/Cargo), state dump (Brewfile/dconf), re-stow, and Git push snapshot |
+| `update` | `just update` | Complete maintenance: Git pull, package upgrades (Brew/DNF/APT/Pacman), state dump (Brewfile/dconf), re-stow, and Git push snapshot |
 | `status` | `just status` | Visual health check of system & user systemd units with failed service diagnostics |
 | `dots` | `cd $DOTS` | Jump directly to dotfiles repository (`~/src/dots`) |
 | `dotup "<msg>"` | Custom function | Stages all changes in `$DOTS`, commits with timestamp or message, and pushes to GitHub |
@@ -62,7 +62,6 @@ just backup-honcho                   # Dumps Honcho PostgreSQL cognitive memory 
 just backup-nextcloud                # Dumps MariaDB, config directory, and Quadlet definitions
 
 # Development & Speech Tools
-just install-voxtype                 # Installs Voxtype push-to-talk voice-to-text (GPU/CPU on Linux, Cask on macOS)
 just install-openwispr               # Installs OpenWispr speech engine, hotkey daemon, and desktop unit
 just install-agy                     # Installs Google Antigravity CLI
 just clean-apple [target_dir]        # Scans and deletes macOS sidecar files (._*) and .DS_Store
@@ -136,7 +135,8 @@ just clean-apple [target_dir]        # Scans and deletes macOS sidecar files (._
 | Component | Repository Path | Target Location | Purpose |
 | :--- | :--- | :--- | :--- |
 | **Home Package** | `home/` | `~` | Shell entrypoints (`.bashrc`, `.bash_profile`), `.justfile` |
-| **Config Package** | `config/` | `~/.config/` | Shell modules (`bash/`), Quadlets (`containers/systemd/`), systemd units (`systemd/user/`), app configs |
+| **Config Package** | `config/` | `~/.config/` | Shell modules (`bash/`, `just/`), systemd units (`systemd/user/`), app configs |
+| **Containers Package** | `containers/` | `~/.config/containers/` | Podman Quadlets (`systemd/`) and retired ones (`archive/`). Opt-in with `--containers` |
 | **Local Package** | `local/` | `~/.local/` | Custom binaries & scripts (`bin/`), extension assets (`share/`) |
 | **macOS Library** | `Library/` | `~/Library/` | macOS LaunchAgents (`LaunchAgents/com.eric.*.plist`) |
 | **Secrets** | Transparent git-crypt | `home/.secrets`, `local/share/**/*.env`, `*.secret` | Sensitive credentials & per-container environment files (encrypted in repo) |

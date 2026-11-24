@@ -6,7 +6,7 @@ This project manages the configuration and installation of a development environ
 ## Architecture
 - **`install.sh`**: The bootstrap script. It installs `stow` and initializes the configuration.
 - **Stow**: Manages dotfiles by symlinking them to `$HOME`.
-- **`install-pkg.sh`**: A script that handles package installation (Brew, DNF, Cargo, etc.) based on the detected environment.
+- **`install-pkg.sh`**: A script that handles package installation (Brew, DNF, APT, Pacman) based on the detected environment.
 - **`Brewfile`**: Defines the package set for Homebrew-managed environments.
 - **`config/`**: Contains the dotfiles for `~/.config`.
 - **`local/`**: Contains scripts and data for `~/.local`.

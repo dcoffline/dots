@@ -1,204 +1,153 @@
-# 🛡️ The Fortress — Multi-OS Dotfiles & Homelab Stack
+# 🛡️ The Fortress — Dotfiles & Homelab Stack
 
-An XDG-compliant, modular Bash environment and containerized homelab architecture tailored for **macOS**, **immutable Linux** (Bazzite, Fedora Silverblue), **mutable Linux** (Fedora, Debian/Ubuntu, Arch), and **WSL**.
-
----
-
-## 🌟 Key Highlights
-
-- **Pure Bash Modular Shell**: Fast, clean, unified configuration loaded from `~/.config/bash/` across all platforms.
-- **GNU Stow Management**: Clean symlinking organized into modular packages (`home`, `config`, `local`, and macOS `Library`).
-- **Idempotent Installation & Backup**: Automatically detects pre-existing conflicting configurations and backs them up to `*.bak` before symlinking.
-- **Complete Uninstall Routine**: Safe, clean teardown via [`uninstall.sh`](uninstall.sh) that unstows packages, cleans lingering symlinks, and restores original `*.bak` configurations.
-- **Environment & Distrobox Aware**: Automatically detects host vs container environments, immutable vs mutable systems, macOS vs Linux, and desktop environments (KDE Plasma vs GNOME).
-- **Consolidated Homebrew & Native Package Automation**: Unified package management on macOS and Linuxbrew (`Brewfile`) for CLI tools, fast binary bottles, standalone Linux services (Jottacloud), Flatpaks, and selective Cargo/npm tools—eliminating unnecessary containerized binary wrappers.
-- **Transparent Secrets Management & Pre-Push Guards**: Encrypted with **`git-crypt`** for sensitive credentials (`home/.secrets`, per-container `local/share/**/*.env`) backed by an automated pre-push security scanner and Stow link-integrity checker.
-- **Justfile Automation**: Comprehensive task runner managing updates, rclone mounts, disaster recovery backups (Athena, Immich, Honcho, Nextcloud), voice-to-text engines, and systemd monitoring.
-- **Podman Quadlet & AI Development Suite**: Production-ready, systemd-managed rootless container suite featuring autonomous AI agent environments (Athena/Hermes, Honcho, Odysseus, Vane, FreeLLMAPI).
+A modular Bash environment, GNU Stow symlink management, and Podman Quadlet homelab definitions. Targets **macOS**, **immutable Linux** (Bazzite, Silverblue; Linuxbrew-based), and **mutable Linux** (Fedora, Debian/Ubuntu, Arch).
 
 ---
 
-## 🏗️ Architecture & Structure
+## Layout
+
+Each top-level package is stowed into a fixed target. Nothing else in the repo is linked.
 
 ```
 ~/src/dots/
-├── install.sh                  # Bootstrap script: checks stow, backs up conflicts, links dotfiles, installs pkgs
-├── uninstall.sh                # Uninstaller: unlinks stow packages, cleans symlinks, restores *.bak backups
-├── install-pkg.sh              # Multi-OS package installer (Brew, DNF/APT/Pacman, Cargo, Flatpaks, GNOME)
-├── Brewfile                    # Declarative Homebrew package definitions (macOS & Linuxbrew)
-├── CHEATSHEET.md               # Quick command & alias reference card
+├── install.sh / uninstall.sh   Bootstrap and reverse (see below)
+├── install-pkg.sh              Package and app installer (skipped with --no-apps)
+├── Brewfile                    Homebrew packages (macOS, Linuxbrew)
+├── CHEATSHEET.md               Aliases and command reference
+├── GEMINI.md                   Agent-facing notes on this repo
+├── .githooks/                  pre-push secret scan and symlink check (opt-in, see Security)
 │
-├── home/                       # Symlinked to ~ ($HOME)
-│   ├── .bashrc                 # Primary shell entry point
-│   ├── .bash_profile           # Login shell profile
-│   ├── .justfile               # Task runner recipes (status, update, mount, backup-athena, etc.)
-│   └── .secrets                # Encrypted credentials & API tokens (git-crypt encrypted)
+├── home/        → ~/           .bashrc, .bash_profile, .justfile, .secrets (git-crypt)
+├── config/      → ~/.config/   bash/, just/ modules, environment.d/, systemd/user/,
+│                               ghostty/, kitty/, nvim/, sunshine/, yazi/, ...
+├── local/       → ~/.local/    bin/ (helper scripts), share/ (app data; *.env is git-crypt)
+├── Library/     → ~/Library/   macOS only: LaunchAgents/
 │
-├── config/                     # Symlinked to ~/.config/
-│   ├── bash/                   # Modular bash files (alias.bash, function.bash, os.bash, path.bash)
-│   ├── containers/             # Rootless container management
-│   │   ├── systemd/            # Active Podman Quadlet definitions (.container, .network)
-│   │   └── archive/            # Archived/legacy container definitions (Plex, Zurg, Samba, etc.)
-│   ├── systemd/user/           # User-level systemd service units & timers (.service, .timer)
-│   ├── environment.d/          # Global environment definitions (envvars.conf)
-│   ├── dconf-backups/          # GNOME Shell and TilingShell dconf dumps
-│   └── atuin/, autostart/, btop/, fastfetch/, ghostty/, micro/, nvim/, rclone/, searxng/,
-│       starship.toml, sunshine/, voxtype/, waveterm/, yazi/
+├── containers/  → ~/.config/containers/   opt-in with --containers
+│   ├── systemd/                Active Quadlets, grouped by stack (ai/, content/, hermes/,
+│   │                           homelab/, immich/, jellyfin/, nextcloud/, shlink/) plus
+│   │                           top-level open-seo, syncthing, vaultwarden
+│   └── archive/                Retired Quadlets kept for rollback (not stowed as active)
 │
-├── local/                      # Symlinked to ~/.local/
-│   ├── bin/                    # Custom executables & wrappers (athena, gods-eye-view, monctl, rmount, etc.)
-│   └── share/                  # App data (Homepage dashboards, GNOME shell extensions, bash-preexec)
-│
-├── Library/                    # Symlinked to ~/Library/ (macOS only)
-│   └── LaunchAgents/           # Background agents (com.eric.rclone-mount.plist)
-│
-└── archive/                    # Archived legacy scripts and macOS LaunchAgents
+└── archive/                    Old scripts and LaunchAgents, not linked
 ```
 
 ---
 
-## 🚀 Quick Start
+## Toolchain: Homebrew First
 
-### 1. Installation / Bootstrap
+Host CLI tools, including the Rust and Go binaries, come from the `Brewfile`. There is no cargo or rustup step. The Rust toolchain is `brew "rust"`, and the CLI tools that used to be built with cargo are Homebrew formulas. The Brewfile is the one list to edit.
 
-Clone the repository and execute the installer:
+- In Distrobox containers, `/home` is mounted from the host, so `/home/linuxbrew/.linuxbrew/bin` is on `PATH` in every container. Containers run the host's Homebrew binaries directly. There are no per-container copies and no `distrobox-export` wrappers for CLI tools.
+- Distrobox stays for environments that need their own distro userland, such as the `athena` container that runs Hermes.
+- `install-pkg.sh` still installs dnf/apt package lists on non-Homebrew hosts. Those lists are the only place packages live outside the Brewfile.
+
+## Install
 
 ```bash
 git clone https://github.com/dcoffline/dots.git ~/src/dots
 cd ~/src/dots
-./install.sh
+./install.sh              # full install
+./install.sh --containers # also link Quadlets into ~/.config/containers
+./install.sh --no-apps    # stow symlinks only; skip package installs
 ```
 
-**What `./install.sh` does:**
-1. **Ensures GNU Stow is installed** via the system package manager (Brew, DNF, APT, or Pacman).
-2. **Backs up pre-existing conflicting files**: Scans target locations (`~`, `~/.config`, `~/.local`, and `~/Library` on macOS). If a target file/directory exists and is not already linked to this repository, it is safely moved to `<target>.bak`.
-3. **Symlinks dotfiles** using GNU Stow (`home`, `config`, `local`, and `Library` if on macOS).
-4. **Executes [`install-pkg.sh`](install-pkg.sh)** to install system packages, Rust CLI binaries (using `cargo-binstall`), CascadiaCode Nerd Fonts, Flatpaks, and GNOME Shell extensions.
-5. **Configures desktop integrations** (e.g. enabling `logomenu-fixed` GNOME Shell extension).
+What `install.sh` does, in order:
+
+1. **Ensures GNU Stow** via brew, dnf, apt, or pacman.
+2. **Backs up conflicts.** Any existing file or directory at a target path that is not already a link into this repo is moved to `<path>.bak`.
+3. **Stows** `home`, `local`, and `config` into `~`, `~/.local`, and `~/.config`. With `--containers` it also stows `containers/`. Without it, container links left by an earlier run are removed. On macOS it also stows `Library/`.
+4. **Runs `install-pkg.sh`** unless `--no-apps` is set. That covers the Brewfile, dnf/apt package lists on non-Homebrew hosts, Nerd Fonts, Flatpaks, the standalone Jottacloud CLI (`~/.local/bin`), and, on GNOME hosts only, the GNOME extension list and the dconf dump in `config/dconf-backups/`.
+
+The install is idempotent: a second run leaves the same links and backups in place.
 
 ---
 
-### 2. Clean Uninstallation
-
-If you ever need to remove the Fortress dotfiles and restore your system to its previous state:
+## Uninstall
 
 ```bash
 cd ~/src/dots
 ./uninstall.sh
 ```
 
-**What [`uninstall.sh`](uninstall.sh) does:**
-1. **Removes Stow Symlinks**: Executes `stow -D` against `home`, `local`, `config`, and `Library`.
-2. **Purges Lingering Symlinks**: Scans target directories and deletes any remaining symlinks that resolve to the `dots` repository.
-3. **Restores Backups (`*.bak`)**: Recursively searches for all `<target>.bak` files and directories created during installation and restores them to their original paths.
-4. **Cleans Desktop Integrations**: Safely removes injected extensions (e.g., `logomenu-fixed`) from `org.gnome.shell.enabled-extensions`.
+Reverses everything `install.sh` does to your home directory:
+
+1. Runs `stow -D` for every package, including `containers` and, on macOS, `Library`.
+2. Removes any remaining symlink that points into the repo, including links to files since deleted from the repo.
+3. Removes legacy macOS voxtype and ghostty links from earlier installs.
+4. Restores every `*.bak` to its original path. If a path has been replaced by something that is not a repo link, the uninstaller leaves the `.bak` in place and prints a warning rather than deleting anything.
+5. Removes directories the installer created, but only if they are empty.
+
+**Not reverted** (system-wide installs; not tracked by stow): packages from brew/dnf/apt/pacman, Flatpak apps, the Jottacloud CLI and its yum/apt repo and GPG key entries, Nerd Fonts, GNOME extensions, and dconf settings. Remove those by hand if you want them gone.
 
 ---
 
-## 📦 Containerized Services (Podman Quadlets & Distrobox)
+## Containers (Podman Quadlets)
 
-Containerized workloads run as user-managed systemd services via Podman Quadlets located in [`containers/systemd/`](containers/systemd/), complemented by dedicated Distrobox containers for specialized AI workflows:
+Quadlets are stowed into `~/.config/containers/systemd` with `--containers` and run as user systemd units. Manage them with:
 
-| Category | Active Services | Description |
-| :--- | :--- | :--- |
-| **Media Suite** | **Jellyfin** | Media streaming server (`jellyfin`) with hardware acceleration |
-| | **AioStreams** | Fast streaming middleware & add-on manager |
-| | **MediaFlow** | Media proxy and stream flow controller |
-| | **Threadfin** | M3U / XMLTV proxy and channel manager for live TV |
-| | **Immich** | Self-hosted photo/video backup suite (`immich`, `immich-db`, `immich-ml`, `immich-redis`) |
-| | **Nextcloud** | Cloud storage & collaboration suite (`nextcloud`, `nextcloud-db`, `nextcloud-redis`, `nextcloud-notify-push`, `collabora`) |
-| **AI & Automation** | **Athena / Hermes** | Autonomous AI agent environment in dedicated **Distrobox** container (`athena`), launched via host wrappers (`athena`, `thena`, `hermes`) |
-| | **Hermes Studio** | Web UI & management console for Hermes agent workflows |
-| | **Honcho** | Cognitive memory engine for AI agents (`honcho`, `honcho-db`, `honcho-redis`) |
-| | **Odysseus & Vane** | Specialized AI conversational & routing engines |
-| | **FreeLLMAPI** | LLM API proxy and virtualization layer |
-| | **Ollama** | Local LLM inference engine with AMD ROCm / Vulkan acceleration |
-| | **SearXNG & Relay** | Privacy-respecting metasearch engine with relay proxy |
-| | **Open-WebUI** | Full-featured conversational frontend for local and remote models |
-| | **Open-Terminal** | Containerized web terminal utility |
-| | **PKA-Web** | Personal Knowledge Architecture web interface |
-| | **Open-SEO** | Search engine optimization & DataForSEO query tool |
-| | **ZCC-Webhook** | Webhook integration receiver for external event automation |
-| **Infrastructure** | **Cloudflared** | Zero Trust encrypted ingress tunnels connecting homelab services |
-| | **Homepage** | Unified dashboard organizing homelab services, bookmarks, and metrics |
-| | **Shlink** | Self-hosted URL shortener with REST API (`shlink`, `shlink-db`, `shlink-webui`) |
-| | **Vaultwarden** | Bitwarden-compatible lightweight credential vault |
-| | **Syncthing** | Continuous peer-to-peer folder synchronization |
-
-> [!NOTE]
-> **Archived Containers**: Legacy service definitions (Plex, Zurg, Samba, Homarr, Paperclip, Scriber, Activepieces, standalone Jellyfin) are preserved in [`containers/archive/`](containers/archive/) for reference and rollback.
-
-Manage Quadlets directly with systemd:
 ```bash
-systemctl --user status <service-name>.service
-systemctl --user restart <service-name>.service
+systemctl --user status <name>.service
+systemctl --user restart <name>.service
 ```
 
+| Stack | Active services | Location |
+| :--- | :--- | :--- |
+| **Media** | Jellyfin, MediaFlow | `jellyfin/` |
+| **Photos & Files** | Immich (`immich`, `-db`, `-ml`, `-redis`); Nextcloud (`nextcloud`, `-db`, `-redis`, `-notify-push`, Collabora) | `immich/`, `nextcloud/` |
+| **Documents & Finance** | Paperless-ngx (with Gotenberg, Tika, Redis); Actual Budget; Homebox | `content/` |
+| **AI** | Ollama (ROCm); Open WebUI; SearXNG + relay; Vane; FreeLLMAPI; Open-Terminal; Open-SEO | `ai/`, top-level `open-seo` |
+| **Agent memory & webhooks** | Honcho (`honcho`, `-db`, `-redis`); ZCC webhook | `hermes/` |
+| **Infrastructure** | Cloudflared tunnel; Homepage dashboard; OpenAI-Edge-TTS; Shlink (`shlink`, `-db`, `-webui`); Vaultwarden; Syncthing | `homelab/`, `shlink/`, top-level |
+
+Athena/Hermes is not a Quadlet. It runs in the `athena` Distrobox container and is launched from the host with the `athena`, `thena`, and `hermes` wrappers in `local/bin/`.
+
+> [!NOTE]
+> **Archived** (in `containers/archive/`, not active): Plex, Zurg, Samba, Kiwix, Prowlarr, Seerr, Homarr, FlareSolverr, ChromaDB, Activepieces, AIOMetadata, AIOStreams, Comet, MediaFusion, Odysseus, Paperclip, PKA-Web, Quartz, Remux, Scriber, Scrob, Threadfin, and the old standalone Hermes.
+
 ---
 
-## 🎮 Desktop & Gaming Helpers (`local/bin/`)
+## Helper Scripts (`local/bin/`)
 
-The [`local/bin/`](local/bin/) directory contains custom scripts stowed directly into `$HOME/.local/bin/`:
+Stowed into `~/.local/bin/`.
 
 | Script | Purpose |
 | :--- | :--- |
-| `athena` / `thena` | Interactive chat and shorthand (`-z`) launcher for the containerized Hermes agent |
-| `hermes` | Distrobox execution wrapper seamlessly bridging host shell and the `athena` container |
-| `gods-eye-view` | Management script and application launcher for the God's Eye View intelligence console |
-| `monctl` | Resolution and refresh rate switcher for Sunshine / Moonlight streaming sessions |
-| `lutris-fullscreen` | Helper forcing borderless fullscreen on Lutris and Ubisoft Connect titles |
-| `stremio-steam-fullscreen` | Launches Stremio flatpak forced into fullscreen for Steam Big Picture / Moonlight |
-| `stremio-web-fullscreen` | Launches Stremio Chrome web app in fullscreen mode for Moonlight streaming |
-| `dpon` / `dpoff` | Multi-OS monitor power state and virtual display (BetterDisplay/Wayland) toggle utilities |
-| `sunshine-wait-display` | Waits and ensures virtual / remote display is active before Sunshine streaming starts |
-| `touchup` | Display geometry, scaling, and Sunshine virtual display alignment utility |
-| `osk` | On-screen keyboard toggle helper for handheld / remote desktop sessions |
-| `dock` | Display dock state manager and screen reconfiguration utility |
-| `voxtype-clean` | Post-processing pipeline routing speech-to-text transcripts through local Ollama LLMs |
-| `wave` | Launches Wave terminal configured for Wayland / XWayland transparent rendering |
-| `zcc_webhook_watch.sh` | Health watchdog for the ZCC webhook unit and tunnel, managed by systemd timer |
-| `rmount` | Helper wrapper around `just mount` for cloud storage remotes |
-| `gdmreset` | Restarts the Display Manager session |
-| `browsh` | Terminal web browser wrapper |
+| `athena`, `thena`, `hermes` | Launch Hermes in the `athena` Distrobox. `athena` runs a chat; `thena` runs the shorthand form; `hermes` is the raw wrapper. |
+| `strm-resolver` | Resolves Stremio IDs to debrid stream URLs through AIOStreams (port 8098) |
+| `strm-sync` | Builds `.strm` and `.nfo` files for Jellyfin from AIOMetadata catalogs |
+| `gdmreset`, `wave`, `browsh` | Display-manager restart, Wave terminal, Browsh |
+| `loginctl` | Shim that no-ops on macOS and passes through to `/usr/bin/loginctl` elsewhere |
+| `natscroll` | macOS helper |
 
 ---
 
-## 🔐 Secrets & Security Architecture
+## Security
 
-The Fortress implements a defense-in-depth security model combining encrypted repositories, scoped per-service configurations, and automated git pre-push gates:
-
-- **Transparent Encryption with `git-crypt`**:
-  - `home/.secrets` (general environment secrets)
-  - `local/share/**/*.env` (isolated per-service container environments, e.g. Immich, Nextcloud-DB, AioStreams, Open-SEO, FreeLLMAPI)
-  - `*.secret` files
-- **Per-Service Secret Isolation**: Container-specific tokens and database passwords have been decoupled from a single monolithic file into individual, service-scoped `.env` files tracked under `local/share/`.
-- **Pre-Push Security Scanner**: A Git pre-push hook scans outgoing commit ranges for plaintext credential patterns, API tokens, and ensures all secrets-class files are encrypted before pushing to GitHub.
-- **Symlink Integrity Guard**: A pre-push hook (`check_links.sh`) validates that all active symlinks cleanly point into the `dots` repository without dangling references.
-- **Unlocking Repository**: After cloning on a new machine, unlock secrets using your GPG key or symmetric key:
+- **git-crypt** encrypts `home/.secrets`, `local/share/**/*.env`, and `*.secret`. After cloning on a new machine: `git-crypt unlock <key-file>`.
+- **`.gitignore`** blocks credential-shaped files such as `config/rclone/rclone.conf`.
+- **Pre-push hook** (`.githooks/pre-push`) runs `secret_scan.py` and `check_links.sh`. Git does not run it by default. Enable it once per clone:
   ```bash
-  git-crypt unlock /path/to/git-crypt-key
+  git config core.hooksPath .githooks
   ```
 
 ---
 
-## 🛠️ Maintenance & Common Tasks
+## Maintenance
 
-The Fortress uses [`just`](home/.justfile) as a unified task runner across all platforms:
+`just` is the task runner. Recipes live in `home/.justfile`, with modules in `config/just/`.
 
-| Command / Alias | Description |
+| Command | Description |
 | :--- | :--- |
-| `update` *(or `just update`)* | Pulls latest dots, upgrades system/cargo binaries, dumps Brewfile/GNOME state, re-stows, and commits/pushes snapshot |
-| `status` *(or `just status`)* | Colorized health overview of all system and user systemd services with error reporting |
-| `mount` / `unmount` | Mounts / unmounts configured Rclone cloud storage remotes (`just mount` / `just unmount`) |
-| `just check-mounts` | Health check watchdog verifying rclone mount responsiveness and auto-recovering hangs |
-| `just backup-athena` | Comprehensive backup of dev projects, Hermes state, Quadlets, user systemd units, Gemini/AGY, and secrets |
-| `just restore-athena` | Interactive disaster recovery restoring from Athena backup snapshots |
-| `just backup-nextcloud` | Backs up Nextcloud MariaDB database, configs, and Quadlet definitions |
-| `just sync-gdrive` | Bidirectional bisync between local Nextcloud storage and Google Drive |
-| `just resync-gdrive` | Recovery / initial synchronization of Google Drive with Nextcloud Documents |
-| `just install-voxtype` | Installs and configures Voxtype push-to-talk voice-to-text (Vulkan GPU/AVX2 on Linux, Cask on macOS) |
-| `just install-openwispr`| Downloads and configures OpenWispr speech-to-text service and desktop launcher |
-| `just install-agy` | Installs or updates the Google Antigravity CLI |
-| `just clean-apple [dir]`| Scans and cleans macOS metadata junk (`._*` sidecar files and `.DS_Store`) |
+| `just update` | Pull, upgrade packages (Brewfile), and re-stow |
+| `just status` | Health overview of system and user systemd services |
+| `just mount` / `just unmount` | Mount and unmount configured rclone remotes |
+| `just check-mounts` | Watchdog that checks rclone mounts and recovers hung ones |
+| `just backup-athena` / `just restore-athena` | Back up and restore Athena state, Quadlets, user units, and secrets |
+| `just backup-nextcloud` | Back up the Nextcloud database, config, and Quadlets |
+| `just sync-gdrive` / `just resync-gdrive` | Bisync Nextcloud with Google Drive, or do a one-time re-sync |
+| `just install-openwispr` | Install OpenWispr speech-to-text and its desktop launcher |
+| `just install-agy` | Install or update the Google Antigravity CLI |
+| `just clean-apple [dir]` | Remove macOS `._*` and `.DS_Store` junk |
 
-For a complete list of interactive aliases and shortcuts, see **[CHEATSHEET.md](CHEATSHEET.md)**.
+For interactive aliases and shortcuts, see **[CHEATSHEET.md](CHEATSHEET.md)**.

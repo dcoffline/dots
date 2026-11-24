@@ -5,7 +5,6 @@ tap "jotta/cli", trusted: true
 tap "lizardbyte/homebrew", "https://github.com/LizardByte/homebrew-homebrew", trusted: true
 tap "macos-fuse-t/cask", trusted: true
 tap "nikitabobko/tap", trusted: true
-tap "peteonrails/voxtype", trusted: { casks: ["voxtype"] }
 tap "samtay/tui", trusted: true
 tap "ublue-os/tap", trusted: true
 tap "valkyrie00/bbrew", trusted: true
@@ -193,21 +192,5 @@ cask "font-ubuntu-nerd-font"
 # GPU-based terminal emulator
 cask "kitty"
 go "github.com/gokcehan/lf"
-cargo "atuin"
-cargo "bat"
-cargo "cargo-binstall"
-cargo "dysk"
-cargo "eza"
-cargo "fd-find"
-cargo "linutil_tui"
-cargo "ripgrep"
-cargo "starship"
-cargo "tealdeer"
-cargo "television"
-cargo "vm-curator"
-cargo "yazi-build"
-cargo "yazi-cli"
-cargo "yazi-fm"
-cargo "zoxide"
 npm "@google/gemini-cli"
 npm "pnpm"

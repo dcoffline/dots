@@ -34,7 +34,6 @@ fi
 # ────── COMMON PATHS (take precedence over Homebrew) ──────
 add_to_path "$HOME/.local/share/go/bin"
 add_to_path "$HOME/.config/npm/bin"
-add_to_path "$HOME/.local/share/cargo/bin"
 add_to_path "$HOME/.local/bin"
 
 # Keep mise command-wrappers first when present so mise account switches work

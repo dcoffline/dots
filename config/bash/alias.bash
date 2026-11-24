@@ -157,8 +157,8 @@ alias la='eza -la --icons=auto --group-directories-first'
 # Ghostty Terminal
 [ "$OS_TYPE" = "linux" ] && [ -x "$HOME/AppImages/ghostty.appimage" ] && alias ghostty="$HOME/AppImages/ghostty.appimage"
 
-# Chris Titus Linux Utilities
-[ ! -f "$HOME/.local/share/cargo/bin/linutil" ] && alias linutil='curl -fsSL https://christitus.com/linux | sh'
+# Chris Titus Linux Utilities (curl one-liner; linutil is no longer installed)
+alias linutil='curl -fsSL https://christitus.com/linux | sh'
 
 # Sync Jellyfin-Gelato with AIOStreams
 alias jf-sync='just jf-restart && just gelato-sync'
