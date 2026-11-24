@@ -408,10 +408,11 @@ ptrans() {
 # ────── PORTABLE UTILITIES (ADOPTED FROM OMARCHY) ──────
 
 # Open files/URLs with default app on Linux (macOS already has native open)
+unalias open 2>/dev/null
 if [[ "${IS_LINUX:-0}" -eq 1 || "$OSTYPE" == linux* ]]; then
-  open() (
+  function open {
     xdg-open "$@" >/dev/null 2>&1 &
-  )
+  }
 fi
 
 # Open Neovim in current directory or with given arguments
