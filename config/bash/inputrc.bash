@@ -8,11 +8,15 @@ set completion-prefix-display-length 2
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 
-# Arrow keys match what you've typed so far against your command history
+# Arrow keys match what you've typed so far against your command history (standard & application modes)
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 "\e[C": forward-char
 "\e[D": backward-char
+"\eOA": history-search-backward
+"\eOB": history-search-forward
+"\eOC": forward-char
+"\eOD": backward-char
 
 # Immediately add a trailing slash when autocompleting symlinks to directories
 set mark-symlinked-directories on

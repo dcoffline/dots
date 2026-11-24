@@ -437,7 +437,7 @@ fp() {
 # Fuzzy-pick a file and open it in $EDITOR
 eff() {
   local file
-  file=$(fp) && [[ -n $file ]] && "${EDITOR:-nvim}" "$file" "$@"
+  file=$(fp "$@") && [[ -n $file ]] && "${EDITOR:-nvim}" "$file"
 }
 
 # ── SSH Auto-Reconnect & Terminal Mode Disarm ───────────────────
@@ -567,10 +567,15 @@ gd() {
     branch="${worktree#*--}"
 
     # Protect against accidentally nuking a non-worktree directory
-    if [[ "$root" != "$worktree" ]]; then
+    local git_dir
+    git_dir="$(git rev-parse --git-dir 2>/dev/null)" || { echo "Error: Not a git repository"; return 1; }
+    if [[ "$root" != "$worktree" && "$git_dir" == *"/worktrees/"* ]]; then
       cd "../$root" || return 1
       git worktree remove "$cwd" --force || return 1
       git branch -D "$branch"
+    else
+      echo "Error: Not an active linked worktree"
+      return 1
     fi
   fi
 }

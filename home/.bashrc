@@ -50,12 +50,19 @@ HISTFILE="$HOME/.config/bash/.histfile"
 set +h
 
 # Readline bindings (prefix history search, colored menu completion)
-[ -f "$HOME/.config/bash/inputrc.bash" ] && bind -f "$HOME/.config/bash/inputrc.bash"
+if [ -f "$HOME/.config/bash/inputrc.bash" ]; then
+  export INPUTRC="${INPUTRC:-$HOME/.config/bash/inputrc.bash}"
+  bind -f "$HOME/.config/bash/inputrc.bash"
+fi
 
 # Lazy-load bash-completion on first Tab when not already loaded
 if [[ -z "${BASH_COMPLETION_VERSINFO:-}" ]]; then
   _bash_completion_file=""
-  for _bc in /usr/share/bash-completion/bash_completion /opt/homebrew/etc/profile.d/bash_completion.sh; do
+  for _bc in \
+    /usr/share/bash-completion/bash_completion \
+    /home/linuxbrew/.linuxbrew/etc/profile.d/bash_completion.sh \
+    /opt/homebrew/etc/profile.d/bash_completion.sh \
+    /usr/local/etc/profile.d/bash_completion.sh; do
     if [[ -f "$_bc" ]]; then
       _bash_completion_file="$_bc"
       break
