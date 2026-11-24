@@ -198,7 +198,7 @@ enter_accept = true
 # prefers_reduced_motion = false
 
 [logs]
-# dir = "~/.local/share/atuin/logs"
+dir = "~/.local/share/atuin/logs"
 
 [stats]
 ## Set commands where we should consider the subcommand for statistics. Eg, kubectl get vs just kubectl
