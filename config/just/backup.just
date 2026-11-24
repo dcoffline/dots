@@ -3,7 +3,7 @@
 # =============================================================================
 
 # Backs up Nextcloud database, config, and Quadlets (keeps last 4 days)
-nextcloud:
+backup-nextcloud:
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -52,7 +52,7 @@ nextcloud:
 
 # Backs up all dev projects, Hermes state, Quadlets, Systemd units, Gemini & Secrets (keeps 7)
 [no-cd]
-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
+backup-athena target_dir="$HOME/.mnt/10T/Backups/Athena":
     #!/usr/bin/env bash
     exec bash "$HOME/.config/just/lib/backup-athena.sh" "{{target_dir}}"
 
@@ -64,7 +64,7 @@ restore-athena backup_path="":
 
 # Backs up Immich (Postgres DB dump + hardlink-incremental library sync, keeps 3)
 [no-cd]
-immich target_dir="$HOME/.mnt/10T/Backups/immich":
+backup-immich target_dir="$HOME/.mnt/10T/Backups/immich":
     #!/usr/bin/env bash
     set -euo pipefail
     source "$HOME/.config/just/lib/common.sh"
@@ -132,7 +132,7 @@ immich target_dir="$HOME/.mnt/10T/Backups/immich":
 
 # Backs up Honcho (Hermes memory DB — pg_dump, keeps 7)
 [no-cd]
-honcho target_dir="$HOME/.mnt/10T/Backups/honcho":
+backup-honcho target_dir="$HOME/.mnt/10T/Backups/honcho":
     #!/usr/bin/env bash
     set -euo pipefail
     source "$HOME/.config/just/lib/common.sh"
@@ -175,7 +175,7 @@ honcho target_dir="$HOME/.mnt/10T/Backups/honcho":
 
 # Backs up per-service container data not covered by other recipes (keeps 7; skips Kiwix)
 [no-cd]
-apps target_dir="$HOME/.mnt/10T/Backups/apps":
+backup-apps target_dir="$HOME/.mnt/10T/Backups/apps":
     #!/usr/bin/env bash
     set -euo pipefail
     source "$HOME/.config/just/lib/common.sh"

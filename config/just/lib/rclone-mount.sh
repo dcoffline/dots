@@ -69,7 +69,7 @@ fi
 
 # 3. Preparation
 mkdir -p "$PID_DIR" "$RCLONE_BASE_MOUNT" "$CACHE_DIR"
-just --justfile "$HOME/.justfile" cloud unmount || true
+just --justfile "$HOME/.justfile" unmount || true
 pkill rclone 2>/dev/null || true
 sleep 2
 

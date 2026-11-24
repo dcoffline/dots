@@ -64,7 +64,7 @@ gelato-prune-ids:
 # resurrect duplicate collections on every rebuild.
 # Gelato: wipe ALL collections and rebuild from enabled catalogs (nuclear reset)
 gelato-reset:
-    just --justfile "$HOME/.justfile" media gelato-prune
+    just --justfile "$HOME/.justfile" gelato-prune
     python3 ${HOME}/.hermes/scripts/gelato_sync.py --reset
 
 # Jellyfin: restart the user service (busts Gelato's cached manifest)

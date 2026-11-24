@@ -16,7 +16,7 @@ for arg in "$@"; do
       INCLUDE_AUR=1
       ;;
     -h|--help)
-      echo "Usage: just tools omarchy-cli [--dry-run|-n] [--aur]"
+      echo "Usage: just install-omarchy-cli [--dry-run|-n] [--aur]"
       echo "  --dry-run, -n  Preview resolved packages without installing"
       echo "  --aur          Also attempt to install non-repo leftovers via 'omarchy pkg aur add'"
       exit 0

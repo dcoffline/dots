@@ -115,7 +115,7 @@ update-rclone msg="Update rclone remotes":
     echo "✅ rclone.conf committed, pushed (git-crypt), and skip-worktree re-applied."
 
 # Restows Nextcloud user folders into ~ as local directories of symlinks ([-n] [-v])
-restow *args:
+restow-nextcloud *args:
     #!/usr/bin/env bash
     set -euo pipefail
     source "$HOME/.config/just/lib/common.sh"
@@ -241,7 +241,7 @@ sync-gdrive:
     echo "=== Running Bisync between /var/home/eric/.mnt/10T/Documents and GDrive: ==="
     if ! "$RCLONE" bisync /var/home/eric/.mnt/10T/Documents GDrive: --slow-hash-sync-only --recover --resilient --tpslimit 10 --exclude '**/.trash/**' --exclude '**/.Trash*/**' --exclude '**/.Trash-1000/**' --exclude '**/.DS_Store' --exclude '**/._*' --drive-skip-shortcuts --drive-skip-dangling-shortcuts -v; then
         echo "⚠️ Bisync failed. If this is your first time running bisync, you must run:"
-        echo "  just cloud resync-gdrive"
+        echo "  just resync-gdrive"
         exit 1
     fi
 

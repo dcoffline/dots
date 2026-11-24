@@ -3,7 +3,7 @@
 # =============================================================================
 
 # Builds or rebuilds local container images (pka-web, searxng-relay, zcc-webhook-base)
-build-images:
+build-local-images:
     #!/usr/bin/env bash
     set -euo pipefail
     DOTS="${DOTS:-$HOME/src/dots}"
@@ -20,7 +20,7 @@ build-images:
     echo "==> All local container images built successfully."
 
 # Stows Homelab Podman Quadlet container definitions to ~/.config/containers (Host only)
-stow:
+stow-containers:
     #!/usr/bin/env bash
     set -euo pipefail
     source "$HOME/.config/just/lib/common.sh"
@@ -32,7 +32,7 @@ stow:
     echo "✅ Containers stowed and systemd daemon reloaded!"
 
 # Unstows Homelab Podman Quadlet container definitions and reloads systemd
-unstow:
+unstow-containers:
     #!/usr/bin/env bash
     set -euo pipefail
     source "$HOME/.config/just/lib/common.sh"

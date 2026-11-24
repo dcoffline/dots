@@ -3,21 +3,21 @@
 # =============================================================================
 
 # Installs CLI tools from $DOTS/Brewfile and $DOTS/install-pkg.sh on Omarchy via `omarchy pkg add` (--dry-run, --aur)
-omarchy-cli *args:
+install-omarchy-cli *args:
     #!/usr/bin/env bash
     exec bash "$HOME/.config/just/lib/install-omarchy-cli.sh" {{args}}
 
 # Installs the Antigravity CLI
-agy:
+install-agy:
     curl -fsSL https://antigravity.google/cli/install.sh | bash
 
 # Installs and configures Voxtype push-to-talk voice-to-text on Linux and macOS
-voxtype:
+install-voxtype:
     #!/usr/bin/env bash
     exec bash "$HOME/.config/just/lib/install-voxtype.sh"
 
 # Installs the open-wispr GNOME extension
-openwispr:
+install-openwispr:
     #!/usr/bin/env bash
     set -euo pipefail
     [ -f "$HOME/.config/environment.d/envvars.conf" ] && source "$HOME/.config/environment.d/envvars.conf"
