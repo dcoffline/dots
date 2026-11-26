@@ -22,7 +22,12 @@ AddDevice=/dev/dri
 GroupAdd=keep-groups
 SecurityLabelDisable=true
 
-# High-performance Zen 4 AVX-512 inference (rock-solid, no GPU hangs)
+# Radeon 780M iGPU is gfx1103, which the bundled ROCm rocblas lacks; map it to the
+# RDNA3 gfx1100 target so ollama uses the GPU instead of silently falling back to CPU.
+# Rollback: delete these two HSA/IGPU lines and restart ollama.service.
+Environment=HSA_OVERRIDE_GFX_VERSION=11.0.0
+# Ollama drops integrated GPUs unless explicitly enabled.
+Environment=OLLAMA_IGPU_ENABLE=1
 Environment=OLLAMA_NUM_CTX=4096
 Environment=OLLAMA_ORIGINS=*
 
