@@ -39,14 +39,18 @@ for arg in "$@"; do
   esac
 done
 
-# Check if containers is opted-in (via INCLUDE_CONTAINERS=1 or active stow symlink)
+# Check if the fortress container set is opted-in. Mode detection: any live
+# stow link under ~/.config/containers resolving into $DOTS/containers means
+# --containers mode (systemd per-file links or the archive fold). A systemd
+# fold into $DOTS/ollama is --ollama mode (bee) — containers/ stays exempt.
 check_containers="${INCLUDE_CONTAINERS:-0}"
-if [ "$check_containers" -eq 0 ]; then
-  if [ -L "$HOME/.config/containers" ] && { [ "$HOME/.config/containers" -ef "$DOTS/containers" ] || [[ "$(readlink -f "$HOME/.config/containers" 2>/dev/null)" == "$DOTS/"* ]]; }; then
-    check_containers=1
-  elif [ -d "$HOME/.config/containers" ] && [ -L "$HOME/.config/containers/systemd" ] && { [ "$HOME/.config/containers/systemd" -ef "$DOTS/containers/systemd" ] || [[ "$(readlink -f "$HOME/.config/containers/systemd" 2>/dev/null)" == "$DOTS/"* ]]; }; then
-    check_containers=1
-  fi
+if [ "$check_containers" -eq 0 ] && [ -d "$HOME/.config/containers" ]; then
+  while IFS= read -r link; do
+    rt="$(readlink -f "$link" 2>/dev/null || true)"
+    case "$rt" in
+      "$DOTS/containers"/*) check_containers=1; break ;;
+    esac
+  done < <(find "$HOME/.config/containers" -maxdepth 2 -type l 2>/dev/null)
 fi
 
 while IFS= read -r path; do
