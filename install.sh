@@ -11,11 +11,16 @@ SCRIPT_DIR_REAL="$(readlink -f "$SCRIPT_DIR")"
 # PARSE CLI FLAGS
 # =========================================================
 INCLUDE_CONTAINERS=0
+INCLUDE_OLLAMA=0
 NO_APPS=0
 
 for arg in "$@"; do
   case "$arg" in
   --containers | -c)
+    INCLUDE_CONTAINERS=1
+    ;;
+  --ollama)
+    INCLUDE_OLLAMA=1
     INCLUDE_CONTAINERS=1
     ;;
   --no-apps)
@@ -26,6 +31,7 @@ for arg in "$@"; do
     echo ""
     echo "Options:"
     echo "  -c, --containers   Include Podman Quadlet container symlinks (~/.config/containers)"
+    echo "      --ollama       Include the ollama quadlet (GPU/iGPU hosts only; implies --containers)"
     echo "      --no-apps      Skip installing CLI tools, packages, and apps (only stow symlinks)"
     echo "  -h, --help         Show this help message"
     exit 0
@@ -245,8 +251,20 @@ stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config"
 # Podman Quadlet container symlinks (Host-only opt-in)
 if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
   echo "[ 🐳 Including Podman container symlinks (--containers)... ]"
-  mkdir -p "$HOME/.config/containers"
+  mkdir -p "$HOME/.config/containers/systemd"
+  # Sentinel keeps the target dir non-empty so stow tree-folds the package
+  # (one big symlink) instead of laying per-file symlinks — tree-folding would
+  # force later stow targets (ollama) to write inside the repo working tree.
+  touch "$HOME/.config/containers/systemd/.keep"
   stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config/containers" containers
+  rm -f "$HOME/.config/containers/systemd/.keep"
+  if [ "$INCLUDE_OLLAMA" -eq 1 ]; then
+    echo "[ 🦙 Including ollama quadlet (--ollama)... ]"
+    stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config/containers/systemd" ollama
+  else
+    echo "[ ⏭️  Skipping ollama quadlet (pass --ollama to include)... ]"
+    stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -D -t "$HOME/.config/containers/systemd" ollama 2>/dev/null || true
+  fi
 else
   echo "[ ⏭️  Skipping Podman container symlinks (pass --containers to include)... ]"
   # Remove any previously stowed container symlinks pointing into this repo
