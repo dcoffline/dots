@@ -21,7 +21,6 @@ for arg in "$@"; do
     ;;
   --ollama)
     INCLUDE_OLLAMA=1
-    INCLUDE_CONTAINERS=1
     ;;
   --no-apps)
     NO_APPS=1
@@ -30,8 +29,8 @@ for arg in "$@"; do
     echo "Usage: $(basename "$0") [OPTIONS]"
     echo ""
     echo "Options:"
-    echo "  -c, --containers   Include Podman Quadlet container symlinks (~/.config/containers)"
-    echo "      --ollama       Include the ollama quadlet (GPU/iGPU hosts only; implies --containers)"
+    echo "  -c, --containers   Stow the fortress container set (~/.config/containers/systemd)"
+    echo "      --ollama       Stow ONLY the ollama quadlet (bee); conflicts with --containers"
     echo "      --no-apps      Skip installing CLI tools, packages, and apps (only stow symlinks)"
     echo "  -h, --help         Show this help message"
     exit 0
@@ -210,7 +209,7 @@ echo "[ Checking for existing configurations to back up (*.bak)... ]"
 backup_package "home" "$HOME"
 backup_package "local" "$HOME/.local"
 backup_package "config" "$HOME/.config"
-if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
+if [ "$INCLUDE_CONTAINERS" -eq 1 ] || [ "$INCLUDE_OLLAMA" -eq 1 ]; then
   backup_package "containers" "$HOME/.config/containers"
 fi
 if [ "${IS_MAC:-0}" -eq 1 ]; then
@@ -248,30 +247,41 @@ fi
 # Apply config package
 stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config" config
 
-# Podman Quadlet container symlinks (Host-only opt-in)
+# Podman Quadlet container symlinks (Host-only opt-in) — three mutually exclusive modes:
+#   (bare)            no container symlinks at all
+#   --containers      fortress container set (everything EXCEPT ollama)
+#   --ollama          bee: ONLY the ollama quadlet
+STOW_FLAGS=(--ignore='.DS_Store' --ignore='^\._')
+CT_SYSTEMD="$HOME/.config/containers/systemd"
+if [ "$INCLUDE_CONTAINERS" -eq 1 ] && [ "$INCLUDE_OLLAMA" -eq 1 ]; then
+  echo "Error: --containers and --ollama are mutually exclusive." >&2
+  exit 1
+fi
 if [ "$INCLUDE_CONTAINERS" -eq 1 ]; then
-  echo "[ 🐳 Including Podman container symlinks (--containers)... ]"
-  mkdir -p "$HOME/.config/containers/systemd"
-  # Sentinel keeps the target dir non-empty so stow tree-folds the package
-  # (one big symlink) instead of laying per-file symlinks — tree-folding would
-  # force later stow targets (ollama) to write inside the repo working tree.
-  touch "$HOME/.config/containers/systemd/.keep"
-  stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config/containers" containers
-  rm -f "$HOME/.config/containers/systemd/.keep"
-  if [ "$INCLUDE_OLLAMA" -eq 1 ]; then
-    echo "[ 🦙 Including ollama quadlet (--ollama)... ]"
-    stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -R -t "$HOME/.config/containers/systemd" ollama
-  else
-    echo "[ ⏭️  Skipping ollama quadlet (pass --ollama to include)... ]"
-    stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -D -t "$HOME/.config/containers/systemd" ollama 2>/dev/null || true
-  fi
+  echo "[ 🐳 Stowing fortress container set (--containers, no ollama)... ]"
+  mkdir -p "$CT_SYSTEMD"
+  # Sentinel keeps the target dir non-empty so stow lays per-file symlinks
+  # (this stow build has no --no-folding; an empty target tree-folds into one
+  # symlink and locks out any other package targeting the same dir).
+  touch "$CT_SYSTEMD/.keep"
+  stow -d "$SCRIPT_DIR" "${STOW_FLAGS[@]}" -R -t "$HOME/.config/containers" containers
+  rm -f "$CT_SYSTEMD/.keep"
+  # fortress never runs ollama — remove it if a previous --ollama stow left it
+  stow -d "$SCRIPT_DIR" "${STOW_FLAGS[@]}" -D -t "$CT_SYSTEMD" ollama 2>/dev/null || true
+elif [ "$INCLUDE_OLLAMA" -eq 1 ]; then
+  echo "[ 🦙 Stowing ollama quadlet only (--ollama)... ]"
+  # bee runs nothing else — remove any fortress-set symlinks from a previous run
+  stow -d "$SCRIPT_DIR" "${STOW_FLAGS[@]}" -D -t "$HOME/.config/containers" containers 2>/dev/null || true
+  mkdir -p "$CT_SYSTEMD"
+  touch "$CT_SYSTEMD/.keep"
+  stow -d "$SCRIPT_DIR" "${STOW_FLAGS[@]}" -R -t "$CT_SYSTEMD" ollama
+  rm -f "$CT_SYSTEMD/.keep"
 else
-  echo "[ ⏭️  Skipping Podman container symlinks (pass --containers to include)... ]"
+  echo "[ ⏭️  Skipping container symlinks (pass --containers or --ollama)... ]"
   # Remove any previously stowed container symlinks pointing into this repo
-  if [ -d "$HOME/.config/containers" ]; then
-    stow -d "$SCRIPT_DIR" --ignore='.DS_Store' --ignore='^\._' -D -t "$HOME/.config/containers" containers 2>/dev/null || true
-    rmdir "$HOME/.config/containers" 2>/dev/null || true
-  fi
+  stow -d "$SCRIPT_DIR" "${STOW_FLAGS[@]}" -D -t "$HOME/.config/containers" containers 2>/dev/null || true
+  stow -d "$SCRIPT_DIR" "${STOW_FLAGS[@]}" -D -t "$CT_SYSTEMD" ollama 2>/dev/null || true
+  rmdir "$HOME/.config/containers" 2>/dev/null || true
   if is_link_to_dots "$HOME/.config/containers"; then
     rm -rf "$HOME/.config/containers"
   fi
